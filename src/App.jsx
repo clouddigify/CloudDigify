@@ -23,6 +23,7 @@ import SecurityCompliance from './components/pages/services/SecurityCompliance';
 // Admin components
 import AdminLogin from './components/Admin/Login';
 import AdminDashboard from './components/Admin/Dashboard';
+import PageEditor from './components/Admin/PageEditor';
 
 const App = () => {
   const location = useLocation();
@@ -56,6 +57,7 @@ const App = () => {
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/edit/:pagePath" element={<PageEditor />} />
           </Routes>
         </AnimatePresence>
       </main>

@@ -347,25 +347,77 @@ const Dashboard = () => {
             <div className="bg-white p-6 rounded-lg shadow">
               <h2 className="text-xl font-semibold mb-4">Edit Page Content</h2>
               <p className="text-gray-600 mb-4">
-                Select a page to edit its content.
+                Select a page to edit its content. Changes will be saved directly to your GitHub repository.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="border p-4 rounded hover:bg-gray-50 cursor-pointer">
+                <Link to="/admin/edit/home" className="border p-4 rounded hover:bg-gray-50">
                   <h3 className="font-medium">Home Page</h3>
                   <p className="text-sm text-gray-600">Edit main landing page content</p>
-                </div>
-                <div className="border p-4 rounded hover:bg-gray-50 cursor-pointer">
+                </Link>
+                <Link to="/admin/edit/about" className="border p-4 rounded hover:bg-gray-50">
                   <h3 className="font-medium">About Page</h3>
                   <p className="text-sm text-gray-600">Edit about us information</p>
-                </div>
-                <div className="border p-4 rounded hover:bg-gray-50 cursor-pointer">
+                </Link>
+                <Link to="/admin/edit/services" className="border p-4 rounded hover:bg-gray-50">
                   <h3 className="font-medium">Services</h3>
                   <p className="text-sm text-gray-600">Edit service offerings</p>
-                </div>
-                <div className="border p-4 rounded hover:bg-gray-50 cursor-pointer">
+                </Link>
+                <Link to="/admin/edit/contact" className="border p-4 rounded hover:bg-gray-50">
                   <h3 className="font-medium">Contact Page</h3>
                   <p className="text-sm text-gray-600">Edit contact information</p>
-                </div>
+                </Link>
+                <Link to="/admin/edit/training" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Training Page</h3>
+                  <p className="text-sm text-gray-600">Edit training content</p>
+                </Link>
+                <Link to="/admin/edit/blogs" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Blogs Page</h3>
+                  <p className="text-sm text-gray-600">Edit blog listings</p>
+                </Link>
+              </div>
+              
+              <h2 className="text-xl font-semibold mt-8 mb-4">Service Pages</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Link to="/admin/edit/services/devops" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">DevOps</h3>
+                  <p className="text-sm text-gray-600">Edit DevOps service page</p>
+                </Link>
+                <Link to="/admin/edit/services/cloud-migration" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Cloud Migration</h3>
+                  <p className="text-sm text-gray-600">Edit Cloud Migration service page</p>
+                </Link>
+                <Link to="/admin/edit/services/managed-services" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Managed Services</h3>
+                  <p className="text-sm text-gray-600">Edit Managed Services page</p>
+                </Link>
+                <Link to="/admin/edit/services/infrastructure-as-code" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Infrastructure as Code</h3>
+                  <p className="text-sm text-gray-600">Edit Infrastructure as Code service page</p>
+                </Link>
+                <Link to="/admin/edit/services/architecture-design" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Architecture Design</h3>
+                  <p className="text-sm text-gray-600">Edit Architecture Design service page</p>
+                </Link>
+                <Link to="/admin/edit/services/security-compliance" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Security & Compliance</h3>
+                  <p className="text-sm text-gray-600">Edit Security & Compliance service page</p>
+                </Link>
+              </div>
+              
+              <h2 className="text-xl font-semibold mt-8 mb-4">Legal Pages</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Link to="/admin/edit/terms" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Terms & Conditions</h3>
+                  <p className="text-sm text-gray-600">Edit terms and conditions page</p>
+                </Link>
+                <Link to="/admin/edit/privacy" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Privacy Policy</h3>
+                  <p className="text-sm text-gray-600">Edit privacy policy page</p>
+                </Link>
+                <Link to="/admin/edit/cookies" className="border p-4 rounded hover:bg-gray-50">
+                  <h3 className="font-medium">Cookie Policy</h3>
+                  <p className="text-sm text-gray-600">Edit cookie policy page</p>
+                </Link>
               </div>
             </div>
           )}
