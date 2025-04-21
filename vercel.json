@@ -29,6 +29,14 @@
       "dest": "/manifest.json"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*)\\.(.+)",
+      "dest": "/$1.$2"
+    },
+    {
       "src": "/(.*)",
       "headers": {
         "X-Frame-Options": "DENY",
