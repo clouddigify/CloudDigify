@@ -16,6 +16,33 @@
   ],
   "routes": [
     {
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.clouddigify.com"
+        }
+      ],
+      "status": 301,
+      "headers": {
+        "Location": "https://clouddigify.com/$1"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "http"
+        }
+      ],
+      "status": 301,
+      "headers": {
+        "Location": "https://clouddigify.com/$1"
+      }
+    },
+    {
       "src": "/api/simple",
       "dest": "/api/simple.js"
     },

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaSave, FaArrowLeft, FaGithub, FaCode, FaEye } from 'react-icons/fa';
+import { FaSave, FaArrowLeft, FaGithub, FaCode, FaEye, FaImage, FaPalette, FaFont, FaHeading } from 'react-icons/fa';
 
 const PageEditor = () => {
   const { pagePath } = useParams();
@@ -11,6 +11,21 @@ const PageEditor = () => {
   const [isSaving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   const [viewMode, setViewMode] = useState('visual'); // 'visual' or 'code'
+  const [showStyleOptions, setShowStyleOptions] = useState(false);
+  const [selectedColor, setSelectedColor] = useState('#0070f3'); // Default blue
+  const editorRef = useRef(null);
+
+  // Predefined color palette
+  const colorPalette = [
+    '#0070f3', // Blue
+    '#00c853', // Green
+    '#d50000', // Red
+    '#6200ea', // Purple
+    '#ff6d00', // Orange
+    '#2979ff', // Light blue
+    '#212121', // Dark gray
+    '#757575', // Medium gray
+  ];
 
   // Fetch page content on load
   useEffect(() => {
@@ -87,8 +102,110 @@ const PageEditor = () => {
     }
   };
 
-  const toggleViewMode = () => {
-    setViewMode(prev => prev === 'visual' ? 'code' : 'visual');
+  const applyFormatting = (format) => {
+    if (!editorRef.current) return;
+    
+    document.execCommand(format);
+    editorRef.current.focus();
+    
+    // Update content state after formatting
+    setTimeout(() => {
+      setContent(editorRef.current.innerHTML);
+    }, 100);
+  };
+
+  const applyStyle = (property, value) => {
+    if (!editorRef.current) return;
+    
+    document.execCommand('styleWithCSS', false, true);
+    
+    if (property === 'foreColor') {
+      document.execCommand(property, false, value);
+    } else {
+      // For other CSS properties
+      const selection = window.getSelection();
+      if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const span = document.createElement('span');
+        span.style[property] = value;
+        
+        // Apply the style to the selected text
+        range.surroundContents(span);
+      }
+    }
+    
+    editorRef.current.focus();
+    
+    // Update content state after styling
+    setTimeout(() => {
+      setContent(editorRef.current.innerHTML);
+    }, 100);
+  };
+
+  const insertElement = (type) => {
+    if (!editorRef.current) return;
+    
+    let element;
+    
+    switch (type) {
+      case 'heading':
+        element = document.createElement('h2');
+        element.textContent = 'New Heading';
+        break;
+      case 'paragraph':
+        element = document.createElement('p');
+        element.textContent = 'New paragraph text...';
+        break;
+      case 'image':
+        // For image, we'll just insert a placeholder
+        element = document.createElement('div');
+        element.innerHTML = '<div style="background-color: #f0f0f0; padding: 2rem; text-align: center;">[Image Placeholder - Replace with actual image]</div>';
+        break;
+      case 'button':
+        element = document.createElement('button');
+        element.textContent = 'Button Text';
+        element.className = 'btn';
+        element.style.backgroundColor = selectedColor;
+        element.style.color = '#ffffff';
+        element.style.padding = '0.5rem 1rem';
+        element.style.border = 'none';
+        element.style.borderRadius = '4px';
+        element.style.cursor = 'pointer';
+        break;
+      default:
+        return;
+    }
+    
+    // Insert the element at the current cursor position
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(element);
+    } else {
+      // If no selection, append to the end
+      editorRef.current.appendChild(element);
+    }
+    
+    // Update content state after insertion
+    setTimeout(() => {
+      setContent(editorRef.current.innerHTML);
+    }, 100);
+  };
+
+  // Clean the JSX content for visual editing
+  const prepareVisualContent = (jsxContent) => {
+    if (!jsxContent) return '';
+    
+    // Remove component tags
+    let cleanedContent = jsxContent
+      .replace(/{\/\* .* \*\/}/g, '') // Remove JSX comments
+      .replace(/<WhyChooseUs.*?\/>/g, '<div class="component-placeholder">[Why Choose Us Component]</div>')
+      .replace(/<Testimonials.*?\/>/g, '<div class="component-placeholder">[Testimonials Component]</div>')
+      .replace(/<Partners.*?\/>/g, '<div class="component-placeholder">[Partners Component]</div>')
+      .replace(/<QuickContact.*?\/>/g, '<div class="component-placeholder">[Quick Contact Form]</div>');
+      
+    return cleanedContent;
   };
 
   return (
@@ -159,26 +276,165 @@ const PageEditor = () => {
         </div>
 
         {viewMode === 'visual' ? (
-          <div className="bg-white shadow-sm rounded-lg p-4">
-            <div
-              className="min-h-[400px] p-4 border rounded-md"
-              contentEditable
-              dangerouslySetInnerHTML={{ __html: content }}
-              onBlur={(e) => setContent(e.currentTarget.innerHTML)}
-            />
-          </div>
+          <>
+            <div className="bg-white shadow-sm rounded-lg p-4 mb-4">
+              <div className="flex flex-wrap gap-2 mb-4 border-b pb-4">
+                <button 
+                  className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
+                  onClick={() => applyFormatting('bold')}
+                  title="Bold"
+                >
+                  <span className="font-bold">B</span>
+                </button>
+                <button 
+                  className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
+                  onClick={() => applyFormatting('italic')}
+                  title="Italic"
+                >
+                  <span className="italic">I</span>
+                </button>
+                <button 
+                  className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
+                  onClick={() => applyFormatting('underline')}
+                  title="Underline"
+                >
+                  <span className="underline">U</span>
+                </button>
+                <div className="relative">
+                  <button 
+                    className="p-2 bg-gray-100 rounded hover:bg-gray-200 flex items-center" 
+                    onClick={() => setShowStyleOptions(!showStyleOptions)}
+                    title="Colors"
+                  >
+                    <FaPalette style={{color: selectedColor}} />
+                  </button>
+                  {showStyleOptions && (
+                    <div className="absolute top-full left-0 mt-1 p-2 bg-white shadow-lg rounded-md z-10 w-48">
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {colorPalette.map((color, index) => (
+                          <div 
+                            key={index}
+                            className="w-6 h-6 rounded-full cursor-pointer border border-gray-300"
+                            style={{backgroundColor: color}}
+                            onClick={() => {
+                              setSelectedColor(color);
+                              applyStyle('foreColor', color);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <button 
+                  className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
+                  onClick={() => insertElement('heading')}
+                  title="Add Heading"
+                >
+                  <FaHeading />
+                </button>
+                <button 
+                  className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
+                  onClick={() => insertElement('paragraph')}
+                  title="Add Paragraph"
+                >
+                  <FaFont />
+                </button>
+                <button 
+                  className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
+                  onClick={() => insertElement('image')}
+                  title="Add Image"
+                >
+                  <FaImage />
+                </button>
+                <button 
+                  className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
+                  onClick={() => insertElement('button')}
+                  title="Add Button"
+                >
+                  Button
+                </button>
+              </div>
+              <div
+                ref={editorRef}
+                className="min-h-[500px] p-4 border rounded-md visual-editor"
+                contentEditable
+                dangerouslySetInnerHTML={{ __html: prepareVisualContent(content) }}
+                onBlur={(e) => setContent(e.currentTarget.innerHTML)}
+                style={{
+                  backgroundImage: "repeating-linear-gradient(rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 1px, transparent 1px, transparent 21px)",
+                  backgroundPosition: "0px 10px",
+                  lineHeight: "20px",
+                  padding: "10px"
+                }}
+              />
+            </div>
+            <div className="mt-4 text-gray-600 text-sm">
+              <p>
+                <strong>Tip:</strong> Select text to format it. Click the buttons above to add elements. Component placeholders represent existing components that will be preserved.
+              </p>
+            </div>
+          </>
         ) : (
           <div className="bg-white shadow-sm rounded-lg p-4">
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="min-h-[400px] w-full p-4 border rounded-md font-mono text-sm"
+              className="min-h-[500px] w-full p-4 border rounded-md font-mono text-sm"
             />
           </div>
         )}
       </div>
+      <style>
+        {`
+          .component-placeholder {
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            color: #64748b;
+            font-weight: 500;
+          }
+          
+          .visual-editor {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          }
+          
+          .visual-editor h1, .visual-editor h2, .visual-editor h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            line-height: 1.25;
+          }
+          
+          .visual-editor h1 {
+            font-size: 1.875rem;
+          }
+          
+          .visual-editor h2 {
+            font-size: 1.5rem;
+          }
+          
+          .visual-editor h3 {
+            font-size: 1.25rem;
+          }
+          
+          .visual-editor p {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+          }
+          
+          .visual-editor img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+          }
+        `}
+      </style>
     </div>
   );
 };
 
-export default PageEditor; 
+export default PageEditor;
