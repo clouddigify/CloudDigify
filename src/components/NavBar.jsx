@@ -5,6 +5,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 
 const links = [
   { title: 'Home',     path: '/' },
+  { title: 'About',    path: '/about' },
   { title: 'Services', path: '/services' },
   { title: 'Training', path: '/training' },
   { title: 'Blogs',    path: '/blogs' },
