@@ -20,14 +20,23 @@ import InfrastructureAsCode from './components/pages/services/InfrastructureAsCo
 import ArchitectureDesign from './components/pages/services/ArchitectureDesign';
 import SecurityCompliance from './components/pages/services/SecurityCompliance';
 
+// Admin components
+import AdminLogin from './components/Admin/Login';
+import AdminDashboard from './components/Admin/Dashboard';
+
 const App = () => {
   const location = useLocation();
+  
+  // Check if the current route is an admin route
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  
   return (
     <>
-      <NavBar />
-      <main className="flex-grow">
+      {!isAdminRoute && <NavBar />}
+      <main className={`${isAdminRoute ? '' : 'flex-grow'}`}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
+            {/* Public Routes */}
             <Route path="/"         element={<Home />} />
             <Route path="/about"    element={<About />} />
             <Route path="/services" element={<Services />} />
@@ -43,10 +52,14 @@ const App = () => {
             <Route path="/services/infrastructure-as-code" element={<InfrastructureAsCode />} />
             <Route path="/services/architecture-design" element={<ArchitectureDesign />} />
             <Route path="/services/security-compliance" element={<SecurityCompliance />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
           </Routes>
         </AnimatePresence>
       </main>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </>
   );
 };
