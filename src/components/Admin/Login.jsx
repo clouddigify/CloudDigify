@@ -14,7 +14,6 @@ const Login = () => {
     setLoading(true);
     
     try {
-      // This would connect to your auth API
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -23,7 +22,14 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
       
-      const data = await response.json();
+      // Try to parse JSON
+      let data;
+      try {
+        data = await response.json();
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError);
+        throw new Error('Invalid server response. Please try again later.');
+      }
       
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
@@ -36,6 +42,7 @@ const Login = () => {
       // Redirect to admin dashboard
       navigate('/admin/dashboard');
     } catch (err) {
+      console.error('Login error:', err);
       setError(err.message || 'Failed to login. Please try again.');
     } finally {
       setLoading(false);

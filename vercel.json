@@ -16,8 +16,28 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/simple",
+      "dest": "/api/simple.js"
+    },
+    {
+      "src": "/api/debug",
+      "dest": "/api/debug.js"
+    },
+    {
+      "src": "/api/auth/login",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/test",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/content(.*)",
+      "dest": "/api/content.js"
+    },
+    {
+      "src": "/api/menus(.*)",
+      "dest": "/api/menus.js"
     },
     {
       "src": "/static/(.*)",

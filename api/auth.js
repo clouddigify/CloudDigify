@@ -19,7 +19,7 @@ const generateToken = (user) => {
   const { password, ...userData } = user;
   
   // In production, use jwt.sign() with proper expiration
-  return btoa(JSON.stringify(userData));
+  return Buffer.from(JSON.stringify(userData)).toString('base64');
 };
 
 export default function handler(req, res) {
@@ -37,7 +37,11 @@ export default function handler(req, res) {
     return;
   }
 
-  if (req.method === 'POST') {
+  // Check the URL path to determine the operation
+  const { url } = req;
+  
+  // Handle login request
+  if (url.includes('/login') && req.method === 'POST') {
     const { username, password } = req.body;
 
     // Find user
@@ -64,5 +68,10 @@ export default function handler(req, res) {
     });
   }
 
-  return res.status(405).json({ message: 'Method not allowed' });
+  // Simple test endpoint
+  if (url.includes('/test')) {
+    return res.status(200).json({ message: 'API is working correctly!' });
+  }
+
+  return res.status(404).json({ message: 'API endpoint not found' });
 } 
