@@ -1,6 +1,6 @@
 # CloudDigify
 
-CloudDigify is a comprehensive cloud consulting website built with React. The site showcases cloud services including DevOps, Cloud Migration, Infrastructure as Code, Managed Services, Architecture Design, and Security & Compliance.
+CloudDigify is a comprehensive cloud consulting website built with React and Vite. The site showcases cloud services including DevOps, Cloud Migration, Infrastructure as Code, Managed Services, Architecture Design, and Security & Compliance.
 
 ## Live Site
 
@@ -43,12 +43,12 @@ yarn
 3. Start the development server:
 
 ```bash
-npm start
+npm run dev
 # or
-yarn start
+yarn dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ### Project Structure
 
@@ -62,9 +62,10 @@ CloudDigify/
 │   │   │   └── legal/    # Legal page components
 │   │   └── sections/     # Reusable section components
 │   ├── App.jsx           # Main app component with routing
-│   └── index.js          # Entry point
+│   └── main.jsx          # Entry point
 ├── .env.production       # Production environment variables
 ├── vercel.json           # Vercel deployment configuration
+├── vite.config.js        # Vite configuration
 ├── DEPLOYMENT.md         # Detailed deployment guide
 └── README.md             # This file
 ```
@@ -77,7 +78,7 @@ npm run build
 yarn build
 ```
 
-This will create an optimized build in the `build/` directory.
+This will create an optimized build in the `dist/` directory.
 
 ## Deployment
 
@@ -91,6 +92,7 @@ This site is configured for deployment on Vercel. See [DEPLOYMENT.md](./DEPLOYME
 ## Technologies Used
 
 - **React** - UI library
+- **Vite** - Build tool and development server
 - **React Router** - Client-side routing
 - **TailwindCSS** - Utility-first CSS framework
 - **Framer Motion** - Animation library
