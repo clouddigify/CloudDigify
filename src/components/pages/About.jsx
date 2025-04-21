@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaAward, FaUsers, FaCloudversify, FaHandshake } from 'react-icons/fa';
+import { FaAward, FaUsers, FaCloudversify, FaHandshake, FaUserCircle } from 'react-icons/fa';
 
 // Team members data
 const teamMembers = [
@@ -9,25 +9,25 @@ const teamMembers = [
     name: 'Sarah Johnson',
     role: 'CEO & Cloud Architect',
     bio: 'Former AWS Solutions Architect with 15+ years of cloud computing experience.',
-    image: 'https://randomuser.me/api/portraits/women/32.jpg'
+    useIcon: true
   },
   {
     name: 'Michael Chen',
     role: 'CTO',
     bio: 'Azure-certified expert with a background in enterprise architecture and DevOps.',
-    image: 'https://randomuser.me/api/portraits/men/52.jpg'
+    useIcon: true
   },
   {
     name: 'Olivia Rodriguez',
     role: 'Security Director',
     bio: 'CISSP-certified security professional with expertise in cloud security frameworks.',
-    image: 'https://randomuser.me/api/portraits/women/45.jpg'
+    useIcon: true
   },
   {
     name: 'David Wilson',
     role: 'DevOps Lead',
     bio: 'Automation expert with extensive experience implementing CI/CD pipelines.',
-    image: 'https://randomuser.me/api/portraits/men/22.jpg'
+    useIcon: true
   }
 ];
 
@@ -149,11 +149,17 @@ const About = () => (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img 
-                src={member.image} 
-                alt={member.name} 
-                className="w-full h-64 object-cover object-center" 
-              />
+              {member.useIcon ? (
+                <div className="w-full h-64 bg-gray-100 flex items-center justify-center">
+                  <FaUserCircle className="text-gray-400" size={120} />
+                </div>
+              ) : (
+                <img 
+                  src={member.image} 
+                  alt={member.name} 
+                  className="w-full h-64 object-cover object-center" 
+                />
+              )}
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
                 <p className="text-blue-600 font-medium mb-3">{member.role}</p>

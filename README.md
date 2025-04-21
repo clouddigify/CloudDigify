@@ -1,53 +1,114 @@
 # CloudDigify
 
-A modern responsive homepage for CloudDigify, built with React, Vite, Tailwind CSS, and Framer Motion.
+CloudDigify is a comprehensive cloud consulting website built with React. The site showcases cloud services including DevOps, Cloud Migration, Infrastructure as Code, Managed Services, Architecture Design, and Security & Compliance.
 
-## Getting Started
+## Live Site
 
-### Prerequisites
-- Node.js (>=14)
-
-### Installation
-```bash
-npm install
-```
-
-### Development
-```bash
-npm run dev
-```
-Open http://localhost:5173 in your browser.
-
-### Production Build
-```bash
-npm run build
-```
-
-### Preview Production
-```bash
-npm run preview
-```
-
-## Project Structure
-```
-├── index.html
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-├── postcss.config.js
-├── .gitignore
-└── src
-    ├── main.jsx       # Entry point
-    ├── index.css      # Tailwind directives
-    ├── App.jsx        # Root component
-    └── components
-        └── HomePage.jsx    # Homepage layout
-```
+The site is deployed at [https://clouddigify.com](https://clouddigify.com)
 
 ## Features
-- Responsive layout with Tailwind CSS
-- Smooth animations via Framer Motion
-- Clean and professional design
+
+- Responsive design using TailwindCSS
+- Animated page transitions with Framer Motion
+- Client-side routing with React Router
+- Comprehensive service pages for all cloud offerings
+- Contact form with input validation
+- About page with team information
+- Secure deployment with proper headers and CSP
+
+## Local Development
+
+### Prerequisites
+
+- Node.js (v14+)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/clouddigify.git
+cd clouddigify
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn
+```
+
+3. Start the development server:
+
+```bash
+npm start
+# or
+yarn start
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Project Structure
+
+```
+CloudDigify/
+├── public/               # Static files
+├── src/
+│   ├── components/       # React components
+│   │   ├── pages/        # Page components
+│   │   │   ├── services/ # Service page components
+│   │   │   └── legal/    # Legal page components
+│   │   └── sections/     # Reusable section components
+│   ├── App.jsx           # Main app component with routing
+│   └── index.js          # Entry point
+├── .env.production       # Production environment variables
+├── vercel.json           # Vercel deployment configuration
+├── DEPLOYMENT.md         # Detailed deployment guide
+└── README.md             # This file
+```
+
+## Building for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+This will create an optimized build in the `build/` directory.
+
+## Deployment
+
+This site is configured for deployment on Vercel. See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions including:
+
+- GitHub repository setup
+- Vercel deployment process
+- Custom domain configuration with Hostinger
+- Troubleshooting URL restriction issues
+
+## Technologies Used
+
+- **React** - UI library
+- **React Router** - Client-side routing
+- **TailwindCSS** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **React Icons** - Icon components
+
+## Browser Support
+
+The site is optimized for modern browsers including:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ## License
-MIT 
+
+[MIT](LICENSE)
+
+## Contact
+
+For questions about the codebase, please contact [your-email@example.com](mailto:your-email@example.com). 
