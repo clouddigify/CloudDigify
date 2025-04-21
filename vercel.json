@@ -2,22 +2,34 @@
   "version": 2,
   "builds": [
     {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
         "buildCommand": "npm run build",
         "outputDirectory": "dist"
       }
-    },
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js"
+      "src": "/api/auth/login",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/test",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/content(.*)",
+      "dest": "/api/content.js"
+    },
+    {
+      "src": "/api/menus(.*)",
+      "dest": "/api/menus.js"
     },
     {
       "src": "/static/(.*)",
