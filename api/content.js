@@ -55,18 +55,30 @@ const extractComponentContent = (fileContent) => {
   // This is a simplified extraction - in production, use proper AST parsing
   try {
     // Extract JSX content between the return statement and the closing parenthesis
-    const returnPattern = /return\s*\(\s*(?:<.*>)?([\s\S]*?)(?:<\/.*>)?\s*\);/;
+    // More comprehensive pattern to better capture the actual content
+    const returnPattern = /return\s*\(\s*(<[\s\S]*>)?([\s\S]*?)(<\/[\s\S]*>)?\s*\);/;
     const match = returnPattern.exec(fileContent);
     
-    if (match && match[1]) {
-      return match[1].trim();
+    if (match) {
+      // If we have captured groups, combine them to get the full JSX
+      const fullJSX = (match[1] || '') + (match[2] || '') + (match[3] || '');
+      return fullJSX.trim();
     }
     
-    // Fallback: If no return statement found, return the whole file
-    return fileContent;
+    // Secondary attempt with a more lenient pattern
+    const simplePattern = /return\s*\(([\s\S]*?)\);/;
+    const simpleMatch = simplePattern.exec(fileContent);
+    
+    if (simpleMatch && simpleMatch[1]) {
+      return simpleMatch[1].trim();
+    }
+    
+    // Fallback: If no return statement found, return empty content
+    console.log('No return statement found, using default');
+    return '<div><p>Edit this page content</p></div>';
   } catch (error) {
     console.error('Error extracting component content:', error);
-    return fileContent;
+    return '<div><p>Error extracting content</p></div>';
   }
 };
 
@@ -74,12 +86,35 @@ const extractComponentContent = (fileContent) => {
 const updateComponentContent = (fileContent, newContent) => {
   // This is a simplified replacement - in production, use proper AST parsing
   try {
-    // Replace content between the return statement and the closing parenthesis
-    const returnPattern = /(return\s*\(\s*)(?:<.*>)?([\s\S]*?)(?:<\/.*>)?(\s*\);)/;
-    return fileContent.replace(returnPattern, `$1${newContent}$3`);
+    // First, try to find a clean return statement pattern
+    const returnPattern = /(return\s*\()[\s\S]*?(\);)/;
+    const match = returnPattern.exec(fileContent);
+    
+    if (match) {
+      // Replace everything between the opening and closing of the return statement
+      return fileContent.replace(returnPattern, `$1${newContent}$2`);
+    }
+    
+    // If we can't find the pattern, look for the component function and replace its body
+    const componentPattern = /(const\s+\w+\s*=\s*\([^)]*\)\s*=>)[\s\S]*?(;?\s*export default)/;
+    const componentMatch = componentPattern.exec(fileContent);
+    
+    if (componentMatch) {
+      return fileContent.replace(componentPattern, `$1 (\n${newContent}\n)$2`);
+    }
+    
+    // Last resort, return a new component with the content
+    console.log('Could not find pattern to update, creating new component');
+    return `import React from 'react';
+
+const Component = () => (
+  ${newContent}
+);
+
+export default Component;`;
   } catch (error) {
     console.error('Error updating component content:', error);
-    return fileContent;
+    throw new Error('Failed to update component: ' + error.message);
   }
 };
 

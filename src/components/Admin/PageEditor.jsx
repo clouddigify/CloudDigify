@@ -35,13 +35,20 @@ const PageEditor = () => {
         if (!response.ok) throw new Error('Failed to fetch page content');
         
         const data = await response.json();
-        setContent(data.content);
-        setOriginalContent(data.content);
+        console.log('Content retrieved:', data);
+        
+        if (data.content && data.content.trim()) {
+          setContent(data.content);
+          setOriginalContent(data.content);
+        } else {
+          setContent('<p>No content found. Start adding your content here...</p>');
+        }
+        
         setPageTitle(data.title || getPageTitleFromPath(pagePath));
       } catch (error) {
         console.error('Error fetching page content:', error);
         // Set some default content if fetch fails
-        setContent('<p>Edit your content here...</p>');
+        setContent('<p>Error loading content. Please try again.</p>');
         setPageTitle(getPageTitleFromPath(pagePath));
       }
     };
