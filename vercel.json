@@ -16,6 +16,14 @@
   ],
   "routes": [
     {
+      "src": "/api/simple",
+      "dest": "/api/simple.js"
+    },
+    {
+      "src": "/api/debug",
+      "dest": "/api/debug.js"
+    },
+    {
       "src": "/api/auth/login",
       "dest": "/api/auth.js"
     },
