@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaChevronDown, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog, FaArrowRight } from 'react-icons/fa';
 
 // You can replace this with your actual logo path
 const logoUrl = '/logo.png';
@@ -216,60 +216,27 @@ const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
-  const [hoverTimeout, setHoverTimeout] = useState(null);
   const navRef = useRef(null);
-  const submenuRefs = useRef([]);
-  const categoryRefs = useRef({});
 
-  // Initialize refs for submenus
-  useEffect(() => {
-    submenuRefs.current = Array(links.length).fill().map(() => React.createRef());
-    
-    // Initialize category refs as an object of arrays
-    const categoryRefsObj = {};
-    links.forEach((link, index) => {
-      if (link.hasSubmenu && link.submenu) {
-        categoryRefsObj[index] = Array(link.submenu.length).fill().map(() => React.createRef());
-      }
-    });
-    categoryRefs.current = categoryRefsObj;
-  }, []);
-  
-  // Toggle submenu with event handler fix
+  // Toggle submenu 
   const toggleSubmenu = (index, e) => {
-    if (e) e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     
-    // If clicking on already open submenu, close it
     if (activeSubmenu === index) {
       setActiveSubmenu(null);
-      setActiveCategory(null);
     } else {
-      // Otherwise open the clicked submenu and close any open category
       setActiveSubmenu(index);
-      setActiveCategory(null);
     }
   };
 
-  // Toggle category with fixed event handling
-  const toggleCategory = (submenuIndex, categoryIndex, e) => {
-    if (e) e.stopPropagation();
-    
-    // If clicking on already open category, close it
-    if (activeCategory === categoryIndex && activeSubmenu === submenuIndex) {
-      setActiveCategory(null);
-    } else {
-      // Otherwise open the clicked category
-      setActiveSubmenu(submenuIndex);
-      setActiveCategory(categoryIndex);
-    }
-  };
-  
   // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setActiveSubmenu(null);
-        setActiveCategory(null);
       }
     };
 
@@ -279,15 +246,28 @@ const NavBar = () => {
     };
   }, []);
 
+  // Create submenu columns for better organization
+  const createSubmenuColumns = (submenuItems, columnCount = 3) => {
+    const columns = Array(columnCount).fill().map(() => []);
+    const itemsPerColumn = Math.ceil(submenuItems.length / columnCount);
+    
+    submenuItems.forEach((item, index) => {
+      const columnIndex = Math.floor(index / itemsPerColumn);
+      columns[columnIndex].push(item);
+    });
+    
+    return columns;
+  };
+
   return (
     <motion.nav
       ref={navRef}
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-0 z-50 bg-white shadow"
+      className="sticky top-0 z-50 bg-white shadow-md"
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
         <Link to="/" className="flex items-center">
           <img src={logoUrl} alt="CloudDigify Logo" className="h-10" />
           <span className="ml-2 text-xl font-bold text-blue-600">CloudDigify</span>
@@ -296,186 +276,75 @@ const NavBar = () => {
         {/* Hamburger button - visible only on small screens */}
         <button
           className="md:hidden text-2xl text-gray-700 focus:outline-none"
-          onClick={() => setMenuOpen((o) => !o)}
+          onClick={() => setMenuOpen((prev) => !prev)}
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
 
-        {/* Desktop links */}
-        <ul className="hidden md:flex space-x-6">
+        {/* Desktop navigation */}
+        <ul className="hidden md:flex space-x-8">
           {links.map((link, index) => (
             <li key={link.path} className="relative group">
               {link.hasSubmenu ? (
-                <div className="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 py-2">
-                  <NavLink
-                    to={link.path}
-                    className={({ isActive }) =>
-                      `mr-1 ${isActive ? 'text-blue-600 font-semibold' : ''}`
-                    }
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveSubmenu(null);
-                      setActiveCategory(null);
-                    }}
-                  >
-                    {link.title}
-                  </NavLink>
-                  <button 
-                    className="p-1 focus:outline-none"
+                <div>
+                  <div 
+                    className="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 py-2"
                     onClick={(e) => toggleSubmenu(index, e)}
                   >
+                    <span className={`${activeSubmenu === index ? 'text-blue-600 font-semibold' : ''}`}>
+                      {link.title}
+                    </span>
                     <FaChevronDown 
-                      className={`text-xs transition-transform duration-200 ${activeSubmenu === index ? 'rotate-180' : ''}`}
+                      className={`ml-1 text-xs transition-transform duration-200 ${activeSubmenu === index ? 'rotate-180 text-blue-600' : ''}`}
                     />
-                  </button>
+                  </div>
                   
-                  {/* Primary Dropdown */}
+                  {/* Mega menu dropdown */}
                   {activeSubmenu === index && link.isMultiLevel && (
-                    <div 
-                      ref={submenuRefs.current[index]}
-                      className="fixed mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-[60] max-h-[80vh] overflow-y-auto"
-                      style={{ 
-                        boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-                        top: '50px', // Fixed top position to ensure visibility
-                        left: `${submenuRefs.current[index]?.getBoundingClientRect().left || 0}px`
-                      }}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <ul>
-                        {/* Main category link */}
-                        <li>
-                          <NavLink
+                    <div className="fixed left-0 right-0 mt-2 bg-white shadow-xl border-t border-gray-100 z-50 max-h-[80vh] overflow-y-auto">
+                      <div className="max-w-7xl mx-auto py-6 px-8">
+                        {/* Header section */}
+                        <div className="flex justify-between items-center pb-4 mb-4 border-b border-gray-200">
+                          <h2 className="text-xl font-bold text-blue-700">{link.title}</h2>
+                          <NavLink 
                             to={link.path}
-                            className={({ isActive }) =>
-                              `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'} font-medium border-b border-gray-100`
-                            }
-                            onClick={() => {
-                              setActiveSubmenu(null);
-                              setActiveCategory(null);
-                            }}
+                            className="flex items-center text-blue-600 font-medium hover:text-blue-800 transition"
+                            onClick={() => setActiveSubmenu(null)}
                           >
-                            All {link.title}
+                            View All {link.title}
+                            <FaArrowRight className="ml-2 text-xs" />
                           </NavLink>
-                        </li>
+                        </div>
                         
-                        {/* Categories with sub-menus */}
-                        {link.submenu.map((category, categoryIndex) => (
-                          <li 
-                            key={category.title} 
-                            className="relative"
-                            ref={categoryRefs.current[index]?.[categoryIndex]}
-                          >
-                            <div className="flex items-center justify-between px-4 py-2 hover:bg-blue-50 cursor-pointer">
+                        {/* Categories grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                          {link.submenu.map((category, catIndex) => (
+                            <div key={catIndex} className="mb-4">
                               <NavLink
-                                to={category.path}
-                                className="flex items-center text-gray-700"
-                                onClick={(e) => {
-                                  e.stopPropagation(); 
-                                  setActiveSubmenu(null);
-                                  setActiveCategory(null);
-                                }}
+                                to={category.path || '#'}
+                                className="flex items-center text-gray-800 font-semibold text-md mb-3 hover:text-blue-600 transition"
+                                onClick={() => setActiveSubmenu(null)}
                               >
                                 {category.icon}
-                                <span>{category.title}</span>
+                                {category.title}
                               </NavLink>
-                              <button 
-                                className="p-1 focus:outline-none"
-                                onClick={(e) => toggleCategory(index, categoryIndex, e)}
-                              >
-                                <FaChevronDown 
-                                  className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex && activeSubmenu === index ? 'rotate-180' : ''}`}
-                                />
-                              </button>
-                            </div>
-                            
-                            {/* Secondary dropdown (Category submenus) */}
-                            {activeCategory === categoryIndex && activeSubmenu === index && (
-                              <div 
-                                className="fixed w-64 bg-white shadow-lg rounded-md overflow-hidden z-[70] max-h-[80vh] overflow-y-auto"
-                                style={{ 
-                                  boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-                                  top: `${(categoryRefs.current[index]?.[categoryIndex]?.getBoundingClientRect().top || 0)}px`,
-                                  left: `${(categoryRefs.current[index]?.[categoryIndex]?.getBoundingClientRect().right || 0) + 5}px`
-                                }}
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <ul>
-                                  <li>
+                              <ul className="space-y-2">
+                                {category.submenu && category.submenu.map((item, itemIndex) => (
+                                  <li key={itemIndex}>
                                     <NavLink
-                                      to={category.path}
-                                      className={({ isActive }) =>
-                                        `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'} font-medium border-b border-gray-100`
-                                      }
-                                      onClick={() => {
-                                        setActiveSubmenu(null);
-                                        setActiveCategory(null);
-                                        setMenuOpen(false);
-                                      }}
+                                      to={item.path}
+                                      className="text-gray-600 hover:text-blue-600 transition pl-6 block text-sm"
+                                      onClick={() => setActiveSubmenu(null)}
                                     >
-                                      View All {category.title}
+                                      {item.title}
                                     </NavLink>
                                   </li>
-                                  {category.submenu.map((subItem) => (
-                                    <li key={subItem.path}>
-                                      <NavLink
-                                        to={subItem.path}
-                                        className={({ isActive }) =>
-                                          `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`
-                                        }
-                                        onClick={() => {
-                                          setActiveSubmenu(null);
-                                          setActiveCategory(null);
-                                          setMenuOpen(false);
-                                        }}
-                                      >
-                                        {subItem.title}
-                                      </NavLink>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Simple Dropdown for non-multilevel menus */}
-                  {activeSubmenu === index && !link.isMultiLevel && (
-                    <div 
-                      className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50"
-                    >
-                      <ul>
-                        <li>
-                          <NavLink
-                            to={link.path}
-                            className={({ isActive }) =>
-                              `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'} font-medium border-b border-gray-100`
-                            }
-                            onClick={() => {
-                              setActiveSubmenu(null);
-                              setActiveCategory(null);
-                            }}
-                          >
-                            All {link.title}
-                          </NavLink>
-                        </li>
-                        
-                        {link.submenu.map((subLink) => (
-                          <li key={subLink.path}>
-                            <NavLink
-                              to={subLink.path}
-                              className={({ isActive }) =>
-                                `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`
-                              }
-                              onClick={() => setActiveSubmenu(null)}
-                            >
-                              {subLink.title}
-                            </NavLink>
-                          </li>
-                        ))}
-                      </ul>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -496,162 +365,84 @@ const NavBar = () => {
         </ul>
       </div>
 
-      {/* Mobile menu - slides down */}
+      {/* Mobile menu */}
       <motion.div
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: menuOpen ? 'auto' : 0, opacity: menuOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        className="overflow-hidden md:hidden bg-white"
+        className="md:hidden overflow-hidden bg-white"
       >
-        <ul className="flex flex-col py-4">
+        <div className="px-4 py-2">
           {links.map((link, index) => (
-            <li key={link.path} className="px-4">
+            <div key={link.path} className="border-b border-gray-100 last:border-0">
               {link.hasSubmenu ? (
                 <div>
                   <div 
-                    className="flex items-center justify-between py-2 text-gray-700 border-b border-gray-100"
+                    className="flex items-center justify-between py-3 text-gray-800"
                     onClick={(e) => toggleSubmenu(index, e)}
                   >
                     <span className="font-medium">{link.title}</span>
                     <FaChevronDown className={`text-xs transition-transform duration-200 ${activeSubmenu === index ? 'rotate-180' : ''}`} />
                   </div>
                   
-                  {/* Mobile Categories Dropdown */}
-                  {activeSubmenu === index && link.isMultiLevel && (
-                    <ul className="pl-4 py-2 bg-gray-50 rounded-md my-2">
-                      {/* Main category link */}
-                      <li>
-                        <NavLink
-                          to={link.path}
-                          className={({ isActive }) =>
-                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'} border-b border-gray-200 mb-2`
-                          }
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          All {link.title}
-                        </NavLink>
-                      </li>
+                  {/* Mobile dropdown */}
+                  {activeSubmenu === index && (
+                    <div className="pb-4">
+                      <NavLink
+                        to={link.path}
+                        className="block py-2 font-medium text-blue-600 mb-2"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        View All {link.title}
+                      </NavLink>
                       
-                      {/* Categories with submenu */}
-                      {link.submenu.map((category, categoryIndex) => (
-                        <li key={category.title} className="mb-2">
-                          <div
-                            className="flex items-center justify-between py-2 text-gray-700 border-t border-gray-200 mt-1"
-                          >
+                      <div className="space-y-4">
+                        {link.submenu.map((category, catIndex) => (
+                          <div key={catIndex} className="pl-3 border-l-2 border-gray-200">
                             <NavLink
-                              to={category.path}
-                              className="flex items-center"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setMenuOpen(false);
-                                setActiveSubmenu(null);
-                                setActiveCategory(null);
-                              }}
+                              to={category.path || '#'}
+                              className="flex items-center font-medium text-gray-700 mb-1 hover:text-blue-600"
+                              onClick={() => setMenuOpen(false)}
                             >
                               {category.icon}
-                              <span className="font-medium">{category.title}</span>
+                              {category.title}
                             </NavLink>
-                            <button
-                              className="p-1 focus:outline-none"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                toggleCategory(index, categoryIndex, e);
-                              }}
-                            >
-                              <FaChevronDown 
-                                className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex && activeSubmenu === index ? 'rotate-180' : ''}`}
-                              />
-                            </button>
+                            
+                            {category.submenu && (
+                              <ul className="pl-6 space-y-1">
+                                {category.submenu.map((item, itemIndex) => (
+                                  <li key={itemIndex}>
+                                    <NavLink
+                                      to={item.path}
+                                      className="block py-1 text-sm text-gray-600 hover:text-blue-600"
+                                      onClick={() => setMenuOpen(false)}
+                                    >
+                                      {item.title}
+                                    </NavLink>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                           </div>
-                          
-                          {activeCategory === categoryIndex && activeSubmenu === index && (
-                            <ul className="pl-6 py-1 bg-white rounded-md shadow-inner">
-                              <li className="border-b border-gray-200">
-                                <NavLink
-                                  to={category.path}
-                                  className={({ isActive }) =>
-                                    `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'} font-medium`
-                                  }
-                                  onClick={() => {
-                                    setMenuOpen(false);
-                                    setActiveSubmenu(null);
-                                    setActiveCategory(null);
-                                  }}
-                                >
-                                  View All {category.title}
-                                </NavLink>
-                              </li>
-                              {category.submenu.map((subItem) => (
-                                <li key={subItem.path} className="border-b border-gray-100 last:border-0">
-                                  <NavLink
-                                    to={subItem.path}
-                                    className={({ isActive }) =>
-                                      `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
-                                    }
-                                    onClick={() => {
-                                      setMenuOpen(false);
-                                      setActiveSubmenu(null);
-                                      setActiveCategory(null);
-                                    }}
-                                  >
-                                    {subItem.title}
-                                  </NavLink>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  
-                  {/* Mobile simple dropdown */}
-                  {activeSubmenu === index && !link.isMultiLevel && (
-                    <ul className="pl-4 py-2 bg-gray-50 rounded-md my-2">
-                      {/* Main link */}
-                      <li>
-                        <NavLink
-                          to={link.path}
-                          className={({ isActive }) =>
-                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'} border-b border-gray-200 mb-2`
-                          }
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          All {link.title}
-                        </NavLink>
-                      </li>
-                      
-                      {/* Submenu items */}
-                      {link.submenu.map((subLink) => (
-                        <li key={subLink.path} className="border-t border-gray-200">
-                          <NavLink
-                            to={subLink.path}
-                            className={({ isActive }) =>
-                              `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
-                            }
-                            onClick={() => setMenuOpen(false)}
-                          >
-                            {subLink.title}
-                          </NavLink>
-                        </li>
-                      ))}
-                    </ul>
+                        ))}
+                      </div>
+                    </div>
                   )}
                 </div>
               ) : (
                 <NavLink
                   to={link.path}
-                  onClick={() => setMenuOpen(false)}
                   className={({ isActive }) =>
-                    `block py-2 border-b border-gray-100 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`
+                    `block py-3 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
                   }
+                  onClick={() => setMenuOpen(false)}
                 >
                   {link.title}
                 </NavLink>
               )}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </motion.div>
     </motion.nav>
   );
