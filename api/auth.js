@@ -4,11 +4,11 @@
 const users = [
   {
     id: 1,
-    username: 'admin',
+    username: process.env.ADMIN_USERNAME,
     // In production, NEVER store passwords in plain text, use bcrypt or similar
-    // This is only for demonstration
-    password: 'adminpassword123',
-    email: 'admin@clouddigify.com',
+    // This is just using environment variables as a more secure alternative
+    password: process.env.ADMIN_PASSWORD,
+    email: process.env.ADMIN_EMAIL,
     role: 'admin'
   }
 ];
