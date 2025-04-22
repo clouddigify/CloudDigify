@@ -3,6 +3,9 @@ import { NavLink, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
+// You can replace this with your actual logo path
+const logoUrl = '/logo.png';
+
 const links = [
   { title: 'Home',     path: '/' },
   { title: 'About',    path: '/about' },
@@ -23,8 +26,9 @@ const NavBar = () => {
       className="sticky top-0 z-50 bg-white shadow"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
-        <Link to="/" className="text-2xl font-bold text-blue-600">
-          CloudDigify
+        <Link to="/" className="flex items-center">
+          <img src={logoUrl} alt="CloudDigify Logo" className="h-10" />
+          <span className="ml-2 text-xl font-bold text-blue-600">CloudDigify</span>
         </Link>
 
         {/* Hamburger button - visible only on small screens */}

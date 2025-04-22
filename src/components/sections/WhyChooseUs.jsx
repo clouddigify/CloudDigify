@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaShieldAlt, FaUsers, FaCertificate, FaClock } from 'react-icons/fa';
 
+// Company strengths - easy to edit
 const reasons = [
   {
     icon: <FaShieldAlt />,
@@ -25,10 +26,13 @@ const reasons = [
   }
 ];
 
+// Edit this section title
+const sectionTitle = "Why Choose CloudDigify";
+
 const WhyChooseUs = () => (
   <section className="py-16 px-6 bg-white">
     <div className="max-w-6xl mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-12">Why Choose CloudDigify</h2>
+      <h2 className="text-3xl font-bold text-center mb-12">{sectionTitle}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {reasons.map((reason) => (
           <motion.div 
