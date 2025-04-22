@@ -376,30 +376,9 @@ const menuVariants = {
   }
 };
 
-const menuContainerVariants = {
-  hidden: {
-    opacity: 0,
-    y: -10,
-    transition: {
-      duration: 0.2
-    }
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.3
-    }
-  }
-};
-
 const menuItemVariants = {
-  hidden: { opacity: 0, x: -10 },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    transition: { duration: 0.2 }
-  }
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0 }
 };
 
 const backdropVariants = {
@@ -408,6 +387,25 @@ const backdropVariants = {
     opacity: 1,
     transition: {
       duration: 0.2
+    }
+  }
+};
+
+const menuContainerVariants = {
+  hidden: {
+    opacity: 0,
+    y: -20,
+    scale: 0.95
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 30,
+      staggerChildren: 0.04
     }
   }
 };
@@ -510,54 +508,81 @@ const NavBar = () => {
 
               <AnimatePresence>
                 {activeMenu === 'services' && (
-                  <motion.div
-                    variants={menuContainerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                    className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-2"
-                    style={{ marginTop: '0.5rem' }}
-                  >
-                    {getServiceCategories().map((category, index) => (
-                      <div key={index} className="group relative">
-                        <button
-                          className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                          onMouseEnter={() => setActiveMenu(`services-${index}`)}
-                        >
-                          <div className="flex items-center">
-                            {category.icon}
-                            <span>{category.title}</span>
-                          </div>
-                          <FaChevronRight className="h-3 w-3" />
-                        </button>
+                  <>
+                    {/* Backdrop */}
+                    <motion.div
+                      variants={backdropVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      className="fixed inset-0 bg-black/5 backdrop-blur-sm z-40"
+                      style={{ marginTop: '4rem' }}
+                    />
 
-                        {activeMenu === `services-${index}` && (
+                    {/* Menu Container */}
+                    <motion.div
+                      variants={menuContainerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      className="absolute top-full left-1/2 transform -translate-x-1/2 w-[1000px] bg-white rounded-2xl shadow-xl border border-gray-100 z-50"
+                      style={{ marginTop: '1rem' }}
+                    >
+                      {/* Services Grid */}
+                      <div className="grid grid-cols-3 gap-6 p-8">
+                        {getServiceCategories().map((category, index) => (
                           <motion.div
-                            variants={menuContainerVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="hidden"
-                            className="absolute left-full top-0 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-2"
-                            style={{ marginLeft: '0.5rem' }}
+                            key={index}
+                            variants={menuItemVariants}
+                            className="group relative bg-white rounded-xl p-4 hover:bg-blue-50 transition-colors duration-200"
                           >
-                            {category.submenu.map((item, idx) => (
-                              <motion.div
-                                key={idx}
-                                variants={menuItemVariants}
-                              >
-                                <Link
-                                  to={item.path}
-                                  className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                            <div className="flex items-center space-x-3 mb-4">
+                              <div className="p-2 rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-200 transition-colors duration-200">
+                                {category.icon}
+                              </div>
+                              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                                {category.title}
+                              </h3>
+                            </div>
+                            <ul className="space-y-2">
+                              {category.submenu.map((item, idx) => (
+                                <motion.li
+                                  key={idx}
+                                  variants={menuItemVariants}
                                 >
-                                  {item.title}
-                                </Link>
-                              </motion.div>
-                            ))}
+                                  <Link
+                                    to={item.path}
+                                    className="flex items-center space-x-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-100/50 rounded-lg px-3 py-2 transition-all duration-200"
+                                  >
+                                    <span className="w-1.5 h-1.5 bg-blue-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                                    <span>{item.title}</span>
+                                  </Link>
+                                </motion.li>
+                              ))}
+                            </ul>
+                            <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-100 rounded-xl transition-colors duration-200" />
                           </motion.div>
-                        )}
+                        ))}
                       </div>
-                    ))}
-                  </motion.div>
+
+                      {/* Featured Section */}
+                      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6 rounded-b-2xl">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="text-lg font-semibold mb-2">Explore Our Services</h4>
+                            <p className="text-blue-100">Discover how we can transform your business</p>
+                          </div>
+                          <Link
+                            to="/services"
+                            className="inline-flex items-center px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-blue-50 transition-colors duration-200"
+                          >
+                            View All Services
+                            <FaArrowRight className="ml-2" />
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </>
                 )}
               </AnimatePresence>
       </div>
@@ -577,54 +602,81 @@ const NavBar = () => {
 
               <AnimatePresence>
                 {activeMenu === 'industries' && (
-                  <motion.div
-                    variants={menuContainerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                    className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-2"
-                    style={{ marginTop: '0.5rem' }}
-                  >
-                    {getIndustryCategories().map((category, index) => (
-                      <div key={index} className="group relative">
-                        <button
-                          className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                          onMouseEnter={() => setActiveMenu(`industries-${index}`)}
-                        >
-                          <div className="flex items-center">
-                            {category.icon}
-                            <span>{category.title}</span>
-                          </div>
-                          <FaChevronRight className="h-3 w-3" />
-                        </button>
+                  <>
+                    {/* Backdrop */}
+                    <motion.div
+                      variants={backdropVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      className="fixed inset-0 bg-black/5 backdrop-blur-sm z-40"
+                      style={{ marginTop: '4rem' }}
+                    />
 
-                        {activeMenu === `industries-${index}` && (
+                    {/* Menu Container */}
+                    <motion.div
+                      variants={menuContainerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      className="absolute top-full left-1/2 transform -translate-x-1/2 w-[800px] bg-white rounded-2xl shadow-xl border border-gray-100 z-50"
+                      style={{ marginTop: '1rem' }}
+                    >
+                      {/* Industries Grid */}
+                      <div className="grid grid-cols-2 gap-6 p-8">
+                        {getIndustryCategories().map((category, index) => (
                           <motion.div
-                            variants={menuContainerVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="hidden"
-                            className="absolute left-full top-0 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-2"
-                            style={{ marginLeft: '0.5rem' }}
+                            key={index}
+                            variants={menuItemVariants}
+                            className="group relative bg-white rounded-xl p-4 hover:bg-blue-50 transition-colors duration-200"
                           >
-                            {category.submenu.map((item, idx) => (
-      <motion.div
-                                key={idx}
-                                variants={menuItemVariants}
-                              >
-                                <Link
-                                  to={item.path}
-                                  className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                            <div className="flex items-center space-x-3 mb-4">
+                              <div className="p-2 rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-200 transition-colors duration-200">
+                                {category.icon}
+                              </div>
+                              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                                {category.title}
+                              </h3>
+                            </div>
+                            <ul className="space-y-2">
+                              {category.submenu.map((item, idx) => (
+                                <motion.li
+                                  key={idx}
+                                  variants={menuItemVariants}
                                 >
-                                  {item.title}
-                                </Link>
-                              </motion.div>
-                            ))}
+                                  <Link
+                                    to={item.path}
+                                    className="flex items-center space-x-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-100/50 rounded-lg px-3 py-2 transition-all duration-200"
+                                  >
+                                    <span className="w-1.5 h-1.5 bg-blue-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                                    <span>{item.title}</span>
+                                  </Link>
+                                </motion.li>
+                              ))}
+                            </ul>
+                            <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-100 rounded-xl transition-colors duration-200" />
                           </motion.div>
-                        )}
+                        ))}
                       </div>
-                    ))}
-                  </motion.div>
+
+                      {/* Featured Section */}
+                      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6 rounded-b-2xl">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="text-lg font-semibold mb-2">Industry Expertise</h4>
+                            <p className="text-blue-100">Solutions tailored for your industry</p>
+                          </div>
+                          <Link
+                            to="/industries"
+                            className="inline-flex items-center px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-blue-50 transition-colors duration-200"
+                          >
+                            View All Industries
+                            <FaArrowRight className="ml-2" />
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </>
                 )}
               </AnimatePresence>
             </div>
