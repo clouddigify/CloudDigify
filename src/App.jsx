@@ -4,7 +4,6 @@ import { AnimatePresence } from 'framer-motion';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import CookieConsent from './components/common/CookieConsent';
 
 // Page Components
 import Home from './components/pages/Home';
@@ -89,7 +88,6 @@ const App = () => {
           <AnimatedRoutes />
         </main>
         <Footer />
-        <CookieConsent />
       </div>
     </Router>
   );
