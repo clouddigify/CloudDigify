@@ -91,7 +91,6 @@ const pagePathMap = {
   // Legal pages
   'terms': 'src/components/pages/legal/TermsAndConditions.jsx',
   'privacy': 'src/components/pages/legal/PrivacyPolicy.jsx',
-  'cookies': 'src/components/pages/legal/CookiePolicy.jsx',
 };
 
 // Function to extract content from a component file
