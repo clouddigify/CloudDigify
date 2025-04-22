@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes, FaChevronDown, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog, FaArrowRight, FaSearch } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog, FaArrowRight, FaSearch } from 'react-icons/fa';
 
 // Import the page configuration for paths
 import { 
@@ -314,19 +314,23 @@ const menuItemVariants = {
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [activeSubSubmenu, setActiveSubSubmenu] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navRef = useRef(null);
   const location = useLocation();
   
-  // Close mobile menu when route changes
+  // Reset states on route change
   useEffect(() => {
     setIsOpen(false);
+    setActiveMenu(null);
     setActiveSubmenu(null);
+    setActiveSubSubmenu(null);
   }, [location]);
 
-  // Handle scroll effect
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -335,20 +339,36 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle click outside
+  // Click outside handler
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
+        setActiveMenu(null);
         setActiveSubmenu(null);
+        setActiveSubSubmenu(null);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const toggleSubmenu = (index, e) => {
-    e?.preventDefault();
-    setActiveSubmenu(activeSubmenu === index ? null : index);
+  // Menu handlers
+  const handleMenuEnter = (menu) => {
+    setActiveMenu(menu);
+  };
+
+  const handleSubmenuEnter = (submenu) => {
+    setActiveSubmenu(submenu);
+  };
+
+  const handleSubSubmenuEnter = (subSubmenu) => {
+    setActiveSubSubmenu(subSubmenu);
+  };
+
+  const handleMenuLeave = () => {
+    setActiveMenu(null);
+    setActiveSubmenu(null);
+    setActiveSubSubmenu(null);
   };
 
   return (
@@ -382,7 +402,6 @@ const NavBar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {/* Main Navigation Links */}
             <NavLink 
               to="/" 
               className={({ isActive }) => 
@@ -391,106 +410,160 @@ const NavBar = () => {
             >
               Home
             </NavLink>
-            
-            {/* Services Dropdown */}
-            <div className="relative group">
+
+            {/* Services Mega Menu */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleMenuEnter('services')}
+              onMouseLeave={handleMenuLeave}
+            >
               <button 
-                onClick={(e) => toggleSubmenu('services', e)}
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
                 <span>Services</span>
-                <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === 'services' ? 'rotate-180' : ''}`} />
+                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'services' ? 'rotate-180' : ''}`} />
               </button>
-              
+
               <AnimatePresence>
-                {activeSubmenu === 'services' && (
+                {activeMenu === 'services' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 w-screen max-w-screen-lg bg-white rounded-lg shadow-xl border border-gray-100 p-6 grid grid-cols-3 gap-6"
-                    style={{ marginLeft: '-500px' }}
+                    className="absolute top-full left-0 w-[800px] bg-white rounded-lg shadow-xl border border-gray-100"
+                    style={{ marginLeft: '-200px' }}
                   >
-                    {getServiceCategories().map((category, index) => (
-                      <div key={index} className="space-y-4">
-                        <h3 className="font-semibold text-gray-900 flex items-center space-x-2">
-                          {category.icon}
-                          <span>{category.title}</span>
-                        </h3>
-                        <ul className="space-y-2">
-                          {category.submenu.map((item, idx) => (
-                            <motion.li
-                              key={idx}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                            >
-                              <Link
-                                to={item.path}
-                                className="text-gray-600 hover:text-blue-600 flex items-center group"
-                              >
-                                <span className="group-hover:translate-x-1 transition-transform">
-                                  {item.title}
-                                </span>
-                              </Link>
-                            </motion.li>
-                          ))}
-                        </ul>
+                    <div className="flex h-[500px]">
+                      {/* Primary Menu */}
+                      <div className="w-1/3 bg-gray-50 p-4 border-r border-gray-100">
+                        {getServiceCategories().map((category, index) => (
+                          <motion.div
+                            key={index}
+                            className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${activeSubmenu === category.title ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+                            onMouseEnter={() => handleSubmenuEnter(category.title)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                {category.icon}
+                                <span>{category.title}</span>
+                              </div>
+                              <FaChevronRight className="text-sm opacity-50" />
+                            </div>
+                          </motion.div>
+                        ))}
                       </div>
-                    ))}
+
+                      {/* Secondary Menu */}
+                      <div className="w-2/3 p-6">
+                        <AnimatePresence mode="wait">
+                          {activeSubmenu && (
+                            <motion.div
+                              key={activeSubmenu}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -20 }}
+                              transition={{ duration: 0.2 }}
+                              className="h-full"
+                            >
+                              {getServiceCategories().find(cat => cat.title === activeSubmenu)?.submenu.map((item, idx) => (
+                                <Link
+                                  key={idx}
+                                  to={item.path}
+                                  className="block p-3 rounded-lg hover:bg-gray-50 group"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
+                                      {item.title}
+                                    </span>
+                                    <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+                                  </div>
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* Industries Dropdown - Similar structure to Services */}
-            <div className="relative group">
+            {/* Industries Mega Menu - Similar structure to Services */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleMenuEnter('industries')}
+              onMouseLeave={handleMenuLeave}
+            >
               <button 
-                onClick={(e) => toggleSubmenu('industries', e)}
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
                 <span>Industries</span>
-                <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === 'industries' ? 'rotate-180' : ''}`} />
+                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'industries' ? 'rotate-180' : ''}`} />
               </button>
-              
+
               <AnimatePresence>
-                {activeSubmenu === 'industries' && (
+                {activeMenu === 'industries' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 w-screen max-w-screen-md bg-white rounded-lg shadow-xl border border-gray-100 p-6 grid grid-cols-2 gap-6"
+                    className="absolute top-full right-0 w-[800px] bg-white rounded-lg shadow-xl border border-gray-100"
                     style={{ marginRight: '-200px' }}
                   >
-                    {getIndustryCategories().map((category, index) => (
-                      <div key={index} className="space-y-4">
-                        <h3 className="font-semibold text-gray-900 flex items-center space-x-2">
-                          {category.icon}
-                          <span>{category.title}</span>
-                        </h3>
-                        <ul className="space-y-2">
-                          {category.submenu.map((item, idx) => (
-                            <motion.li
-                              key={idx}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                            >
-                              <Link
-                                to={item.path}
-                                className="text-gray-600 hover:text-blue-600 flex items-center group"
-                              >
-                                <span className="group-hover:translate-x-1 transition-transform">
-                                  {item.title}
-                                </span>
-                              </Link>
-                            </motion.li>
-                          ))}
-                        </ul>
+                    <div className="flex h-[500px]">
+                      {/* Primary Menu */}
+                      <div className="w-1/3 bg-gray-50 p-4 border-r border-gray-100">
+                        {getIndustryCategories().map((category, index) => (
+                          <motion.div
+                            key={index}
+                            className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${activeSubmenu === category.title ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
+                            onMouseEnter={() => handleSubmenuEnter(category.title)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                {category.icon}
+                                <span>{category.title}</span>
+                              </div>
+                              <FaChevronRight className="text-sm opacity-50" />
+                            </div>
+                          </motion.div>
+                        ))}
                       </div>
-                    ))}
+
+                      {/* Secondary Menu */}
+                      <div className="w-2/3 p-6">
+                        <AnimatePresence mode="wait">
+                          {activeSubmenu && (
+                            <motion.div
+                              key={activeSubmenu}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -20 }}
+                              transition={{ duration: 0.2 }}
+                              className="h-full"
+                            >
+                              {getIndustryCategories().find(cat => cat.title === activeSubmenu)?.submenu.map((item, idx) => (
+                                <Link
+                                  key={idx}
+                                  to={item.path}
+                                  className="block p-3 rounded-lg hover:bg-gray-50 group"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
+                                      {item.title}
+                                    </span>
+                                    <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+                                  </div>
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -552,28 +625,28 @@ const NavBar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t border-gray-100"
+            className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
           >
-            <div className="px-4 pt-2 pb-3 space-y-1">
+            <div className="px-4 py-2 space-y-1">
               <Link
                 to="/"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
               >
                 Home
               </Link>
-              
+
               {/* Mobile Services Accordion */}
               <div className="space-y-2">
                 <button
-                  onClick={() => toggleSubmenu('mobile-services')}
+                  onClick={() => setActiveMenu(activeMenu === 'mobile-services' ? null : 'mobile-services')}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                 >
                   <span>Services</span>
-                  <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === 'mobile-services' ? 'rotate-180' : ''}`} />
+                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-services' ? 'rotate-180' : ''}`} />
                 </button>
-                
+
                 <AnimatePresence>
-                  {activeSubmenu === 'mobile-services' && (
+                  {activeMenu === 'mobile-services' && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
@@ -581,23 +654,38 @@ const NavBar = () => {
                       className="pl-4"
                     >
                       {getServiceCategories().map((category, index) => (
-                        <div key={index} className="py-2">
-                          <h3 className="px-3 text-sm font-semibold text-gray-900 flex items-center">
-                            {category.icon}
-                            <span className="ml-2">{category.title}</span>
-                          </h3>
-                          <ul className="mt-1">
-                            {category.submenu.map((item, idx) => (
-                              <li key={idx}>
-                                <Link
-                                  to={item.path}
-                                  className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                                >
-                                  {item.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
+                        <div key={index} className="py-1">
+                          <button
+                            onClick={() => setActiveSubmenu(activeSubmenu === category.title ? null : category.title)}
+                            className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                          >
+                            <div className="flex items-center space-x-2">
+                              {category.icon}
+                              <span>{category.title}</span>
+                            </div>
+                            <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === category.title ? 'rotate-180' : ''}`} />
+                          </button>
+
+                          <AnimatePresence>
+                            {activeSubmenu === category.title && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="pl-4"
+                              >
+                                {category.submenu.map((item, idx) => (
+                                  <Link
+                                    key={idx}
+                                    to={item.path}
+                                    className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                                  >
+                                    {item.title}
+                                  </Link>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
                       ))}
                     </motion.div>
@@ -605,18 +693,18 @@ const NavBar = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Mobile Industries Accordion */}
+              {/* Mobile Industries Accordion - Similar structure */}
               <div className="space-y-2">
                 <button
-                  onClick={() => toggleSubmenu('mobile-industries')}
+                  onClick={() => setActiveMenu(activeMenu === 'mobile-industries' ? null : 'mobile-industries')}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                 >
                   <span>Industries</span>
-                  <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === 'mobile-industries' ? 'rotate-180' : ''}`} />
+                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-industries' ? 'rotate-180' : ''}`} />
                 </button>
-                
+
                 <AnimatePresence>
-                  {activeSubmenu === 'mobile-industries' && (
+                  {activeMenu === 'mobile-industries' && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
@@ -624,23 +712,38 @@ const NavBar = () => {
                       className="pl-4"
                     >
                       {getIndustryCategories().map((category, index) => (
-                        <div key={index} className="py-2">
-                          <h3 className="px-3 text-sm font-semibold text-gray-900 flex items-center">
-                            {category.icon}
-                            <span className="ml-2">{category.title}</span>
-                          </h3>
-                          <ul className="mt-1">
-                            {category.submenu.map((item, idx) => (
-                              <li key={idx}>
-                                <Link
-                                  to={item.path}
-                                  className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                                >
-                                  {item.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
+                        <div key={index} className="py-1">
+                          <button
+                            onClick={() => setActiveSubmenu(activeSubmenu === category.title ? null : category.title)}
+                            className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                          >
+                            <div className="flex items-center space-x-2">
+                              {category.icon}
+                              <span>{category.title}</span>
+                            </div>
+                            <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === category.title ? 'rotate-180' : ''}`} />
+                          </button>
+
+                          <AnimatePresence>
+                            {activeSubmenu === category.title && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="pl-4"
+                              >
+                                {category.submenu.map((item, idx) => (
+                                  <Link
+                                    key={idx}
+                                    to={item.path}
+                                    className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                                  >
+                                    {item.title}
+                                  </Link>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
                       ))}
                     </motion.div>
