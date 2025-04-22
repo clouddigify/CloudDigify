@@ -16,6 +16,12 @@ const PageEditor = () => {
   const [showStyleOptions, setShowStyleOptions] = useState(false);
   const [selectedColor, setSelectedColor] = useState('#0070f3'); // Default blue
   const editorRef = useRef(null);
+  
+  // Add new state variables for images
+  const [showImageSelector, setShowImageSelector] = useState(false);
+  const [siteImages, setSiteImages] = useState([]);
+  const [loadingImages, setLoadingImages] = useState(false);
+  const [imageError, setImageError] = useState(null);
 
   // Predefined color palette
   const colorPalette = [
@@ -457,6 +463,28 @@ const PageEditor = () => {
       .join(' ');
   };
 
+  // Load site images
+  const fetchSiteImages = async () => {
+    setLoadingImages(true);
+    setImageError(null);
+    try {
+      const response = await fetch('/api/images');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch images');
+      }
+      
+      const data = await response.json();
+      setSiteImages(data);
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      setImageError('Failed to load images. Please try again.');
+    } finally {
+      setLoadingImages(false);
+    }
+  };
+
+  // Modify handleSave to improve error handling
   const handleSave = async () => {
     // Prepare the content for saving - convert from visual editor format back to React format
     const contentToSave = viewMode === 'visual' ? prepareContentForSave(content) : content;
@@ -471,6 +499,9 @@ const PageEditor = () => {
     setSaveMessage('Saving...');
 
     try {
+      console.log('Saving content with auth token:', localStorage.getItem('authToken') ? 'Token exists' : 'No token');
+      console.log('Content path:', pagePath);
+      
       const response = await fetch('/api/content', {
         method: 'POST',
         headers: {
@@ -485,9 +516,21 @@ const PageEditor = () => {
         })
       });
 
+      // Log response for debugging
+      const responseText = await response.text();
+      console.log('API Response status:', response.status);
+      console.log('API Response text:', responseText);
+      
+      let responseData;
+      try {
+        responseData = JSON.parse(responseText);
+      } catch (e) {
+        // If not valid JSON, use text as message
+        responseData = { message: responseText || 'Unknown error' };
+      }
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to save content');
+        throw new Error(responseData.message || 'Failed to save content');
       }
 
       setOriginalContent(contentToSave);
@@ -627,6 +670,34 @@ const PageEditor = () => {
     }, 100);
   };
 
+  // Add a function to handle image insertion
+  const handleImageClick = (image) => {
+    if (!editorRef.current) return;
+    
+    // Create image HTML
+    const imageHtml = `<img src="${image.url}" alt="${image.description || image.name}" style="max-width: 100%; height: auto;" />`;
+    
+    // Insert at cursor position or append to editor
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      const node = document.createElement('div');
+      node.innerHTML = imageHtml;
+      range.deleteContents();
+      range.insertNode(node.firstChild);
+    } else {
+      // If no selection, append to editor
+      editorRef.current.innerHTML += imageHtml;
+    }
+    
+    // Update content state
+    setContent(editorRef.current.innerHTML);
+    
+    // Close the image selector
+    setShowImageSelector(false);
+  };
+
+  // Modify the insertElement function to handle image selection
   const insertElement = (type) => {
     if (!editorRef.current) return;
     
@@ -642,10 +713,10 @@ const PageEditor = () => {
         element.textContent = 'New paragraph text...';
         break;
       case 'image':
-        // For image, we'll just insert a placeholder
-        element = document.createElement('div');
-        element.innerHTML = '<div style="background-color: #f0f0f0; padding: 2rem; text-align: center;">[Image Placeholder - Replace with actual image]</div>';
-        break;
+        // Instead of inserting a placeholder, show the image selector
+        setShowImageSelector(true);
+        fetchSiteImages();
+        return; // Exit early
       case 'button':
         element = document.createElement('button');
         element.textContent = 'Button Text';
@@ -713,6 +784,60 @@ const PageEditor = () => {
   const handleBack = () => {
     navigate('/admin/dashboard');
   };
+
+  // Add this to the component's JSX, right after the editor container
+  const imageSelector = showImageSelector && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg max-w-3xl w-full max-h-[80vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-semibold">Select an Image</h3>
+          <button 
+            onClick={() => setShowImageSelector(false)}
+            className="text-gray-500 hover:text-gray-700"
+          >
+            &times;
+          </button>
+        </div>
+        
+        {loadingImages ? (
+          <div className="text-center py-8">Loading images...</div>
+        ) : imageError ? (
+          <div className="text-center py-8 text-red-600">{imageError}</div>
+        ) : siteImages.length === 0 ? (
+          <div className="text-center py-8">
+            <p>No images found.</p>
+            <button 
+              onClick={() => navigate('/admin/dashboard')}
+              className="mt-2 text-blue-600 hover:underline"
+            >
+              Upload images in Dashboard
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {siteImages.map(image => (
+              <div 
+                key={image.id}
+                className="border rounded overflow-hidden cursor-pointer hover:border-blue-500"
+                onClick={() => handleImageClick(image)}
+              >
+                <div className="h-32 bg-gray-100 flex items-center justify-center">
+                  <img 
+                    src={image.url} 
+                    alt={image.description || image.name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <div className="p-2">
+                  <div className="text-sm truncate">{image.name}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div className="page-editor">
@@ -849,6 +974,9 @@ const PageEditor = () => {
           {originalContent !== content && 'Unsaved changes'}
         </div>
       </div>
+      
+      {/* Image selector modal */}
+      {imageSelector}
     </div>
   );
 };

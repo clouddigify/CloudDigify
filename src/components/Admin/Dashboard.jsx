@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaHome, FaUsers, FaFileAlt, FaImages, FaBars, FaSignOutAlt, FaUser, FaEdit } from 'react-icons/fa';
+import { FaHome, FaUsers, FaFileAlt, FaImages, FaBars, FaSignOutAlt, FaUser, FaEdit, FaUpload, FaTrash, FaCheck, FaTimes } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -12,6 +12,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [username, setUsername] = useState('');
+  const [images, setImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState({ success: false, error: null });
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,8 +42,10 @@ const Dashboard = () => {
       return;
     }
     
-    // Load pages
+    // Load pages and menu items on initial render
     fetchPages();
+    fetchMenuItems();
+    fetchImages();
   }, [navigate]);
   
   // Simple base64 decode function
@@ -47,6 +54,27 @@ const Dashboard = () => {
       return decodeURIComponent(escape(window.atob(str)));
     } catch (e) {
       return window.atob(str);
+    }
+  };
+  
+  const fetchMenuItems = async () => {
+    setIsLoading(true);
+    try {
+      console.log('Fetching menu items...');
+      const response = await fetch('/api/menus');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch menu items');
+      }
+      
+      const data = await response.json();
+      console.log('Fetched menu items:', data);
+      setMenuItems(data);
+    } catch (err) {
+      console.error('Error fetching menu items:', err);
+      setError('Failed to load menu items. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
   
@@ -155,9 +183,286 @@ const Dashboard = () => {
     }
   };
 
+  const fetchImages = async () => {
+    setImageLoading(true);
+    try {
+      console.log('Fetching images...');
+      const response = await fetch('/api/images');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch images');
+      }
+      
+      const data = await response.json();
+      console.log('Fetched images:', data);
+      setImages(data);
+    } catch (err) {
+      console.error('Error fetching images:', err);
+      setError('Failed to load images. Please try again.');
+    } finally {
+      setImageLoading(false);
+    }
+  };
+
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    // Validate file is an image
+    if (!file.type.match('image.*')) {
+      setUploadStatus({ success: false, error: 'Please select an image file (PNG, JPG, GIF)' });
+      return;
+    }
+    
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadStatus({ success: false, error: 'Image must be less than 5MB' });
+      return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setSelectedImage({
+        file: file,
+        preview: e.target.result,
+        name: file.name,
+        description: ''
+      });
+      setUploadStatus({ success: false, error: null });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDescriptionChange = (e) => {
+    if (selectedImage) {
+      setSelectedImage({
+        ...selectedImage,
+        description: e.target.value
+      });
+    }
+  };
+
+  const handleImageUpload = async () => {
+    if (!selectedImage) return;
+    
+    setImageLoading(true);
+    setUploadStatus({ success: false, error: null });
+    
+    try {
+      // Generate a safe filename (remove spaces, special chars)
+      const safeFileName = selectedImage.file.name
+        .toLowerCase()
+        .replace(/[^a-z0-9.]/g, '-');
+        
+      const response = await fetch('/api/images', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+        body: JSON.stringify({
+          imageData: selectedImage.preview,
+          fileName: safeFileName,
+          description: selectedImage.description
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to upload image');
+      }
+      
+      // Reset form and refresh images
+      setSelectedImage(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      fetchImages();
+      setUploadStatus({ success: true, error: null });
+    } catch (err) {
+      console.error('Error uploading image:', err);
+      setUploadStatus({ success: false, error: err.message || 'Failed to upload image' });
+    } finally {
+      setImageLoading(false);
+    }
+  };
+
+  const handleDeleteImage = async (imageId) => {
+    if (!window.confirm('Are you sure you want to delete this image? This cannot be undone.')) {
+      return;
+    }
+    
+    setImageLoading(true);
+    try {
+      const response = await fetch(`/api/images/${imageId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+      });
+      
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Failed to delete image');
+      }
+      
+      // Refresh images
+      fetchImages();
+    } catch (err) {
+      console.error('Error deleting image:', err);
+      setError('Failed to delete image. Please try again.');
+    } finally {
+      setImageLoading(false);
+    }
+  };
+
   if (!isAuthenticated) {
     return <Navigate to="/admin/login" />;
   }
+
+  const renderImagesTab = () => (
+    <div className="bg-white p-6 rounded-lg shadow">
+      <h2 className="text-xl font-semibold mb-4">Manage Images</h2>
+      
+      <div className="mb-8 p-4 border rounded-lg">
+        <h3 className="text-lg font-medium mb-3">Upload New Image</h3>
+        
+        {uploadStatus.success && (
+          <div className="mb-4 p-3 bg-green-100 text-green-700 rounded flex items-center">
+            <FaCheck className="mr-2" />
+            Image uploaded successfully!
+          </div>
+        )}
+        
+        {uploadStatus.error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded flex items-center">
+            <FaTimes className="mr-2" />
+            {uploadStatus.error}
+          </div>
+        )}
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Select Image
+            </label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageSelect}
+              className="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded file:border-0
+                file:text-sm file:font-semibold
+                file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100"
+            />
+            
+            {selectedImage && (
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Image Description (optional)
+                </label>
+                <input
+                  type="text"
+                  value={selectedImage.description}
+                  onChange={handleDescriptionChange}
+                  placeholder="Enter image description"
+                  className="w-full p-2 border rounded"
+                />
+              </div>
+            )}
+            
+            <div className="mt-4">
+              <button
+                onClick={handleImageUpload}
+                disabled={!selectedImage || imageLoading}
+                className={`flex items-center justify-center px-4 py-2 rounded ${
+                  !selectedImage || imageLoading
+                    ? 'bg-gray-300 cursor-not-allowed'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                }`}
+              >
+                {imageLoading ? (
+                  <>Loading...</>
+                ) : (
+                  <>
+                    <FaUpload className="mr-2" />
+                    Upload Image
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+          
+          <div>
+            {selectedImage && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Preview
+                </label>
+                <div className="relative border rounded-lg overflow-hidden h-60 bg-gray-100 flex items-center justify-center">
+                  <img
+                    src={selectedImage.preview}
+                    alt="Preview"
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <p className="mt-1 text-sm text-gray-500">
+                  {selectedImage.file.name} - {Math.round(selectedImage.file.size / 1024)}KB
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3 className="text-lg font-medium mb-3">Image Gallery</h3>
+        {imageLoading && !selectedImage ? (
+          <p className="text-gray-500">Loading images...</p>
+        ) : images.length === 0 ? (
+          <p className="text-gray-500">No images found. Upload some using the form above.</p>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {images.map((image) => (
+              <div key={image.id} className="border rounded-lg overflow-hidden">
+                <div className="h-40 bg-gray-100 flex items-center justify-center">
+                  <img
+                    src={image.url}
+                    alt={image.description || image.name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <div className="p-3">
+                  <div className="font-medium truncate">{image.name}</div>
+                  {image.description && (
+                    <div className="text-sm text-gray-500 truncate">{image.description}</div>
+                  )}
+                  <div className="mt-2 flex justify-between items-center">
+                    <a
+                      href={image.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-600 hover:text-blue-800"
+                    >
+                      View
+                    </a>
+                    <button
+                      onClick={() => handleDeleteImage(image.id)}
+                      className="text-sm text-red-600 hover:text-red-800"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -413,64 +718,7 @@ const Dashboard = () => {
             </div>
           )}
 
-          {activeTab === 'images' && (
-            <div className="bg-white p-6 rounded-lg shadow">
-              <h2 className="text-xl font-semibold mb-4">Manage Images</h2>
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Upload New Image
-                </label>
-                <div className="flex items-center">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="block w-full text-sm text-gray-500
-                      file:mr-4 file:py-2 file:px-4
-                      file:rounded file:border-0
-                      file:text-sm file:font-semibold
-                      file:bg-blue-50 file:text-blue-700
-                      hover:file:bg-blue-100"
-                  />
-                  <button
-                    className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  >
-                    Upload
-                  </button>
-                </div>
-              </div>
-              
-              <h3 className="text-lg font-medium mb-3">Image Gallery</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div className="border rounded overflow-hidden">
-                  <div className="h-32 bg-gray-200"></div>
-                  <div className="p-2">
-                    <div className="text-sm truncate">header-image.jpg</div>
-                    <button className="text-xs text-red-600 hover:text-red-800">
-                      Delete
-                    </button>
-                  </div>
-                </div>
-                <div className="border rounded overflow-hidden">
-                  <div className="h-32 bg-gray-200"></div>
-                  <div className="p-2">
-                    <div className="text-sm truncate">about-hero.jpg</div>
-                    <button className="text-xs text-red-600 hover:text-red-800">
-                      Delete
-                    </button>
-                  </div>
-                </div>
-                <div className="border rounded overflow-hidden">
-                  <div className="h-32 bg-gray-200"></div>
-                  <div className="p-2">
-                    <div className="text-sm truncate">service-cloud.jpg</div>
-                    <button className="text-xs text-red-600 hover:text-red-800">
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          {activeTab === 'images' && renderImagesTab()}
 
           {activeTab === 'users' && (
             <div className="bg-white p-6 rounded-lg shadow">
