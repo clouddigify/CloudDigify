@@ -155,7 +155,7 @@ const Services = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {serviceCategories.map((service, index) => (
-  <motion.div 
+              <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -196,8 +196,8 @@ const Services = () => {
               </motion.div>
             ))}
           </div>
-      </div>
-    </section>
+        </div>
+      </section>
 
       {/* Additional Services */}
       <section className="py-16 bg-gray-50">
@@ -225,22 +225,22 @@ const Services = () => {
                 <div className="mb-4">{service.icon}</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
-            <Link 
+                <Link
                   to={service.path}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
-            >
-              Learn More 
+                >
+                  Learn More
                   <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-            </Link>
+                </Link>
               </motion.div>
             ))}
           </div>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    {/* CTA Section */}
+      {/* CTA Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -257,23 +257,23 @@ const Services = () => {
                 </h2>
                 <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
                   Let's discuss how our services can drive your digital transformation journey
-        </p>
-        <Link
-          to="/contact"
+                </p>
+                <Link
+                  to="/contact"
                   className="inline-flex items-center px-8 py-4 rounded-full bg-white text-blue-600 font-semibold hover:bg-blue-50 transition-all duration-200 group"
-        >
+                >
                   Get Started
                   <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-        </Link>
+                </Link>
               </div>
             </div>
           </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
     </PageTemplate>
-);
+  );
 };
 
 export default Services; 
