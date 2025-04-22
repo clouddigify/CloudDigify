@@ -1,15 +1,19 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { FaCodeBranch, FaSyncAlt, FaRocket, FaTools, FaClipboardCheck, FaLock, FaChartLine, FaCheckCircle } from 'react-icons/fa';
+import PageTemplate from '../../templates/PageTemplate';
 
 const DevOps = () => {
-  // Customize these values for this service
-  const serviceInfo = {
+  // Define the service info object
+  const pageInfo = {
     title: "DevOps & CI/CD Services",
     description: "Accelerate your software delivery with streamlined DevOps processes, automated pipelines, and continuous integration and deployment.",
-    icon: <FaCodeBranch className="text-indigo-500 text-4xl mb-4" />,
+    icon: <FaCodeBranch />,
     heroBackground: "from-indigo-600 to-purple-700",
+    
+    overviewTitle: "Streamline Your Software Delivery",
+    overviewDescription1: "In today's fast-paced digital landscape, the ability to deliver software quickly, consistently, and reliably is critical for business success. DevOps breaks down silos between development and operations teams, creating an environment where building, testing, and releasing software happens rapidly and consistently.",
+    overviewDescription2: "Our DevOps services help organizations implement the tooling, processes, and cultural changes needed to accelerate software delivery while maintaining stability and security. From continuous integration and deployment pipelines to infrastructure automation and monitoring solutions, we provide end-to-end DevOps expertise.",
+    
     benefits: [
       "Faster time-to-market with automated deployment pipelines",
       "Improved code quality through continuous integration practices",
@@ -17,6 +21,19 @@ const DevOps = () => {
       "Enhanced stability and reliability of applications",
       "Greater team collaboration between development and operations"
     ],
+    
+    sidebarTitle: "Our DevOps Approach",
+    approachPoints: [
+      "Automation-first mindset",
+      "Continuous integration/delivery",
+      "Infrastructure as code",
+      "Monitoring and observability",
+      "Collaborative culture"
+    ],
+    secondaryCta: "Get Expert Advice",
+    
+    featuresTitle: "Our DevOps Services",
+    featuresDescription: "Comprehensive DevOps solutions to accelerate your software delivery and improve operational efficiency.",
     features: [
       {
         title: "DevOps Assessment & Strategy",
@@ -35,6 +52,141 @@ const DevOps = () => {
         description: "Modernize applications with container technologies and implement orchestration solutions for efficient management and scaling."
       }
     ],
+    
+    // Define custom sections
+    additionalSections: [
+      {
+        content: (
+          <>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-6">The DevOps Journey</h2>
+              <p className="text-gray-600 max-w-3xl mx-auto mb-12">
+                Our approach to implementing DevOps follows a proven methodology that drives continuous improvement.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-indigo-500 text-3xl mb-4 mx-auto">
+                  <FaClipboardCheck />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Assess</h3>
+                <p className="text-gray-600">
+                  Evaluate your current development practices, tooling, and challenges to establish a baseline.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-indigo-500 text-3xl mb-4 mx-auto">
+                  <FaTools />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Implement</h3>
+                <p className="text-gray-600">
+                  Set up CI/CD pipelines, automation tools, and monitoring solutions tailored to your needs.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-indigo-500 text-3xl mb-4 mx-auto">
+                  <FaRocket />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Accelerate</h3>
+                <p className="text-gray-600">
+                  Optimize your delivery pipeline, remove bottlenecks, and increase deployment frequency.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-indigo-500 text-3xl mb-4 mx-auto">
+                  <FaSyncAlt />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Evolve</h3>
+                <p className="text-gray-600">
+                  Continuously improve practices through metrics-driven feedback and process refinement.
+                </p>
+              </div>
+            </div>
+          </>
+        )
+      },
+      {
+        content: (
+          <>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-6">Key DevOps Metrics</h2>
+              <p className="text-gray-600 max-w-3xl mx-auto mb-12">
+                These key performance indicators measure the success of your DevOps transformation.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="text-indigo-500 text-3xl mb-4">
+                  <FaRocket />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Velocity Metrics</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <div>
+                      <span className="font-medium">Deployment Frequency</span>
+                      <p className="text-sm text-gray-600">How often you deploy code to production</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <div>
+                      <span className="font-medium">Lead Time for Changes</span>
+                      <p className="text-sm text-gray-600">Time from code commit to production deployment</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <div>
+                      <span className="font-medium">Time to Market</span>
+                      <p className="text-sm text-gray-600">Duration from idea conception to production release</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="text-indigo-500 text-3xl mb-4">
+                  <FaChartLine />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Quality & Stability Metrics</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <div>
+                      <span className="font-medium">Change Failure Rate</span>
+                      <p className="text-sm text-gray-600">Percentage of deployments causing production failures</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <div>
+                      <span className="font-medium">Mean Time to Recovery</span>
+                      <p className="text-sm text-gray-600">Average time to restore service after a failure</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <div>
+                      <span className="font-medium">Automated Test Coverage</span>
+                      <p className="text-sm text-gray-600">Percentage of code covered by automated tests</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </>
+        )
+      }
+    ],
+    
+    technologiesTitle: "DevOps Tools & Technologies",
+    technologiesDescription: "We leverage industry-leading technologies to implement robust DevOps solutions.",
     technologiesUsed: [
       "Jenkins",
       "GitLab CI",
@@ -49,9 +201,11 @@ const DevOps = () => {
       "Grafana",
       "ELK Stack"
     ],
+    
     caseStudy: {
       title: "DevOps Transformation",
       client: "Enterprise SaaS Provider",
+      industry: "Software",
       challenge: "A growing SaaS company was struggling with lengthy release cycles, taking 3-4 weeks to deploy new features. Their manual deployment processes were error-prone, leading to frequent production issues and requiring extensive developer time for operational tasks.",
       solution: "CloudDigify implemented a comprehensive DevOps transformation, including Git workflow standardization, Jenkins CI/CD pipelines with automated testing, infrastructure as code using Terraform, containerization with Docker and Kubernetes, and comprehensive monitoring with Prometheus and Grafana.",
       results: [
@@ -60,334 +214,14 @@ const DevOps = () => {
         "Improved developer productivity by 40% by eliminating manual operational tasks",
         "Enabled scaling to handle 10x traffic increases without performance degradation"
       ]
-    }
+    },
+    
+    ctaTitle: "Ready to Transform Your Software Delivery?",
+    ctaDescription: "Contact our DevOps experts today to discuss how we can help accelerate your development cycles while maintaining stability and security.",
+    finalCta: "Start Your DevOps Journey"
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="pb-16"
-    >
-      {/* Hero Section */}
-      <section className={`bg-gradient-to-r ${serviceInfo.heroBackground} text-white py-20 px-6`}>
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{serviceInfo.title}</h1>
-            <p className="text-xl opacity-90 mb-8">
-              {serviceInfo.description}
-            </p>
-            <Link
-              to="/contact"
-              className="inline-block bg-white text-indigo-700 px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-50 transition duration-300"
-            >
-              Schedule a Consultation
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Overview Section */}
-      <section className="py-16 px-8 bg-white">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <div className="flex flex-col md:flex-row gap-12">
-            <motion.div variants={itemVariants} className="md:w-2/3">
-              <h2 className="text-3xl font-bold mb-6">Streamline Your Software Delivery</h2>
-              <p className="text-gray-700 mb-6">
-                In today's fast-paced digital landscape, the ability to deliver software quickly, consistently, and reliably is critical for business success. DevOps breaks down silos between development and operations teams, creating an environment where building, testing, and releasing software happens rapidly and consistently.
-              </p>
-              <p className="text-gray-700 mb-8">
-                Our DevOps services help organizations implement the tooling, processes, and cultural changes needed to accelerate software delivery while maintaining stability and security. From continuous integration and deployment pipelines to infrastructure automation and monitoring solutions, we provide end-to-end DevOps expertise.
-              </p>
-              
-              <h3 className="text-xl font-semibold mb-4">Key Benefits</h3>
-              <ul className="space-y-3 mb-8">
-                {serviceInfo.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-green-500 mr-2">
-                      <FaCheckCircle className="mt-1" />
-                    </span>
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="md:w-1/3 bg-indigo-50 p-6 rounded-lg self-start">
-              <div className="text-5xl text-indigo-600 mb-6">
-                <FaRocket />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Our DevOps Approach</h3>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Automation-first mindset</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Continuous integration/delivery</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Infrastructure as code</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Monitoring and observability</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Collaborative culture</span>
-                </li>
-              </ul>
-              
-              <Link 
-                to="/contact" 
-                className="block text-center bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition duration-300"
-              >
-                Get Expert Advice
-              </Link>
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 px-8 bg-gray-50">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">Our DevOps Services</h2>
-            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
-              Comprehensive DevOps solutions to accelerate your software delivery and improve operational efficiency.
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {serviceInfo.features.map((feature, index) => (
-              <motion.div 
-                key={index} 
-                variants={itemVariants}
-                className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-              >
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-gray-700">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* DevOps Components Section */}
-      <section className="py-16 px-8 bg-white">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">Core DevOps Capabilities</h2>
-            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
-              Our DevOps solutions implement key practices across the software delivery lifecycle.
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <motion.div variants={itemVariants} className="flex flex-col p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mb-4">
-                <FaCodeBranch className="text-indigo-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Version Control & Git Workflows</h3>
-                <p className="text-gray-600">Implement robust version control practices and Git branching strategies that support your development model and team collaboration.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex flex-col p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mb-4">
-                <FaSyncAlt className="text-indigo-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Continuous Integration</h3>
-                <p className="text-gray-600">Automate build and test processes to catch issues early, improve code quality, and ensure that your codebase is always in a deployable state.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex flex-col p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mb-4">
-                <FaRocket className="text-indigo-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Continuous Deployment</h3>
-                <p className="text-gray-600">Implement automated deployment pipelines that safely and reliably deliver code to production with reduced manual intervention and risk.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex flex-col p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mb-4">
-                <FaTools className="text-indigo-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Infrastructure Automation</h3>
-                <p className="text-gray-600">Define and provision infrastructure using code to create consistent, repeatable environments and eliminate configuration drift.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex flex-col p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mb-4">
-                <FaClipboardCheck className="text-indigo-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Automated Testing</h3>
-                <p className="text-gray-600">Develop comprehensive test automation strategies including unit, integration, and end-to-end tests to validate code quality and functionality.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex flex-col p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mb-4">
-                <FaChartLine className="text-indigo-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Monitoring & Observability</h3>
-                <p className="text-gray-600">Implement robust monitoring, logging, and alerting solutions to gain visibility into application performance and quickly identify issues.</p>
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Technologies Section */}
-      <section className="py-16 px-8 bg-gray-50">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">Technologies & Tools</h2>
-            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-12">
-              We leverage industry-leading DevOps tools and platforms to deliver automated, efficient pipelines.
-            </p>
-          </motion.div>
-          
-          <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {serviceInfo.technologiesUsed.map((tech, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg text-center shadow-sm">
-                <span className="font-medium text-gray-800">{tech}</span>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Case Study Section */}
-      <section className="py-16 px-8 bg-white">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-5xl mx-auto"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">{serviceInfo.caseStudy.title}</motion.h2>
-          
-          <motion.div variants={itemVariants} className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-            <div className="mb-6 pb-6 border-b border-gray-100">
-              <h3 className="text-2xl font-semibold mb-2">{serviceInfo.caseStudy.client}</h3>
-              <div className="text-sm text-indigo-600 font-medium">Industry: Software</div>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-2">The Challenge</h4>
-              <p className="text-gray-700 mb-4">{serviceInfo.caseStudy.challenge}</p>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-2">Our Solution</h4>
-              <p className="text-gray-700 mb-4">{serviceInfo.caseStudy.solution}</p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-2">Results</h4>
-              <ul className="space-y-2">
-                {serviceInfo.caseStudy.results.map((result, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-gray-700">{result}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* DevOps Maturity Assessment CTA */}
-      <section className="py-16 px-6 bg-indigo-50">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-6">Ready to Transform Your Software Delivery?</motion.h2>
-          <motion.p variants={itemVariants} className="text-gray-700 mb-8 text-lg">
-            Contact our DevOps experts today to discuss how we can help accelerate your software delivery, improve reliability, and enhance collaboration between your development and operations teams.
-          </motion.p>
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              to="/contact"
-              className="bg-indigo-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-indigo-700 transition"
-            >
-              Schedule a DevOps Assessment
-            </Link>
-            <Link
-              to="/services"
-              className="bg-white text-indigo-600 border border-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-50 transition"
-            >
-              Explore All Services
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
-    </motion.div>
-  );
+  return <PageTemplate pageInfo={pageInfo} pageType="service" />;
 };
 
 export default DevOps; 

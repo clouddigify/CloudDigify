@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle, FaComments } from 'react-icons/fa';
+import PageTemplate from '../templates/PageTemplate';
 
 const QuickContact = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +29,6 @@ const QuickContact = () => {
     setFormStatus({ submitting: true, success: false, error: null });
     
     try {
-      // Send data to our API endpoint
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
@@ -37,7 +36,7 @@ const QuickContact = () => {
         },
         body: JSON.stringify({
           ...formData,
-          formType: 'quick-contact' // Specify this is quick contact form
+          formType: 'quick-contact'
         })
       });
       
@@ -47,7 +46,6 @@ const QuickContact = () => {
         throw new Error(data.error || 'Failed to submit form');
       }
       
-      // Clear form after successful submission
       setFormData({
         name: '',
         email: '',
@@ -61,7 +59,6 @@ const QuickContact = () => {
         error: null
       });
       
-      // Reset success message after 5 seconds
       setTimeout(() => {
         setFormStatus(prev => ({ ...prev, success: false }));
       }, 5000);
@@ -75,43 +72,169 @@ const QuickContact = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
+  const ContactForm = () => (
+    <div className="bg-white rounded-lg shadow-md p-8">
+      <h3 className="text-2xl font-bold mb-6">Request a Callback</h3>
+      
+      {formStatus.success && (
+        <div className="mb-6 bg-green-50 text-green-700 p-4 rounded-lg flex items-center">
+          <FaCheckCircle className="mr-2" />
+          <span>Thank you for your message! We'll get back to you shortly.</span>
+        </div>
+      )}
+      
+      {formStatus.error && (
+        <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-lg">
+          {formStatus.error}
+        </div>
+      )}
+      
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <div>
+          <label className="block text-gray-700 mb-2 font-medium">Name</label>
+          <input 
+            type="text" 
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Your name" 
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+          />
+        </div>
+        
+        <div>
+          <label className="block text-gray-700 mb-2 font-medium">Email</label>
+          <input 
+            type="email" 
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Your email" 
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+          />
+        </div>
+        
+        <div>
+          <label className="block text-gray-700 mb-2 font-medium">Phone</label>
+          <input 
+            type="tel" 
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Your phone number" 
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+          />
+        </div>
+        
+        <div>
+          <label className="block text-gray-700 mb-2 font-medium">Message</label>
+          <textarea 
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="How can we help you?" 
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            rows="4"
+          ></textarea>
+        </div>
+        
+        <div>
+          <button
+            type="submit" 
+            disabled={formStatus.submitting}
+            className={`w-full py-3 px-6 flex items-center justify-center rounded-lg text-white font-medium ${formStatus.submitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} transition-colors shadow-md`}
+          >
+            {formStatus.submitting ? 'Sending...' : (
+              <>
+                <FaPaperPlane className="mr-2" /> 
+                <span>Send Message</span>
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+
+  const pageInfo = {
+    title: "Contact Us",
+    description: "Get in touch with our team for any inquiries about our cloud services and solutions.",
+    icon: <FaComments />,
+    heroBackground: "from-blue-600 via-indigo-600 to-blue-800",
+
+    // Default text configurations
+    defaultCtaText: "Schedule a Call",
+    defaultOverviewTitle: "Get in Touch",
+    defaultBenefitsTitle: "Why Contact Us",
+    defaultSidebarTitle: "Contact Information",
+    defaultFeaturesTitle: "How We Can Help",
+    defaultCtaDescription: "Ready to start your cloud journey? Let's talk!",
+
+    // Overview section
+    overviewTitle: "Get in Touch",
+    overviewDescription1: "Our team is ready to answer your questions and help you with your cloud journey.",
+    overviewDescription2: "Whether you need technical support, want to discuss a project, or learn more about our services, we're here to help.",
+
+    // Benefits section
+    benefitsTitle: "Why Contact Us",
+    benefits: [
+      "24/7 Technical Support - Always available when you need us",
+      "Expert Consultation - Get advice from cloud specialists",
+      "Quick Response Time - We respond within 24 hours",
+      "Custom Solutions - Tailored to your specific needs",
+      "Free Initial Consultation - No commitment required",
+      "Multiple Communication Channels - Choose what works best for you"
+    ],
+
+    // Sidebar content
+    sidebarTitle: "Contact Information",
+    approachPoints: [
+      "Email: info@clouddigify.com",
+      "Phone: +1 800 123 4567",
+      "Address: 10432 Innovation Drive",
+      "San Francisco, CA 94103",
+      "Hours: Mon-Fri 9AM-6PM PST",
+      "Emergency Support: 24/7"
+    ],
+
+    // Features section
+    featuresTitle: "How We Can Help",
+    featuresDescription: "Our team provides support across various areas",
+    features: [
+      {
+        title: "Technical Support",
+        description: "Get help with technical issues and implementation",
+        icon: <FaCheckCircle />,
+        link: "#technical-support"
+      },
+      {
+        title: "Sales Inquiries",
+        description: "Learn more about our services and pricing",
+        icon: <FaCheckCircle />,
+        link: "#sales"
+      },
+      {
+        title: "Partnership Opportunities",
+        description: "Explore collaboration possibilities",
+        icon: <FaCheckCircle />,
+        link: "#partnerships"
+      },
+      {
+        title: "Career Information",
+        description: "Join our growing team",
+        icon: <FaCheckCircle />,
+        link: "#careers"
       }
-    }
-  };
+    ],
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  return (
-    <section className="py-20 px-6 bg-gradient-to-b from-white to-gray-50">
-      <motion.div 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="max-w-6xl mx-auto"
-      >
-        <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto">
-            Our team is ready to answer your questions and help you with your cloud journey
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <motion.div variants={itemVariants}>
+    // Additional sections
+    additionalSections: [
+      {
+        content: (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="bg-white rounded-lg shadow-md p-8">
               <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
               <p className="text-gray-600 mb-8">
@@ -119,10 +242,7 @@ const QuickContact = () => {
               </p>
               
               <div className="space-y-6">
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex items-start space-x-4"
-                >
+                <div className="flex items-start space-x-4">
                   <div className="p-3 bg-blue-50 rounded-full text-blue-600">
                     <FaEnvelope className="h-5 w-5" />
                   </div>
@@ -130,12 +250,9 @@ const QuickContact = () => {
                     <h4 className="font-semibold text-gray-800">Email us</h4>
                     <p className="text-gray-600">info@clouddigify.com</p>
                   </div>
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex items-start space-x-4"
-                >
+                <div className="flex items-start space-x-4">
                   <div className="p-3 bg-blue-50 rounded-full text-blue-600">
                     <FaPhone className="h-5 w-5" />
                   </div>
@@ -143,12 +260,9 @@ const QuickContact = () => {
                     <h4 className="font-semibold text-gray-800">Call us</h4>
                     <p className="text-gray-600">+1 800 123 4567</p>
                   </div>
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex items-start space-x-4"
-                >
+                <div className="flex items-start space-x-4">
                   <div className="p-3 bg-blue-50 rounded-full text-blue-600">
                     <FaMapMarkerAlt className="h-5 w-5" />
                   </div>
@@ -159,107 +273,25 @@ const QuickContact = () => {
                       San Francisco, CA 94103
                     </p>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
-          </motion.div>
-          
-          <motion.div variants={itemVariants}>
-            <div className="bg-white rounded-lg shadow-md p-8">
-              <h3 className="text-2xl font-bold mb-6">Request a Callback</h3>
-              
-              {formStatus.success && (
-                <motion.div 
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 bg-green-50 text-green-700 p-4 rounded-lg flex items-center"
-                >
-                  <FaCheckCircle className="mr-2" />
-                  <span>Thank you for your message! We'll get back to you shortly.</span>
-                </motion.div>
-              )}
-              
-              {formStatus.error && (
-                <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-lg">
-                  {formStatus.error}
-                </div>
-              )}
-              
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">Name</label>
-                  <input 
-                    type="text" 
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your name" 
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">Email</label>
-                  <input 
-                    type="email" 
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Your email" 
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">Phone</label>
-                  <input 
-                    type="tel" 
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Your phone number" 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">Message</label>
-                  <textarea 
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="How can we help you?" 
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    rows="4"
-                  ></textarea>
-                </div>
-                
-                <div>
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit" 
-                    disabled={formStatus.submitting}
-                    className={`w-full py-3 px-6 flex items-center justify-center rounded-lg text-white font-medium ${formStatus.submitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} transition-colors shadow-md`}
-                  >
-                    {formStatus.submitting ? 'Sending...' : (
-                      <>
-                        <FaPaperPlane className="mr-2" /> 
-                        <span>Send Message</span>
-                      </>
-                    )}
-                  </motion.button>
-                </div>
-              </form>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
-    </section>
-  );
+            
+            <ContactForm />
+          </div>
+        )
+      }
+    ],
+
+    // Section visibility controls
+    showCta: true,
+    showBenefits: true,
+    showSidebar: true,
+    showFeatures: true,
+    showFeaturesDescription: true
+  };
+
+  return <PageTemplate pageInfo={pageInfo} pageType="content" />;
 };
 
 export default QuickContact; 

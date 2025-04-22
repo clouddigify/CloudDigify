@@ -1,18 +1,16 @@
 import React from 'react';
-import ServiceTemplate from '../../templates/ServiceTemplate';
+import PageTemplate from '../../templates/PageTemplate';
 import { FaChartLine, FaCoins, FaCogs, FaTachometerAlt, FaSearchDollar } from 'react-icons/fa';
 
 const CloudOptimization = () => {
-  const serviceInfo = {
+  const pageInfo = {
     title: "Cloud Optimization",
     description: "Maximize your cloud investment with our optimization services that reduce costs, enhance performance, and improve efficiency.",
     icon: <FaChartLine />,
     heroBackground: "from-green-600 to-teal-700",
     overviewTitle: "Optimize Your Cloud Environment",
-    overviewParagraphs: [
-      "Cloud optimization is the process of properly selecting, allocating, and right-sizing cloud resources to improve efficiency and reduce unnecessary costs. Many organizations find they're overspending on cloud resources that are underutilized or improperly configured.",
-      "Our cloud optimization services help you identify opportunities to reduce waste, improve performance, and enhance security across your cloud environment, ensuring you get the most value from your cloud investment."
-    ],
+    overviewDescription1: "Cloud optimization is the process of properly selecting, allocating, and right-sizing cloud resources to improve efficiency and reduce unnecessary costs. Many organizations find they're overspending on cloud resources that are underutilized or improperly configured.",
+    overviewDescription2: "Our cloud optimization services help you identify opportunities to reduce waste, improve performance, and enhance security across your cloud environment, ensuring you get the most value from your cloud investment.",
     benefits: [
       "Reduced cloud spending through resource right-sizing and reserved instances",
       "Improved application performance and responsiveness",
@@ -21,16 +19,16 @@ const CloudOptimization = () => {
       "Streamlined operations with automation and best practices"
     ],
     sidebarTitle: "Our Optimization Approach",
-    approach: [
+    approachPoints: [
       "Comprehensive cloud assessment",
       "Data-driven recommendations",
       "Automated right-sizing",
       "Continuous monitoring",
       "Regular optimization reviews"
     ],
-    sidebarCta: "Schedule Optimization Assessment",
+    secondaryCta: "Schedule Optimization Assessment",
     featuresTitle: "Our Cloud Optimization Services",
-    featuresSubtitle: "Comprehensive services to help you maximize the value of your cloud investment.",
+    featuresDescription: "Comprehensive services to help you maximize the value of your cloud investment.",
     features: [
       {
         title: "Cost Optimization",
@@ -49,92 +47,96 @@ const CloudOptimization = () => {
         description: "Streamline cloud operations through automation, improved monitoring, standardized workflows, and enhanced governance processes."
       }
     ],
-    middleSection: (
-      <>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-6">Our Optimization Process</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto">
-            We follow a proven methodology to identify, implement, and maintain cloud optimizations.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
-            <div className="text-green-500 text-3xl mb-4">
-              <FaSearchDollar />
+    additionalSections: [
+      {
+        content: (
+          <>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-6">Our Optimization Process</h2>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                We follow a proven methodology to identify, implement, and maintain cloud optimizations.
+              </p>
+                </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                <div className="text-green-500 text-3xl mb-4">
+                  <FaSearchDollar />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Assess</h3>
+                    <p className="text-gray-700">
+                  We conduct a comprehensive assessment of your current cloud environment, analyzing resource utilization, costs, performance metrics, and security configurations.
+                </p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Resource utilization analysis</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Cost trend identification</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Performance bottleneck detection</span>
+                  </li>
+                </ul>
+                </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                <div className="text-green-500 text-3xl mb-4">
+                  <FaCogs />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Implement</h3>
+                <p className="text-gray-700">
+                  Based on our assessment, we implement optimization recommendations to improve cost efficiency, performance, and operational excellence.
+                </p>
+                <ul className="mt-4 space-y-2">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Resource right-sizing</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Reserved instance purchases</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Architecture refinements</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                <div className="text-green-500 text-3xl mb-4">
+                  <FaTachometerAlt />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Monitor</h3>
+                <p className="text-gray-700">
+                  We establish continuous monitoring and regular optimization reviews to ensure ongoing benefits and adapt to changing requirements.
+                </p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Automated monitoring tools</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Regular optimization reports</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                    <span className="text-gray-600">Continuous improvement cycles</span>
+                </li>
+              </ul>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Assess</h3>
-            <p className="text-gray-700">
-              We conduct a comprehensive assessment of your current cloud environment, analyzing resource utilization, costs, performance metrics, and security configurations.
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Resource utilization analysis</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Cost trend identification</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Performance bottleneck detection</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
-            <div className="text-green-500 text-3xl mb-4">
-              <FaCogs />
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Implement</h3>
-            <p className="text-gray-700">
-              Based on our assessment, we implement optimization recommendations to improve cost efficiency, performance, and operational excellence.
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Resource right-sizing</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Reserved instance purchases</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Architecture refinements</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
-            <div className="text-green-500 text-3xl mb-4">
-              <FaTachometerAlt />
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Monitor</h3>
-            <p className="text-gray-700">
-              We establish continuous monitoring and regular optimization reviews to ensure ongoing benefits and adapt to changing requirements.
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Automated monitoring tools</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Regular optimization reports</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-600">Continuous improvement cycles</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </>
-    ),
+          </>
+        )
+      }
+    ],
     technologiesTitle: "Optimization Tools & Technologies",
-    technologiesSubtitle: "We use industry-leading tools and technologies to optimize your cloud environment.",
+    technologiesDescription: "We use industry-leading tools and technologies to optimize your cloud environment.",
     technologiesUsed: [
       "AWS Cost Explorer",
       "Azure Cost Management",
@@ -164,10 +166,10 @@ const CloudOptimization = () => {
     },
     ctaTitle: "Ready to Optimize Your Cloud Environment?",
     ctaDescription: "Contact our team to schedule a free cloud optimization assessment and discover your potential savings.",
-    ctaButtonText: "Get Your Free Assessment"
+    finalCta: "Get Your Free Assessment"
   };
 
-  return <ServiceTemplate serviceInfo={serviceInfo} />;
+  return <PageTemplate pageInfo={pageInfo} pageType="service" />;
 };
 
 export default CloudOptimization; 
