@@ -6,6 +6,7 @@ import NavBar   from './components/NavBar';
 import Footer   from './components/Footer';
 import Home     from './components/pages/Home';
 import Services from './components/pages/Services';
+import Industries from './components/pages/Industries';
 import Training from './components/pages/Training';
 import Blogs    from './components/pages/Blogs';
 import Contact  from './components/pages/Contact';
@@ -13,6 +14,8 @@ import About    from './components/pages/About';
 import TermsAndConditions from './components/pages/legal/TermsAndConditions';
 import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
 import CookiePolicy from './components/pages/legal/CookiePolicy';
+
+// Service pages
 import DevOps from './components/pages/services/DevOps';
 import CloudMigration from './components/pages/services/CloudMigration';
 import ManagedServices from './components/pages/services/ManagedServices';
@@ -23,6 +26,9 @@ import CloudOptimization from './components/pages/services/CloudOptimization';
 import DisasterRecovery from './components/pages/services/DisasterRecovery';
 import Containerization from './components/pages/services/Containerization';
 import Serverless from './components/pages/services/Serverless';
+
+// Industry pages
+import FinancialServices from './components/pages/industries/FinancialServices';
 
 // Admin components
 import AdminLogin from './components/Admin/Login';
@@ -45,6 +51,7 @@ const App = () => {
             <Route path="/"         element={<Home />} />
             <Route path="/about"    element={<About />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/industries" element={<Industries />} />
             <Route path="/training" element={<Training />} />
             <Route path="/blogs"    element={<Blogs />} />
             <Route path="/contact"  element={<Contact />} />
@@ -63,6 +70,9 @@ const App = () => {
             <Route path="/services/disaster-recovery" element={<DisasterRecovery />} />
             <Route path="/services/containerization" element={<Containerization />} />
             <Route path="/services/serverless" element={<Serverless />} />
+            
+            {/* Industry Routes */}
+            <Route path="/industries/financial-services" element={<FinancialServices />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
