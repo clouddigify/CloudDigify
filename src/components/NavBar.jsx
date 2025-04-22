@@ -227,20 +227,11 @@ const getIndustryCategories = () => {
 // Build navigation links
 const getNavLinks = () => {
 const links = [
-    { 
-      title: 'Home', 
-      path: '/', 
-      icon: <FaHome className="mr-2" />
-    },
-    { 
-      title: 'About', 
-      path: '/about',
-      icon: <FaLightbulb className="mr-2" />
-    },
+    { title: 'Home', path: '/' },
+    { title: 'About', path: '/about' },
     { 
       title: 'Services',
       path: '/services',
-      icon: <FaCogs className="mr-2" />,
       hasSubmenu: true,
       submenu: getServiceCategories(),
       isMultiLevel: true
@@ -248,26 +239,91 @@ const links = [
     { 
       title: 'Industries',
       path: '/industries',
-      icon: <FaIndustry className="mr-2" />,
       hasSubmenu: true,
       submenu: getIndustryCategories(),
       isMultiLevel: true
     },
     { 
-      title: 'Training', 
-      path: '/training',
-      icon: <FaGraduationCap className="mr-2" />
+      title: 'Training Services',
+      path: '/training-services',
+      icon: <FaGraduationCap className="mr-2" />,
+      hasSubmenu: true,
+      submenu: [
+        {
+          title: 'Cloud & DevOps',
+          icon: <FaCloud className="mr-2" />,
+          submenu: [
+            { title: 'AWS Certification Training', path: '/training-services/aws' },
+            { title: 'Azure Cloud Training', path: '/training-services/azure' },
+            { title: 'DevOps Tools & Practices', path: '/training-services/devops' },
+            { title: 'Kubernetes & Container Training', path: '/training-services/kubernetes' }
+          ]
+        },
+        {
+          title: 'Digital Transformation',
+          icon: <FaRocket className="mr-2" />,
+          submenu: [
+            { title: 'Agile & Scrum', path: '/training-services/agile' },
+            { title: 'Digital Leadership', path: '/training-services/leadership' },
+            { title: 'Innovation Workshops', path: '/training-services/innovation' }
+          ]
+        },
+        {
+          title: 'Enterprise Solutions',
+          icon: <FaCogs className="mr-2" />,
+          submenu: [
+            { title: 'Enterprise Architecture', path: '/training-services/architecture' },
+            { title: 'Microservices', path: '/training-services/microservices' },
+            { title: 'API Design & Development', path: '/training-services/api' }
+          ]
+        },
+        {
+          title: 'Security & Compliance',
+          icon: <FaShieldAlt className="mr-2" />,
+          submenu: [
+            { title: 'Cybersecurity Training', path: '/training-services/cybersecurity' },
+            { title: 'Compliance Workshops', path: '/training-services/compliance' },
+            { title: 'Security Best Practices', path: '/training-services/security' }
+          ]
+        }
+      ]
     },
     { 
-      title: 'Blogs', 
-      path: '/blogs',
-      icon: <FaBlog className="mr-2" />
+      title: 'Use Cases',
+      path: '/use-cases',
+      icon: <FaLightbulb className="mr-2" />,
+      hasSubmenu: true,
+      submenu: [
+        {
+          title: 'Success Stories',
+          icon: <FaChartLine className="mr-2" />,
+          submenu: [
+            { title: 'Enterprise Transformation', path: '/use-cases/enterprise' },
+            { title: 'Cloud Migration', path: '/use-cases/migration' },
+            { title: 'Digital Innovation', path: '/use-cases/innovation' }
+          ]
+        },
+        {
+          title: 'Solutions Portfolio',
+          icon: <FaCubes className="mr-2" />,
+          submenu: [
+            { title: 'Custom Solutions', path: '/use-cases/custom-solutions' },
+            { title: 'Industry Solutions', path: '/use-cases/industry-solutions' },
+            { title: 'Platform Solutions', path: '/use-cases/platform-solutions' }
+          ]
+        },
+        {
+          title: 'IP & Accelerators',
+          icon: <FaRocket className="mr-2" />,
+          submenu: [
+            { title: 'Reusable Components', path: '/use-cases/components' },
+            { title: 'Frameworks', path: '/use-cases/frameworks' },
+            { title: 'Tools & Utilities', path: '/use-cases/tools' }
+          ]
+        }
+      ]
     },
-    { 
-      title: 'Contact', 
-      path: '/contact',
-      icon: <FaEnvelope className="mr-2" />
-    }
+    { title: 'Contact', path: '/contact' }
   ];
   
   return links;
@@ -434,22 +490,22 @@ const NavBar = () => {
               Home
             </NavLink>
 
-            {/* Services Mega Menu */}
+            {/* Training Services Mega Menu */}
             <div 
               className="relative"
-              onMouseEnter={() => handleMenuEnter('services')}
+              onMouseEnter={() => handleMenuEnter('training')}
               onMouseLeave={handleMenuLeave}
             >
               <button 
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
-                <FaCogs className="mr-2" />
-                <span>Services</span>
-                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'services' ? 'rotate-180' : ''}`} />
+                <FaGraduationCap className="mr-2" />
+                <span>Training Services</span>
+                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'training' ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
-                {activeMenu === 'services' && (
+                {activeMenu === 'training' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -461,7 +517,7 @@ const NavBar = () => {
                     <div className="flex h-[500px]">
                       {/* Primary Menu */}
                       <div className="w-1/3 bg-gray-50 p-4 border-r border-gray-100">
-                        {getServiceCategories().map((category, index) => (
+                        {getNavLinks().find(link => link.title === 'Training Services')?.submenu.map((category, index) => (
                           <motion.div
                             key={index}
                             className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${activeSubmenu === category.title ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
@@ -490,20 +546,23 @@ const NavBar = () => {
                               transition={{ duration: 0.2 }}
                               className="h-full"
                             >
-                              {getServiceCategories().find(cat => cat.title === activeSubmenu)?.submenu.map((item, idx) => (
-                                <Link
-                                  key={idx}
-                                  to={item.path}
-                                  className="block p-3 rounded-lg hover:bg-gray-50 group"
-                                >
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
-                                      {item.title}
-                                    </span>
-                                    <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
-                                  </div>
-                                </Link>
-                              ))}
+                              {getNavLinks()
+                                .find(link => link.title === 'Training Services')
+                                ?.submenu.find(cat => cat.title === activeSubmenu)
+                                ?.submenu.map((item, idx) => (
+                                  <Link
+                                    key={idx}
+                                    to={item.path}
+                                    className="block p-3 rounded-lg hover:bg-gray-50 group"
+                                  >
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
+                                        {item.title}
+                                      </span>
+                                      <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+                                    </div>
+                                  </Link>
+                                ))}
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -514,22 +573,22 @@ const NavBar = () => {
               </AnimatePresence>
             </div>
 
-            {/* Industries Mega Menu - Similar structure to Services */}
+            {/* Use Cases Mega Menu */}
             <div 
               className="relative"
-              onMouseEnter={() => handleMenuEnter('industries')}
+              onMouseEnter={() => handleMenuEnter('use-cases')}
               onMouseLeave={handleMenuLeave}
             >
               <button 
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
-                <FaIndustry className="mr-2" />
-                <span>Industries</span>
-                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'industries' ? 'rotate-180' : ''}`} />
+                <FaLightbulb className="mr-2" />
+                <span>Use Cases</span>
+                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'use-cases' ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
-                {activeMenu === 'industries' && (
+                {activeMenu === 'use-cases' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -541,7 +600,7 @@ const NavBar = () => {
                     <div className="flex h-[500px]">
                       {/* Primary Menu */}
                       <div className="w-1/3 bg-gray-50 p-4 border-r border-gray-100">
-                        {getIndustryCategories().map((category, index) => (
+                        {getNavLinks().find(link => link.title === 'Use Cases')?.submenu.map((category, index) => (
                           <motion.div
                             key={index}
                             className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${activeSubmenu === category.title ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
@@ -570,20 +629,23 @@ const NavBar = () => {
                               transition={{ duration: 0.2 }}
                               className="h-full"
                             >
-                              {getIndustryCategories().find(cat => cat.title === activeSubmenu)?.submenu.map((item, idx) => (
-                                <Link
-                                  key={idx}
-                                  to={item.path}
-                                  className="block p-3 rounded-lg hover:bg-gray-50 group"
-                                >
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
-                                      {item.title}
-                                    </span>
-                                    <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
-                                  </div>
-                                </Link>
-                              ))}
+                              {getNavLinks()
+                                .find(link => link.title === 'Use Cases')
+                                ?.submenu.find(cat => cat.title === activeSubmenu)
+                                ?.submenu.map((item, idx) => (
+                                  <Link
+                                    key={idx}
+                                    to={item.path}
+                                    className="block p-3 rounded-lg hover:bg-gray-50 group"
+                                  >
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
+                                        {item.title}
+                                      </span>
+                                      <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+                                    </div>
+                                  </Link>
+                                ))}
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -596,43 +658,13 @@ const NavBar = () => {
 
             {/* Other Navigation Links */}
             <NavLink 
-              to="/training" 
-              className={({ isActive }) => 
-                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
-              }
-            >
-              <FaGraduationCap className="mr-2" />
-              Training
-            </NavLink>
-            
-            <NavLink 
-              to="/blogs" 
-              className={({ isActive }) => 
-                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
-              }
-            >
-              <FaBlog className="mr-2" />
-              Blogs
-            </NavLink>
-
-            {/* Search Button */}
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200"
-              aria-label="Search"
-            >
-              <FaSearch />
-            </button>
-
-            {/* Contact Button */}
-            <Link
               to="/contact"
               className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 group"
             >
               <FaEnvelope className="mr-2" />
               Contact Us
               <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </NavLink>
           </div>
 
           {/* Mobile menu button */}
@@ -663,25 +695,25 @@ const NavBar = () => {
                 Home
               </Link>
 
-              {/* Mobile Services Accordion */}
+              {/* Mobile Training Services Accordion */}
               <div className="space-y-2">
                 <button
-                  onClick={() => setActiveMenu(activeMenu === 'mobile-services' ? null : 'mobile-services')}
+                  onClick={() => setActiveMenu(activeMenu === 'mobile-training' ? null : 'mobile-training')}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                 >
-                  <span>Services</span>
-                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-services' ? 'rotate-180' : ''}`} />
+                  <span>Training Services</span>
+                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-training' ? 'rotate-180' : ''}`} />
                 </button>
 
                 <AnimatePresence>
-                  {activeMenu === 'mobile-services' && (
+                  {activeMenu === 'mobile-training' && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       className="pl-4"
                     >
-                      {getServiceCategories().map((category, index) => (
+                      {getNavLinks().find(link => link.title === 'Training Services')?.submenu.map((category, index) => (
                         <div key={index} className="py-1">
                           <button
                             onClick={() => setActiveSubmenu(activeSubmenu === category.title ? null : category.title)}
@@ -721,25 +753,25 @@ const NavBar = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Mobile Industries Accordion - Similar structure */}
+              {/* Mobile Use Cases Accordion */}
               <div className="space-y-2">
                 <button
-                  onClick={() => setActiveMenu(activeMenu === 'mobile-industries' ? null : 'mobile-industries')}
+                  onClick={() => setActiveMenu(activeMenu === 'mobile-use-cases' ? null : 'mobile-use-cases')}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                 >
-                  <span>Industries</span>
-                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-industries' ? 'rotate-180' : ''}`} />
+                  <span>Use Cases</span>
+                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-use-cases' ? 'rotate-180' : ''}`} />
                 </button>
 
                 <AnimatePresence>
-                  {activeMenu === 'mobile-industries' && (
+                  {activeMenu === 'mobile-use-cases' && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       className="pl-4"
                     >
-                      {getIndustryCategories().map((category, index) => (
+                      {getNavLinks().find(link => link.title === 'Use Cases')?.submenu.map((category, index) => (
                         <div key={index} className="py-1">
                           <button
                             onClick={() => setActiveSubmenu(activeSubmenu === category.title ? null : category.title)}
@@ -779,20 +811,6 @@ const NavBar = () => {
                 </AnimatePresence>
               </div>
 
-              <Link
-                to="/training"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-              >
-                Training
-              </Link>
-              
-              <Link
-                to="/blogs"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-              >
-                Blogs
-              </Link>
-              
               <Link
                 to="/contact"
                 className="block px-3 py-2 rounded-md text-base font-medium bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700"
