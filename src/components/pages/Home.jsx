@@ -104,7 +104,7 @@ const Home = () => {
         
         {/* Content Container */}
         <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
-          <motion.div
+  <motion.div
             className="flex flex-col md:flex-row items-center"
             variants={containerVariants}
             initial="hidden"
@@ -117,18 +117,18 @@ const Home = () => {
                   Cloud Solutions That Scale
                 </span>
               </motion.div>
-              <motion.h1 
+      <motion.h1
                 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 text-transparent bg-clip-text"
                 variants={itemVariants}
               >
                 Transform Your Business With Cloud Technology
-              </motion.h1>
-              <motion.p 
+      </motion.h1>
+      <motion.p
                 className="text-lg text-gray-600 mb-8 max-w-xl"
                 variants={itemVariants}
               >
                 Accelerate innovation and achieve remarkable business outcomes with our comprehensive cloud services and solutions.
-              </motion.p>
+      </motion.p>
               <motion.div 
                 className="flex flex-wrap gap-4"
                 variants={itemVariants}
@@ -150,7 +150,7 @@ const Home = () => {
                   >
                     Contact Us
                   </motion.button>
-                </Link>
+      </Link>
               </motion.div>
             </div>
             
@@ -220,8 +220,8 @@ const Home = () => {
             ></path>
           </svg>
         </div>
-      </section>
-      
+    </section>
+    
       {/* Services Highlight Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -369,8 +369,8 @@ const Home = () => {
                 <div>
                   <h4 className="font-bold text-gray-900">Alex Barton</h4>
                   <p className="text-gray-600">CTO, FinTech Innovations</p>
-                </div>
-              </div>
+          </div>
+        </div>
             </div>
           </motion.div>
         </div>
@@ -400,18 +400,18 @@ const Home = () => {
               </motion.button>
             </Link>
           </motion.div>
-        </div>
-      </section>
-      
+      </div>
+    </section>
+    
       {/* Components Section */}
       <section>
-        <WhyChooseUs />
-        <Testimonials />
-        <Partners />
-        <QuickContact />
+    <WhyChooseUs />
+    <Testimonials />
+    <Partners />
+    <QuickContact />
       </section>
     </div>
-  );
+);
 };
 
 export default Home; 

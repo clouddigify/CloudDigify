@@ -1,369 +1,173 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { FaChartLine, FaCheckCircle, FaMoneyBillWave, FaTachometerAlt, FaShieldAlt, FaSearch } from 'react-icons/fa';
+import ServiceTemplate from '../../templates/ServiceTemplate';
+import { FaChartLine, FaCoins, FaCogs, FaTachometerAlt, FaSearchDollar } from 'react-icons/fa';
 
 const CloudOptimization = () => {
-  // Customize these values for this service
   const serviceInfo = {
-    title: "Cloud Optimization Services",
-    description: "Maximize the efficiency, performance, and cost-effectiveness of your cloud infrastructure and applications.",
-    icon: <FaChartLine className="text-blue-500 text-4xl mb-4" />,
-    heroBackground: "from-blue-600 to-green-600",
-    benefits: [
-      "Reduce cloud spending by 20-40% through right-sizing and resource optimization",
-      "Improve application performance and end-user experience",
-      "Enhance security posture and compliance adherence",
-      "Implement best practices for cloud architecture",
-      "Gain visibility and control over cloud resources"
+    title: "Cloud Optimization",
+    description: "Maximize your cloud investment with our optimization services that reduce costs, enhance performance, and improve efficiency.",
+    icon: <FaChartLine />,
+    heroBackground: "from-green-600 to-teal-700",
+    overviewTitle: "Optimize Your Cloud Environment",
+    overviewParagraphs: [
+      "Cloud optimization is the process of properly selecting, allocating, and right-sizing cloud resources to improve efficiency and reduce unnecessary costs. Many organizations find they're overspending on cloud resources that are underutilized or improperly configured.",
+      "Our cloud optimization services help you identify opportunities to reduce waste, improve performance, and enhance security across your cloud environment, ensuring you get the most value from your cloud investment."
     ],
+    benefits: [
+      "Reduced cloud spending through resource right-sizing and reserved instances",
+      "Improved application performance and responsiveness",
+      "Enhanced security posture with proper configuration management",
+      "Greater visibility into cloud usage and spending patterns",
+      "Streamlined operations with automation and best practices"
+    ],
+    sidebarTitle: "Our Optimization Approach",
+    approach: [
+      "Comprehensive cloud assessment",
+      "Data-driven recommendations",
+      "Automated right-sizing",
+      "Continuous monitoring",
+      "Regular optimization reviews"
+    ],
+    sidebarCta: "Schedule Optimization Assessment",
+    featuresTitle: "Our Cloud Optimization Services",
+    featuresSubtitle: "Comprehensive services to help you maximize the value of your cloud investment.",
     features: [
       {
         title: "Cost Optimization",
-        description: "Analyze your cloud spending patterns, identify waste, and implement strategies to reduce costs without sacrificing performance or functionality."
+        description: "Identify and eliminate waste, implement reserved instances and savings plans, right-size resources, and optimize storage tiers to reduce your cloud bill."
       },
       {
         title: "Performance Optimization",
-        description: "Fine-tune your cloud resources and applications to achieve maximum speed, responsiveness, and throughput for better user experiences."
+        description: "Enhance application performance through infrastructure tuning, caching strategies, database optimization, and content delivery improvements."
       },
       {
         title: "Security & Compliance Optimization",
-        description: "Strengthen your cloud security posture, address vulnerabilities, and ensure compliance with industry regulations and best practices."
+        description: "Identify security vulnerabilities, implement best practices, ensure compliance with relevant regulations, and optimize security controls."
       },
       {
-        title: "Architecture Optimization",
-        description: "Assess and refine your cloud architecture to align with best practices, improve scalability, reliability, and operational efficiency."
+        title: "Operational Optimization",
+        description: "Streamline cloud operations through automation, improved monitoring, standardized workflows, and enhanced governance processes."
       }
     ],
+    middleSection: (
+      <>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-6">Our Optimization Process</h2>
+          <p className="text-gray-600 max-w-3xl mx-auto">
+            We follow a proven methodology to identify, implement, and maintain cloud optimizations.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+            <div className="text-green-500 text-3xl mb-4">
+              <FaSearchDollar />
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Assess</h3>
+            <p className="text-gray-700">
+              We conduct a comprehensive assessment of your current cloud environment, analyzing resource utilization, costs, performance metrics, and security configurations.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Resource utilization analysis</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Cost trend identification</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Performance bottleneck detection</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+            <div className="text-green-500 text-3xl mb-4">
+              <FaCogs />
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Implement</h3>
+            <p className="text-gray-700">
+              Based on our assessment, we implement optimization recommendations to improve cost efficiency, performance, and operational excellence.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Resource right-sizing</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Reserved instance purchases</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Architecture refinements</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+            <div className="text-green-500 text-3xl mb-4">
+              <FaTachometerAlt />
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Monitor</h3>
+            <p className="text-gray-700">
+              We establish continuous monitoring and regular optimization reviews to ensure ongoing benefits and adapt to changing requirements.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Automated monitoring tools</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Regular optimization reports</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span className="text-gray-600">Continuous improvement cycles</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </>
+    ),
+    technologiesTitle: "Optimization Tools & Technologies",
+    technologiesSubtitle: "We use industry-leading tools and technologies to optimize your cloud environment.",
     technologiesUsed: [
       "AWS Cost Explorer",
       "Azure Cost Management",
-      "Google Cloud Cost Management",
-      "CloudWatch",
-      "Azure Monitor",
+      "GCP Cost Tools",
+      "CloudHealth",
+      "CloudCheckr",
+      "Turbonomic",
+      "Datadog",
+      "New Relic",
       "Terraform",
-      "CloudFormation",
-      "CloudHealth"
+      "Spot Instances",
+      "Auto Scaling",
+      "Savings Plans"
     ],
     caseStudy: {
-      title: "Cloud Optimization Success Story",
-      client: "Major Healthcare Provider",
-      challenge: "A growing healthcare organization was experiencing rapidly increasing cloud costs as they migrated more services to the cloud. They lacked visibility into their spending patterns and were concerned about potential security vulnerabilities in their rapidly expanding cloud footprint.",
-      solution: "CloudDigify conducted a comprehensive assessment of their cloud environment, identifying unused resources, improperly sized instances, and security vulnerabilities. We implemented automated right-sizing, scheduled scaling, reserved instances, and enhanced security controls.",
+      title: "E-Commerce Company Reduces Cloud Costs by 40%",
+      client: "Growing Online Retailer",
+      industry: "E-Commerce",
+      challenge: "A fast-growing e-commerce company was experiencing rapidly escalating cloud costs as their business scaled. They had limited visibility into their cloud spending, numerous underutilized resources, and inefficient architectures that were causing both cost and performance issues. During peak shopping seasons, they were overprovisioning resources but still experiencing performance problems.",
+      solution: "CloudDigify implemented a comprehensive cloud optimization program, beginning with a detailed assessment of their AWS environment. We identified numerous opportunities for savings including right-sizing EC2 instances, implementing auto-scaling, utilizing reserved instances for steady workloads, optimizing storage tiers, and refining their architecture to reduce data transfer costs. We also implemented a tagging strategy and cost allocation framework to provide better visibility into departmental spending.",
       results: [
-        "Reduced monthly cloud costs by 35% while improving performance",
-        "Eliminated 20+ security vulnerabilities identified during assessment",
-        "Implemented automated governance policies to prevent cost sprawl",
-        "Established comprehensive monitoring and alerting for ongoing optimization"
+        "40% reduction in monthly cloud spend while improving performance",
+        "62% of compute resources now covered by reserved instances, saving 30% on those resources",
+        "Implemented auto-scaling that reduced peak capacity needs by 25%",
+        "3x improvement in application response times through architectural optimizations"
       ]
-    }
+    },
+    ctaTitle: "Ready to Optimize Your Cloud Environment?",
+    ctaDescription: "Contact our team to schedule a free cloud optimization assessment and discover your potential savings.",
+    ctaButtonText: "Get Your Free Assessment"
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="pb-16"
-    >
-      {/* Hero Section */}
-      <section className={`bg-gradient-to-r ${serviceInfo.heroBackground} text-white py-20 px-6`}>
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{serviceInfo.title}</h1>
-            <p className="text-xl opacity-90 mb-8">
-              {serviceInfo.description}
-            </p>
-            <Link
-              to="/contact"
-              className="inline-block bg-white text-blue-700 px-6 py-3 rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
-            >
-              Schedule a Consultation
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Overview Section */}
-      <section className="py-16 px-8 bg-white">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <div className="flex flex-col md:flex-row gap-12">
-            <motion.div variants={itemVariants} className="md:w-2/3">
-              <h2 className="text-3xl font-bold mb-6">Maximize Your Cloud Investment</h2>
-              <p className="text-gray-700 mb-6">
-                Cloud optimization is the process of correctly selecting and assigning the right resources to a workload or application. When properly optimized, cloud environments provide the ideal balance of performance, security, and cost-efficiency.
-              </p>
-              <p className="text-gray-700 mb-8">
-                At CloudDigify, we help organizations identify inefficiencies in their cloud environments and implement strategies to reduce costs, improve performance, enhance security, and align with best practices. Our comprehensive approach ensures you get the most value from your cloud investment.
-              </p>
-              
-              <h3 className="text-xl font-semibold mb-4">Key Benefits</h3>
-              <ul className="space-y-3 mb-8">
-                {serviceInfo.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-green-500 mr-2">
-                      <FaCheckCircle className="mt-1" />
-                    </span>
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="md:w-1/3 bg-blue-50 p-6 rounded-lg self-start">
-              <div className="text-5xl text-blue-600 mb-6">
-                <FaChartLine />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Our Optimization Approach</h3>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Comprehensive assessment of current state</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Detailed analysis of usage patterns</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Identification of optimization opportunities</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Implementation of best practices</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Continuous monitoring and improvement</span>
-                </li>
-              </ul>
-              
-              <Link 
-                to="/contact" 
-                className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition duration-300"
-              >
-                Get Started
-              </Link>
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 px-8 bg-gray-50">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">Our Optimization Services</h2>
-            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
-              We provide comprehensive cloud optimization services to help you achieve maximum efficiency, performance, and security.
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {serviceInfo.features.map((feature, index) => (
-              <motion.div 
-                key={index} 
-                variants={itemVariants}
-                className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-              >
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-gray-700">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Benefits Section with icons */}
-      <section className="py-16 px-8 bg-white">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">The Value of Cloud Optimization</h2>
-            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
-              Discover how optimizing your cloud environment can deliver significant business benefits.
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div variants={itemVariants} className="flex p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mr-4">
-                <FaMoneyBillWave className="text-blue-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Cost Efficiency</h3>
-                <p className="text-gray-600">Eliminate wasted resources, right-size instances, and implement appropriate pricing models to reduce your cloud spend without sacrificing performance.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mr-4">
-                <FaTachometerAlt className="text-blue-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Performance Enhancement</h3>
-                <p className="text-gray-600">Optimize resources, configurations, and architecture to ensure your applications run at peak performance for better user experiences.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mr-4">
-                <FaShieldAlt className="text-blue-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Enhanced Security</h3>
-                <p className="text-gray-600">Identify and address security vulnerabilities in your cloud environment to better protect your data and applications.</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex p-6 bg-gray-50 rounded-lg shadow-md">
-              <div className="mr-4">
-                <FaSearch className="text-blue-500 text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Improved Visibility</h3>
-                <p className="text-gray-600">Gain comprehensive insights into your cloud environment for better decision-making and proactive management.</p>
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Technologies Section */}
-      <section className="py-16 px-8 bg-gray-50">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">Technologies We Use</h2>
-            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-12">
-              We leverage industry-leading tools and technologies to optimize your cloud environment.
-            </p>
-          </motion.div>
-          
-          <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {serviceInfo.technologiesUsed.map((tech, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg text-center shadow-sm">
-                <span className="font-medium text-gray-800">{tech}</span>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Case Study Section */}
-      <section className="py-16 px-8 bg-white">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-5xl mx-auto"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">{serviceInfo.caseStudy.title}</motion.h2>
-          
-          <motion.div variants={itemVariants} className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-            <div className="mb-6 pb-6 border-b border-gray-100">
-              <h3 className="text-2xl font-semibold mb-2">{serviceInfo.caseStudy.client}</h3>
-              <div className="text-sm text-blue-600 font-medium">Industry: Healthcare</div>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-2">The Challenge</h4>
-              <p className="text-gray-700 mb-4">{serviceInfo.caseStudy.challenge}</p>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-2">Our Solution</h4>
-              <p className="text-gray-700 mb-4">{serviceInfo.caseStudy.solution}</p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-2">Results</h4>
-              <ul className="space-y-2">
-                {serviceInfo.caseStudy.results.map((result, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-gray-700">{result}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-6 bg-blue-50">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-6">Ready to Optimize Your Cloud Environment?</motion.h2>
-          <motion.p variants={itemVariants} className="text-gray-700 mb-8 text-lg">
-            Contact our team today to learn how our cloud optimization services can help you reduce costs, improve performance, and enhance security.
-          </motion.p>
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              to="/contact"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition"
-            >
-              Contact Us
-            </Link>
-            <Link
-              to="/services"
-              className="bg-white text-blue-600 border border-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition"
-            >
-              Explore All Services
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
-    </motion.div>
-  );
+  return <ServiceTemplate serviceInfo={serviceInfo} />;
 };
 
 export default CloudOptimization; 
