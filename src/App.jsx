@@ -19,6 +19,10 @@ import ManagedServices from './components/pages/services/ManagedServices';
 import InfrastructureAsCode from './components/pages/services/InfrastructureAsCode';
 import ArchitectureDesign from './components/pages/services/ArchitectureDesign';
 import SecurityCompliance from './components/pages/services/SecurityCompliance';
+import CloudOptimization from './components/pages/services/CloudOptimization';
+import DisasterRecovery from './components/pages/services/DisasterRecovery';
+import Containerization from './components/pages/services/Containerization';
+import Serverless from './components/pages/services/Serverless';
 
 // Admin components
 import AdminLogin from './components/Admin/Login';
@@ -47,12 +51,18 @@ const App = () => {
             <Route path="/terms"    element={<TermsAndConditions />} />
             <Route path="/privacy"  element={<PrivacyPolicy />} />
             <Route path="/cookies"  element={<CookiePolicy />} />
+            
+            {/* Service Routes */}
             <Route path="/services/devops" element={<DevOps />} />
             <Route path="/services/cloud-migration" element={<CloudMigration />} />
             <Route path="/services/managed-services" element={<ManagedServices />} />
             <Route path="/services/infrastructure-as-code" element={<InfrastructureAsCode />} />
             <Route path="/services/architecture-design" element={<ArchitectureDesign />} />
             <Route path="/services/security-compliance" element={<SecurityCompliance />} />
+            <Route path="/services/cloud-optimization" element={<CloudOptimization />} />
+            <Route path="/services/disaster-recovery" element={<DisasterRecovery />} />
+            <Route path="/services/containerization" element={<Containerization />} />
+            <Route path="/services/serverless" element={<Serverless />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
