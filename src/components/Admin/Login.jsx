@@ -7,6 +7,19 @@ import { motion } from 'framer-motion';
 const DEFAULT_ADMIN_USERNAME = 'admin';
 const DEFAULT_ADMIN_PASSWORD = 'password123';
 
+// Access environment variables at module level to avoid errors
+const ENV_USERNAME = typeof import.meta !== 'undefined' && 
+                    import.meta.env ? 
+                    (import.meta.env.VITE_ADMIN_USERNAME || 
+                     import.meta.env.ADMIN_USERNAME) : 
+                    null;
+
+const ENV_PASSWORD = typeof import.meta !== 'undefined' && 
+                    import.meta.env ? 
+                    (import.meta.env.VITE_ADMIN_PASSWORD || 
+                     import.meta.env.ADMIN_PASSWORD) : 
+                    null;
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -47,16 +60,26 @@ const Login = () => {
     try {
       return decodeURIComponent(escape(window.atob(str)));
     } catch (e) {
-      return window.atob(str);
+      try {
+        return window.atob(str);
+      } catch (err) {
+        console.error("Failed to decode:", err);
+        return str;
+      }
     }
   };
-
+  
   // Simple base64 encode function
   const btoa = (str) => {
     try {
       return window.btoa(unescape(encodeURIComponent(str)));
     } catch (e) {
-      return window.btoa(str);
+      try {
+        return window.btoa(str);
+      } catch (err) {
+        console.error("Failed to encode:", err);
+        return str;
+      }
     }
   };
 
@@ -72,16 +95,12 @@ const Login = () => {
       setIsLoggingIn(true);
       setError('');
       
-      // Access environment variables for admin credentials
-      // First check Vercel environment variables
+      // Use the environment variables defined at module level
       // Fallback to default credentials if env variables aren't set
-      const envUsername = import.meta.env?.ADMIN_USERNAME || 
-                         process.env?.REACT_APP_ADMIN_USERNAME || 
-                         DEFAULT_ADMIN_USERNAME;
+      const envUsername = ENV_USERNAME || DEFAULT_ADMIN_USERNAME;
+      const envPassword = ENV_PASSWORD || DEFAULT_ADMIN_PASSWORD;
       
-      const envPassword = import.meta.env?.ADMIN_PASSWORD || 
-                         process.env?.REACT_APP_ADMIN_PASSWORD || 
-                         DEFAULT_ADMIN_PASSWORD;
+      console.log('Using credentials:', { envUsername, envPassword: '******' });
       
       // Verify credentials
       if (username !== envUsername || password !== envPassword) {
