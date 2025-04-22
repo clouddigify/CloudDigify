@@ -51,6 +51,15 @@ const Login = () => {
     }
   };
 
+  // Simple base64 encode function
+  const btoa = (str) => {
+    try {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    } catch (e) {
+      return window.btoa(str);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -80,11 +89,14 @@ const Login = () => {
       }
       
       // If credentials are valid, create a token that expires in 7 days
-      const token = btoa(JSON.stringify({
+      const tokenData = JSON.stringify({
         username: username,
         role: 'admin',
         exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 days
-      }));
+      });
+      
+      // Use the defined btoa function to encode the token
+      const token = btoa(tokenData);
       
       // Store token
       localStorage.setItem('authToken', token);
