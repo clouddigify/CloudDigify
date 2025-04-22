@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FaAward, FaCheckCircle } from 'react-icons/fa';
 
 // Partner logo data - you can update these URLs with your actual partner logos
 const partners = [
@@ -41,36 +42,112 @@ const partners = [
   }
 ];
 
+// Certifications data
+const certifications = [
+  "ISO 9001:2015 - Quality Management",
+  "ISO/IEC 27001:2022 - Information Security",
+  "PCI DSS Compliant",
+  "SOC 2 Type II Certified"
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5 }
+  }
+};
+
 const Partners = () => (
-  <section className="py-12 px-6 bg-white">
-    <div className="max-w-6xl mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-8">Our Partners & Certifications</h2>
-      <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-        We partner with industry leaders and maintain rigorous certifications to ensure the highest standards of service.
-      </p>
+  <section className="py-20 px-6 bg-gradient-to-b from-white to-gray-50">
+    <motion.div 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+      className="max-w-6xl mx-auto"
+    >
+      <motion.div variants={itemVariants} className="text-center mb-16">
+        <h2 className="text-4xl font-bold mb-4">Our Partners & Certifications</h2>
+        <p className="text-gray-600 max-w-3xl mx-auto">
+          We partner with industry leaders and maintain rigorous certifications to ensure the highest standards of cloud services, security, and compliance.
+        </p>
+      </motion.div>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
-        {partners.map((partner) => (
-          <motion.div 
-            key={partner.id}
-            whileHover={{ scale: 1.1 }}
-            className="h-24 flex items-center justify-center"
-          >
-            <img 
-              src={partner.logo} 
-              alt={partner.alt} 
-              className="max-h-full max-w-full object-contain"
-            />
-          </motion.div>
-        ))}
-      </div>
-      
-      <div className="mt-12 text-center">
-        <div className="inline-block border border-blue-600 text-blue-600 px-4 py-2 rounded">
-          ISO 9001:2015 and ISO/IEC 27001:2022 Certified
+      {/* Partners */}
+      <motion.div variants={itemVariants} className="mb-16">
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="flex items-center justify-center mb-8">
+            <div className="p-3 bg-blue-50 rounded-full mr-4">
+              <FaAward className="text-blue-600 text-2xl" />
+            </div>
+            <h3 className="text-2xl font-bold">Strategic Partnerships</h3>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
+            {partners.map((partner) => (
+              <motion.div 
+                key={partner.id}
+                whileHover={{ scale: 1.1 }}
+                className="h-24 flex items-center justify-center relative group"
+              >
+                <img 
+                  src={partner.logo} 
+                  alt={partner.alt} 
+                  className="max-h-full max-w-full object-contain transition-opacity duration-300 z-10"
+                />
+                <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300"></div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+      
+      {/* Certifications */}
+      <motion.div variants={itemVariants}>
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="flex items-center justify-center mb-8">
+            <div className="p-3 bg-blue-50 rounded-full mr-4">
+              <FaCheckCircle className="text-blue-600 text-2xl" />
+            </div>
+            <h3 className="text-2xl font-bold">Industry Certifications</h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {certifications.map((cert, index) => (
+              <motion.div 
+                key={index}
+                whileHover={{ scale: 1.03 }}
+                className="bg-blue-50 p-4 rounded-lg text-center flex items-center justify-center"
+              >
+                <span className="text-gray-800 font-medium">{cert}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+      
+      {/* CTA */}
+      <motion.div variants={itemVariants} className="mt-12 text-center">
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-colors"
+        >
+          <a href="/contact" className="font-medium">Request Partnership Information</a>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   </section>
 );
 

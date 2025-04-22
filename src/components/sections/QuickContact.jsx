@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
 
 const QuickContact = () => {
   const [formData, setFormData] = useState({
@@ -74,145 +75,189 @@ const QuickContact = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
-    <section className="py-16 px-6 bg-gray-100">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-20 px-6 bg-gradient-to-b from-white to-gray-50">
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+        className="max-w-6xl mx-auto"
+      >
+        <motion.div variants={itemVariants} className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
+          <p className="text-gray-600 max-w-3xl mx-auto">
+            Our team is ready to answer your questions and help you with your cloud journey
+          </p>
+        </motion.div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Request a Callback</h2>
-            <p className="text-gray-600 mb-8">
-              If you'd like to talk to our consulting team, contact us via this form and we'll get back to you shortly.
-            </p>
-            
-            <div className="space-y-4">
-              <div className="flex items-start space-x-4">
-                <div className="text-2xl text-blue-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold">Email us</h3>
-                  <p className="text-gray-600">info@clouddigify.com</p>
-                </div>
-              </div>
+          <motion.div variants={itemVariants}>
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
+              <p className="text-gray-600 mb-8">
+                If you'd like to talk to our consulting team, contact us via this form and we'll get back to you shortly.
+              </p>
               
-              <div className="flex items-start space-x-4">
-                <div className="text-2xl text-blue-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold">Call us</h3>
-                  <p className="text-gray-600">+1 800 123 4567</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="text-2xl text-blue-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold">Visit us</h3>
-                  <p className="text-gray-600">
-                    10432 Innovation Drive, Suite 300<br />
-                    San Francisco, CA 94103
-                  </p>
-                </div>
+              <div className="space-y-6">
+                <motion.div 
+                  variants={itemVariants}
+                  className="flex items-start space-x-4"
+                >
+                  <div className="p-3 bg-blue-50 rounded-full text-blue-600">
+                    <FaEnvelope className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Email us</h4>
+                    <p className="text-gray-600">info@clouddigify.com</p>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  variants={itemVariants}
+                  className="flex items-start space-x-4"
+                >
+                  <div className="p-3 bg-blue-50 rounded-full text-blue-600">
+                    <FaPhone className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Call us</h4>
+                    <p className="text-gray-600">+1 800 123 4567</p>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  variants={itemVariants}
+                  className="flex items-start space-x-4"
+                >
+                  <div className="p-3 bg-blue-50 rounded-full text-blue-600">
+                    <FaMapMarkerAlt className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Visit us</h4>
+                    <p className="text-gray-600">
+                      10432 Innovation Drive, Suite 300<br />
+                      San Francisco, CA 94103
+                    </p>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
           
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="bg-white p-8 rounded-lg shadow-lg"
-          >
-            {formStatus.success && (
-              <div className="mb-6 bg-green-100 text-green-700 p-3 rounded">
-                Thank you for your message! We'll get back to you shortly.
-              </div>
-            )}
-            
-            {formStatus.error && (
-              <div className="mb-6 bg-red-100 text-red-700 p-3 rounded">
-                {formStatus.error}
-              </div>
-            )}
-            
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-gray-700 mb-2">Name</label>
-                <input 
-                  type="text" 
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Your name" 
-                  required
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" 
-                />
-              </div>
+          <motion.div variants={itemVariants}>
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <h3 className="text-2xl font-bold mb-6">Request a Callback</h3>
               
-              <div>
-                <label className="block text-gray-700 mb-2">Email</label>
-                <input 
-                  type="email" 
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Your email" 
-                  required
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" 
-                />
-              </div>
+              {formStatus.success && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 bg-green-50 text-green-700 p-4 rounded-lg flex items-center"
+                >
+                  <FaCheckCircle className="mr-2" />
+                  <span>Thank you for your message! We'll get back to you shortly.</span>
+                </motion.div>
+              )}
               
-              <div>
-                <label className="block text-gray-700 mb-2">Phone</label>
-                <input 
-                  type="tel" 
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Your phone number" 
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" 
-                />
-              </div>
+              {formStatus.error && (
+                <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-lg">
+                  {formStatus.error}
+                </div>
+              )}
               
-              <div>
-                <label className="block text-gray-700 mb-2">Message</label>
-                <textarea 
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="How can we help you?" 
-                  required
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  rows="4"
-                ></textarea>
-              </div>
-              
-              <button 
-                type="submit" 
-                disabled={formStatus.submitting}
-                className={`w-full px-6 py-3 text-white rounded-lg transition ${
-                  formStatus.submitting 
-                    ? 'bg-gray-400 cursor-not-allowed' 
-                    : 'bg-blue-600 hover:bg-blue-700'
-                }`}
-              >
-                {formStatus.submitting ? 'Submitting...' : 'Submit Request'}
-              </button>
-            </form>
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div>
+                  <label className="block text-gray-700 mb-2 font-medium">Name</label>
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name" 
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-gray-700 mb-2 font-medium">Email</label>
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your email" 
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-gray-700 mb-2 font-medium">Phone</label>
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Your phone number" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-gray-700 mb-2 font-medium">Message</label>
+                  <textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="How can we help you?" 
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    rows="4"
+                  ></textarea>
+                </div>
+                
+                <div>
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit" 
+                    disabled={formStatus.submitting}
+                    className={`w-full py-3 px-6 flex items-center justify-center rounded-lg text-white font-medium ${formStatus.submitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} transition-colors shadow-md`}
+                  >
+                    {formStatus.submitting ? 'Sending...' : (
+                      <>
+                        <FaPaperPlane className="mr-2" /> 
+                        <span>Send Message</span>
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+              </form>
+            </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
