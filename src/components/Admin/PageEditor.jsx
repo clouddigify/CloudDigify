@@ -43,6 +43,7 @@ const PageEditor = () => {
         throw new Error('You are not authenticated. Please log in again.');
       }
 
+      console.log(`Fetching content for path: ${pagePath}`);
       const response = await fetch(`/api/content?path=${encodeURIComponent(pagePath)}`);
       
       if (!response.ok) {
@@ -62,7 +63,9 @@ const PageEditor = () => {
       console.log('Content retrieved:', data);
       
       if (data.content && data.content.trim()) {
-        setContent(data.content);
+        // Clean the content for visual editing
+        const cleanedContent = prepareVisualContent(data.content);
+        setContent(cleanedContent);
         setOriginalContent(data.content);
       } else {
         setContent('<p>No content found. Start adding your content here...</p>');
@@ -95,7 +98,10 @@ const PageEditor = () => {
   };
 
   const handleSave = async () => {
-    if (content === originalContent) {
+    // Prepare the content for saving - convert from visual editor format back to React format
+    const contentToSave = viewMode === 'visual' ? prepareContentForSave(content) : content;
+    
+    if (contentToSave === originalContent) {
       setSaveMessage('No changes to save');
       setTimeout(() => setSaveMessage(''), 3000);
       return;
@@ -114,7 +120,7 @@ const PageEditor = () => {
         body: JSON.stringify({
           path: pagePath,
           title: pageTitle,
-          content: content,
+          content: contentToSave,
           commitMessage: `Update ${pageTitle} content via admin panel`
         })
       });
@@ -124,7 +130,7 @@ const PageEditor = () => {
         throw new Error(errorData.message || 'Failed to save content');
       }
 
-      setOriginalContent(content);
+      setOriginalContent(contentToSave);
       setSaveMessage('Content saved successfully!');
       setTimeout(() => setSaveMessage(''), 3000);
     } catch (error) {
@@ -134,6 +140,72 @@ const PageEditor = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  // Clean JSX content for visual editing
+  const prepareVisualContent = (jsxContent) => {
+    if (!jsxContent) return '';
+    
+    // Replace common React/JSX components with placeholders or simplified HTML
+    let cleanedContent = jsxContent
+      // Replace self-closing tags with placeholders
+      .replace(/<(NavBar|Footer)[^>]*\/>/g, (match, component) => 
+        `<div class="component-placeholder">${component} Component</div>`)
+      
+      // Replace component tags with placeholders
+      .replace(/<(NavBar|Footer)[^>]*>([\s\S]*?)<\/\1>/g, (match, component) => 
+        `<div class="component-placeholder">${component} Component</div>`)
+      
+      // Replace motion.div with regular divs
+      .replace(/<motion\.div([^>]*)>/g, '<div$1>')
+      .replace(/<\/motion\.div>/g, '</div>')
+      
+      // Convert className to class for the visual editor
+      .replace(/className=/g, 'class=')
+      
+      // Replace framer-motion animation props which are objects
+      .replace(/\{[^{}]*\}/g, (match) => {
+        // Keep actual content in braces, but remove code-like structures
+        if (match.includes(':') || match.includes('function') || match.includes('=>')) {
+          return '"..."';
+        }
+        return match;
+      });
+    
+    return cleanedContent;
+  };
+
+  // Prepare content from visual editor for saving
+  const prepareContentForSave = (visualContent) => {
+    if (!visualContent) return '';
+    
+    // Convert back to React/JSX format
+    let reactContent = visualContent
+      // Convert class back to className
+      .replace(/class=/g, 'className=')
+      
+      // Replace regular divs with motion.div if they were converted
+      .replace(/<div(.*?)data-motion-div(.*?)>/g, '<motion.div$1$2>')
+      .replace(/<\/div>(\s*?)<!-- \/motion\.div -->/g, '</motion.div>');
+    
+    // If there are significant differences with originalContent structure,
+    // we might need to preserve some of the original structure
+    if (originalContent.includes('<motion.') && !reactContent.includes('<motion.')) {
+      // Try to preserve the motion components from original
+      const motionTags = originalContent.match(/<motion\.[^>]*>[\s\S]*?<\/motion\.[^>]*>/g) || [];
+      if (motionTags.length > 0) {
+        // This is a simplified approach - in a real implementation you might need
+        // a more sophisticated merge strategy
+        reactContent = motionTags.reduce((content, tag, index) => {
+          return content.replace(
+            new RegExp(`<div[^>]*>\\s*<!-- motion\\.div placeholder ${index} -->\\s*</div>`), 
+            tag
+          );
+        }, reactContent);
+      }
+    }
+    
+    return reactContent;
   };
 
   const applyFormatting = (format) => {
@@ -198,10 +270,10 @@ const PageEditor = () => {
       case 'button':
         element = document.createElement('button');
         element.textContent = 'Button Text';
-        element.className = 'btn';
+        element.className = 'button';
         element.style.backgroundColor = selectedColor;
         element.style.color = '#ffffff';
-        element.style.padding = '0.5rem 1rem';
+        element.style.padding = '10px 20px';
         element.style.border = 'none';
         element.style.borderRadius = '4px';
         element.style.cursor = 'pointer';
@@ -210,14 +282,20 @@ const PageEditor = () => {
         return;
     }
     
-    // Insert the element at the current cursor position
+    // Insert at cursor position
     const selection = window.getSelection();
     if (selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
       range.deleteContents();
       range.insertNode(element);
+      
+      // Move cursor after inserted element
+      range.setStartAfter(element);
+      range.setEndAfter(element);
+      selection.removeAllRanges();
+      selection.addRange(range);
     } else {
-      // If no selection, append to the end
+      // If no selection, append to editor
       editorRef.current.appendChild(element);
     }
     
@@ -227,270 +305,153 @@ const PageEditor = () => {
     }, 100);
   };
 
-  // Clean the JSX content for visual editing
-  const prepareVisualContent = (jsxContent) => {
-    if (!jsxContent) return '';
-    
-    // Remove component tags
-    let cleanedContent = jsxContent
-      .replace(/{\/\* .* \*\/}/g, '') // Remove JSX comments
-      .replace(/<WhyChooseUs.*?\/>/g, '<div class="component-placeholder">[Why Choose Us Component]</div>')
-      .replace(/<Testimonials.*?\/>/g, '<div class="component-placeholder">[Testimonials Component]</div>')
-      .replace(/<Partners.*?\/>/g, '<div class="component-placeholder">[Partners Component]</div>')
-      .replace(/<QuickContact.*?\/>/g, '<div class="component-placeholder">[Quick Contact Form]</div>');
-      
-    return cleanedContent;
+  // Toggle between visual and code editing modes
+  const toggleViewMode = () => {
+    if (viewMode === 'visual') {
+      // Switching to code view - use original content format
+      setViewMode('code');
+    } else {
+      // Switching to visual view - clean content for editing
+      const cleanedContent = prepareVisualContent(content);
+      setContent(cleanedContent);
+      setViewMode('visual');
+    }
+  };
+
+  // Handle content changes in code view mode
+  const handleCodeChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  // Handle content changes in visual mode
+  const handleVisualContentChange = () => {
+    if (editorRef.current) {
+      setContent(editorRef.current.innerHTML);
+    }
+  };
+
+  // Handle back navigation to dashboard
+  const handleBack = () => {
+    navigate('/admin/dashboard');
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <button
-              onClick={() => navigate('/admin/dashboard')}
-              className="mr-4 text-gray-500 hover:text-gray-700"
-            >
-              <FaArrowLeft />
-            </button>
-            <h1 className="text-xl font-semibold text-gray-900">
-              Editing: {pageTitle}
-            </h1>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center bg-gray-200 rounded-lg p-1">
-              <button
-                onClick={() => setViewMode('visual')}
-                className={`px-3 py-1 rounded-md ${viewMode === 'visual' ? 'bg-white shadow-sm' : ''}`}
-              >
-                <FaEye className="inline mr-1" /> Visual
-              </button>
-              <button
-                onClick={() => setViewMode('code')}
-                className={`px-3 py-1 rounded-md ${viewMode === 'code' ? 'bg-white shadow-sm' : ''}`}
-              >
-                <FaCode className="inline mr-1" /> Code
-              </button>
-            </div>
-            
-            <button
-              onClick={handleSave}
-              disabled={isSaving || content === originalContent}
-              className={`flex items-center px-4 py-2 rounded-md text-white ${
-                isSaving || content === originalContent 
-                  ? 'bg-gray-400' 
-                  : 'bg-blue-600 hover:bg-blue-700'
-              }`}
-            >
-              {isSaving ? 'Saving...' : <><FaGithub className="mr-2" /> Save to GitHub</>}
-            </button>
-          </div>
+    <div className="page-editor">
+      <div className="editor-header">
+        <button onClick={handleBack} className="back-button">
+          <FaArrowLeft /> Back to Dashboard
+        </button>
+        <h1>{pageTitle}</h1>
+        <div className="editor-actions">
+          <button 
+            className={`view-toggle ${viewMode === 'visual' ? 'active' : ''}`} 
+            onClick={toggleViewMode}
+            title={viewMode === 'visual' ? 'Switch to Code View' : 'Switch to Visual View'}
+          >
+            {viewMode === 'visual' ? <FaCode /> : <FaEye />}
+            {viewMode === 'visual' ? ' Code' : ' Visual'}
+          </button>
+          <button 
+            className="save-button" 
+            onClick={handleSave} 
+            disabled={isSaving || content === originalContent}
+          >
+            <FaSave /> {isSaving ? 'Saving...' : 'Save Changes'}
+          </button>
         </div>
       </div>
-
+      
       {saveMessage && (
-        <div className={`text-center py-2 ${saveMessage.startsWith('Error') ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+        <div className={`save-message ${saveMessage.includes('Error') ? 'error' : 'success'}`}>
           {saveMessage}
         </div>
       )}
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {isLoading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
-            <p className="mt-2 text-gray-600">Loading content...</p>
-          </div>
-        ) : errorDetails ? (
-          <div className="bg-red-50 border border-red-200 rounded-md p-6 mb-6">
-            <h2 className="text-lg font-medium text-red-800 mb-3">Error Loading Content</h2>
-            <p className="text-red-700 mb-4">{errorDetails.message}</p>
-            <div className="bg-white p-3 rounded-md text-sm font-mono text-gray-700 mb-4">
-              <p>Page Path: {errorDetails.path}</p>
-              <p>Auth Status: {localStorage.getItem('authToken') ? 'Token Found' : 'No Auth Token'}</p>
-            </div>
-            <button 
-              onClick={fetchPageContent}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              <FaRedo className="mr-2" /> Try Again
-            </button>
-          </div>
-        ) : (
-          <>
-            <div className="mb-6">
-              <label htmlFor="pageTitle" className="block text-sm font-medium text-gray-700 mb-1">
-                Page Title
-              </label>
-              <input
-                type="text"
-                id="pageTitle"
-                value={pageTitle}
-                onChange={(e) => setPageTitle(e.target.value)}
-                className="w-full p-2 border rounded-md shadow-sm"
-              />
-            </div>
-
-            {viewMode === 'visual' ? (
-              <>
-                <div className="bg-white shadow-sm rounded-lg p-4 mb-4">
-                  <div className="flex flex-wrap gap-2 mb-4 border-b pb-4">
-                    <button 
-                      className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
-                      onClick={() => applyFormatting('bold')}
-                      title="Bold"
-                    >
-                      <span className="font-bold">B</span>
-                    </button>
-                    <button 
-                      className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
-                      onClick={() => applyFormatting('italic')}
-                      title="Italic"
-                    >
-                      <span className="italic">I</span>
-                    </button>
-                    <button 
-                      className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
-                      onClick={() => applyFormatting('underline')}
-                      title="Underline"
-                    >
-                      <span className="underline">U</span>
-                    </button>
-                    <div className="relative">
-                      <button 
-                        className="p-2 bg-gray-100 rounded hover:bg-gray-200 flex items-center" 
-                        onClick={() => setShowStyleOptions(!showStyleOptions)}
-                        title="Colors"
-                      >
-                        <FaPalette style={{color: selectedColor}} />
-                      </button>
-                      {showStyleOptions && (
-                        <div className="absolute top-full left-0 mt-1 p-2 bg-white shadow-lg rounded-md z-10 w-48">
-                          <div className="flex flex-wrap gap-2 mb-2">
-                            {colorPalette.map((color, index) => (
-                              <div 
-                                key={index}
-                                className="w-6 h-6 rounded-full cursor-pointer border border-gray-300"
-                                style={{backgroundColor: color}}
-                                onClick={() => {
-                                  setSelectedColor(color);
-                                  applyStyle('foreColor', color);
-                                }}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <button 
-                      className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
-                      onClick={() => insertElement('heading')}
-                      title="Add Heading"
-                    >
-                      <FaHeading />
-                    </button>
-                    <button 
-                      className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
-                      onClick={() => insertElement('paragraph')}
-                      title="Add Paragraph"
-                    >
-                      <FaFont />
-                    </button>
-                    <button 
-                      className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
-                      onClick={() => insertElement('image')}
-                      title="Add Image"
-                    >
-                      <FaImage />
-                    </button>
-                    <button 
-                      className="p-2 bg-gray-100 rounded hover:bg-gray-200" 
-                      onClick={() => insertElement('button')}
-                      title="Add Button"
-                    >
-                      Button
-                    </button>
-                  </div>
-                  <div
-                    ref={editorRef}
-                    className="min-h-[500px] p-4 border rounded-md visual-editor"
-                    contentEditable
-                    dangerouslySetInnerHTML={{ __html: prepareVisualContent(content) }}
-                    onBlur={(e) => setContent(e.currentTarget.innerHTML)}
-                    style={{
-                      backgroundImage: "repeating-linear-gradient(rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 1px, transparent 1px, transparent 21px)",
-                      backgroundPosition: "0px 10px",
-                      lineHeight: "20px",
-                      padding: "10px"
-                    }}
-                  />
+      
+      {errorDetails && (
+        <div className="error-details">
+          <p><strong>Error:</strong> {errorDetails.message}</p>
+          <p><strong>Page Path:</strong> {errorDetails.path}</p>
+          <button onClick={fetchPageContent}>Retry</button>
+        </div>
+      )}
+      
+      {isLoading ? (
+        <div className="loading">Loading content...</div>
+      ) : (
+        <div className="editor-container">
+          {viewMode === 'visual' && (
+            <>
+              <div className="editor-toolbar">
+                <div className="formatting-tools">
+                  <button onClick={() => applyFormatting('bold')} title="Bold">B</button>
+                  <button onClick={() => applyFormatting('italic')} title="Italic"><i>I</i></button>
+                  <button onClick={() => applyFormatting('underline')} title="Underline"><u>U</u></button>
+                  <button onClick={() => setShowStyleOptions(!showStyleOptions)} title="Color">
+                    <FaPalette style={{ color: selectedColor }} />
+                  </button>
                 </div>
-                <div className="mt-4 text-gray-600 text-sm">
-                  <p>
-                    <strong>Tip:</strong> Select text to format it. Click the buttons above to add elements. Component placeholders represent existing components that will be preserved.
-                  </p>
+
+                <div className="insert-tools">
+                  <button onClick={() => insertElement('heading')} title="Insert Heading">
+                    <FaHeading />
+                  </button>
+                  <button onClick={() => insertElement('paragraph')} title="Insert Paragraph">
+                    <FaFont />
+                  </button>
+                  <button onClick={() => insertElement('image')} title="Insert Image">
+                    <FaImage />
+                  </button>
+                  <button onClick={() => insertElement('button')} title="Insert Button">
+                    Button
+                  </button>
                 </div>
-              </>
-            ) : (
-              <div className="bg-white shadow-sm rounded-lg p-4">
-                <textarea
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  className="min-h-[500px] w-full p-4 border rounded-md font-mono text-sm"
-                />
               </div>
-            )}
-          </>
-        )}
+              
+              {showStyleOptions && (
+                <div className="color-palette">
+                  {colorPalette.map(color => (
+                    <div 
+                      key={color}
+                      className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+                      style={{ backgroundColor: color }}
+                      onClick={() => {
+                        setSelectedColor(color);
+                        applyStyle('foreColor', color);
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+              
+              <div
+                ref={editorRef}
+                className="visual-editor"
+                contentEditable
+                dangerouslySetInnerHTML={{ __html: content }}
+                onInput={handleVisualContentChange}
+              />
+            </>
+          )}
+          
+          {viewMode === 'code' && (
+            <textarea
+              className="code-editor"
+              value={content}
+              onChange={handleCodeChange}
+              spellCheck={false}
+            />
+          )}
+        </div>
+      )}
+      
+      <div className="editor-footer">
+        <div className="github-info">
+          <FaGithub /> Changes are committed to GitHub
+        </div>
+        <div className="last-saved">
+          {originalContent !== content && 'Unsaved changes'}
+        </div>
       </div>
-      <style>
-        {`
-          .component-placeholder {
-            background-color: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 6px;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-            color: #64748b;
-            font-weight: 500;
-          }
-          
-          .visual-editor {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-          }
-          
-          .visual-editor h1, .visual-editor h2, .visual-editor h3 {
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            line-height: 1.25;
-          }
-          
-          .visual-editor h1 {
-            font-size: 1.875rem;
-          }
-          
-          .visual-editor h2 {
-            font-size: 1.5rem;
-          }
-          
-          .visual-editor h3 {
-            font-size: 1.25rem;
-          }
-          
-          .visual-editor p {
-            margin-bottom: 1rem;
-            line-height: 1.5;
-          }
-          
-          .visual-editor img {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
-          }
-        `}
-      </style>
     </div>
   );
 };

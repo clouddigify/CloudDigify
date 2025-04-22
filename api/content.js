@@ -57,251 +57,308 @@ const pagePathMap = {
   'cookies': 'src/components/pages/legal/CookiePolicy.jsx',
 };
 
-// Function to extract content from React component file
+// Function to extract content from a component file
 const extractComponentContent = (fileContent) => {
-  // This is a simplified extraction - in production, use proper AST parsing
   try {
-    // Extract JSX content between the return statement and the closing parenthesis
-    // More comprehensive pattern to better capture the actual content
-    const returnPattern = /return\s*\(\s*(<[\s\S]*>)?([\s\S]*?)(<\/[\s\S]*>)?\s*\);/;
-    const match = returnPattern.exec(fileContent);
+    console.log('Extracting component content...');
     
-    if (match) {
-      // If we have captured groups, combine them to get the full JSX
-      const fullJSX = (match[1] || '') + (match[2] || '') + (match[3] || '');
-      return fullJSX.trim();
+    // For Home component specially
+    if (fileContent.includes('const Home = () =>') || 
+        fileContent.includes('function Home()') || 
+        fileContent.includes('export default function Home()')) {
+      console.log('Extracting Home component content...');
+      
+      // Try extracting the entire content within motion.div or main container
+      const motionDivRegex = /<motion\.div[^>]*>([\s\S]*?)<\/motion\.div>/;
+      const motionDivMatch = motionDivRegex.exec(fileContent);
+      
+      if (motionDivMatch && motionDivMatch[1]) {
+        console.log('Found content using motion.div pattern');
+        return motionDivMatch[1].trim();
+      }
+      
+      // Try to find content within return statement
+      const returnRegex = /return\s*\(\s*([\s\S]*?)\s*\);/;
+      const returnMatch = returnRegex.exec(fileContent);
+      
+      if (returnMatch && returnMatch[1]) {
+        console.log('Found content using return pattern');
+        return returnMatch[1].trim();
+      }
+      
+      console.log('Could not find content in Home component with specific patterns, returning default');
+      return '<p>Edit this page content</p>';
     }
     
-    // Secondary attempt with a more lenient pattern
-    const simplePattern = /return\s*\(([\s\S]*?)\);/;
-    const simpleMatch = simplePattern.exec(fileContent);
+    // General content extraction for other components
     
-    if (simpleMatch && simpleMatch[1]) {
-      return simpleMatch[1].trim();
+    // Try finding a return statement first
+    const returnRegex = /return\s*\(\s*([\s\S]*?)\s*\);/;
+    const returnMatch = returnRegex.exec(fileContent);
+    
+    if (returnMatch && returnMatch[1]) {
+      console.log('Found content using return pattern');
+      return returnMatch[1].trim();
     }
     
-    // Fallback: If no return statement found, return empty content
-    console.log('No return statement found, using default');
-    return '<div><p>Edit this page content</p></div>';
+    // Try finding content in a section tag
+    const sectionRegex = /<section[^>]*>([\s\S]*?)<\/section>/;
+    const sectionMatch = sectionRegex.exec(fileContent);
+    
+    if (sectionMatch && sectionMatch[1]) {
+      console.log('Found content using section pattern');
+      return sectionMatch[1].trim();
+    }
+    
+    // Try finding content in any div with className
+    const divRegex = /<div\s+className=["'`][^"'`]*["'`][^>]*>([\s\S]*?)<\/div>/;
+    const divMatch = divRegex.exec(fileContent);
+    
+    if (divMatch && divMatch[1]) {
+      console.log('Found content using div with className pattern');
+      return divMatch[1].trim();
+    }
+    
+    console.log('Could not find content');
+    return '<p>Edit this page content</p>';
   } catch (error) {
     console.error('Error extracting component content:', error);
-    return '<div><p>Error extracting content</p></div>';
+    return '<p>Error extracting content. Please try again.</p>';
   }
 };
 
 // Function to update component content in a file
 const updateComponentContent = (fileContent, newContent) => {
-  // This is a simplified replacement - in production, use proper AST parsing
   try {
-    // First, try to find a clean return statement pattern
-    const returnPattern = /(return\s*\()[\s\S]*?(\);)/;
-    const match = returnPattern.exec(fileContent);
+    console.log('Updating component content...');
+    console.log('New content length:', newContent.length);
     
-    if (match) {
-      // Replace everything between the opening and closing of the return statement
-      return fileContent.replace(returnPattern, `$1${newContent}$2`);
+    let updatedContent = fileContent;
+    let wasUpdated = false;
+    
+    // For Home component
+    if (fileContent.includes('const Home = () =>') || 
+        fileContent.includes('function Home()') || 
+        fileContent.includes('export default function Home()')) {
+      console.log('Updating Home component content...');
+      
+      // Try motion.div replacement
+      const motionDivRegex = /(<motion\.div[^>]*>)([\s\S]*?)(<\/motion\.div>)/;
+      const motionDivMatch = motionDivRegex.exec(fileContent);
+      
+      if (motionDivMatch) {
+        console.log('Updating content using motion.div pattern');
+        updatedContent = fileContent.replace(motionDivRegex, `$1${newContent}$3`);
+        wasUpdated = true;
+      }
+      
+      // Try return statement replacement
+      if (!wasUpdated) {
+        const returnRegex = /(return\s*\(\s*)([\s\S]*?)(\s*\);)/;
+        const returnMatch = returnRegex.exec(fileContent);
+        
+        if (returnMatch) {
+          console.log('Updating content using return pattern');
+          updatedContent = fileContent.replace(returnRegex, `$1${newContent}$3`);
+          wasUpdated = true;
+        }
+      }
+      
+      if (!wasUpdated) {
+        console.log('Could not find a pattern to update content in Home component');
+        return fileContent; // Return original content if no patterns matched
+      }
+      
+      return updatedContent;
     }
     
-    // If we can't find the pattern, look for the component function and replace its body
-    const componentPattern = /(const\s+\w+\s*=\s*\([^)]*\)\s*=>)[\s\S]*?(;?\s*export default)/;
-    const componentMatch = componentPattern.exec(fileContent);
+    // General updating for other components
+    let updated = false;
     
-    if (componentMatch) {
-      return fileContent.replace(componentPattern, `$1 (\n${newContent}\n)$2`);
+    // Try return statement replacement first
+    const returnRegex = /(return\s*\(\s*)([\s\S]*?)(\s*\);)/;
+    const returnMatch = returnRegex.exec(fileContent);
+    
+    if (returnMatch) {
+      console.log('Updating content using return pattern');
+      updatedContent = fileContent.replace(returnRegex, `$1${newContent}$3`);
+      updated = true;
     }
     
-    // Last resort, return a new component with the content
-    console.log('Could not find pattern to update, creating new component');
-    return `import React from 'react';
-
-const Component = () => (
-  ${newContent}
-);
-
-export default Component;`;
+    // If not updated, try section replacement
+    if (!updated) {
+      const sectionRegex = /(<section[^>]*>)([\s\S]*?)(<\/section>)/;
+      const sectionMatch = sectionRegex.exec(fileContent);
+      
+      if (sectionMatch) {
+        console.log('Updating content using section pattern');
+        updatedContent = fileContent.replace(sectionRegex, `$1${newContent}$3`);
+        updated = true;
+      }
+    }
+    
+    // If not updated, try div with className replacement
+    if (!updated) {
+      const divRegex = /(<div\s+className=["'`][^"'`]*["'`][^>]*>)([\s\S]*?)(<\/div>)/;
+      const divMatch = divRegex.exec(fileContent);
+      
+      if (divMatch) {
+        console.log('Updating content using div with className pattern');
+        updatedContent = fileContent.replace(divRegex, `$1${newContent}$3`);
+        updated = true;
+      }
+    }
+    
+    if (!updated) {
+      console.log('Could not find a pattern to update content');
+      return fileContent; // Return original content if no patterns matched
+    }
+    
+    return updatedContent;
   } catch (error) {
     console.error('Error updating component content:', error);
-    throw new Error('Failed to update component: ' + error.message);
+    return fileContent; // Return original content on exception
   }
 };
 
+// Main handler function for serverless deployment
 export default async function handler(req, res) {
-  // Handle CORS
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
-  );
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  // Check environment variables - add this for debugging
-  console.log('Environment check:');
-  console.log('GITHUB_OWNER:', process.env.GITHUB_OWNER ? 'Set' : 'Not Set');
-  console.log('GITHUB_TOKEN:', process.env.GITHUB_TOKEN ? 'Set' : 'Not Set');
-  console.log('GITHUB_TOKEN length:', process.env.GITHUB_TOKEN ? process.env.GITHUB_TOKEN.length : 0);
-  console.log('NODE_ENV:', process.env.NODE_ENV);
-  console.log('VERCEL_ENV:', process.env.VERCEL_ENV);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   
-  // Check if GitHub token is missing
-  if (!process.env.GITHUB_TOKEN) {
-    console.error('Error: GitHub token is missing. Please set GITHUB_TOKEN environment variable.');
-    return res.status(500).json({
-      message: 'GitHub token is not configured',
-      error: 'Missing GITHUB_TOKEN environment variable'
-    });
+  // Handle OPTIONS request (preflight)
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
-
-  // Initialize GitHub client
-  let octokit;
+  
+  // Debug output
+  console.log('API request received', {
+    method: req.method,
+    url: req.url,
+    query: req.query,
+    headers: req.headers,
+  });
+  
+  // Validate authorization for POST requests
+  if (req.method === 'POST') {
+    const isAuthorized = validateToken(req.headers.authorization);
+    if (!isAuthorized) {
+      console.log('Unauthorized access attempt');
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  }
+  
   try {
-    octokit = new Octokit({
-      auth: process.env.GITHUB_TOKEN
+    // Initialize GitHub API client
+    if (!GITHUB_TOKEN) {
+      console.error('GITHUB_TOKEN is not set!');
+      return res.status(500).json({ error: 'GitHub token not configured' });
+    }
+    
+    const octokit = new Octokit({
+      auth: GITHUB_TOKEN
     });
     
-    // Test the connection by getting the authenticated user
-    console.log('Testing GitHub connection...');
-    try {
-      const { data } = await octokit.users.getAuthenticated();
-      console.log('GitHub connection successful, authenticated as:', data.login);
-    } catch (authError) {
-      console.error('GitHub authentication error:', authError.message);
-      return res.status(401).json({
-        message: 'GitHub authentication failed',
-        error: authError.message
+    // Extract the page path from query string
+    // Fix: use "path" param which is what PageEditor.jsx sends
+    const pagePath = req.query.path;
+    
+    if (!pagePath) {
+      return res.status(400).json({ error: 'Path parameter is required' });
+    }
+    
+    // Convert page path to file path
+    const filePath = pagePathMap[pagePath];
+    
+    if (!filePath) {
+      return res.status(404).json({ 
+        error: 'Page not found in mapping',
+        requestedPath: pagePath,
+        availablePaths: Object.keys(pagePathMap)
       });
     }
-  } catch (error) {
-    console.error('Failed to initialize GitHub client:', error.message);
-    return res.status(500).json({ 
-      message: 'Failed to initialize GitHub client', 
-      error: error.message 
-    });
-  }
-
-  // GET - Fetch content
-  if (req.method === 'GET') {
-    try {
-      const { path } = req.query;
-      
-      console.log('Received content request for path:', path);
-      
-      if (!path) {
-        console.log('Error: No path provided in request');
-        return res.status(400).json({ message: 'Path parameter is required' });
-      }
-      
-      if (!pagePathMap[path]) {
-        console.log('Error: Path not found in pagePathMap:', path);
-        console.log('Available paths:', Object.keys(pagePathMap));
-        return res.status(404).json({ message: 'Page not found', availablePaths: Object.keys(pagePathMap) });
-      }
-      
-      const filePath = pagePathMap[path];
-      console.log('Mapped file path:', filePath);
-      
-      // Get file content from GitHub
-      try {
-        const { data } = await octokit.repos.getContent({
-          owner: GITHUB_OWNER,
-          repo: GITHUB_REPO,
-          path: filePath,
-          ref: GITHUB_BRANCH
-        });
-        
-        // Decode content
-        const fileContent = Buffer.from(data.content, 'base64').toString();
-        
-        // Extract the component content
-        const content = extractComponentContent(fileContent);
-        
-        if (!content || content.trim() === '') {
-          console.log('Warning: Extracted empty content for path:', path);
-        } else {
-          console.log('Successfully extracted content for path:', path);
-        }
-        
-        return res.status(200).json({
-          title: path.split('/').pop().replace(/-/g, ' '),
-          content,
-          sha: data.sha, // Used for updates
-          path: filePath
-        });
-      } catch (githubError) {
-        console.error('GitHub API error:', githubError.message);
-        return res.status(500).json({ 
-          message: 'Failed to fetch content from GitHub', 
-          error: githubError.message,
-          filePath: filePath 
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching content:', error);
-      return res.status(500).json({ 
-        message: 'Failed to fetch content', 
-        error: error.message 
-      });
-    }
-  }
-
-  // POST - Update content
-  if (req.method === 'POST') {
-    // Validate auth token
-    if (!validateToken(req.headers.authorization)) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
-    try {
-      const { path, content, commitMessage } = req.body;
-      
-      if (!path || !pagePathMap[path] || !content) {
-        return res.status(400).json({ message: 'Path and content are required' });
-      }
-      
-      const filePath = pagePathMap[path];
-      
-      // Get current file content and SHA from GitHub
-      const { data: fileData } = await octokit.repos.getContent({
+    
+    console.log(`Processing request for page: ${pagePath}, file path: ${filePath}`);
+    
+    // Handle GET request - retrieve content
+    if (req.method === 'GET') {
+      // Fetch the file content from GitHub
+      const response = await octokit.repos.getContent({
         owner: GITHUB_OWNER,
         repo: GITHUB_REPO,
         path: filePath,
         ref: GITHUB_BRANCH
       });
       
-      // Decode current content
-      const currentFileContent = Buffer.from(fileData.content, 'base64').toString();
+      // Decode content from base64
+      const fileContent = atob(response.data.content);
+      console.log(`Retrieved file from GitHub, size: ${fileContent.length} bytes`);
       
-      // Update the component content in the file
-      const updatedFileContent = updateComponentContent(currentFileContent, content);
+      // Extract the component content
+      const componentContent = extractComponentContent(fileContent);
       
-      // Update file in GitHub
-      const response = await octokit.repos.createOrUpdateFileContents({
+      return res.status(200).json({ 
+        content: componentContent,
+        title: pagePath.split('/').pop().replace(/-/g, ' '),
+        path: pagePath,
+        filePath: filePath
+      });
+    }
+    
+    // Handle POST request - update content
+    if (req.method === 'POST') {
+      const { content, path } = req.body;
+      
+      if (!content) {
+        return res.status(400).json({ error: 'Content is required' });
+      }
+      
+      console.log('Received updated content with length:', content.length);
+      
+      // First, get the current file
+      const fileResponse = await octokit.repos.getContent({
         owner: GITHUB_OWNER,
         repo: GITHUB_REPO,
         path: filePath,
-        message: commitMessage || `Update ${path} content`,
+        ref: GITHUB_BRANCH
+      });
+      
+      const currentContent = atob(fileResponse.data.content);
+      const sha = fileResponse.data.sha;
+      
+      // Update the content in the file
+      const updatedFileContent = updateComponentContent(currentContent, content);
+      
+      if (updatedFileContent === currentContent) {
+        console.warn('No changes detected in content');
+        return res.status(304).json({ message: 'No changes detected' });
+      }
+      
+      // Commit the updated file to GitHub
+      await octokit.repos.createOrUpdateFileContents({
+        owner: GITHUB_OWNER,
+        repo: GITHUB_REPO,
+        path: filePath,
+        message: `Update content for ${pagePath} page via CMS`,
         content: Buffer.from(updatedFileContent).toString('base64'),
-        sha: fileData.sha,
+        sha: sha,
         branch: GITHUB_BRANCH
       });
       
-      return res.status(200).json({
-        message: 'Content updated successfully',
-        commit: response.data.commit
-      });
-    } catch (error) {
-      console.error('Error updating content:', error);
-      return res.status(500).json({ 
-        message: 'Failed to update content', 
-        error: error.message 
-      });
+      console.log(`Content for ${pagePath} page updated successfully`);
+      return res.status(200).json({ message: 'Content updated successfully' });
     }
+    
+    // Handle unsupported methods
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (error) {
+    console.error('Error processing request:', error);
+    return res.status(500).json({ 
+      error: 'An error occurred processing your request',
+      message: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
-
-  return res.status(405).json({ message: 'Method not allowed' });
 } 

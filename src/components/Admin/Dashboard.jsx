@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, Link } from 'react-router-dom';
-import { FaHome, FaUsers, FaFileAlt, FaImages, FaBars, FaSignOutAlt } from 'react-icons/fa';
+import { useNavigate, Link } from 'react-router-dom';
+import { FaHome, FaUsers, FaFileAlt, FaImages, FaBars, FaSignOutAlt, FaUser, FaEdit } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -8,34 +8,82 @@ const Dashboard = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [newMenuItem, setNewMenuItem] = useState({ title: '', url: '', order: 0 });
+  const [pages, setPages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is authenticated
+    // Check authentication
     const token = localStorage.getItem('authToken');
     if (!token) {
-      setIsAuthenticated(false);
-    } else {
-      // Fetch menu items from API
-      fetchMenuItems();
+      console.log('No auth token found in dashboard, redirecting to login');
+      navigate('/admin/login', { state: { from: '/admin/dashboard' } });
+      return;
     }
-  }, []);
-
-  const fetchMenuItems = async () => {
-    setIsLoading(true);
+    
+    // Try to decode token to get user info
     try {
-      // This would fetch from your API
-      const response = await fetch('/api/menus');
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch menu items');
+      const tokenData = JSON.parse(atob(token));
+      if (!tokenData || !tokenData.role) {
+        throw new Error('Invalid token data');
       }
+      setUsername(tokenData.username || 'Admin');
+    } catch (e) {
+      console.error('Error parsing token:', e);
+      localStorage.removeItem('authToken');
+      navigate('/admin/login', { state: { from: '/admin/dashboard' } });
+      return;
+    }
+    
+    // Load pages
+    fetchPages();
+  }, [navigate]);
+  
+  // Simple base64 decode function
+  const atob = (str) => {
+    try {
+      return decodeURIComponent(escape(window.atob(str)));
+    } catch (e) {
+      return window.atob(str);
+    }
+  };
+  
+  const fetchPages = async () => {
+    setLoading(true);
+    try {
+      // We don't need to call a separate API to get the page list
+      // Just use our predefined list to avoid unnecessary API calls
+      const availablePages = [
+        { id: 'home', title: 'Home Page', path: 'home' },
+        { id: 'about', title: 'About Us', path: 'about' },
+        { id: 'services', title: 'Services Overview', path: 'services' },
+        { id: 'training', title: 'Training', path: 'training' },
+        { id: 'blogs', title: 'Blogs', path: 'blogs' },
+        { id: 'contact', title: 'Contact Us', path: 'contact' },
+        
+        // Service pages
+        { id: 'devops', title: 'DevOps Services', path: 'services/devops' },
+        { id: 'cloud-migration', title: 'Cloud Migration', path: 'services/cloud-migration' },
+        { id: 'managed-services', title: 'Managed Services', path: 'services/managed-services' },
+        { id: 'infrastructure', title: 'Infrastructure as Code', path: 'services/infrastructure-as-code' },
+        { id: 'architecture', title: 'Architecture Design', path: 'services/architecture-design' },
+        { id: 'security', title: 'Security Compliance', path: 'services/security-compliance' },
+        
+        // Legal pages
+        { id: 'terms', title: 'Terms and Conditions', path: 'terms' },
+        { id: 'privacy', title: 'Privacy Policy', path: 'privacy' },
+        { id: 'cookies', title: 'Cookie Policy', path: 'cookies' },
+      ];
       
-      setMenuItems(data);
+      setPages(availablePages);
+      setError(null);
     } catch (err) {
-      console.error('Error fetching menu items:', err);
+      console.error('Error loading pages:', err);
+      setError('Failed to load pages. Please try again.');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -43,6 +91,7 @@ const Dashboard = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     setIsAuthenticated(false);
+    navigate('/admin/login');
   };
 
   const handleAddMenuItem = async (e) => {
@@ -350,74 +399,16 @@ const Dashboard = () => {
                 Select a page to edit its content. Changes will be saved directly to your GitHub repository.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Link to="/admin/edit/home" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Home Page</h3>
-                  <p className="text-sm text-gray-600">Edit main landing page content</p>
-                </Link>
-                <Link to="/admin/edit/about" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">About Page</h3>
-                  <p className="text-sm text-gray-600">Edit about us information</p>
-                </Link>
-                <Link to="/admin/edit/services" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Services</h3>
-                  <p className="text-sm text-gray-600">Edit service offerings</p>
-                </Link>
-                <Link to="/admin/edit/contact" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Contact Page</h3>
-                  <p className="text-sm text-gray-600">Edit contact information</p>
-                </Link>
-                <Link to="/admin/edit/training" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Training Page</h3>
-                  <p className="text-sm text-gray-600">Edit training content</p>
-                </Link>
-                <Link to="/admin/edit/blogs" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Blogs Page</h3>
-                  <p className="text-sm text-gray-600">Edit blog listings</p>
-                </Link>
-              </div>
-              
-              <h2 className="text-xl font-semibold mt-8 mb-4">Service Pages</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Link to="/admin/edit/services/devops" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">DevOps</h3>
-                  <p className="text-sm text-gray-600">Edit DevOps service page</p>
-                </Link>
-                <Link to="/admin/edit/services/cloud-migration" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Cloud Migration</h3>
-                  <p className="text-sm text-gray-600">Edit Cloud Migration service page</p>
-                </Link>
-                <Link to="/admin/edit/services/managed-services" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Managed Services</h3>
-                  <p className="text-sm text-gray-600">Edit Managed Services page</p>
-                </Link>
-                <Link to="/admin/edit/services/infrastructure-as-code" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Infrastructure as Code</h3>
-                  <p className="text-sm text-gray-600">Edit Infrastructure as Code service page</p>
-                </Link>
-                <Link to="/admin/edit/services/architecture-design" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Architecture Design</h3>
-                  <p className="text-sm text-gray-600">Edit Architecture Design service page</p>
-                </Link>
-                <Link to="/admin/edit/services/security-compliance" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Security & Compliance</h3>
-                  <p className="text-sm text-gray-600">Edit Security & Compliance service page</p>
-                </Link>
-              </div>
-              
-              <h2 className="text-xl font-semibold mt-8 mb-4">Legal Pages</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Link to="/admin/edit/terms" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Terms & Conditions</h3>
-                  <p className="text-sm text-gray-600">Edit terms and conditions page</p>
-                </Link>
-                <Link to="/admin/edit/privacy" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Privacy Policy</h3>
-                  <p className="text-sm text-gray-600">Edit privacy policy page</p>
-                </Link>
-                <Link to="/admin/edit/cookies" className="border p-4 rounded hover:bg-gray-50">
-                  <h3 className="font-medium">Cookie Policy</h3>
-                  <p className="text-sm text-gray-600">Edit cookie policy page</p>
-                </Link>
+                {pages.map((page) => (
+                  <Link
+                    to={`/admin/edit/${page.path}`}
+                    key={page.id}
+                    className="border p-4 rounded hover:bg-gray-50"
+                  >
+                    <h3 className="font-medium">{page.title}</h3>
+                    <p className="text-sm text-gray-600">Edit {page.title} content</p>
+                  </Link>
+                ))}
               </div>
             </div>
           )}
@@ -511,7 +502,7 @@ const Dashboard = () => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     <tr>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        admin
+                        {username}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         admin@clouddigify.com
