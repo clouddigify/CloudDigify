@@ -1,19 +1,42 @@
 // API endpoint to handle form submissions and send emails
 const nodemailer = require('nodemailer');
 
-// Create a transporter object using SMTP
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.zoho.com',
-  port: process.env.SMTP_PORT || 587,
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER || 'your-email@clouddigify.com',
-    pass: process.env.SMTP_PASSWORD || 'your-zoho-mail-password'
-  }
-});
+// Create a transporter object using SMTP with improved Zoho Mail settings
+const createTransporter = () => {
+  console.log('Setting up email transporter with host:', process.env.SMTP_HOST);
+  
+  // Zoho Mail specific configuration
+  const transportConfig = {
+    host: process.env.SMTP_HOST || 'smtp.zoho.com',
+    port: parseInt(process.env.SMTP_PORT || '587', 10),
+    secure: process.env.SMTP_SECURE === 'true' || false, // true for 465, false for other ports
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD
+    },
+    tls: {
+      // Do not fail on invalid certs
+      rejectUnauthorized: false
+    },
+    debug: true // Enable debug logging for SMTP
+  };
+  
+  // Log configuration (excluding password)
+  console.log('Transporter config:', {
+    ...transportConfig,
+    auth: { 
+      user: transportConfig.auth.user,
+      pass: '***PASSWORD-HIDDEN***' 
+    }
+  });
+  
+  return nodemailer.createTransport(transportConfig);
+};
 
 // Handler for API requests
 module.exports = async (req, res) => {
+  console.log('Email API endpoint called with method:', req.method);
+  
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,19 +45,32 @@ module.exports = async (req, res) => {
 
   // Handle preflight request
   if (req.method === 'OPTIONS') {
+    console.log('Handling OPTIONS preflight request');
     res.status(200).end();
     return;
   }
 
   // Only allow POST requests
   if (req.method !== 'POST') {
+    console.log('Rejecting non-POST request:', req.method);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
+    console.log('Processing form submission...');
+    
+    // Verify request body
+    if (!req.body || typeof req.body !== 'object') {
+      console.error('Invalid request body:', req.body);
+      return res.status(400).json({ error: 'Invalid request body' });
+    }
+    
     const { name, email, phone, company, message, formType } = req.body;
+    
+    console.log('Received form data:', { name, email, formType });
 
     if (!name || !email || !message) {
+      console.error('Missing required fields');
       return res.status(400).json({ error: 'Name, email, and message are required' });
     }
 
@@ -46,6 +82,8 @@ module.exports = async (req, res) => {
     
     // Format subject line
     const subject = `New ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Form'} Submission from ${name}`;
+    
+    console.log('Preparing email to:', toEmail, 'with cc:', ccRecipients);
     
     // Create HTML email body with better formatting
     const htmlContent = `
@@ -89,9 +127,13 @@ module.exports = async (req, res) => {
       </div>
     `;
 
-    // Configure email data
+    // Configure email data with modified from address for Zoho
+    // Note: With Zoho, the from address typically must match the authenticated user
+    const smtpUser = process.env.SMTP_USER;
+    const fromEmail = smtpUser || 'noreply@clouddigify.com';
+    
     const mailOptions = {
-      from: `"CloudDigify Website" <noreply@clouddigify.com>`,
+      from: `"CloudDigify Website" <${fromEmail}>`,
       to: toEmail,
       cc: ccRecipients.join(','),
       replyTo: email,
@@ -113,13 +155,62 @@ module.exports = async (req, res) => {
       `
     };
 
+    console.log('Creating email transporter...');
+    // Create a new transporter for each request to avoid connection issues
+    const transporter = createTransporter();
+    
+    console.log('Sending email with options:', {
+      ...mailOptions,
+      html: '(HTML content not shown for brevity)',
+      text: '(Text content not shown for brevity)'
+    });
+
+    // Test SMTP connection before sending
+    try {
+      console.log('Verifying SMTP connection...');
+      const verifyResult = await transporter.verify();
+      console.log('SMTP connection verified:', verifyResult);
+    } catch (verifyError) {
+      console.error('SMTP verification failed:', verifyError);
+      // Continue attempting to send anyway
+    }
+
     // Send the email
-    await transporter.sendMail(mailOptions);
+    console.log('Attempting to send email...');
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully:', info);
 
     // Return success response
-    return res.status(200).json({ success: true, message: 'Email sent successfully' });
+    return res.status(200).json({ 
+      success: true, 
+      message: 'Email sent successfully',
+      messageId: info.messageId || 'No message ID returned'
+    });
   } catch (error) {
     console.error('Error sending email:', error);
-    return res.status(500).json({ error: 'Failed to send email', details: error.message });
+    
+    // Detailed error logging
+    if (error.code) console.error('Error code:', error.code);
+    if (error.command) console.error('Failed command:', error.command);
+    if (error.response) console.error('Server response:', error.response);
+    if (error.responseCode) console.error('Response code:', error.responseCode);
+    
+    let errorMessage = 'Failed to send email';
+    
+    // Provide more helpful error messages based on common issues
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Authentication failed. Please check your Zoho credentials.';
+    } else if (error.code === 'ESOCKET') {
+      errorMessage = 'Network error. Please check your SMTP host and port settings.';
+    } else if (error.code === 'ECONNECTION') {
+      errorMessage = 'Connection error. The mail server may be unavailable.';
+    }
+    
+    return res.status(500).json({ 
+      error: errorMessage, 
+      details: error.message,
+      code: error.code || 'UNKNOWN',
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 }; 

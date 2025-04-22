@@ -38,6 +38,10 @@
       "status": 301
     },
     {
+      "src": "/api/test-email",
+      "dest": "/api/test-email.js"
+    },
+    {
       "src": "/api/send-email",
       "dest": "/api/send-email.js"
     },
