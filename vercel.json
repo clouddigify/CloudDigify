@@ -1,17 +1,16 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
   "builds": [
     {
-      "src": "api/**/*.js",
+      "src": "api/*.js",
       "use": "@vercel/node"
     },
     {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist"
       }
     }
   ],
@@ -48,24 +47,41 @@
       "dest": "/api/simple.js"
     },
     {
+      "src": "/api/debug",
+      "dest": "/api/debug.js"
+    },
+    {
       "src": "/api/auth/login",
       "dest": "/api/auth.js"
     },
     {
-      "src": "/api/content",
+      "src": "/api/test",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/content(.*)",
       "dest": "/api/content.js"
     },
     {
-      "src": "/api/content/(.*)",
-      "dest": "/api/content.js?path=$1"
-    },
-    {
-      "src": "/api/menus",
+      "src": "/api/menus(.*)",
       "dest": "/api/menus.js"
     },
     {
-      "src": "/api/menus/(.*)",
-      "dest": "/api/menus.js?path=$1"
+      "src": "/static/(.*)",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "/asset-manifest.json",
+      "dest": "/asset-manifest.json"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
     },
     {
       "src": "/assets/(.*)",
@@ -84,7 +100,8 @@
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
-        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+        "Content-Security-Policy": "default-src 'self'; img-src 'self' data: https://images.unsplash.com https://logos-world.net; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self' https://api.clouddigify.com;"
       },
       "dest": "/index.html"
     }
