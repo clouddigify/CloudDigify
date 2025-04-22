@@ -218,20 +218,27 @@ const NavBar = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [hoverTimeout, setHoverTimeout] = useState(null);
   const navRef = useRef(null);
-  
-  // Function to check if submenu would go off-screen
-  const checkSubmenuPosition = (e) => {
-    if (!e) return 'left-full';
-    
-    const rect = e.target.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    const remainingSpace = viewportWidth - rect.right;
-    
-    // If less than 300px from right edge, show on left side
-    return remainingSpace < 300 ? 'right-full' : 'left-full';
-  };
+  const submenuRefs = useRef([]);
+  const categoryRefs = useRef({});
 
-  const toggleSubmenu = (index) => {
+  // Initialize refs for submenus
+  useEffect(() => {
+    submenuRefs.current = Array(links.length).fill().map(() => React.createRef());
+    
+    // Initialize category refs as an object of arrays
+    const categoryRefsObj = {};
+    links.forEach((link, index) => {
+      if (link.hasSubmenu && link.submenu) {
+        categoryRefsObj[index] = Array(link.submenu.length).fill().map(() => React.createRef());
+      }
+    });
+    categoryRefs.current = categoryRefsObj;
+  }, []);
+  
+  // Toggle submenu with event handler fix
+  const toggleSubmenu = (index, e) => {
+    if (e) e.stopPropagation();
+    
     // If clicking on already open submenu, close it
     if (activeSubmenu === index) {
       setActiveSubmenu(null);
@@ -243,45 +250,20 @@ const NavBar = () => {
     }
   };
 
-  const toggleCategory = (categoryIndex, e) => {
+  // Toggle category with fixed event handling
+  const toggleCategory = (submenuIndex, categoryIndex, e) => {
+    if (e) e.stopPropagation();
+    
     // If clicking on already open category, close it
-    if (activeCategory === categoryIndex) {
+    if (activeCategory === categoryIndex && activeSubmenu === submenuIndex) {
       setActiveCategory(null);
     } else {
       // Otherwise open the clicked category
+      setActiveSubmenu(submenuIndex);
       setActiveCategory(categoryIndex);
     }
   };
   
-  // Handle hover for desktop
-  const handleMouseEnter = (index) => {
-    clearTimeout(hoverTimeout);
-    setActiveSubmenu(index);
-  };
-  
-  const handleMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setActiveSubmenu(null);
-      setActiveCategory(null);
-    }, 300);
-    setHoverTimeout(timeout);
-  };
-  
-  // Handle hover for category
-  const handleCategoryMouseEnter = (categoryIndex) => {
-    clearTimeout(hoverTimeout);
-    setActiveCategory(categoryIndex);
-  };
-  
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (hoverTimeout) {
-        clearTimeout(hoverTimeout);
-      }
-    };
-  }, [hoverTimeout]);
-
   // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -324,28 +306,40 @@ const NavBar = () => {
           {links.map((link, index) => (
             <li key={link.path} className="relative group">
               {link.hasSubmenu ? (
-                <div 
-                  className="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 py-2"
-                  onMouseEnter={() => handleMouseEnter(index)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <span 
-                    className="mr-1"
-                    onClick={() => toggleSubmenu(index)}
+                <div className="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 py-2">
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `mr-1 ${isActive ? 'text-blue-600 font-semibold' : ''}`
+                    }
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveSubmenu(null);
+                      setActiveCategory(null);
+                    }}
                   >
                     {link.title}
-                  </span>
-                  <FaChevronDown 
-                    className={`text-xs transition-transform duration-200 ${activeSubmenu === index ? 'rotate-180' : ''}`} 
-                    onClick={() => toggleSubmenu(index)}
-                  />
+                  </NavLink>
+                  <button 
+                    className="p-1 focus:outline-none"
+                    onClick={(e) => toggleSubmenu(index, e)}
+                  >
+                    <FaChevronDown 
+                      className={`text-xs transition-transform duration-200 ${activeSubmenu === index ? 'rotate-180' : ''}`}
+                    />
+                  </button>
                   
                   {/* Primary Dropdown */}
                   {activeSubmenu === index && link.isMultiLevel && (
                     <div 
-                      className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-[60] max-h-[80vh] overflow-y-auto"
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={handleMouseLeave}
+                      ref={submenuRefs.current[index]}
+                      className="fixed mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-[60] max-h-[80vh] overflow-y-auto"
+                      style={{ 
+                        boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                        top: '50px', // Fixed top position to ensure visibility
+                        left: `${submenuRefs.current[index]?.getBoundingClientRect().left || 0}px`
+                      }}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <ul>
                         {/* Main category link */}
@@ -366,10 +360,12 @@ const NavBar = () => {
                         
                         {/* Categories with sub-menus */}
                         {link.submenu.map((category, categoryIndex) => (
-                          <li key={category.title} className="relative">
-                            <div 
-                              className="flex items-center justify-between px-4 py-2 hover:bg-blue-50 cursor-pointer"
-                            >
+                          <li 
+                            key={category.title} 
+                            className="relative"
+                            ref={categoryRefs.current[index]?.[categoryIndex]}
+                          >
+                            <div className="flex items-center justify-between px-4 py-2 hover:bg-blue-50 cursor-pointer">
                               <NavLink
                                 to={category.path}
                                 className="flex items-center text-gray-700"
@@ -384,22 +380,24 @@ const NavBar = () => {
                               </NavLink>
                               <button 
                                 className="p-1 focus:outline-none"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  toggleCategory(categoryIndex, e);
-                                }}
+                                onClick={(e) => toggleCategory(index, categoryIndex, e)}
                               >
                                 <FaChevronDown 
-                                  className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                                  className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex && activeSubmenu === index ? 'rotate-180' : ''}`}
                                 />
                               </button>
                             </div>
                             
                             {/* Secondary dropdown (Category submenus) */}
-                            {activeCategory === categoryIndex && (
+                            {activeCategory === categoryIndex && activeSubmenu === index && (
                               <div 
-                                className={`absolute top-0 w-64 bg-white shadow-lg rounded-md overflow-hidden z-[70] max-h-[80vh] overflow-y-auto left-full`}
-                                style={{ boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
+                                className="fixed w-64 bg-white shadow-lg rounded-md overflow-hidden z-[70] max-h-[80vh] overflow-y-auto"
+                                style={{ 
+                                  boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                                  top: `${(categoryRefs.current[index]?.[categoryIndex]?.getBoundingClientRect().top || 0)}px`,
+                                  left: `${(categoryRefs.current[index]?.[categoryIndex]?.getBoundingClientRect().right || 0) + 5}px`
+                                }}
+                                onClick={(e) => e.stopPropagation()}
                               >
                                 <ul>
                                   <li>
@@ -447,8 +445,6 @@ const NavBar = () => {
                   {activeSubmenu === index && !link.isMultiLevel && (
                     <div 
                       className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50"
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={handleMouseLeave}
                     >
                       <ul>
                         <li>
@@ -514,7 +510,7 @@ const NavBar = () => {
                 <div>
                   <div 
                     className="flex items-center justify-between py-2 text-gray-700 border-b border-gray-100"
-                    onClick={() => toggleSubmenu(index)}
+                    onClick={(e) => toggleSubmenu(index, e)}
                   >
                     <span className="font-medium">{link.title}</span>
                     <FaChevronDown className={`text-xs transition-transform duration-200 ${activeSubmenu === index ? 'rotate-180' : ''}`} />
@@ -559,16 +555,16 @@ const NavBar = () => {
                               className="p-1 focus:outline-none"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                toggleCategory(categoryIndex);
+                                toggleCategory(index, categoryIndex, e);
                               }}
                             >
                               <FaChevronDown 
-                                className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                                className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex && activeSubmenu === index ? 'rotate-180' : ''}`}
                               />
                             </button>
                           </div>
                           
-                          {activeCategory === categoryIndex && (
+                          {activeCategory === categoryIndex && activeSubmenu === index && (
                             <ul className="pl-6 py-1 bg-white rounded-md shadow-inner">
                               <li className="border-b border-gray-200">
                                 <NavLink
@@ -617,7 +613,7 @@ const NavBar = () => {
                         <NavLink
                           to={link.path}
                           className={({ isActive }) =>
-                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
+                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'} border-b border-gray-200 mb-2`
                           }
                           onClick={() => setMenuOpen(false)}
                         >
