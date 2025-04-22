@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { FaHome, FaUsers, FaFileAlt, FaImages, FaBars, FaSignOutAlt, FaUser, FaEdit, FaUpload, FaTrash, FaCheck, FaTimes, FaToggleOn } from 'react-icons/fa';
 
 const Dashboard = () => {
@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [uploadStatus, setUploadStatus] = useState({ success: false, error: null });
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Check authentication
@@ -483,6 +484,15 @@ const Dashboard = () => {
               </button>
             </li>
             <li>
+              <Link
+                to="/admin/pages"
+                className={`flex items-center w-full px-4 py-2 text-white ${location.pathname === '/admin/pages' ? 'bg-blue-900' : ''}`}
+              >
+                <FaToggleOn className="mr-2" />
+                Page Manager
+              </Link>
+            </li>
+            <li>
               <button
                 onClick={() => setActiveTab('menus')}
                 className={`flex items-center w-full px-4 py-2 ${activeTab === 'menus' ? 'bg-blue-900' : ''}`}
@@ -767,18 +777,6 @@ const Dashboard = () => {
                   </tbody>
                 </table>
               </div>
-            </div>
-          )}
-
-          {activeTab === 'dashboard' && (
-            <div className="mt-6">
-              <Link
-                to="/admin/pages"
-                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 transition"
-              >
-                <FaToggleOn className="text-blue-500" />
-                <span>Page Manager</span>
-              </Link>
             </div>
           )}
         </main>
