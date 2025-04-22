@@ -46,6 +46,10 @@
       "dest": "/api/send-email.js"
     },
     {
+      "src": "/api/images",
+      "dest": "/api/images.js"
+    },
+    {
       "src": "/api/auth/login",
       "dest": "/api/auth/login.js"
     },
