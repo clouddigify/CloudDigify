@@ -29,8 +29,7 @@ const navLinks = [
 // Legal links
 const legalLinks = [
   { title: "Terms & Conditions", path: "/terms" },
-  { title: "Privacy Policy", path: "/privacy" },
-  { title: "Cookie Policy", path: "/cookies" }
+  { title: "Privacy Policy", path: "/privacy" }
 ];
 
 const Footer = () => (

@@ -34,7 +34,7 @@ const TermsAndConditions = () => {
       content: (
         <p>
           By accessing and using the CloudDigify website and services (the "Service"), you acknowledge that you have read, 
-          understood, and agree to be bound by these Terms and Conditions, as well as our Privacy Policy and Cookie Policy. 
+          understood, and agree to be bound by these Terms and Conditions and our Privacy Policy. 
           If you do not agree with any part of these terms, you may not use our Service.
         </p>
       )
