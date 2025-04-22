@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaChevronDown, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog } from 'react-icons/fa';
 
 // You can replace this with your actual logo path
 const logoUrl = '/logo.png';
@@ -36,16 +36,18 @@ const serviceCategories = [
     submenu: [
       { title: 'Security & Compliance', path: '/services/security-compliance' },
       { title: 'Cyber Defense Resiliency', path: '/services/cyber-defense' },
-      { title: 'Privacy Services', path: '/services/privacy-services' }
+      { title: 'Privacy Services', path: '/services/privacy-services' },
+      { title: 'Privacy SmartHub', path: '/services/privacy-smarthub' }
     ]
   },
   {
     title: 'Data & Analytics',
     icon: <FaDatabase className="mr-2" />,
     submenu: [
-      { title: 'Data Analytics', path: '/services/data-analytics' },
+      { title: 'Data Analytics Services', path: '/services/data-analytics' },
       { title: 'Business Intelligence', path: '/services/business-intelligence' },
-      { title: 'Data Warehousing', path: '/services/data-warehousing' }
+      { title: 'Data Warehousing', path: '/services/data-warehousing' },
+      { title: 'Big Data Solutions', path: '/services/big-data' }
     ]
   },
   {
@@ -55,7 +57,8 @@ const serviceCategories = [
       { title: 'Experience Design', path: '/services/experience-design' },
       { title: 'Digital Interactive', path: '/services/digital-interactive' },
       { title: 'Enterprise Mobility', path: '/services/enterprise-mobility' },
-      { title: 'Digital Integration', path: '/services/digital-integration' }
+      { title: 'Digital Integration', path: '/services/digital-integration' },
+      { title: 'Digital Runtime', path: '/services/digital-runtime' }
     ]
   },
   {
@@ -64,7 +67,8 @@ const serviceCategories = [
     submenu: [
       { title: 'Artificial Intelligence', path: '/services/artificial-intelligence' },
       { title: 'Intelligent Automation', path: '/services/intelligent-automation' },
-      { title: 'Cognitive Services', path: '/services/cognitive-services' }
+      { title: 'Cognitive Services', path: '/services/cognitive-services' },
+      { title: 'Robotic Process Automation', path: '/services/rpa' }
     ]
   },
   {
@@ -74,17 +78,49 @@ const serviceCategories = [
       { title: 'Managed Cloud Services', path: '/services/managed-services' },
       { title: 'Architecture Design', path: '/services/architecture-design' },
       { title: 'Application Development', path: '/services/application-development' },
+      { title: 'Application Maintenance', path: '/services/application-maintenance' },
       { title: 'System Integration', path: '/services/system-integration' }
     ]
   },
   {
     title: 'Industry Solutions',
-    icon: <FaCogs className="mr-2" />,
+    icon: <FaIndustry className="mr-2" />,
     submenu: [
       { title: 'Industry 4.0', path: '/services/industry-4-0' },
       { title: 'Blockchain Solutions', path: '/services/blockchain' },
       { title: 'Quality Engineering', path: '/services/quality-engineering' },
       { title: 'Organizational Change', path: '/services/organizational-change' }
+    ]
+  },
+  {
+    title: 'Consulting Services',
+    icon: <FaProjectDiagram className="mr-2" />,
+    submenu: [
+      { title: 'Technology Consulting', path: '/services/technology-consulting' },
+      { title: 'Digital Transformation', path: '/services/digital-transformation' },
+      { title: 'Enterprise Architecture', path: '/services/enterprise-architecture' },
+      { title: 'Business Process Consulting', path: '/services/business-process' },
+      { title: 'Organizational Change Management', path: '/services/ocm' }
+    ]
+  },
+  {
+    title: 'Quality Assurance',
+    icon: <FaCheckCircle className="mr-2" />,
+    submenu: [
+      { title: 'Assurance & Quality Engineering', path: '/services/quality-assurance' },
+      { title: 'Test Automation', path: '/services/test-automation' },
+      { title: 'Performance Testing', path: '/services/performance-testing' },
+      { title: 'Security Testing', path: '/services/security-testing' }
+    ]
+  },
+  {
+    title: 'Specialized Solutions',
+    icon: <FaCubes className="mr-2" />,
+    submenu: [
+      { title: 'IoT Solutions', path: '/services/iot-solutions' },
+      { title: 'Platform Engineering', path: '/services/platform-engineering' },
+      { title: 'Reimagined Enterprise', path: '/services/reimagined-enterprise' },
+      { title: 'Smart City Solutions', path: '/services/smart-city' }
     ]
   }
 ];
@@ -135,6 +171,33 @@ const industryCategories = [
       { title: 'Retail', path: '/industries/retail' },
       { title: 'Consumer Goods', path: '/industries/consumer-goods' },
       { title: 'E-commerce', path: '/industries/e-commerce' }
+    ]
+  },
+  {
+    title: 'Energy & Utilities',
+    icon: <FaNetworkWired className="mr-2" />,
+    submenu: [
+      { title: 'Energy', path: '/industries/energy' },
+      { title: 'Utilities', path: '/industries/utilities' },
+      { title: 'Oil & Gas', path: '/industries/oil-gas' }
+    ]
+  },
+  {
+    title: 'Communications & Media',
+    icon: <FaMobileAlt className="mr-2" />,
+    submenu: [
+      { title: 'Communications', path: '/industries/communications' },
+      { title: 'Media & Entertainment', path: '/industries/media-entertainment' },
+      { title: 'Digital Publishing', path: '/industries/digital-publishing' }
+    ]
+  },
+  {
+    title: 'Travel & Hospitality',
+    icon: <FaUsers className="mr-2" />,
+    submenu: [
+      { title: 'Travel', path: '/industries/travel' },
+      { title: 'Transport', path: '/industries/transport' },
+      { title: 'Hospitality', path: '/industries/hospitality' }
     ]
   }
 ];
@@ -203,7 +266,7 @@ const NavBar = () => {
                   
                   {/* Primary Dropdown */}
                   {activeSubmenu === index && link.isMultiLevel && (
-                    <div className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50">
+                    <div className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50 max-h-[80vh] overflow-y-auto">
                       <ul>
                         {/* Main category link */}
                         <li>
@@ -234,7 +297,7 @@ const NavBar = () => {
                             
                             {/* Secondary dropdown (Category submenus) */}
                             {activeCategory === categoryIndex && (
-                              <div className="absolute left-full top-0 w-64 bg-white shadow-lg rounded-md overflow-hidden">
+                              <div className="absolute left-full top-0 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50 max-h-[80vh] overflow-y-auto">
                                 <ul>
                                   {category.submenu.map((subItem) => (
                                     <li key={subItem.path}>
