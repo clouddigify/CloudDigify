@@ -62,16 +62,14 @@ const About = () => (
     exit={{ opacity: 0 }}
   >
     {/* Hero Section */}
-    <section className="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-20 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-20 px-6"><div className="max-w-6xl mx-auto">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">About CloudDigify</h1>
           <p className="text-xl opacity-90 mb-8">
-            We're a team of cloud experts dedicated to transforming businesses through innovative cloud solutions.
+            We're a&nbsp; team of cloud experts dedicated to transforming businesses through innovative cloud solutions.
           </p>
         </div>
-      </div>
-    </section>
+      </div></section>
 
     {/* Our Story */}
     <section className="py-16 px-8 bg-white">
