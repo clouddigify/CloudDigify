@@ -29,10 +29,24 @@ const Contact = () => {
     e.preventDefault();
     setFormStatus({ submitting: true, submitted: false, error: null });
     
-    // Simulate form submission delay
     try {
-      // In a real implementation, this would be an API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Send data to our API endpoint
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...formData,
+          formType: 'contact-page' // Specify this is main contact form
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form');
+      }
       
       // Clear form data after successful submission
       setFormData({
@@ -49,10 +63,11 @@ const Contact = () => {
         error: null
       });
     } catch (error) {
+      console.error('Error submitting form:', error);
       setFormStatus({
         submitting: false,
         submitted: false,
-        error: 'An error occurred. Please try again.'
+        error: error.message || 'An error occurred. Please try again.'
       });
     }
   };
@@ -118,7 +133,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold text-gray-800">Email</h3>
                       <p className="text-gray-600">
-                        <a href="mailto:support@clouddigify.com" className="hover:text-blue-600">support@clouddigify.com</a>
+                        <a href="mailto:contact@clouddigify.com" className="hover:text-blue-600">contact@clouddigify.com</a>
                       </p>
                     </div>
                   </div>

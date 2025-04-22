@@ -28,11 +28,23 @@ const QuickContact = () => {
     setFormStatus({ submitting: true, success: false, error: null });
     
     try {
-      // In a real implementation, this would post to an email API
-      console.log('Submitting contact form data:', formData);
+      // Send data to our API endpoint
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...formData,
+          formType: 'quick-contact' // Specify this is quick contact form
+        })
+      });
       
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form');
+      }
       
       // Clear form after successful submission
       setFormData({
@@ -57,7 +69,7 @@ const QuickContact = () => {
       setFormStatus({
         submitting: false,
         success: false,
-        error: 'Failed to submit form. Please try again.'
+        error: error.message || 'Failed to submit form. Please try again.'
       });
     }
   };
@@ -81,7 +93,7 @@ const QuickContact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold">Email us</h3>
-                  <p className="text-gray-600">support@clouddigify.com</p>
+                  <p className="text-gray-600">info@clouddigify.com</p>
                 </div>
               </div>
               

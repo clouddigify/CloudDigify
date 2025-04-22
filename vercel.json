@@ -1,8 +1,13 @@
 {
   "version": 2,
+  "build": {
+    "env": {
+      "VERCEL_SERVERLESS_FUNCTIONS": "true"
+    }
+  },
   "builds": [
     {
-      "src": "api/*.js",
+      "src": "api/**/*.js",
       "use": "@vercel/node"
     },
     {
@@ -16,20 +21,56 @@
   ],
   "routes": [
     {
+      "source": "/(www\\.)?clouddigify\\.com/(.*)",
+      "destination": "https://clouddigify.com/$2",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "http"
+        }
+      ],
+      "destination": "https://clouddigify.com/$1",
+      "statusCode": 301
+    },
+    {
+      "src": "/api/send-email",
+      "dest": "/api/send-email.js"
+    },
+    {
+      "src": "/api/auth/login",
+      "dest": "/api/auth/login.js"
+    },
+    {
       "src": "/api/content",
       "dest": "/api/content.js"
     },
     {
-      "src": "/api/auth/login",
+      "src": "/api/auth",
       "dest": "/api/auth.js"
     },
     {
-      "src": "/api/auth/validate",
-      "dest": "/api/auth/validate.js"
+      "src": "/api/menus",
+      "dest": "/api/menus.js"
     },
     {
       "src": "/api/simple",
       "dest": "/api/simple.js"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/admin.*",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
     },
     {
       "src": "/api/debug",
@@ -38,10 +79,6 @@
     {
       "src": "/api/test",
       "dest": "/api/auth.js"
-    },
-    {
-      "src": "/api/menus",
-      "dest": "/api/menus.js"
     },
     {
       "src": "/static/(.*)",
