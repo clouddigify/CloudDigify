@@ -1,212 +1,220 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaArrowRight, FaCheck } from 'react-icons/fa';
+import { FaRocket, FaCloud, FaCogs, FaShieldAlt, FaDatabase, FaChartLine, FaLightbulb, FaArrowRight, FaPlay, FaMobileAlt, FaBrain, FaCode } from 'react-icons/fa';
 import WhyChooseUs from '../sections/WhyChooseUs';
 import Testimonials from '../sections/Testimonials';
 import Partners from '../sections/Partners';
 import QuickContact from '../sections/QuickContact';
 
 const Home = () => {
-  // Animation variants
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5 }
-  };
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end start"]
+  });
 
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  // Service cards data
+  const springConfig = { damping: 15, stiffness: 100 };
+  const scaleSpring = useSpring(1, springConfig);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scroll = window.scrollY;
+      scaleSpring.set(1 - (scroll * 0.001));
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scaleSpring]);
+
   const services = [
-    {
-      icon: <FaCloud className="text-4xl" />,
-      title: 'Cloud Migration',
-      description: 'Seamlessly move your applications, data, and infrastructure to the cloud with minimal disruption.',
-      link: '/services/cloud-migration',
-      gradient: 'from-blue-500 to-cyan-500'
-    },
-    {
-      icon: <FaRocket className="text-4xl" />,
-      title: 'DevOps & CI/CD',
-      description: 'Automate your development lifecycle with our DevOps practices and continuous integration/deployment pipelines.',
-      link: '/services/devops',
-      gradient: 'from-indigo-500 to-purple-500'
-    },
-    {
-      icon: <FaShieldAlt className="text-4xl" />,
-      title: 'Security & Compliance',
-      description: 'Protect your cloud environment with comprehensive security solutions and ensure compliance with regulations.',
-      link: '/services/security-compliance',
-      gradient: 'from-green-500 to-emerald-500'
-    }
-  ];
-
-  const features = [
-    "Enterprise Cloud Solutions",
-    "24/7 Expert Support",
-    "Seamless Integration",
-    "Cost Optimization",
-    "Advanced Security",
-    "Scalable Infrastructure"
+    { icon: <FaCloud />, title: "Cloud Services", description: "Modernize your infrastructure" },
+    { icon: <FaCode />, title: "DevOps", description: "Streamline your development" },
+    { icon: <FaShieldAlt />, title: "Security", description: "Protect your assets" },
+    { icon: <FaDatabase />, title: "Data Analytics", description: "Unlock insights" },
+    { icon: <FaMobileAlt />, title: "Digital Experience", description: "Transform engagement" },
+    { icon: <FaBrain />, title: "AI & Automation", description: "Innovate with intelligence" }
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section with Animated Background */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
-          <motion.div
-            initial={{ opacity: 0.5, scale: 0.8 }}
-            animate={{ 
-              opacity: [0.4, 0.6, 0.4],
-              scale: [0.8, 1.2, 0.8],
-              rotate: [0, 180, 360]
-            }}
-            transition={{ 
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            className="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-500/30 blur-3xl"
-          />
+    <div className="relative overflow-hidden" ref={targetRef}>
+      {/* Hero Section with Parallax */}
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
         </div>
         
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-
-        {/* Content */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center text-white"
-          >
+        <motion.div 
+          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="text-center">
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+              className="text-5xl md:text-7xl font-bold text-white mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
             >
-              Transform Your Business<br />
-              <span className="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
-                With Cloud Technology
-              </span>
+              Transform Your Digital Future
             </motion.h1>
-            
             <motion.p 
               className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Accelerate innovation and achieve remarkable business outcomes with our comprehensive cloud solutions.
+              Accelerate your business with cloud-native solutions, AI-driven insights, and cutting-edge technology
             </motion.p>
-
-            <motion.div
+            <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
             >
               <Link 
-                to="/services" 
-                className="inline-flex items-center px-8 py-4 rounded-full bg-white text-blue-600 font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl group"
+                to="/contact"
+                className="inline-flex items-center px-8 py-4 rounded-full bg-white text-blue-900 font-semibold hover:bg-blue-50 transition-all duration-200 group"
               >
-                Explore Services
+                Get Started
                 <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link 
-                to="/contact" 
-                className="inline-flex items-center px-8 py-4 rounded-full bg-blue-700/20 text-white font-semibold hover:bg-blue-700/30 transition-all duration-300 backdrop-blur-sm"
+              <button 
+                className="inline-flex items-center px-8 py-4 rounded-full border-2 border-white text-white font-semibold hover:bg-white/10 transition-all duration-200"
               >
-                Contact Us
-              </Link>
+                <FaPlay className="mr-2" />
+                Watch Demo
+              </button>
             </motion.div>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* Floating features */}
-          <motion.div 
-            variants={staggerContainer}
-            initial="initial"
-            animate="animate"
-            className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto"
-          >
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2"
-              >
-                <FaCheck className="text-green-400" />
-                <span className="text-white text-sm">{feature}</span>
-              </motion.div>
-            ))}
-          </motion.div>
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-4 h-4 bg-white rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                opacity: 0.1
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.1, 0.3, 0.1]
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2
+              }}
+            />
+          ))}
         </div>
-      </section>
+      </div>
 
-      {/* Services Section */}
-      <section className="py-20 px-4 relative overflow-hidden bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
+      {/* Services Grid with Hover Effects */}
+      <div className="bg-white py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Our Cloud Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive solutions designed to help your business innovate faster and operate more efficiently.
-            </p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
+            <p className="text-xl text-gray-600">Comprehensive solutions for your digital transformation journey</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
+                className="relative group"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ y: -5 }}
-                className="relative group"
+                transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-2xl blur-xl transition-all duration-300 group-hover:scale-105" />
-                <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className={`h-16 w-16 rounded-xl bg-gradient-to-r ${service.gradient} flex items-center justify-center mb-6 text-white`}>
-                    {service.icon}
+                <div className="relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl transform scale-[0.98] group-hover:scale-100 transition-transform duration-300" />
+                  <div className="relative z-10">
+                    <div className="text-4xl text-blue-600 mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
+                    <p className="text-gray-600">{service.description}</p>
+                    <div className="mt-4 flex items-center text-blue-600 font-medium">
+                      Learn More
+                      <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {service.description}
-                  </p>
-                  <Link
-                    to={service.link}
-                    className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors group"
-                  >
-                    Learn more
-                    <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Stats Section with Counter Animation */}
+      <div className="bg-gradient-to-r from-blue-900 to-indigo-900 py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { number: "500+", label: "Clients Worldwide" },
+              { number: "1000+", label: "Projects Delivered" },
+              { number: "50+", label: "Cloud Experts" },
+              { number: "99.9%", label: "Client Satisfaction" }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <div className="text-4xl font-bold text-white mb-2">{stat.number}</div>
+                <div className="text-blue-100">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-white py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 p-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10" />
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Start Your Digital Transformation?</h2>
+              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                Let's collaborate to build innovative solutions that drive your business forward
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center px-8 py-4 rounded-full bg-white text-blue-600 font-semibold hover:bg-blue-50 transition-all duration-200 group"
+              >
+                Get in Touch
+                <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </div>
 
       {/* Other sections with updated styling */}
       <motion.div
