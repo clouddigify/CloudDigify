@@ -9,6 +9,11 @@ const GITHUB_BRANCH = 'main';
 // In production, move this to environment variables
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
+// Node.js doesn't have atob/btoa - add polyfill for atob
+const atob = (base64) => {
+  return Buffer.from(base64, 'base64').toString('binary');
+};
+
 // Helper to validate token (in production, use proper JWT verification)
 const validateToken = (authHeader) => {
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -18,8 +23,10 @@ const validateToken = (authHeader) => {
   const token = authHeader.split(' ')[1];
   try {
     const decoded = JSON.parse(atob(token));
+    console.log('Token validation attempt:', decoded);
     return decoded.role === 'admin';
   } catch (error) {
+    console.error('Token validation error:', error.message);
     return false;
   }
 };
