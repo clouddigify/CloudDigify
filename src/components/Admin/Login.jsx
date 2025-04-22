@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaLock, FaUser, FaSpinner } from 'react-icons/fa';
-import logo from '../../assets/logo.png';
+import { FaLock, FaUser, FaSpinner, FaCloud } from 'react-icons/fa';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -134,16 +133,10 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
         <div className="text-center mb-6">
-          <img 
-            src={logo} 
-            alt="CloudDigify Logo" 
-            className="mx-auto h-16 mb-2" 
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = 'https://via.placeholder.com/150x60?text=CloudDigify';
-            }}
-          />
-          <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
+          <div className="mx-auto h-16 mb-2 flex items-center justify-center text-blue-600">
+            <FaCloud size={50} />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-800">CloudDigify Admin</h1>
           <p className="text-gray-600 text-sm mt-1">Sign in to manage your website content</p>
         </div>
         
