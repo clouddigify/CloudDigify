@@ -1,60 +1,64 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaCloud, FaRocket, FaCloudUploadAlt, FaShieldAlt, FaChartLine, FaCheckCircle, FaServer, FaDatabase, FaNetworkWired } from 'react-icons/fa';
+import { FaCloud, FaExchangeAlt, FaRocket, FaCloudUploadAlt, FaShieldAlt, FaCogs, FaChartLine, FaCheckCircle } from 'react-icons/fa';
 
 const CloudMigration = () => {
   // Customize these values for this service
   const serviceInfo = {
     title: "Cloud Migration Services",
-    description: "Seamlessly move your applications, infrastructure, and data to the cloud with our comprehensive migration solutions.",
+    description: "Seamlessly transition your applications and infrastructure to the cloud with our proven migration framework, minimizing disruption while maximizing business value.",
     icon: <FaCloudUploadAlt className="text-blue-500 text-4xl mb-4" />,
-    heroBackground: "from-blue-600 to-blue-800",
+    heroBackground: "from-blue-600 to-indigo-500",
     benefits: [
-      "Reduce infrastructure costs and optimize resource allocation",
-      "Improve scalability and performance of your applications",
-      "Enhance security and disaster recovery capabilities",
-      "Increase business agility and accelerate innovation",
-      "Simplified maintenance and management of IT resources"
+      "Accelerated time-to-cloud with proven migration methodologies",
+      "Reduced risk with comprehensive assessment and planning",
+      "Optimized costs through right-sized cloud resources",
+      "Minimal business disruption with phased migration approach",
+      "Improved performance, scalability, and security post-migration"
     ],
     features: [
       {
-        title: "Migration Assessment & Strategy",
-        description: "Comprehensive evaluation of your existing infrastructure, applications, and data to develop a tailored migration roadmap with clear priorities and timelines."
+        title: "Migration Assessment & Planning",
+        description: "Comprehensive discovery and analysis of your environment, determining cloud readiness, creating a detailed migration strategy, and building a phased roadmap."
       },
       {
-        title: "Lift & Shift Migration",
-        description: "Efficiently move your existing applications to the cloud with minimal changes, allowing you to quickly benefit from cloud infrastructure while planning future optimizations."
+        title: "Workload Optimization & Modernization",
+        description: "Technical analysis and redesign of workloads to fully leverage cloud capabilities, including refactoring, rearchitecting, or replatforming applications."
       },
       {
-        title: "Application Modernization",
-        description: "Refactor and optimize your applications during migration to take full advantage of cloud-native features, microservices, and serverless architectures."
+        title: "Secure Migration Execution",
+        description: "Carefully managed migration execution with proper testing, validation, and cutover planning to ensure security and minimize disruption to your business."
       },
       {
-        title: "Database Migration",
-        description: "Securely migrate your databases to cloud platforms with minimal downtime, including homogeneous and heterogeneous migrations with data validation."
+        title: "Post-Migration Optimization",
+        description: "Ongoing monitoring, optimization, and tuning of migrated workloads to maximize performance and cost-efficiency in the cloud environment."
       }
     ],
     technologiesUsed: [
       "AWS Migration Hub",
       "Azure Migrate",
-      "Google Cloud Migration",
+      "Google Cloud Migration Center",
+      "CloudEndure Migration",
       "VMware HCX",
-      "CloudEndure",
-      "Database Migration Service",
       "Terraform",
-      "Docker & Kubernetes"
+      "Ansible",
+      "CloudFormation",
+      "Azure Resource Manager",
+      "Database Migration Services",
+      "AWS Application Migration Service",
+      "Azure App Service Migration Assistant"
     ],
     caseStudy: {
-      title: "Successful Enterprise Migration",
-      client: "Global Manufacturing Company",
-      challenge: "A global manufacturing enterprise with operations in 15 countries needed to migrate their legacy on-premises infrastructure to the cloud. They faced challenges with disparate systems, critical 24/7 applications, and strict compliance requirements.",
-      solution: "CloudDigify implemented a phased migration approach, starting with non-critical workloads while establishing a secure landing zone. We used a combination of rehosting, replatforming, and refactoring strategies based on application importance and modernization potential.",
+      title: "Enterprise-Scale Cloud Migration Success",
+      client: "Global Financial Services Provider",
+      challenge: "A large financial services provider with over 200 applications running on legacy infrastructure needed to migrate to the cloud to improve scalability, reduce costs, and accelerate innovation. They faced complex interdependencies, strict compliance requirements, and a need to maintain 24/7 operations throughout the migration.",
+      solution: "CloudDigify deployed a multi-phased migration approach starting with a comprehensive assessment of all applications and infrastructure. We created application dependency maps, designed target architectures, and implemented a wave-based migration plan. The solution included automated migration tools, containerization of key applications, database modernization, and comprehensive security controls tailored for financial services.",
       results: [
-        "Migrated 200+ applications and 50TB of data with 99.9% uptime",
-        "Reduced infrastructure costs by 35% in the first year",
-        "Improved application performance by 40% on average",
-        "Decreased time-to-market for new features by 60%"
+        "Successfully migrated 200+ applications to AWS within 18 months",
+        "Achieved 31% reduction in total infrastructure costs",
+        "Zero critical service disruptions during migration",
+        "Reduced application deployment time from weeks to hours"
       ]
     }
   };
@@ -95,9 +99,9 @@ const CloudMigration = () => {
             </p>
             <Link
               to="/contact"
-              className="inline-block bg-white text-blue-700 px-6 py-3 rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
+              className="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
             >
-              Schedule a Consultation
+              Start Your Migration Journey
             </Link>
           </div>
         </div>
@@ -116,10 +120,10 @@ const CloudMigration = () => {
             <motion.div variants={itemVariants} className="md:w-2/3">
               <h2 className="text-3xl font-bold mb-6">Accelerate Your Cloud Journey</h2>
               <p className="text-gray-700 mb-6">
-                Moving to the cloud is more than just relocating infrastructure – it's about transforming how your business operates. Our Cloud Migration services help organizations seamlessly transition their applications, data, and infrastructure to the cloud while minimizing disruption and maximizing business value.
+                Moving to the cloud is a strategic decision that transforms how your business operates, innovates, and competes. CloudDigify's migration services provide a structured, secure approach to transitioning your applications and infrastructure to the cloud.
               </p>
               <p className="text-gray-700 mb-8">
-                With our proven migration methodology and experienced team, we ensure a smooth transition that addresses your unique business requirements, security needs, and performance expectations. Whether you're planning a complete cloud transformation or a hybrid approach, our experts will guide you through every step of the journey.
+                Whether you're migrating a single application or executing a full data center exodus, our proven methodology and experienced team ensure a smooth transition that delivers immediate value while setting the foundation for future innovation.
               </p>
               
               <h3 className="text-xl font-semibold mb-4">Key Benefits</h3>
@@ -136,50 +140,111 @@ const CloudMigration = () => {
             </motion.div>
             
             <motion.div variants={itemVariants} className="md:w-1/3 bg-blue-50 p-6 rounded-lg self-start">
-              <div className="text-5xl text-blue-600 mb-6">
+              <div className="text-5xl text-blue-500 mb-6">
                 <FaCloudUploadAlt />
               </div>
               <h3 className="text-xl font-semibold mb-4">Our Migration Approach</h3>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Thorough discovery and assessment</span>
+                  <span className="text-blue-500 mr-2">1.</span>
+                  <span className="text-gray-700">Discover & Assessment</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Detailed migration planning and strategy</span>
+                  <span className="text-blue-500 mr-2">2.</span>
+                  <span className="text-gray-700">Planning & Design</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Secure and efficient execution</span>
+                  <span className="text-blue-500 mr-2">3.</span>
+                  <span className="text-gray-700">Migration & Validation</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Rigorous testing and validation</span>
+                  <span className="text-blue-500 mr-2">4.</span>
+                  <span className="text-gray-700">Cutover & Go-Live</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Smooth cutover with minimal disruption</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-700">Post-migration optimization</span>
+                  <span className="text-blue-500 mr-2">5.</span>
+                  <span className="text-gray-700">Optimization & Operations</span>
                 </li>
               </ul>
               
               <Link 
                 to="/contact" 
-                className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition duration-300"
+                className="block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg font-medium transition duration-300"
               >
-                Get Started
+                Request Migration Assessment
               </Link>
             </motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* Features Section */}
+      {/* Migration Strategies Section */}
       <section className="py-16 px-8 bg-gray-50">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="max-w-6xl mx-auto"
+        >
+          <motion.div variants={itemVariants}>
+            <h2 className="text-3xl font-bold text-center mb-6">Cloud Migration Strategies</h2>
+            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
+              We tailor our approach to your specific needs, employing the right strategy for each workload in your portfolio.
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div variants={itemVariants} className="bg-white p-8 rounded-lg shadow-md">
+              <div className="text-blue-500 text-2xl mb-4">
+                <FaExchangeAlt />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Rehost (Lift & Shift)</h3>
+              <p className="text-gray-700 mb-3">
+                Quickly move applications to the cloud with minimal changes, ideal for legacy applications where immediate cloud benefits are needed.
+              </p>
+              <ul className="text-sm text-gray-600">
+                <li>• Fastest migration path</li>
+                <li>• Minimal application changes</li>
+                <li>• First step in phased approach</li>
+              </ul>
+            </motion.div>
+            
+            <motion.div variants={itemVariants} className="bg-white p-8 rounded-lg shadow-md">
+              <div className="text-blue-500 text-2xl mb-4">
+                <FaCogs />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Replatform (Lift & Reshape)</h3>
+              <p className="text-gray-700 mb-3">
+                Make targeted optimizations to achieve cloud benefits without changing the core architecture of your applications.
+              </p>
+              <ul className="text-sm text-gray-600">
+                <li>• Database migration to managed services</li>
+                <li>• Containerization of applications</li>
+                <li>• Integration with cloud services</li>
+              </ul>
+            </motion.div>
+            
+            <motion.div variants={itemVariants} className="bg-white p-8 rounded-lg shadow-md">
+              <div className="text-blue-500 text-2xl mb-4">
+                <FaRocket />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Refactor (Rearchitect)</h3>
+              <p className="text-gray-700 mb-3">
+                Modernize applications to fully leverage cloud-native capabilities for maximum performance, scalability, and cost efficiency.
+              </p>
+              <ul className="text-sm text-gray-600">
+                <li>• Microservices architecture</li>
+                <li>• Serverless computing</li>
+                <li>• Cloud-native design patterns</li>
+              </ul>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 px-8 bg-white">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -190,7 +255,7 @@ const CloudMigration = () => {
           <motion.div variants={itemVariants}>
             <h2 className="text-3xl font-bold text-center mb-6">Our Migration Services</h2>
             <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
-              We provide comprehensive cloud migration services tailored to your specific business needs and technical requirements.
+              End-to-end migration services to guide you through every phase of your cloud journey.
             </p>
           </motion.div>
           
@@ -199,7 +264,7 @@ const CloudMigration = () => {
               <motion.div 
                 key={index} 
                 variants={itemVariants}
-                className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
                 <p className="text-gray-700">{feature.description}</p>
@@ -209,75 +274,7 @@ const CloudMigration = () => {
         </motion.div>
       </section>
 
-      {/* Migration Process */}
-      <section className="py-16 px-8 bg-white">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">Our Migration Process</h2>
-            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-12">
-              We follow a proven methodology to ensure successful cloud migrations with minimal disruption to your business.
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div variants={itemVariants} className="bg-blue-50 p-6 rounded-lg text-center">
-              <div className="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 text-2xl font-bold">1</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Discover & Assess</h3>
-              <p className="text-gray-700">Evaluate your current environment, identify dependencies, and create a detailed inventory of applications and infrastructure.</p>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="bg-blue-50 p-6 rounded-lg text-center">
-              <div className="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 text-2xl font-bold">2</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Plan & Design</h3>
-              <p className="text-gray-700">Develop a detailed migration strategy, target architecture, and timeline with clear milestones and success criteria.</p>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="bg-blue-50 p-6 rounded-lg text-center">
-              <div className="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 text-2xl font-bold">3</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Build & Migrate</h3>
-              <p className="text-gray-700">Set up the target environment, implement security controls, and execute the migration according to the plan.</p>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="bg-blue-50 p-6 rounded-lg text-center">
-              <div className="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 text-2xl font-bold">4</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Test & Validate</h3>
-              <p className="text-gray-700">Perform thorough testing to ensure functionality, performance, security, and compliance in the new environment.</p>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="bg-blue-50 p-6 rounded-lg text-center">
-              <div className="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 text-2xl font-bold">5</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Cut Over & Go-Live</h3>
-              <p className="text-gray-700">Execute the transition to the cloud environment with minimal disruption and according to the agreed-upon schedule.</p>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="bg-blue-50 p-6 rounded-lg text-center">
-              <div className="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 text-2xl font-bold">6</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Optimize & Innovate</h3>
-              <p className="text-gray-700">Continuously improve your cloud environment, optimize costs, and implement cloud-native innovations.</p>
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Technologies Section */}
+      {/* Migration Process Section */}
       <section className="py-16 px-8 bg-gray-50">
         <motion.div
           initial="hidden"
@@ -287,15 +284,111 @@ const CloudMigration = () => {
           className="max-w-6xl mx-auto"
         >
           <motion.div variants={itemVariants}>
-            <h2 className="text-3xl font-bold text-center mb-6">Technologies We Use</h2>
-            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-12">
-              We leverage industry-leading migration tools and technologies to ensure efficient and secure cloud transitions.
+            <h2 className="text-3xl font-bold text-center mb-6">Our Migration Process</h2>
+            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
+              A structured approach to ensure successful cloud migrations with minimal risk and business disruption.
             </p>
           </motion.div>
           
-          <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="relative">
+            {/* Process Timeline */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-blue-200 transform -translate-x-1/2"></div>
+            
+            {/* Process Steps */}
+            <div className="space-y-12 relative">
+              {/* Step 1 */}
+              <motion.div variants={itemVariants} className="md:flex items-center">
+                <div className="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right">
+                  <h3 className="text-xl font-semibold mb-2">Discovery & Assessment</h3>
+                  <p className="text-gray-600">
+                    Comprehensive inventory of applications, infrastructure, and dependencies. Analyze workloads for cloud suitability, identify risks, and establish migration priorities.
+                  </p>
+                </div>
+                <div className="hidden md:block absolute left-1/2 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center transform -translate-x-1/2">
+                  <span className="text-xl font-bold">1</span>
+                </div>
+                <div className="md:w-1/2 md:pl-12"></div>
+              </motion.div>
+              
+              {/* Step 2 */}
+              <motion.div variants={itemVariants} className="md:flex items-center">
+                <div className="md:w-1/2 md:pr-12 mb-6 md:mb-0"></div>
+                <div className="hidden md:block absolute left-1/2 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center transform -translate-x-1/2">
+                  <span className="text-xl font-bold">2</span>
+                </div>
+                <div className="md:w-1/2 md:pl-12">
+                  <h3 className="text-xl font-semibold mb-2">Planning & Design</h3>
+                  <p className="text-gray-600">
+                    Develop detailed migration strategy and roadmap. Design target architecture, security controls, and networking. Create migration waves and determine success criteria.
+                  </p>
+                </div>
+              </motion.div>
+              
+              {/* Step 3 */}
+              <motion.div variants={itemVariants} className="md:flex items-center">
+                <div className="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right">
+                  <h3 className="text-xl font-semibold mb-2">Build & Validate</h3>
+                  <p className="text-gray-600">
+                    Establish cloud landing zone with security, networking, and governance. Configure migration tools and processes. Validate with pilot migrations and refine approach.
+                  </p>
+                </div>
+                <div className="hidden md:block absolute left-1/2 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center transform -translate-x-1/2">
+                  <span className="text-xl font-bold">3</span>
+                </div>
+                <div className="md:w-1/2 md:pl-12"></div>
+              </motion.div>
+              
+              {/* Step 4 */}
+              <motion.div variants={itemVariants} className="md:flex items-center">
+                <div className="md:w-1/2 md:pr-12 mb-6 md:mb-0"></div>
+                <div className="hidden md:block absolute left-1/2 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center transform -translate-x-1/2">
+                  <span className="text-xl font-bold">4</span>
+                </div>
+                <div className="md:w-1/2 md:pl-12">
+                  <h3 className="text-xl font-semibold mb-2">Migrate & Cutover</h3>
+                  <p className="text-gray-600">
+                    Execute migration in planned waves. Perform thorough testing of migrated workloads. Implement cutover plans with rollback options. Validate business functionality.
+                  </p>
+                </div>
+              </motion.div>
+              
+              {/* Step 5 */}
+              <motion.div variants={itemVariants} className="md:flex items-center">
+                <div className="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right">
+                  <h3 className="text-xl font-semibold mb-2">Optimize & Operate</h3>
+                  <p className="text-gray-600">
+                    Optimize cloud resources for performance and cost. Implement monitoring and management processes. Knowledge transfer and operational documentation. Continuous improvement.
+                  </p>
+                </div>
+                <div className="hidden md:block absolute left-1/2 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center transform -translate-x-1/2">
+                  <span className="text-xl font-bold">5</span>
+                </div>
+                <div className="md:w-1/2 md:pl-12"></div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Technologies Section */}
+      <section className="py-16 px-8 bg-white">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="max-w-6xl mx-auto"
+        >
+          <motion.div variants={itemVariants}>
+            <h2 className="text-3xl font-bold text-center mb-6">Migration Technologies & Tools</h2>
+            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-12">
+              We leverage industry-leading migration tools and technologies to ensure efficient, secure transitions to the cloud.
+            </p>
+          </motion.div>
+          
+          <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {serviceInfo.technologiesUsed.map((tech, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg text-center shadow-sm">
+              <div key={index} className="bg-gray-50 p-4 rounded-lg text-center shadow-sm">
                 <span className="font-medium text-gray-800">{tech}</span>
               </div>
             ))}
@@ -304,7 +397,7 @@ const CloudMigration = () => {
       </section>
 
       {/* Case Study Section */}
-      <section className="py-16 px-8 bg-white">
+      <section className="py-16 px-8 bg-gray-50">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -317,7 +410,7 @@ const CloudMigration = () => {
           <motion.div variants={itemVariants} className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
             <div className="mb-6 pb-6 border-b border-gray-100">
               <h3 className="text-2xl font-semibold mb-2">{serviceInfo.caseStudy.client}</h3>
-              <div className="text-sm text-blue-600 font-medium">Industry: Manufacturing</div>
+              <div className="text-sm text-blue-600 font-medium">Industry: Financial Services</div>
             </div>
             
             <div className="mb-6">
@@ -346,28 +439,28 @@ const CloudMigration = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 bg-blue-50">
+      <section className="py-16 px-6 bg-blue-600">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-4xl mx-auto text-center text-white"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-6">Ready to Start Your Cloud Migration?</motion.h2>
-          <motion.p variants={itemVariants} className="text-gray-700 mb-8 text-lg">
-            Contact our team today to discuss your cloud migration needs and discover how we can help you achieve a seamless transition.
+          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-6">Ready to Begin Your Cloud Migration?</motion.h2>
+          <motion.p variants={itemVariants} className="mb-8 text-lg opacity-90">
+            Start with a no-obligation migration assessment to discover your optimal path to the cloud.
           </motion.p>
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               to="/contact"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition"
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition"
             >
-              Contact Us
+              Request Migration Assessment
             </Link>
             <Link
               to="/services"
-              className="bg-white text-blue-600 border border-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition"
+              className="bg-transparent text-white border border-white px-8 py-3 rounded-lg hover:bg-blue-700 transition"
             >
               Explore All Services
             </Link>
