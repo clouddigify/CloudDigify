@@ -11,33 +11,16 @@ const Home = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
-  ><motion.div 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-  >
+  ><motion.div initial="{{" opacity:="" 0="" }}="" animate="{{" 1="" exit="{«">
     <!-- Hero Section -->
     <section className="h-screen bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex flex-col justify-center items-center text-center px-6">
-      <motion.h1 
-        className="text-5xl md:text-7xl font-extrabold mb-6"
-        initial={{ y: -20 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      <motion.h1 className="text-5xl md:text-7xl font-extrabold mb-6" initial="{«" y:="" -20="" }}="" animate="{{" 0="" transition="{«" duration:="" 0.6="">
         Empower Your Business in the Cloud
       </div>
-      <motion.p 
-        className="text-lg md:text-2xl mb-8 max-w-2xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        We deliver expert cloud solutions on AWS, Azure & OCI to help you scale, optimize, and innovate.
+      <motion.p className="text-lg md:text-2xl mb-8 max-w-2xl" initial="{«" opacity:="" 0="" }}="" animate="{«" 1="" transition="{«" delay:="" 0.5="">
+        We deliver expert cloud solutions on AWS, Azure &amp; OCI to help you sc ale, optimize, and innovate.
       </div>
-      <Link to="/services" 
-        
-        className="bg-white text-blue-600 font-semibold px-8 py-3 rounded shadow-lg hover:bg-gray-100 transition"
-      >
+      <Link to="/services" className="bg-white text-blue-600 font-semibold px-8 py-3 rounded shadow-lg hover:bg-gray-100 transition">
         See Our Services
       </a>
     </section>
