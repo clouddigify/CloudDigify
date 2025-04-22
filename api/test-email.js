@@ -72,14 +72,11 @@ module.exports = async (req, res) => {
     // Set up transporter config with improved error handling
     const transportConfig = {
       host: process.env.SMTP_HOST || 'smtp.zoho.com',
-      port: parseInt(process.env.SMTP_PORT || '587', 10),
-      secure: process.env.SMTP_SECURE === 'true' || false,
+      port: parseInt(process.env.SMTP_PORT, 10),
+      secure: process.env.SMTP_SECURE === 'true',
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD
-      },
-      tls: {
-        rejectUnauthorized: false
       },
       debug: true,
       logger: true
