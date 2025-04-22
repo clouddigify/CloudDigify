@@ -21,12 +21,12 @@
   ],
   "routes": [
     {
-      "source": "/(www\\.)?clouddigify\\.com/(.*)",
-      "destination": "https://clouddigify.com/$2",
-      "statusCode": 301
+      "src": "/(www\\.)?clouddigify\\.com/(.*)",
+      "dest": "https://clouddigify.com/$2",
+      "status": 301
     },
     {
-      "source": "/(.*)",
+      "src": "/(.*)",
       "has": [
         {
           "type": "header",
@@ -34,8 +34,8 @@
           "value": "http"
         }
       ],
-      "destination": "https://clouddigify.com/$1",
-      "statusCode": 301
+      "dest": "https://clouddigify.com/$1",
+      "status": 301
     },
     {
       "src": "/api/send-email",
