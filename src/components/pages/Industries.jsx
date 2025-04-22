@@ -1,8 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaDatabase, FaCogs, FaCode, FaShieldAlt, FaUsers, FaNetworkWired, FaMobileAlt, FaArrowRight } from 'react-icons/fa';
+import { 
+  FaDatabase, 
+  FaCogs, 
+  FaCode, 
+  FaShieldAlt, 
+  FaUsers, 
+  FaNetworkWired, 
+  FaMobileAlt, 
+  FaPlane,
+  FaArrowRight 
+} from 'react-icons/fa';
 
+// Expanded industries list matching our navigation
 const industriesList = [
   { 
     title: 'Financial Services',
@@ -47,11 +58,18 @@ const industriesList = [
     highlights: ['Smart grid solutions', 'Energy analytics', 'Asset management', 'Sustainable energy'] 
   },
   { 
-    title: 'Telecommunications',
+    title: 'Communications & Media',
     icon: <FaMobileAlt size={36} className="mb-4 text-blue-600" />, 
-    description: 'Solutions for telecom service providers and network operators.',
-    path: '/industries/telecommunications',
-    highlights: ['5G enablement', 'OSS/BSS transformation', 'Network virtualization', 'Customer experience'] 
+    description: 'Solutions for telecom service providers, media, and entertainment companies.',
+    path: '/industries/communications',
+    highlights: ['5G enablement', 'OSS/BSS transformation', 'Content delivery', 'Digital publishing'] 
+  },
+  { 
+    title: 'Travel & Hospitality',
+    icon: <FaPlane size={36} className="mb-4 text-blue-600" />, 
+    description: 'Digital solutions for travel, transport, and hospitality businesses.',
+    path: '/industries/travel',
+    highlights: ['Booking platforms', 'Customer experience', 'Loyalty programs', 'Operational efficiency'] 
   }
 ];
 
@@ -71,6 +89,32 @@ const Industries = () => {
             <p className="text-xl opacity-90 mb-8">
               Cloud technologies tailored to the unique needs of your industry
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Overview Section */}
+      <section className="py-16 px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-6">Industry Expertise</h2>
+          <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-12">
+            CloudDigify combines deep industry expertise with cutting-edge technology to deliver solutions 
+            that address the specific challenges and opportunities in your sector.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-3 text-blue-800">Domain Specialists</h3>
+              <p className="text-gray-700">Our teams include industry veterans who understand your business challenges.</p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-3 text-blue-800">Regulatory Compliance</h3>
+              <p className="text-gray-700">We ensure solutions meet industry-specific compliance requirements.</p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-3 text-blue-800">Pre-built Solutions</h3>
+              <p className="text-gray-700">Industry-specific accelerators to speed up your digital transformation.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -115,13 +159,98 @@ const Industries = () => {
         </div>
       </section>
 
+      {/* Value Proposition */}
+      <section className="py-16 px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Why Choose Our Industry Solutions</h2>
+              <ul className="space-y-4">
+                <li className="flex">
+                  <div className="mr-4 mt-1 text-blue-600 flex-shrink-0">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Deep Industry Knowledge</h3>
+                    <p className="text-gray-600">Our specialists have years of experience in your specific industry.</p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="mr-4 mt-1 text-blue-600 flex-shrink-0">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Faster Time to Value</h3>
+                    <p className="text-gray-600">Industry-specific accelerators reduce implementation time by up to 40%.</p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="mr-4 mt-1 text-blue-600 flex-shrink-0">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Compliance-First Approach</h3>
+                    <p className="text-gray-600">We build solutions with industry regulations like HIPAA, PCI-DSS, and GDPR in mind.</p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="mr-4 mt-1 text-blue-600 flex-shrink-0">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Outcome-Driven</h3>
+                    <p className="text-gray-600">We focus on business outcomes specific to your industry metrics.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-8 rounded-lg">
+              <h3 className="text-2xl font-semibold mb-4">Our Industry Partnerships</h3>
+              <p className="text-gray-700 mb-6">
+                We collaborate with leading technology providers and industry consortiums to deliver best-in-class solutions:
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Financial Services Technology Consortium</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Healthcare Information and Management Systems Society</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Manufacturing Enterprise Solutions Association</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Retail Industry Leaders Association</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Energy & Utilities Alliance</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Case Studies Preview */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-16 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Success Stories Across Industries</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-50 p-8 rounded-lg">
+            <div className="bg-white p-8 rounded-lg shadow">
               <div className="text-sm text-blue-600 font-medium mb-2">Financial Services</div>
               <h3 className="text-2xl font-semibold mb-3">Digital Transformation for a Global Bank</h3>
               <p className="text-gray-700 mb-4">
@@ -136,7 +265,7 @@ const Industries = () => {
               </Link>
             </div>
             
-            <div className="bg-gray-50 p-8 rounded-lg">
+            <div className="bg-white p-8 rounded-lg shadow">
               <div className="text-sm text-blue-600 font-medium mb-2">Manufacturing</div>
               <h3 className="text-2xl font-semibold mb-3">Industry 4.0 Implementation</h3>
               <p className="text-gray-700 mb-4">
@@ -151,22 +280,40 @@ const Industries = () => {
               </Link>
             </div>
           </div>
+
+          <div className="text-center mt-10">
+            <Link 
+              to="/case-studies" 
+              className="inline-flex items-center text-blue-600 font-medium"
+            >
+              View All Case Studies
+              <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-6 bg-gray-50">
+      <section className="py-16 px-6 bg-blue-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Industry?</h2>
           <p className="text-gray-700 mb-8 text-lg">
             Contact our experts to discuss how our industry-focused cloud solutions can help you overcome challenges and drive innovation in your sector.
           </p>
-          <Link
-            to="/contact"
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition"
-          >
-            Get in Touch
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/contact"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition"
+            >
+              Schedule a Consultation
+            </Link>
+            <Link
+              to="/industries/financial-services"
+              className="bg-white text-blue-600 border border-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition"
+            >
+              Explore Financial Services
+            </Link>
+          </div>
         </div>
       </section>
     </motion.div>
