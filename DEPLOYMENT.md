@@ -33,12 +33,14 @@ This guide covers the steps to deploy the CloudDigify website to Vercel and conn
 ### 2. Configure DNS in Hostinger
 
 Option 1: Nameserver Method (Recommended)
+
 1. Get the Vercel nameservers:
    - `ns1.vercel-dns.com`
    - `ns2.vercel-dns.com`
 2. In Hostinger, go to your domain settings and set these nameservers
 
 Option 2: DNS Records Method
+
 1. In Hostinger DNS settings, add the following records:
    - Type: A, Name: @, Value: [Vercel IP provided in the Vercel dashboard]
    - Type: CNAME, Name: www, Value: cname.vercel-dns.com.
@@ -66,4 +68,4 @@ If your site shows "URL Restricted" or other errors:
 2. Make sure all asset URLs are relative or using the same domain
 3. Remove any external image URLs or replace them with icons
 4. Verify DNS configuration is correct
-5. Check Vercel deployment logs for any build errors 
+5. Check Vercel deployment logs for any build errors
