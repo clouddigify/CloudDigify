@@ -3,31 +3,18 @@ import { NavLink, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog, FaArrowRight } from 'react-icons/fa';
 
-// Import the page configuration system
+// Import the page configuration for paths
 import { 
   mainPages, 
   servicePages, 
-  industryPages,
-  isPageEnabled
+  industryPages
 } from '../config/pageConfig';
 
 // You can replace this with your actual logo path
 const logoUrl = '/logo.png';
 
-// Define the multi-level service structure using the configuration
-const getEnabledServiceCategories = () => {
-  // Helper function to check if any submenu item in a category is enabled
-  const hasEnabledSubmenuItems = (items) => {
-    return items.some(item => {
-      // Extract the key from the path (e.g., 'cloud-migration' from '/services/cloud-migration')
-      const pathSegments = item.path.split('/');
-      const pageKey = pathSegments[pathSegments.length - 1]
-        .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()); // Convert kebab-case to camelCase
-      
-      return isPageEnabled(pageKey, 'service');
-    });
-  };
-
+// Define the multi-level service structure
+const getServiceCategories = () => {
   const serviceCategories = [
     {
       title: 'Cloud Services',
@@ -38,10 +25,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Cloud Optimization', path: '/services/cloud-optimization' },
         { title: 'Disaster Recovery', path: '/services/disaster-recovery' },
         { title: 'Next Generation Workplace', path: '/services/next-gen-workplace' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'DevOps & Engineering',
@@ -52,10 +36,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Containerization', path: '/services/containerization' },
         { title: 'Serverless Architecture', path: '/services/serverless' },
         { title: 'Agile Transformation', path: '/services/agile-transformation' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Security & Compliance',
@@ -65,10 +46,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Cyber Defense Resiliency', path: '/services/cyber-defense' },
         { title: 'Privacy Services', path: '/services/privacy-services' },
         { title: 'Privacy SmartHub', path: '/services/privacy-smarthub' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Data & Analytics',
@@ -78,10 +56,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Business Intelligence', path: '/services/business-intelligence' },
         { title: 'Data Warehousing', path: '/services/data-warehousing' },
         { title: 'Big Data Solutions', path: '/services/big-data' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Digital Experiences',
@@ -92,10 +67,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Enterprise Mobility', path: '/services/enterprise-mobility' },
         { title: 'Digital Integration', path: '/services/digital-integration' },
         { title: 'Digital Runtime', path: '/services/digital-runtime' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'AI & Automation',
@@ -105,10 +77,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Intelligent Automation', path: '/services/intelligent-automation' },
         { title: 'Cognitive Services', path: '/services/cognitive-services' },
         { title: 'Robotic Process Automation', path: '/services/rpa' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Enterprise Services',
@@ -119,10 +88,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Application Development', path: '/services/application-development' },
         { title: 'Application Maintenance', path: '/services/application-maintenance' },
         { title: 'System Integration', path: '/services/system-integration' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Industry Solutions',
@@ -132,10 +98,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Blockchain Solutions', path: '/services/blockchain' },
         { title: 'Quality Engineering', path: '/services/quality-engineering' },
         { title: 'Organizational Change', path: '/services/organizational-change' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Consulting Services',
@@ -146,10 +109,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Enterprise Architecture', path: '/services/enterprise-architecture' },
         { title: 'Business Process Consulting', path: '/services/business-process' },
         { title: 'Organizational Change Management', path: '/services/ocm' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Quality Assurance',
@@ -159,10 +119,7 @@ const getEnabledServiceCategories = () => {
         { title: 'Test Automation', path: '/services/test-automation' },
         { title: 'Performance Testing', path: '/services/performance-testing' },
         { title: 'Security Testing', path: '/services/security-testing' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     },
     {
       title: 'Specialized Solutions',
@@ -172,19 +129,15 @@ const getEnabledServiceCategories = () => {
         { title: 'Platform Engineering', path: '/services/platform-engineering' },
         { title: 'Reimagined Enterprise', path: '/services/reimagined-enterprise' },
         { title: 'Smart City Solutions', path: '/services/smart-city' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'service');
-      })
+      ]
     }
   ];
   
-  // Only return categories that have enabled submenu items
-  return serviceCategories.filter(category => category.submenu.length > 0);
+  return serviceCategories;
 };
 
-// Define industry categories using the configuration
-const getEnabledIndustryCategories = () => {
+// Define industry categories
+const getIndustryCategories = () => {
   const industryCategories = [
     {
       title: 'Financial Services',
@@ -194,158 +147,106 @@ const getEnabledIndustryCategories = () => {
         { title: 'Insurance', path: '/industries/insurance' },
         { title: 'Capital Markets', path: '/industries/capital-markets' },
         { title: 'Fintech', path: '/industries/fintech' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     },
     {
       title: 'Manufacturing',
       icon: <FaCogs className="mr-2" />,
       submenu: [
+        { title: 'Manufacturing', path: '/industries/manufacturing' },
         { title: 'Advanced Manufacturing', path: '/industries/advanced-manufacturing' },
         { title: 'Automotive', path: '/industries/automotive' },
         { title: 'Industrial IoT', path: '/industries/industrial-iot' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     },
     {
       title: 'Technology',
-      icon: <FaCode className="mr-2" />,
+      icon: <FaNetworkWired className="mr-2" />,
       submenu: [
-        { title: 'Software Companies', path: '/industries/software' },
-        { title: 'Hardware & Devices', path: '/industries/hardware' },
+        { title: 'Technology', path: '/industries/technology' },
+        { title: 'Software', path: '/industries/software' },
+        { title: 'Hardware', path: '/industries/hardware' },
         { title: 'Telecommunications', path: '/industries/telecommunications' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     },
     {
       title: 'Healthcare',
-      icon: <FaShieldAlt className="mr-2" />,
+      icon: <FaTools className="mr-2" />,
       submenu: [
+        { title: 'Healthcare', path: '/industries/healthcare' },
         { title: 'Healthcare Providers', path: '/industries/healthcare-providers' },
         { title: 'Life Sciences', path: '/industries/life-sciences' },
         { title: 'Health Tech', path: '/industries/health-tech' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     },
     {
       title: 'Retail & CPG',
-      icon: <FaUsers className="mr-2" />,
+      icon: <FaDesktop className="mr-2" />,
       submenu: [
+        { title: 'Retail & CPG', path: '/industries/retail-cpg' },
         { title: 'Retail', path: '/industries/retail' },
         { title: 'Consumer Goods', path: '/industries/consumer-goods' },
         { title: 'E-commerce', path: '/industries/e-commerce' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     },
     {
       title: 'Energy & Utilities',
-      icon: <FaNetworkWired className="mr-2" />,
+      icon: <FaSyncAlt className="mr-2" />,
       submenu: [
+        { title: 'Energy & Utilities', path: '/industries/energy-utilities' },
         { title: 'Energy', path: '/industries/energy' },
         { title: 'Utilities', path: '/industries/utilities' },
         { title: 'Oil & Gas', path: '/industries/oil-gas' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     },
     {
       title: 'Communications & Media',
-      icon: <FaMobileAlt className="mr-2" />,
+      icon: <FaUsers className="mr-2" />,
       submenu: [
+        { title: 'Communications & Media', path: '/industries/communications-media' },
         { title: 'Communications', path: '/industries/communications' },
         { title: 'Media & Entertainment', path: '/industries/media-entertainment' },
         { title: 'Digital Publishing', path: '/industries/digital-publishing' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     },
     {
       title: 'Travel & Hospitality',
-      icon: <FaUsers className="mr-2" />,
+      icon: <FaUsersCog className="mr-2" />,
       submenu: [
+        { title: 'Travel & Hospitality', path: '/industries/travel-hospitality' },
         { title: 'Travel', path: '/industries/travel' },
         { title: 'Transport', path: '/industries/transport' },
         { title: 'Hospitality', path: '/industries/hospitality' }
-      ].filter(item => {
-        const key = item.path.split('/').pop().replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        return isPageEnabled(key, 'industry');
-      })
+      ]
     }
   ];
   
-  // Only return categories that have enabled submenu items
-  return industryCategories.filter(category => category.submenu.length > 0);
+  return industryCategories;
 };
 
-// Build navigation links dynamically based on enabled pages
+// Build navigation links
 const getNavLinks = () => {
-  const links = [];
-  
-  // Add main pages that are enabled
-  if (isPageEnabled('home', 'main')) {
-    links.push({ title: 'Home', path: '/' });
-  }
-  
-  if (isPageEnabled('about', 'main')) {
-    links.push({ title: 'About', path: '/about' });
-  }
-  
-  // Add Services if enabled with submenu
-  if (isPageEnabled('services', 'main')) {
-    const serviceSubmenu = getEnabledServiceCategories();
-    if (serviceSubmenu.length > 0) {
-      links.push({
-        title: 'Services',
-        path: '/services',
-        hasSubmenu: true,
-        submenu: serviceSubmenu,
-        isMultiLevel: true
-      });
-    } else {
-      links.push({ title: 'Services', path: '/services' });
-    }
-  }
-  
-  // Add Industries if enabled with submenu
-  if (isPageEnabled('industries', 'main')) {
-    const industrySubmenu = getEnabledIndustryCategories();
-    if (industrySubmenu.length > 0) {
-      links.push({
-        title: 'Industries',
-        path: '/industries',
-        hasSubmenu: true,
-        submenu: industrySubmenu,
-        isMultiLevel: true
-      });
-    } else {
-      links.push({ title: 'Industries', path: '/industries' });
-    }
-  }
-  
-  // Add other main pages that are enabled
-  if (isPageEnabled('training', 'main')) {
-    links.push({ title: 'Training', path: '/training' });
-  }
-  
-  if (isPageEnabled('blogs', 'main')) {
-    links.push({ title: 'Blogs', path: '/blogs' });
-  }
-  
-  if (isPageEnabled('contact', 'main')) {
-    links.push({ title: 'Contact', path: '/contact' });
-  }
+  const links = [
+    { title: 'Home', path: '/' },
+    { title: 'About', path: '/about' },
+    { 
+      title: 'Services',
+      path: '/services',
+      hasSubmenu: true,
+      submenu: getServiceCategories(),
+      isMultiLevel: true
+    },
+    { 
+      title: 'Industries',
+      path: '/industries',
+      hasSubmenu: true,
+      submenu: getIndustryCategories(),
+      isMultiLevel: true
+    },
+    { title: 'Training', path: '/training' },
+    { title: 'Blogs', path: '/blogs' },
+    { title: 'Contact', path: '/contact' }
+  ];
   
   return links;
 };
@@ -356,40 +257,7 @@ const NavBar = () => {
   const navRef = useRef(null);
   
   // State for navigation links
-  const [links, setLinks] = useState([]);
-  
-  // Load the navigation links on component mount and when localStorage changes
-  useEffect(() => {
-    // Load saved configuration from localStorage
-    const loadSavedConfig = () => {
-      const mainConfig = localStorage.getItem('clouddigify_mainPages');
-      const serviceConfig = localStorage.getItem('clouddigify_servicePages');
-      const industryConfig = localStorage.getItem('clouddigify_industryPages');
-      
-      // If we have saved config, update links
-      if (mainConfig || serviceConfig || industryConfig) {
-        setLinks(getNavLinks());
-      } else {
-        // Otherwise use default config
-        setLinks(getNavLinks());
-      }
-    };
-    
-    loadSavedConfig();
-    
-    // Listen for storage events to update when configs change
-    const handleStorageChange = (e) => {
-      if (e.key && e.key.startsWith('clouddigify_')) {
-        loadSavedConfig();
-      }
-    };
-    
-    window.addEventListener('storage', handleStorageChange);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+  const [links, setLinks] = useState(getNavLinks());
 
   // Toggle submenu 
   const toggleSubmenu = (index, e) => {
@@ -489,25 +357,22 @@ const NavBar = () => {
                           </NavLink>
                         </div>
                         
-                        {/* Categories grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        {/* Grid of categories */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                           {link.submenu.map((category, catIndex) => (
-                            category.submenu.length > 0 && (
-                              <div key={catIndex} className="mb-4">
-                                <NavLink
-                                  to={category.path || '#'}
-                                  className="flex items-center text-gray-800 font-semibold text-md mb-3 hover:text-blue-600 transition"
-                                  onClick={() => setActiveSubmenu(null)}
-                                >
-                                  {category.icon}
-                                  {category.title}
-                                </NavLink>
+                            <div key={catIndex} className="space-y-3">
+                              <div className="flex items-center font-semibold text-gray-800 border-b pb-2">
+                                {category.icon}
+                                <span>{category.title}</span>
+                              </div>
+                              
+                              {category.submenu && (
                                 <ul className="space-y-2">
-                                  {category.submenu && category.submenu.map((item, itemIndex) => (
+                                  {category.submenu.map((item, itemIndex) => (
                                     <li key={itemIndex}>
                                       <NavLink
                                         to={item.path}
-                                        className="text-gray-600 hover:text-blue-600 transition pl-6 block text-sm"
+                                        className="block text-gray-600 hover:text-blue-600 transition-colors pl-6 py-1 border-l-2 border-gray-100 hover:border-blue-500"
                                         onClick={() => setActiveSubmenu(null)}
                                       >
                                         {item.title}
@@ -515,8 +380,8 @@ const NavBar = () => {
                                     </li>
                                   ))}
                                 </ul>
-                              </div>
-                            )
+                              )}
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -527,9 +392,7 @@ const NavBar = () => {
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
-                    isActive
-                      ? 'text-blue-600 font-semibold py-2 block'
-                      : 'text-gray-700 hover:text-blue-600 py-2 block'
+                    `py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`
                   }
                 >
                   {link.title}
@@ -540,12 +403,12 @@ const NavBar = () => {
         </ul>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile navigation - visible only on small screens */}
       <motion.div
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: menuOpen ? 'auto' : 0, opacity: menuOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        className="md:hidden overflow-hidden bg-white"
+        className={`md:hidden overflow-hidden bg-white border-t border-gray-100`}
       >
         <div className="px-4 py-2">
           {links.map((link, index) => (
