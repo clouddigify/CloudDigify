@@ -122,6 +122,15 @@ const extractComponentContent = (fileContent) => {
           return returnMatch[1].trim();
         }
         
+        // Add support for non-animated components
+        const simpleComponentRegex = /<div[\s\S]*?>([\s\S]*?)<\/div>/;
+        const simpleComponentMatch = simpleComponentRegex.exec(fullComponent);
+        
+        if (simpleComponentMatch && simpleComponentMatch[1]) {
+          console.log('Found content using simple div pattern');
+          return simpleComponentMatch[1].trim();
+        }
+        
         // Fallback to motion.div for older formats
         const motionDivRegex = /<motion\.div[^>]*>([\s\S]*?)<\/motion\.div>/;
         const motionDivMatch = motionDivRegex.exec(fullComponent);
@@ -132,8 +141,22 @@ const extractComponentContent = (fileContent) => {
         }
       }
       
-      // If we're still here, try fallback patterns
-      console.log('Trying fallback patterns for Home component');
+      // Enhanced fallback patterns for Home component
+      console.log('Trying enhanced fallback patterns for Home component');
+      
+      // Look for sections in the component
+      const sectionRegex = /<section[^>]*>([\s\S]*?)<\/section>/g;
+      let sectionMatches = [];
+      let match;
+      
+      while ((match = sectionRegex.exec(fileContent)) !== null) {
+        sectionMatches.push(match[0]);
+      }
+      
+      if (sectionMatches.length > 0) {
+        console.log('Found content using multiple section patterns');
+        return sectionMatches.join('\n');
+      }
       
       // Look for any JSX content
       const jsxBlockRegex = /<([A-Z][A-Za-z0-9]*|[a-z][A-Za-z0-9]*\.[a-z]+)[^>]*>[\s\S]*?<\/\1>/;
@@ -148,7 +171,7 @@ const extractComponentContent = (fileContent) => {
       return '<p>Edit this page content</p>';
     }
     
-    // General content extraction for other components
+    // General content extraction for other components - add improved fallback methods
     
     // Try finding a return statement first
     const returnRegex = /return\s*\(\s*([\s\S]*?)\s*\);/;
@@ -160,12 +183,17 @@ const extractComponentContent = (fileContent) => {
     }
     
     // Try finding content in a section tag
-    const sectionRegex = /<section[^>]*>([\s\S]*?)<\/section>/;
-    const sectionMatch = sectionRegex.exec(fileContent);
+    const sectionRegex = /<section[^>]*>([\s\S]*?)<\/section>/g;
+    let sectionMatches = [];
+    let sectionMatch;
     
-    if (sectionMatch && sectionMatch[1]) {
-      console.log('Found content using section pattern');
-      return sectionMatch[1].trim();
+    while ((sectionMatch = sectionRegex.exec(fileContent)) !== null) {
+      sectionMatches.push(sectionMatch[0]);
+    }
+    
+    if (sectionMatches.length > 0) {
+      console.log('Found content using multiple section patterns');
+      return sectionMatches.join('\n');
     }
     
     // Try finding content in any div with className
@@ -175,6 +203,20 @@ const extractComponentContent = (fileContent) => {
     if (divMatch && divMatch[1]) {
       console.log('Found content using div with className pattern');
       return divMatch[1].trim();
+    }
+    
+    // Final fallback: Try to find any component tags
+    const componentRegex = /<([A-Z][A-Za-z0-9]*)[\s\S]*?\/>/g;
+    let componentMatches = [];
+    let componentMatch;
+    
+    while ((componentMatch = componentRegex.exec(fileContent)) !== null) {
+      componentMatches.push(componentMatch[0]);
+    }
+    
+    if (componentMatches.length > 0) {
+      console.log('Found content using component tags pattern');
+      return componentMatches.join('\n');
     }
     
     console.log('Could not find content');
@@ -210,6 +252,18 @@ const updateComponentContent = (fileContent, newContent) => {
         wasUpdated = true;
       }
       
+      // Try simple div replacement for non-animated components
+      if (!wasUpdated) {
+        const simpleContainerRegex = /(<div>\s*)([\s\S]*?)(\s*<\/div>)/;
+        const simpleContainerMatch = simpleContainerRegex.exec(fileContent);
+        
+        if (simpleContainerMatch) {
+          console.log('Updating content using simple div container pattern');
+          updatedContent = fileContent.replace(simpleContainerRegex, `$1${newContent}$3`);
+          wasUpdated = true;
+        }
+      }
+      
       // Try return statement replacement
       if (!wasUpdated) {
         const returnRegex = /(return\s*\(\s*)([\s\S]*?)(\s*\);)/;
@@ -218,6 +272,18 @@ const updateComponentContent = (fileContent, newContent) => {
         if (returnMatch) {
           console.log('Updating content using return pattern');
           updatedContent = fileContent.replace(returnRegex, `$1${newContent}$3`);
+          wasUpdated = true;
+        }
+      }
+      
+      // Try multiple section replacement
+      if (!wasUpdated) {
+        const sectionsRegex = /(\/\* Hero Section \*\/[\s\S]*?<\/section>[\s\S]*?<\/section>)/;
+        const sectionsMatch = sectionsRegex.exec(fileContent);
+        
+        if (sectionsMatch) {
+          console.log('Updating content using multiple sections pattern');
+          updatedContent = fileContent.replace(sectionsMatch[0], newContent);
           wasUpdated = true;
         }
       }
@@ -241,6 +307,19 @@ const updateComponentContent = (fileContent, newContent) => {
       console.log('Updating content using return pattern');
       updatedContent = fileContent.replace(returnRegex, `$1${newContent}$3`);
       updated = true;
+    }
+    
+    // If not updated, try multiple section replacement
+    if (!updated) {
+      const sectionContent = fileContent.match(/<section[^>]*>[\s\S]*?<\/section>/g);
+      if (sectionContent && sectionContent.length > 0) {
+        console.log('Updating content using multiple section pattern');
+        // Join all sections and create a regex to find them
+        const sectionsPattern = sectionContent.join('\\s*');
+        const sectionsRegex = new RegExp(sectionsPattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+        updatedContent = fileContent.replace(sectionsRegex, newContent);
+        updated = true;
+      }
     }
     
     // If not updated, try section replacement
