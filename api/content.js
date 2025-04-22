@@ -68,22 +68,43 @@ const extractComponentContent = (fileContent) => {
         fileContent.includes('export default function Home()')) {
       console.log('Extracting Home component content...');
       
-      // Try extracting the entire content within motion.div or main container
-      const motionDivRegex = /<motion\.div[^>]*>([\s\S]*?)<\/motion\.div>/;
-      const motionDivMatch = motionDivRegex.exec(fileContent);
+      // First try to find the entire component structure
+      const fullComponentRegex = /(const\s+Home\s*=\s*\(\s*\)\s*=>|function\s+Home\s*\(\s*\)|export\s+default\s+function\s+Home\s*\(\s*\))[\s\S]*?(\);|\})/;
+      const fullComponentMatch = fullComponentRegex.exec(fileContent);
       
-      if (motionDivMatch && motionDivMatch[1]) {
-        console.log('Found content using motion.div pattern');
-        return motionDivMatch[1].trim();
+      if (fullComponentMatch) {
+        const fullComponent = fullComponentMatch[0];
+        console.log('Found full component declaration');
+        
+        // Try to extract just the JSX content inside the return statement
+        const returnContentRegex = /return\s*\(\s*([\s\S]*?)\s*\);/;
+        const returnMatch = returnContentRegex.exec(fullComponent);
+        
+        if (returnMatch && returnMatch[1]) {
+          console.log('Found content using return pattern');
+          return returnMatch[1].trim();
+        }
+        
+        // Fallback to motion.div for older formats
+        const motionDivRegex = /<motion\.div[^>]*>([\s\S]*?)<\/motion\.div>/;
+        const motionDivMatch = motionDivRegex.exec(fullComponent);
+        
+        if (motionDivMatch && motionDivMatch[1]) {
+          console.log('Found content using motion.div pattern');
+          return motionDivMatch[1].trim();
+        }
       }
       
-      // Try to find content within return statement
-      const returnRegex = /return\s*\(\s*([\s\S]*?)\s*\);/;
-      const returnMatch = returnRegex.exec(fileContent);
+      // If we're still here, try fallback patterns
+      console.log('Trying fallback patterns for Home component');
       
-      if (returnMatch && returnMatch[1]) {
-        console.log('Found content using return pattern');
-        return returnMatch[1].trim();
+      // Look for any JSX content
+      const jsxBlockRegex = /<([A-Z][A-Za-z0-9]*|[a-z][A-Za-z0-9]*\.[a-z]+)[^>]*>[\s\S]*?<\/\1>/;
+      const jsxMatch = jsxBlockRegex.exec(fileContent);
+      
+      if (jsxMatch) {
+        console.log('Found content using JSX block pattern');
+        return jsxMatch[0].trim();
       }
       
       console.log('Could not find content in Home component with specific patterns, returning default');
