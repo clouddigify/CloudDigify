@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog, FaArrowRight, FaSearch } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog, FaArrowRight, FaSearch, FaHome, FaGraduationCap, FaBlog, FaEnvelope, FaLightbulb, FaChartLine, FaRocket } from 'react-icons/fa';
 
 // Import the page configuration for paths
 import { 
@@ -227,11 +227,20 @@ const getIndustryCategories = () => {
 // Build navigation links
 const getNavLinks = () => {
 const links = [
-    { title: 'Home', path: '/' },
-    { title: 'About', path: '/about' },
+    { 
+      title: 'Home', 
+      path: '/', 
+      icon: <FaHome className="mr-2" />
+    },
+    { 
+      title: 'About', 
+      path: '/about',
+      icon: <FaLightbulb className="mr-2" />
+    },
     { 
       title: 'Services',
       path: '/services',
+      icon: <FaCogs className="mr-2" />,
       hasSubmenu: true,
       submenu: getServiceCategories(),
       isMultiLevel: true
@@ -239,13 +248,26 @@ const links = [
     { 
       title: 'Industries',
       path: '/industries',
+      icon: <FaIndustry className="mr-2" />,
       hasSubmenu: true,
       submenu: getIndustryCategories(),
       isMultiLevel: true
     },
-  { title: 'Training', path: '/training' },
-    { title: 'Blogs', path: '/blogs' },
-    { title: 'Contact', path: '/contact' }
+    { 
+      title: 'Training', 
+      path: '/training',
+      icon: <FaGraduationCap className="mr-2" />
+    },
+    { 
+      title: 'Blogs', 
+      path: '/blogs',
+      icon: <FaBlog className="mr-2" />
+    },
+    { 
+      title: 'Contact', 
+      path: '/contact',
+      icon: <FaEnvelope className="mr-2" />
+    }
   ];
   
   return links;
@@ -405,9 +427,10 @@ const NavBar = () => {
             <NavLink 
               to="/" 
               className={({ isActive }) => 
-                `text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
+                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
               }
             >
+              <FaHome className="mr-2" />
               Home
             </NavLink>
 
@@ -420,6 +443,7 @@ const NavBar = () => {
               <button 
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
+                <FaCogs className="mr-2" />
                 <span>Services</span>
                 <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'services' ? 'rotate-180' : ''}`} />
               </button>
@@ -499,6 +523,7 @@ const NavBar = () => {
               <button 
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
+                <FaIndustry className="mr-2" />
                 <span>Industries</span>
                 <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'industries' ? 'rotate-180' : ''}`} />
               </button>
@@ -573,25 +598,27 @@ const NavBar = () => {
             <NavLink 
               to="/training" 
               className={({ isActive }) => 
-                `text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
+                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
               }
             >
+              <FaGraduationCap className="mr-2" />
               Training
             </NavLink>
             
             <NavLink 
               to="/blogs" 
               className={({ isActive }) => 
-                `text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
+                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
               }
             >
+              <FaBlog className="mr-2" />
               Blogs
             </NavLink>
 
             {/* Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200"
               aria-label="Search"
             >
               <FaSearch />
@@ -602,6 +629,7 @@ const NavBar = () => {
               to="/contact"
               className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 group"
             >
+              <FaEnvelope className="mr-2" />
               Contact Us
               <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
             </Link>
