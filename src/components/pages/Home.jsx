@@ -11,34 +11,38 @@ const Home = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
+  ><motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
   >
-    {/* Hero Section */}
+    <!-- Hero Section -->
     <section className="h-screen bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex flex-col justify-center items-center text-center px-6">
-      <motion.h1
+      <motion.h1 
         className="text-5xl md:text-7xl font-extrabold mb-6"
         initial={{ y: -20 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
       >
         Empower Your Business in the Cloud
-      </motion.h1>
-      <motion.p
+      </div>
+      <motion.p 
         className="text-lg md:text-2xl mb-8 max-w-2xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
         We deliver expert cloud solutions on AWS, Azure & OCI to help you scale, optimize, and innovate.
-      </motion.p>
-      <Link
-        to="/services"
+      </div>
+      <Link to="/services" 
+        
         className="bg-white text-blue-600 font-semibold px-8 py-3 rounded shadow-lg hover:bg-gray-100 transition"
       >
         See Our Services
-      </Link>
+      </a>
     </section>
     
-    {/* Our Vision and Mission */}
+    <!-- Our Vision and Mission -->
     <section className="py-16 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -62,18 +66,18 @@ const Home = () => (
       </div>
     </section>
     
-    {/* Why Choose Us component */}
-    <WhyChooseUs />
+    <!-- Why Choose Us component -->
+    <div className="component-placeholder"><WhyChooseUs /></div>
     
-    {/* Testimonials component */}
-    <Testimonials />
+    <!-- Testimonials component -->
+    <div className="component-placeholder"><Testimonials /></div>
     
-    {/* Partners component */}
-    <Partners />
+    <!-- Partners component -->
+    <div className="component-placeholder"><Partners /></div>
     
-    {/* Quick Contact Form */}
-    <QuickContact />
-  </motion.div>
+    <!-- Quick Contact Form -->
+    <div className="component-placeholder"><QuickContact /></div>
+  </div></motion.div>
 );
 
 export default Home; 
