@@ -162,7 +162,7 @@ const Serverless = () => {
                   <span className="text-gray-700">Simplified deployment and continuous integration</span>
                 </li>
               </ul>
-              
+
               <Link 
                 to="/contact" 
                 className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition duration-300"
@@ -316,7 +316,7 @@ const Serverless = () => {
             <div className="mb-6">
               <h4 className="text-lg font-semibold mb-2">Our Solution</h4>
               <p className="text-gray-700 mb-4">{serviceInfo.caseStudy.solution}</p>
-            </div>
+          </div>
             
             <div>
               <h4 className="text-lg font-semibold mb-2">Results</h4>
@@ -328,7 +328,7 @@ const Serverless = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+        </div>
           </motion.div>
         </motion.div>
       </section>
@@ -347,8 +347,8 @@ const Serverless = () => {
             Contact our team today to learn how serverless computing can help your business reduce costs, increase agility, and accelerate innovation.
           </motion.p>
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              to="/contact"
+          <Link
+            to="/contact"
               className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition"
             >
               Contact Us
@@ -358,7 +358,7 @@ const Serverless = () => {
               className="bg-white text-blue-600 border border-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition"
             >
               Explore All Services
-            </Link>
+          </Link>
           </motion.div>
         </motion.div>
       </section>

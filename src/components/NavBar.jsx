@@ -226,7 +226,7 @@ const getIndustryCategories = () => {
 
 // Build navigation links
 const getNavLinks = () => {
-  const links = [
+const links = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
     { 
@@ -243,7 +243,7 @@ const getNavLinks = () => {
       submenu: getIndustryCategories(),
       isMultiLevel: true
     },
-    { title: 'Training', path: '/training' },
+  { title: 'Training', path: '/training' },
     { title: 'Blogs', path: '/blogs' },
     { title: 'Contact', path: '/contact' }
   ];
@@ -537,9 +537,9 @@ const NavBar = () => {
                   whileHover={linkVariants.hover}
                   whileTap={linkVariants.tap}
                 >
-                  <NavLink
+              <NavLink
                     to={link.path}
-                    className={({ isActive }) =>
+                className={({ isActive }) =>
                       `py-2 px-1 relative ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
                     }
                   >
@@ -557,7 +557,7 @@ const NavBar = () => {
                         )}
                       </>
                     )}
-                  </NavLink>
+              </NavLink>
                 </motion.div>
               )}
             </motion.li>
@@ -602,12 +602,12 @@ const NavBar = () => {
                       {/* Mobile dropdown */}
                       <AnimatePresence>
                         {activeSubmenu === index && (
-                          <motion.div 
+      <motion.div
                             className="pb-4"
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3 }}
+        transition={{ duration: 0.3 }}
                           >
                             <NavLink
                               to={link.path}
@@ -662,10 +662,10 @@ const NavBar = () => {
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.1 + (0.05 * itemIndex) }}
                                           >
-                                            <NavLink
+              <NavLink
                                               to={item.path}
                                               className="block py-1 text-sm text-gray-600 hover:text-blue-600"
-                                              onClick={() => setMenuOpen(false)}
+                onClick={() => setMenuOpen(false)}
                                             >
                                               <motion.span
                                                 whileHover={{ x: 3 }}
@@ -673,10 +673,10 @@ const NavBar = () => {
                                               >
                                                 {item.title}
                                               </motion.span>
-                                            </NavLink>
+              </NavLink>
                                           </motion.li>
-                                        ))}
-                                      </ul>
+          ))}
+        </ul>
                                     )}
                                   </motion.div>
                                 )
@@ -705,7 +705,7 @@ const NavBar = () => {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+      </motion.div>
         )}
       </AnimatePresence>
     </motion.nav>
