@@ -1,196 +1,146 @@
 // Page configuration for CloudDigify website
-// This file controls which pages are enabled/disabled across the website
+// This file contains paths for all pages
 
 // Main pages
 export const mainPages = {
-  home: { path: '/', enabled: true },
-  about: { path: '/about', enabled: true },
-  services: { path: '/services', enabled: true },
-  industries: { path: '/industries', enabled: true },
-  training: { path: '/training', enabled: true },
-  blogs: { path: '/blogs', enabled: true },
-  contact: { path: '/contact', enabled: true }
+  home: { path: '/' },
+  about: { path: '/about' },
+  services: { path: '/services' },
+  industries: { path: '/industries' },
+  training: { path: '/training' },
+  blogs: { path: '/blogs' },
+  contact: { path: '/contact' }
 };
 
 // Service pages
 export const servicePages = {
   // Cloud Services
-  cloudInfrastructure: { path: '/services/cloud-infrastructure', enabled: true },
-  cloudMigration: { path: '/services/cloud-migration', enabled: true },
-  cloudOptimization: { path: '/services/cloud-optimization', enabled: true },
-  disasterRecovery: { path: '/services/disaster-recovery', enabled: true },
-  nextGenWorkplace: { path: '/services/next-gen-workplace', enabled: false },
+  cloudInfrastructure: { path: '/services/cloud-infrastructure' },
+  cloudMigration: { path: '/services/cloud-migration' },
+  cloudOptimization: { path: '/services/cloud-optimization' },
+  disasterRecovery: { path: '/services/disaster-recovery' },
+  nextGenWorkplace: { path: '/services/next-gen-workplace' },
   
   // DevOps & Engineering
-  devops: { path: '/services/devops', enabled: true },
-  infrastructureAsCode: { path: '/services/infrastructure-as-code', enabled: true },
-  containerization: { path: '/services/containerization', enabled: true },
-  serverless: { path: '/services/serverless', enabled: true },
-  agileTransformation: { path: '/services/agile-transformation', enabled: false },
+  devops: { path: '/services/devops' },
+  infrastructureAsCode: { path: '/services/infrastructure-as-code' },
+  containerization: { path: '/services/containerization' },
+  serverless: { path: '/services/serverless' },
+  agileTransformation: { path: '/services/agile-transformation' },
   
   // Security & Compliance
-  securityCompliance: { path: '/services/security-compliance', enabled: true },
-  cyberDefense: { path: '/services/cyber-defense', enabled: false },
-  privacyServices: { path: '/services/privacy-services', enabled: false },
-  privacySmartHub: { path: '/services/privacy-smarthub', enabled: false },
+  securityCompliance: { path: '/services/security-compliance' },
+  cyberDefense: { path: '/services/cyber-defense' },
+  privacyServices: { path: '/services/privacy-services' },
+  privacySmartHub: { path: '/services/privacy-smarthub' },
   
   // Data & Analytics
-  dataAnalytics: { path: '/services/data-analytics', enabled: false },
-  businessIntelligence: { path: '/services/business-intelligence', enabled: false },
-  dataWarehousing: { path: '/services/data-warehousing', enabled: false },
-  bigData: { path: '/services/big-data', enabled: false },
+  dataAnalytics: { path: '/services/data-analytics' },
+  businessIntelligence: { path: '/services/business-intelligence' },
+  dataWarehousing: { path: '/services/data-warehousing' },
+  bigData: { path: '/services/big-data' },
   
   // Digital Experiences
-  experienceDesign: { path: '/services/experience-design', enabled: false },
-  digitalInteractive: { path: '/services/digital-interactive', enabled: false },
-  enterpriseMobility: { path: '/services/enterprise-mobility', enabled: false },
-  digitalIntegration: { path: '/services/digital-integration', enabled: false },
-  digitalRuntime: { path: '/services/digital-runtime', enabled: false },
+  experienceDesign: { path: '/services/experience-design' },
+  digitalInteractive: { path: '/services/digital-interactive' },
+  enterpriseMobility: { path: '/services/enterprise-mobility' },
+  digitalIntegration: { path: '/services/digital-integration' },
+  digitalRuntime: { path: '/services/digital-runtime' },
   
   // AI & Automation
-  artificialIntelligence: { path: '/services/artificial-intelligence', enabled: false },
-  intelligentAutomation: { path: '/services/intelligent-automation', enabled: false },
-  cognitiveServices: { path: '/services/cognitive-services', enabled: false },
-  rpa: { path: '/services/rpa', enabled: false },
+  artificialIntelligence: { path: '/services/artificial-intelligence' },
+  intelligentAutomation: { path: '/services/intelligent-automation' },
+  cognitiveServices: { path: '/services/cognitive-services' },
+  rpa: { path: '/services/rpa' },
   
   // Enterprise Services
-  managedServices: { path: '/services/managed-services', enabled: true },
-  architectureDesign: { path: '/services/architecture-design', enabled: true },
-  applicationDevelopment: { path: '/services/application-development', enabled: false },
-  applicationMaintenance: { path: '/services/application-maintenance', enabled: false },
-  systemIntegration: { path: '/services/system-integration', enabled: false },
+  managedServices: { path: '/services/managed-services' },
+  architectureDesign: { path: '/services/architecture-design' },
+  applicationDevelopment: { path: '/services/application-development' },
+  applicationMaintenance: { path: '/services/application-maintenance' },
+  systemIntegration: { path: '/services/system-integration' },
   
   // Industry Solutions
-  industry40: { path: '/services/industry-4-0', enabled: false },
-  blockchain: { path: '/services/blockchain', enabled: false },
-  qualityEngineering: { path: '/services/quality-engineering', enabled: false },
-  organizationalChange: { path: '/services/organizational-change', enabled: false },
+  industry40: { path: '/services/industry-4-0' },
+  blockchain: { path: '/services/blockchain' },
+  qualityEngineering: { path: '/services/quality-engineering' },
+  organizationalChange: { path: '/services/organizational-change' },
   
   // Consulting Services
-  technologyConsulting: { path: '/services/technology-consulting', enabled: false },
-  digitalTransformation: { path: '/services/digital-transformation', enabled: false },
-  enterpriseArchitecture: { path: '/services/enterprise-architecture', enabled: false },
-  businessProcess: { path: '/services/business-process', enabled: false },
-  ocm: { path: '/services/ocm', enabled: false },
+  technologyConsulting: { path: '/services/technology-consulting' },
+  digitalTransformation: { path: '/services/digital-transformation' },
+  enterpriseArchitecture: { path: '/services/enterprise-architecture' },
+  businessProcess: { path: '/services/business-process' },
+  ocm: { path: '/services/ocm' },
   
   // Quality Assurance
-  qualityAssurance: { path: '/services/quality-assurance', enabled: false },
-  testAutomation: { path: '/services/test-automation', enabled: false },
-  performanceTesting: { path: '/services/performance-testing', enabled: false },
-  securityTesting: { path: '/services/security-testing', enabled: false },
+  qualityAssurance: { path: '/services/quality-assurance' },
+  testAutomation: { path: '/services/test-automation' },
+  performanceTesting: { path: '/services/performance-testing' },
+  securityTesting: { path: '/services/security-testing' },
   
   // Specialized Solutions
-  iotSolutions: { path: '/services/iot-solutions', enabled: false },
-  platformEngineering: { path: '/services/platform-engineering', enabled: false },
-  reimaginedEnterprise: { path: '/services/reimagined-enterprise', enabled: false },
-  smartCity: { path: '/services/smart-city', enabled: false }
+  iotSolutions: { path: '/services/iot-solutions' },
+  platformEngineering: { path: '/services/platform-engineering' },
+  reimaginedEnterprise: { path: '/services/reimagined-enterprise' },
+  smartCity: { path: '/services/smart-city' }
 };
 
 // Industry pages
 export const industryPages = {
   // Financial Services
-  financialServices: { path: '/industries/financial-services', enabled: true },
-  banking: { path: '/industries/banking', enabled: true },
-  insurance: { path: '/industries/insurance', enabled: false },
-  capitalMarkets: { path: '/industries/capital-markets', enabled: false },
-  fintech: { path: '/industries/fintech', enabled: false },
+  financialServices: { path: '/industries/financial-services' },
+  banking: { path: '/industries/banking' },
+  insurance: { path: '/industries/insurance' },
+  capitalMarkets: { path: '/industries/capital-markets' },
+  fintech: { path: '/industries/fintech' },
   
   // Manufacturing
-  manufacturing: { path: '/industries/manufacturing', enabled: false },
-  advancedManufacturing: { path: '/industries/advanced-manufacturing', enabled: false },
-  automotive: { path: '/industries/automotive', enabled: false },
-  industrialIot: { path: '/industries/industrial-iot', enabled: false },
+  manufacturing: { path: '/industries/manufacturing' },
+  advancedManufacturing: { path: '/industries/advanced-manufacturing' },
+  automotive: { path: '/industries/automotive' },
+  industrialIot: { path: '/industries/industrial-iot' },
   
   // Technology
-  technology: { path: '/industries/technology', enabled: false },
-  software: { path: '/industries/software', enabled: false },
-  hardware: { path: '/industries/hardware', enabled: false },
-  telecommunications: { path: '/industries/telecommunications', enabled: false },
+  technology: { path: '/industries/technology' },
+  software: { path: '/industries/software' },
+  hardware: { path: '/industries/hardware' },
+  telecommunications: { path: '/industries/telecommunications' },
   
   // Healthcare
-  healthcare: { path: '/industries/healthcare', enabled: false },
-  healthcareProviders: { path: '/industries/healthcare-providers', enabled: false },
-  lifeSciences: { path: '/industries/life-sciences', enabled: false },
-  healthTech: { path: '/industries/health-tech', enabled: false },
+  healthcare: { path: '/industries/healthcare' },
+  healthcareProviders: { path: '/industries/healthcare-providers' },
+  lifeSciences: { path: '/industries/life-sciences' },
+  healthTech: { path: '/industries/health-tech' },
   
   // Retail & CPG
-  retailCpg: { path: '/industries/retail-cpg', enabled: false },
-  retail: { path: '/industries/retail', enabled: false },
-  consumerGoods: { path: '/industries/consumer-goods', enabled: false },
-  ecommerce: { path: '/industries/e-commerce', enabled: false },
+  retailCpg: { path: '/industries/retail-cpg' },
+  retail: { path: '/industries/retail' },
+  consumerGoods: { path: '/industries/consumer-goods' },
+  ecommerce: { path: '/industries/e-commerce' },
   
   // Energy & Utilities
-  energyUtilities: { path: '/industries/energy-utilities', enabled: false },
-  energy: { path: '/industries/energy', enabled: false },
-  utilities: { path: '/industries/utilities', enabled: false },
-  oilGas: { path: '/industries/oil-gas', enabled: false },
+  energyUtilities: { path: '/industries/energy-utilities' },
+  energy: { path: '/industries/energy' },
+  utilities: { path: '/industries/utilities' },
+  oilGas: { path: '/industries/oil-gas' },
   
   // Communications & Media
-  communicationsMedia: { path: '/industries/communications-media', enabled: false },
-  communications: { path: '/industries/communications', enabled: false },
-  mediaEntertainment: { path: '/industries/media-entertainment', enabled: false },
-  digitalPublishing: { path: '/industries/digital-publishing', enabled: false },
+  communicationsMedia: { path: '/industries/communications-media' },
+  communications: { path: '/industries/communications' },
+  mediaEntertainment: { path: '/industries/media-entertainment' },
+  digitalPublishing: { path: '/industries/digital-publishing' },
   
   // Travel & Hospitality
-  travelHospitality: { path: '/industries/travel-hospitality', enabled: false },
-  travel: { path: '/industries/travel', enabled: false },
-  transport: { path: '/industries/transport', enabled: false },
-  hospitality: { path: '/industries/hospitality', enabled: false }
+  travelHospitality: { path: '/industries/travel-hospitality' },
+  travel: { path: '/industries/travel' },
+  transport: { path: '/industries/transport' },
+  hospitality: { path: '/industries/hospitality' }
 };
 
 // Legal pages
 export const legalPages = {
-  terms: { path: '/terms', enabled: true },
-  privacy: { path: '/privacy', enabled: true },
-  cookies: { path: '/cookies', enabled: true }
-};
-
-// Helper function to check if a page is enabled
-export const isPageEnabled = (pageKey, pageCategory) => {
-  let config;
-  
-  switch(pageCategory) {
-    case 'main':
-      config = mainPages;
-      break;
-    case 'service':
-      config = servicePages;
-      break;
-    case 'industry':
-      config = industryPages;
-      break;
-    case 'legal':
-      config = legalPages;
-      break;
-    default:
-      return false;
-  }
-  
-  return config[pageKey]?.enabled === true;
-};
-
-// Helper function to get all enabled pages
-export const getEnabledPages = (pageCategory) => {
-  let config;
-  
-  switch(pageCategory) {
-    case 'main':
-      config = mainPages;
-      break;
-    case 'service':
-      config = servicePages;
-      break;
-    case 'industry':
-      config = industryPages;
-      break;
-    case 'legal':
-      config = legalPages;
-      break;
-    default:
-      return [];
-  }
-  
-  return Object.entries(config)
-    .filter(([_, value]) => value.enabled)
-    .map(([key, value]) => ({ key, ...value }));
+  terms: { path: '/terms' },
+  privacy: { path: '/privacy' },
+  cookies: { path: '/cookies' }
 }; 
