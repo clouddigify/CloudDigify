@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaShieldAlt, FaUserCircle, FaCookieBite, FaGlobeAmericas, FaLock, FaUserCog, FaChild, FaHistory, FaEnvelope } from 'react-icons/fa';
+import { 
+  FaShieldAlt, FaUserCircle, FaCookieBite, FaGlobeAmericas, FaLock, 
+  FaUserCog, FaChild, FaHistory, FaEnvelope, FaDatabase, FaExchangeAlt,
+  FaRegEye, FaUserShield, FaQuestionCircle
+} from 'react-icons/fa';
 
 const PrivacyPolicy = () => {
   const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const [expandedSection, setExpandedSection] = useState(null);
+
+  const toggleSection = (id) => {
+    setExpandedSection(expandedSection === id ? null : id);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -28,7 +37,7 @@ const PrivacyPolicy = () => {
     {
       id: 'information-collection',
       title: '1. Information We Collect',
-      icon: <FaUserCircle className="h-8 w-8 text-blue-600" />,
+      icon: <FaUserShield className="h-8 w-8 text-blue-600" />,
       content: (
         <>
           <p className="mb-4">
@@ -49,7 +58,7 @@ const PrivacyPolicy = () => {
     {
       id: 'information-use',
       title: '2. How We Use Your Information',
-      icon: <FaLock className="h-8 w-8 text-blue-600" />,
+      icon: <FaDatabase className="h-8 w-8 text-blue-600" />,
       content: (
         <>
           <p className="mb-4">
@@ -71,33 +80,9 @@ const PrivacyPolicy = () => {
       )
     },
     {
-      id: 'cookies',
-      title: '3. Cookies and Tracking Technologies',
-      icon: <FaCookieBite className="h-8 w-8 text-blue-600" />,
-      content: (
-        <>
-          <p className="mb-4">
-            We use cookies and similar tracking technologies to track activity on our website and store certain information. Cookies are files with small amounts of data that may include an anonymous unique identifier.
-          </p>
-          <p className="mb-4">
-            We use the following types of cookies:
-          </p>
-          <ul className="list-disc pl-6 mb-4 space-y-2">
-            <li>Essential cookies: necessary for the website to function properly</li>
-            <li>Analytical/performance cookies: help us improve our website by collecting and reporting information on how you use it</li>
-            <li>Functionality cookies: enable us to personalize content and remember your preferences</li>
-            <li>Targeting cookies: used to deliver relevant advertisements based on your interests</li>
-          </ul>
-          <p>
-            You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our website.
-          </p>
-        </>
-      )
-    },
-    {
-      id: 'data-sharing',
-      title: '4. Sharing Your Information',
-      icon: <FaGlobeAmericas className="h-8 w-8 text-blue-600" />,
+      id: 'information-sharing',
+      title: '3. Information Sharing and Disclosure',
+      icon: <FaExchangeAlt className="h-8 w-8 text-blue-600" />,
       content: (
         <>
           <p className="mb-4">
@@ -119,9 +104,45 @@ const PrivacyPolicy = () => {
       )
     },
     {
+      id: 'cookies',
+      title: '4. Cookies and Tracking Technologies',
+      icon: <FaCookieBite className="h-8 w-8 text-blue-600" />,
+      content: (
+        <>
+          <p className="mb-4">
+            We use cookies and similar tracking technologies to track activity on our website and store certain information. Cookies are files with small amounts of data that may include an anonymous unique identifier.
+          </p>
+          <p className="mb-4">
+            We use the following types of cookies:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
+              <h4 className="font-bold text-gray-800 mb-2">Essential Cookies</h4>
+              <p className="text-gray-700">Necessary for the website to function properly</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
+              <h4 className="font-bold text-gray-800 mb-2">Analytical Cookies</h4>
+              <p className="text-gray-700">Help us improve our website by collecting usage information</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
+              <h4 className="font-bold text-gray-800 mb-2">Functionality Cookies</h4>
+              <p className="text-gray-700">Enable us to personalize content and remember your preferences</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
+              <h4 className="font-bold text-gray-800 mb-2">Targeting Cookies</h4>
+              <p className="text-gray-700">Used to deliver relevant advertisements based on your interests</p>
+            </div>
+          </div>
+          <p className="mt-4">
+            You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our website. For more information, please see our <a href="/cookies" className="text-blue-600 hover:underline">Cookie Policy</a>.
+          </p>
+        </>
+      )
+    },
+    {
       id: 'data-security',
       title: '5. Data Security',
-      icon: <FaShieldAlt className="h-8 w-8 text-blue-600" />,
+      icon: <FaLock className="h-8 w-8 text-blue-600" />,
       content: (
         <>
           <p className="mb-4">
@@ -130,37 +151,81 @@ const PrivacyPolicy = () => {
           <p className="mb-4">
             Our security measures include:
           </p>
-          <ul className="list-disc pl-6 mb-4 space-y-2">
-            <li>Encryption of sensitive data</li>
-            <li>Secure networks and servers</li>
-            <li>Regular security assessments</li>
-            <li>Access controls and authentication procedures</li>
-            <li>Employee training on data protection</li>
-          </ul>
-          <p>
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-5 rounded-lg shadow-sm">
+            <ul className="list-none space-y-3">
+              <li className="flex items-center">
+                <span className="bg-blue-100 p-2 rounded-full mr-3"><FaShieldAlt className="text-blue-600" /></span>
+                <span>Encryption of sensitive data</span>
+              </li>
+              <li className="flex items-center">
+                <span className="bg-blue-100 p-2 rounded-full mr-3"><FaLock className="text-blue-600" /></span>
+                <span>Secure networks and servers</span>
+              </li>
+              <li className="flex items-center">
+                <span className="bg-blue-100 p-2 rounded-full mr-3"><FaRegEye className="text-blue-600" /></span>
+                <span>Regular security assessments</span>
+              </li>
+              <li className="flex items-center">
+                <span className="bg-blue-100 p-2 rounded-full mr-3"><FaUserCog className="text-blue-600" /></span>
+                <span>Access controls and authentication procedures</span>
+              </li>
+              <li className="flex items-center">
+                <span className="bg-blue-100 p-2 rounded-full mr-3"><FaUserShield className="text-blue-600" /></span>
+                <span>Employee training on data protection</span>
+              </li>
+            </ul>
+          </div>
+          <p className="mt-4">
             Despite our best efforts, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security of your data.
           </p>
         </>
       )
     },
     {
+      id: 'international-transfers',
+      title: '6. International Data Transfers',
+      icon: <FaGlobeAmericas className="h-8 w-8 text-blue-600" />,
+      content: (
+        <p>
+          We may transfer your personal data to countries outside of your country of residence, which may have different data protection laws. In such cases, we ensure appropriate safeguards are in place to protect your information, including data transfer agreements incorporating standard data protection clauses approved by relevant regulatory authorities, or other suitable safeguards as required by applicable laws.
+        </p>
+      )
+    },
+    {
       id: 'your-rights',
-      title: '6. Your Privacy Rights',
+      title: '7. Your Privacy Rights',
       icon: <FaUserCog className="h-8 w-8 text-blue-600" />,
       content: (
         <>
           <p className="mb-4">
             Depending on your location, you may have the following rights regarding your personal data:
           </p>
-          <ul className="list-disc pl-6 mb-4 space-y-2">
-            <li>Access: Request access to your personal data</li>
-            <li>Correction: Request correction of inaccurate personal data</li>
-            <li>Erasure: Request deletion of your personal data</li>
-            <li>Restriction: Request restriction of processing of your personal data</li>
-            <li>Portability: Request the transfer of your personal data</li>
-            <li>Objection: Object to processing of your personal data</li>
-            <li>Withdraw consent: Withdraw consent where we rely on consent to process your personal data</li>
-          </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
+              <h5 className="font-semibold">Right to Access</h5>
+              <p className="text-sm text-gray-600">Request access to your personal data</p>
+            </div>
+            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
+              <h5 className="font-semibold">Right to Rectification</h5>
+              <p className="text-sm text-gray-600">Request correction of inaccurate personal data</p>
+            </div>
+            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
+              <h5 className="font-semibold">Right to Erasure</h5>
+              <p className="text-sm text-gray-600">Request deletion of your personal data</p>
+            </div>
+            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
+              <h5 className="font-semibold">Right to Restriction</h5>
+              <p className="text-sm text-gray-600">Request restriction of processing your data</p>
+            </div>
+            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
+              <h5 className="font-semibold">Right to Portability</h5>
+              <p className="text-sm text-gray-600">Request the transfer of your personal data</p>
+            </div>
+            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
+              <h5 className="font-semibold">Right to Object</h5>
+              <p className="text-sm text-gray-600">Object to processing of your personal data</p>
+            </div>
+          </div>
           <p>
             To exercise any of these rights, please contact us using the information provided in the "Contact Us" section. We may need to verify your identity before fulfilling your request.
           </p>
@@ -169,7 +234,7 @@ const PrivacyPolicy = () => {
     },
     {
       id: 'children-privacy',
-      title: '7. Children\'s Privacy',
+      title: '8. Children\'s Privacy',
       icon: <FaChild className="h-8 w-8 text-blue-600" />,
       content: (
         <p>
@@ -179,7 +244,7 @@ const PrivacyPolicy = () => {
     },
     {
       id: 'changes',
-      title: '8. Changes to This Privacy Policy',
+      title: '9. Changes to This Privacy Policy',
       icon: <FaHistory className="h-8 w-8 text-blue-600" />,
       content: (
         <p>
@@ -189,12 +254,24 @@ const PrivacyPolicy = () => {
     },
     {
       id: 'contact',
-      title: '9. Contact Us',
+      title: '10. Contact Us',
       icon: <FaEnvelope className="h-8 w-8 text-blue-600" />,
       content: (
-        <p>
-          If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@clouddigify.com" className="text-blue-600 hover:underline">privacy@clouddigify.com</a> or through the contact form on our website.
-        </p>
+        <div className="bg-blue-50 p-5 rounded-lg">
+          <p className="mb-3">
+            If you have any questions about this Privacy Policy, please contact us:
+          </p>
+          <ul className="space-y-2">
+            <li className="flex items-center">
+              <FaEnvelope className="mr-2 text-blue-600" />
+              <a href="mailto:privacy@clouddigify.com" className="text-blue-600 hover:underline">privacy@clouddigify.com</a>
+            </li>
+            <li className="flex items-center">
+              <FaQuestionCircle className="mr-2 text-blue-600" />
+              <a href="/contact" className="text-blue-600 hover:underline">Contact Form</a>
+            </li>
+          </ul>
+        </div>
       )
     },
   ];
@@ -221,49 +298,109 @@ const PrivacyPolicy = () => {
 
         {/* Privacy hero */}
         <motion.div
-          className="bg-blue-50 rounded-lg p-8 mb-10 flex flex-col md:flex-row items-center gap-6"
+          className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-8 mb-10 flex flex-col md:flex-row items-center gap-6 shadow-md"
           variants={itemVariants}
         >
-          <div className="text-blue-600">
+          <div className="text-blue-600 bg-white p-5 rounded-full shadow-sm">
             <FaShieldAlt className="w-16 h-16 md:w-24 md:h-24" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Your Privacy Matters</h2>
-            <p className="text-gray-700">
-              At CloudDigify, we are committed to protecting your privacy and personal data. 
-              This Privacy Policy explains how we collect, use, and safeguard your information 
-              when you visit our website or use our services.
+            <h2 className="text-2xl font-bold text-gray-800 mb-3">Your Privacy Matters to Us</h2>
+            <p className="text-gray-700 leading-relaxed">
+              At CloudDigify, we take your privacy seriously. This Privacy Policy explains how we collect, 
+              use, and protect your personal information when you visit our website or use our services. 
+              We're committed to ensuring that your data is secure and handled with care.
             </p>
           </div>
         </motion.div>
 
+        {/* Interactive content navigation */}
+        <motion.div 
+          variants={itemVariants}
+          className="bg-white rounded-lg shadow-md p-6 mb-10"
+        >
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Quick Navigation</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {sections.map((section) => (
+              <a 
+                key={section.id}
+                href={`#${section.id}`}
+                className="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-colors duration-300 group"
+              >
+                <div className="mr-3 text-blue-500 group-hover:text-blue-600">
+                  {section.icon}
+                </div>
+                <span className="text-sm text-gray-700 group-hover:text-blue-800">{section.title}</span>
+              </a>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Policy sections */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           {sections.map((section) => (
             <motion.div
               key={section.id}
+              id={section.id}
               variants={itemVariants}
-              className="bg-white rounded-lg shadow-md p-8 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300"
             >
-              <div className="flex items-start mb-4">
-                <div className="mr-4 p-2 bg-blue-50 rounded-lg">
-                  {section.icon}
+              <button 
+                onClick={() => toggleSection(section.id)}
+                className="w-full p-6 flex items-center justify-between hover:bg-blue-50 transition-colors duration-300"
+              >
+                <div className="flex items-start">
+                  <div className="mr-4 p-2 bg-blue-50 rounded-lg">
+                    {section.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800">{section.title}</h3>
                 </div>
-                <h2 className="text-2xl font-bold text-gray-800">{section.title}</h2>
-              </div>
-              <div className="prose max-w-none text-gray-700 ml-16">
-                {section.content}
-              </div>
+                <div className={`transform transition-transform duration-300 ${expandedSection === section.id ? 'rotate-180' : ''}`}>
+                  <FaChevronDown />
+                </div>
+              </button>
+              
+              <motion.div 
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ 
+                  height: expandedSection === section.id ? 'auto' : 0,
+                  opacity: expandedSection === section.id ? 1 : 0
+                }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="p-6 pt-0 border-t border-gray-100">
+                  {section.content}
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
 
-        {/* Footer */}
-        <motion.div 
+        {/* CTA Section */}
+        <motion.div
           variants={itemVariants}
-          className="mt-10 text-center text-gray-600"
+          className="mt-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white text-center shadow-lg"
         >
-          <p>© {new Date().getFullYear()} CloudDigify. All rights reserved.</p>
+          <h3 className="text-2xl font-bold mb-4">Have Questions About Your Privacy?</h3>
+          <p className="mb-6">
+            We're here to help you understand how we protect your information. If you have any questions or concerns,
+            please don't hesitate to reach out to our privacy team.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <a 
+              href="/contact" 
+              className="bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition-colors duration-300 flex items-center"
+            >
+              <FaEnvelope className="mr-2" /> Contact Us
+            </a>
+            <a 
+              href="/terms" 
+              className="bg-transparent border border-white text-white hover:bg-white hover:text-blue-600 px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+            >
+              View Terms & Conditions
+            </a>
+          </div>
         </motion.div>
       </div>
     </motion.div>

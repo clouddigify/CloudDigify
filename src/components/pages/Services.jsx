@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   FaCloud,
@@ -13,8 +12,10 @@ import {
   FaProjectDiagram,
   FaCheckCircle,
   FaCubes,
-  FaArrowRight
+  FaArrowRight,
+  FaCog
 } from 'react-icons/fa';
+import PageTemplate from '../templates/PageTemplate';
 
 // Main service categories - matching our nav structure
 const serviceCategories = [
@@ -97,153 +98,163 @@ const serviceCategories = [
   }
 ];
 
-const Services = () => (
-  <motion.div 
-    initial={{ opacity: 0 }} 
-    animate={{ opacity: 1 }} 
-    exit={{ opacity: 0 }}
-    className="pb-16"
-  >
-    {/* Hero Section */}
-    <section className="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-20 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Comprehensive Cloud & Digital Services</h1>
-          <p className="text-xl opacity-90 mb-8">
-            End-to-end solutions to transform, scale, and secure your enterprise technology landscape
-          </p>
-        </div>
-      </div>
-    </section>
+const Services = () => {
+  const pageInfo = {
+    title: "Comprehensive Cloud & Digital Services",
+    description: "End-to-end solutions to transform, scale, and secure your enterprise technology landscape",
+    icon: <FaCog />,
+    heroBackground: "from-blue-700 to-indigo-800",
 
-    {/* Services Overview */}
-    <section className="py-16 px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-6">Our Service Portfolio</h2>
-        <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-12">
-          CloudDigify offers a comprehensive suite of digital and cloud services to help enterprises 
-          at every stage of their technology transformation journey.
-        </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-blue-50 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-3 text-blue-800">Cloud & Infrastructure</h3>
-            <p className="text-gray-700">Modernize your IT infrastructure with our cloud-first approach, from migration to optimization.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-3 text-blue-800">Digital Transformation</h3>
-            <p className="text-gray-700">Reimagine your business processes and customer experiences with innovative digital solutions.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-3 text-blue-800">Technology Excellence</h3>
-            <p className="text-gray-700">Accelerate innovation with DevOps, quality engineering, and intelligent automation.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    // Default text configurations
+    defaultCtaText: "Contact Us",
+    defaultOverviewTitle: "Our Service Portfolio",
+    defaultBenefitsTitle: "Service Categories",
+    defaultSidebarTitle: "Our Approach",
+    defaultSecondaryCta: "Explore Training",
+    defaultFeaturesTitle: "Featured Services",
+    defaultFeaturesDescription: "Our most popular enterprise solutions",
+    defaultCtaTitle: "Ready to Start Your Digital Transformation?",
+    defaultCtaDescription: "Partner with CloudDigify for comprehensive solutions that drive innovation and growth.",
+    defaultFinalCta: "Get Started",
 
-    {/* Services Categories */}
-    <section className="py-16 px-8 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">Service Categories</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {serviceCategories.map(({ title, icon, description, path, featured }) => (
-            <div key={title} className="bg-white p-6 rounded-lg shadow hover:shadow-xl transition flex flex-col h-full">
-              <div>{icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{title}</h3>
-              <p className="text-gray-600 mb-4 flex-grow">{description}</p>
-              
-              <div className="mt-2 mb-4">
-                <h4 className="font-medium text-gray-800 mb-2">Featured Services:</h4>
-                <ul className="space-y-1">
-                  {featured.map((service, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-green-500 mr-2">✓</span>
-                      <span className="text-gray-700 text-sm">{service}</span>
-                    </li>
-                  ))}
-                </ul>
+    // Custom links
+    ctaLink: "/contact",
+    secondaryCtaLink: "/training",
+    finalCtaLink: "/contact",
+
+    // Overview section
+    overviewTitle: "Our Service Portfolio",
+    overviewDescription1: "CloudDigify offers a comprehensive suite of digital and cloud services to help enterprises at every stage of their technology transformation journey.",
+    overviewDescription2: "From cloud infrastructure to AI-driven solutions, we provide end-to-end services to modernize and optimize your technology landscape.",
+
+    // Benefits section (Service Categories)
+    benefitsTitle: "Service Categories",
+    benefits: serviceCategories.map(service => 
+      `${service.title}: ${service.description}`
+    ),
+
+    // Sidebar (Our Approach)
+    sidebarTitle: "Our Approach",
+    approachPoints: [
+      "1. Assess - Evaluate your current environment",
+      "2. Design - Create tailored strategy",
+      "3. Implement - Execute with agility",
+      "4. Optimize - Continuous improvement"
+    ],
+
+    // Features section (Featured Services)
+    featuresTitle: "Featured Services",
+    featuresDescription: "Our most popular and comprehensive enterprise solutions",
+    features: [
+      {
+        title: "Cloud & Infrastructure",
+        description: "Modernize your IT infrastructure with our cloud-first approach, from migration to optimization.",
+        icon: <FaCloud />,
+        link: "/services/cloud-infrastructure",
+        features: [
+          "Cloud Migration & Modernization",
+          "Infrastructure Optimization",
+          "Disaster Recovery",
+          "Managed Cloud Services"
+        ]
+      },
+      {
+        title: "Digital Transformation",
+        description: "Reimagine your business processes and customer experiences with innovative digital solutions.",
+        icon: <FaProjectDiagram />,
+        link: "/services/digital-transformation",
+        features: [
+          "Process Automation",
+          "Digital Experience Design",
+          "Enterprise Integration",
+          "Business Analytics"
+        ]
+      },
+      {
+        title: "Technology Excellence",
+        description: "Accelerate innovation with DevOps, quality engineering, and intelligent automation.",
+        icon: <FaCode />,
+        link: "/services/technology-excellence",
+        features: [
+          "DevOps Implementation",
+          "Quality Engineering",
+          "Intelligent Automation",
+          "Performance Optimization"
+        ]
+      }
+    ],
+
+    // Additional sections
+    additionalSections: [
+      {
+        content: (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-3 text-blue-800">Cloud & Infrastructure</h3>
+              <p className="text-gray-700">Modernize your IT infrastructure with our cloud-first approach, from migration to optimization.</p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-3 text-blue-800">Digital Transformation</h3>
+              <p className="text-gray-700">Reimagine your business processes and customer experiences with innovative digital solutions.</p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-3 text-blue-800">Technology Excellence</h3>
+              <p className="text-gray-700">Accelerate innovation with DevOps, quality engineering, and intelligent automation.</p>
+            </div>
+          </div>
+        )
+      },
+      {
+        content: (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {serviceCategories.map(({ title, icon, description, path, featured }) => (
+              <div key={title} className="bg-white p-6 rounded-lg shadow hover:shadow-xl transition flex flex-col h-full">
+                <div>{icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{title}</h3>
+                <p className="text-gray-600 mb-4 flex-grow">{description}</p>
+                
+                <div className="mt-2 mb-4">
+                  <h4 className="font-medium text-gray-800 mb-2">Featured Services:</h4>
+                  <ul className="space-y-1">
+                    {featured.map((service, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-green-500 mr-2">✓</span>
+                        <span className="text-gray-700 text-sm">{service}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <Link 
+                  to={path} 
+                  className="text-blue-600 font-medium inline-flex items-center mt-auto group"
+                >
+                  Explore {title}
+                  <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
-              
-              <Link 
-                to={path} 
-                className="text-blue-600 font-medium inline-flex items-center mt-auto group"
-              >
-                Explore {title}
-                <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+            ))}
+          </div>
+        )
+      }
+    ],
 
-    {/* Approach Section */}
-    <section className="py-16 px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">Our Approach</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="text-center p-4">
-            <div className="bg-blue-100 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
-              <span className="text-blue-600 font-bold text-xl">1</span>
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Assess</h3>
-            <p className="text-gray-600">Evaluate your current environment and identify opportunities.</p>
-          </div>
-          
-          <div className="text-center p-4">
-            <div className="bg-blue-100 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
-              <span className="text-blue-600 font-bold text-xl">2</span>
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Design</h3>
-            <p className="text-gray-600">Create a tailored strategy and solution architecture.</p>
-          </div>
-          
-          <div className="text-center p-4">
-            <div className="bg-blue-100 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
-              <span className="text-blue-600 font-bold text-xl">3</span>
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Implement</h3>
-            <p className="text-gray-600">Execute with agility and following best practices.</p>
-          </div>
-          
-          <div className="text-center p-4">
-            <div className="bg-blue-100 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
-              <span className="text-blue-600 font-bold text-xl">4</span>
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Optimize</h3>
-            <p className="text-gray-600">Continuously improve performance and efficiency.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    // CTA section
+    ctaTitle: "Ready to Start Your Digital Transformation?",
+    ctaDescription: "Partner with CloudDigify for comprehensive solutions that drive innovation and growth.",
+    finalCta: "Contact Us",
 
-    {/* CTA Section */}
-    <section className="py-16 px-6 bg-blue-50">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-6">Ready to Start Your Digital Transformation?</h2>
-        <p className="text-gray-700 mb-8 text-lg">
-          Partner with CloudDigify for comprehensive solutions that drive innovation and growth.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link
-            to="/contact"
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition"
-          >
-            Contact Us
-          </Link>
-          <Link
-            to="/training"
-            className="bg-white text-blue-600 border border-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition"
-          >
-            Explore Training
-          </Link>
-        </div>
-      </div>
-    </section>
-  </motion.div>
-);
+    // Section visibility controls
+    showCta: true,
+    showBenefits: true,
+    showSidebar: true,
+    showSecondaryCta: true,
+    showFeatures: true,
+    showFeaturesDescription: true,
+    showFinalCta: true
+  };
+
+  return <PageTemplate pageInfo={pageInfo} pageType="content" />;
+};
 
 export default Services; 

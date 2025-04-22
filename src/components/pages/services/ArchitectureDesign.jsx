@@ -1,18 +1,16 @@
 import React from 'react';
-import ServiceTemplate from '../../templates/ServiceTemplate';
+import PageTemplate from '../../templates/PageTemplate';
 import { FaCloudversify, FaServer, FaCogs, FaSitemap, FaRegLightbulb } from 'react-icons/fa';
 
 const ArchitectureDesign = () => {
-  const serviceInfo = {
+  const pageInfo = {
     title: "Cloud Architecture Design",
     description: "Build robust, scalable, and secure cloud infrastructure with our expert architecture design services tailored to your business needs.",
     icon: <FaCloudversify />,
     heroBackground: "from-indigo-700 to-purple-800",
     overviewTitle: "Expert Cloud Architecture Design",
-    overviewParagraphs: [
-      "Cloud architecture design is the foundation of any successful cloud implementation. A well-designed architecture ensures your applications are scalable, resilient, secure, and cost-effective in the cloud.",
-      "Our experienced cloud architects work closely with your team to understand your business requirements, technical constraints, and future growth plans to design a cloud architecture that aligns with your goals."
-    ],
+    overviewDescription1: "Cloud architecture design is the foundation of any successful cloud implementation. A well-designed architecture ensures your applications are scalable, resilient, secure, and cost-effective in the cloud.",
+    overviewDescription2: "Our experienced cloud architects work closely with your team to understand your business requirements, technical constraints, and future growth plans to design a cloud architecture that aligns with your goals.",
     benefits: [
       "Optimized performance and scalability for your applications",
       "Enhanced security and compliance with industry standards",
@@ -21,16 +19,16 @@ const ArchitectureDesign = () => {
       "Future-proof design that supports business growth"
     ],
     sidebarTitle: "Our Design Approach",
-    approach: [
+    approachPoints: [
       "Business-driven architecture",
       "Cloud-native best practices",
       "Secure by design principles",
       "Cost optimization strategies",
       "Well-Architected frameworks"
     ],
-    sidebarCta: "Schedule Architecture Consultation",
+    secondaryCta: "Schedule Architecture Consultation",
     featuresTitle: "Our Architecture Design Services",
-    featuresSubtitle: "Comprehensive cloud architecture design services to build secure, scalable, and cost-effective solutions.",
+    featuresDescription: "Comprehensive cloud architecture design services to build secure, scalable, and cost-effective solutions.",
     features: [
       {
         title: "Cloud Foundation Design",
@@ -49,44 +47,48 @@ const ArchitectureDesign = () => {
         description: "Design of comprehensive security controls, identity models, data protection strategies, and compliance frameworks for your cloud environment."
       }
     ],
-    middleSection: (
-      <>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-6">Our Architecture Design Process</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto">
-            We follow a structured and collaborative approach to cloud architecture design that ensures alignment with your business goals.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
-            <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">1</div>
-            <h3 className="text-lg font-semibold mb-2">Discovery</h3>
-            <p className="text-gray-600">Understanding your business objectives, technical requirements, and existing infrastructure.</p>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
-            <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">2</div>
-            <h3 className="text-lg font-semibold mb-2">Design</h3>
-            <p className="text-gray-600">Creating high-level and detailed architecture designs with documentation and diagrams.</p>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
-            <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">3</div>
-            <h3 className="text-lg font-semibold mb-2">Validation</h3>
-            <p className="text-gray-600">Validating the design through reviews, proof of concepts, and architectural assessments.</p>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
-            <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">4</div>
-            <h3 className="text-lg font-semibold mb-2">Implementation</h3>
-            <p className="text-gray-600">Supporting the implementation of the architecture with guidance and best practices.</p>
-          </div>
-        </div>
-      </>
-    ),
+    additionalSections: [
+      {
+        content: (
+          <>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-6">Our Architecture Design Process</h2>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                We follow a structured and collaborative approach to cloud architecture design that ensures alignment with your business goals.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">1</div>
+                <h3 className="text-lg font-semibold mb-2">Discovery</h3>
+                <p className="text-gray-600">Understanding your business objectives, technical requirements, and existing infrastructure.</p>
+              </div>
+              
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">2</div>
+                <h3 className="text-lg font-semibold mb-2">Design</h3>
+                <p className="text-gray-600">Creating high-level and detailed architecture designs with documentation and diagrams.</p>
+              </div>
+              
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">3</div>
+                <h3 className="text-lg font-semibold mb-2">Validation</h3>
+                <p className="text-gray-600">Validating the design through reviews, proof of concepts, and architectural assessments.</p>
+              </div>
+              
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">4</div>
+                <h3 className="text-lg font-semibold mb-2">Implementation</h3>
+                <p className="text-gray-600">Supporting the implementation of the architecture with guidance and best practices.</p>
+              </div>
+            </div>
+          </>
+        )
+      }
+    ],
     technologiesTitle: "Cloud Platforms & Technologies",
-    technologiesSubtitle: "We design architectures across all major cloud platforms and technologies to meet your specific needs.",
+    technologiesDescription: "We design architectures across all major cloud platforms and technologies to meet your specific needs.",
     technologiesUsed: [
       "Amazon Web Services (AWS)",
       "Microsoft Azure",
@@ -116,10 +118,10 @@ const ArchitectureDesign = () => {
     },
     ctaTitle: "Ready to Design Your Cloud Architecture?",
     ctaDescription: "Contact our team of expert cloud architects to discuss your needs and schedule an architecture workshop.",
-    ctaButtonText: "Schedule Architecture Workshop"
+    finalCta: "Schedule Architecture Workshop"
   };
 
-  return <ServiceTemplate serviceInfo={serviceInfo} />;
+  return <PageTemplate pageInfo={pageInfo} pageType="service" />;
 };
 
 export default ArchitectureDesign; 
