@@ -151,32 +151,57 @@ export default async function handler(req, res) {
     try {
       const { path } = req.query;
       
-      if (!path || !pagePathMap[path]) {
-        return res.status(404).json({ message: 'Page not found' });
+      console.log('Received content request for path:', path);
+      
+      if (!path) {
+        console.log('Error: No path provided in request');
+        return res.status(400).json({ message: 'Path parameter is required' });
+      }
+      
+      if (!pagePathMap[path]) {
+        console.log('Error: Path not found in pagePathMap:', path);
+        console.log('Available paths:', Object.keys(pagePathMap));
+        return res.status(404).json({ message: 'Page not found', availablePaths: Object.keys(pagePathMap) });
       }
       
       const filePath = pagePathMap[path];
+      console.log('Mapped file path:', filePath);
       
       // Get file content from GitHub
-      const { data } = await octokit.repos.getContent({
-        owner: GITHUB_OWNER,
-        repo: GITHUB_REPO,
-        path: filePath,
-        ref: GITHUB_BRANCH
-      });
-      
-      // Decode content
-      const fileContent = Buffer.from(data.content, 'base64').toString();
-      
-      // Extract the component content
-      const content = extractComponentContent(fileContent);
-      
-      return res.status(200).json({
-        title: path.split('/').pop().replace(/-/g, ' '),
-        content,
-        sha: data.sha, // Used for updates
-        path: filePath
-      });
+      try {
+        const { data } = await octokit.repos.getContent({
+          owner: GITHUB_OWNER,
+          repo: GITHUB_REPO,
+          path: filePath,
+          ref: GITHUB_BRANCH
+        });
+        
+        // Decode content
+        const fileContent = Buffer.from(data.content, 'base64').toString();
+        
+        // Extract the component content
+        const content = extractComponentContent(fileContent);
+        
+        if (!content || content.trim() === '') {
+          console.log('Warning: Extracted empty content for path:', path);
+        } else {
+          console.log('Successfully extracted content for path:', path);
+        }
+        
+        return res.status(200).json({
+          title: path.split('/').pop().replace(/-/g, ' '),
+          content,
+          sha: data.sha, // Used for updates
+          path: filePath
+        });
+      } catch (githubError) {
+        console.error('GitHub API error:', githubError.message);
+        return res.status(500).json({ 
+          message: 'Failed to fetch content from GitHub', 
+          error: githubError.message,
+          filePath: filePath 
+        });
+      }
     } catch (error) {
       console.error('Error fetching content:', error);
       return res.status(500).json({ 
