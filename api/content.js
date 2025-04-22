@@ -133,13 +133,44 @@ export default async function handler(req, res) {
     return;
   }
 
+  // Check environment variables - add this for debugging
+  console.log('Environment check:');
+  console.log('GITHUB_OWNER:', process.env.GITHUB_OWNER ? 'Set' : 'Not Set');
+  console.log('GITHUB_TOKEN:', process.env.GITHUB_TOKEN ? 'Set' : 'Not Set');
+  console.log('GITHUB_TOKEN length:', process.env.GITHUB_TOKEN ? process.env.GITHUB_TOKEN.length : 0);
+  console.log('NODE_ENV:', process.env.NODE_ENV);
+  console.log('VERCEL_ENV:', process.env.VERCEL_ENV);
+  
+  // Check if GitHub token is missing
+  if (!process.env.GITHUB_TOKEN) {
+    console.error('Error: GitHub token is missing. Please set GITHUB_TOKEN environment variable.');
+    return res.status(500).json({
+      message: 'GitHub token is not configured',
+      error: 'Missing GITHUB_TOKEN environment variable'
+    });
+  }
+
   // Initialize GitHub client
   let octokit;
   try {
     octokit = new Octokit({
-      auth: GITHUB_TOKEN
+      auth: process.env.GITHUB_TOKEN
     });
+    
+    // Test the connection by getting the authenticated user
+    console.log('Testing GitHub connection...');
+    try {
+      const { data } = await octokit.users.getAuthenticated();
+      console.log('GitHub connection successful, authenticated as:', data.login);
+    } catch (authError) {
+      console.error('GitHub authentication error:', authError.message);
+      return res.status(401).json({
+        message: 'GitHub authentication failed',
+        error: authError.message
+      });
+    }
   } catch (error) {
+    console.error('Failed to initialize GitHub client:', error.message);
     return res.status(500).json({ 
       message: 'Failed to initialize GitHub client', 
       error: error.message 
