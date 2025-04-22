@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import NavBar   from './components/NavBar';
 import Footer   from './components/Footer';
@@ -14,6 +15,7 @@ import About    from './components/pages/About';
 import TermsAndConditions from './components/pages/legal/TermsAndConditions';
 import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
 import CookiePolicy from './components/pages/legal/CookiePolicy';
+import CookieConsent from './components/common/CookieConsent';
 
 // Service pages
 import DevOps from './components/pages/services/DevOps';
@@ -36,47 +38,50 @@ const App = () => {
   const location = useLocation();
   
   return (
-    <>
-      <NavBar />
-      <main className="flex-grow">
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            {/* Public Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/industries" element={<Industries />} />
-            <Route path="/training" element={<Training />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/terms" element={<TermsAndConditions />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/cookies" element={<CookiePolicy />} />
-            
-            {/* Service Routes */}
-            <Route path="/services/devops" element={<DevOps />} />
-            <Route path="/services/cloud-migration" element={<CloudMigration />} />
-            <Route path="/services/managed-services" element={<ManagedServices />} />
-            <Route path="/services/infrastructure-as-code" element={<InfrastructureAsCode />} />
-            <Route path="/services/architecture-design" element={<ArchitectureDesign />} />
-            <Route path="/services/security-compliance" element={<SecurityCompliance />} />
-            <Route path="/services/cloud-optimization" element={<CloudOptimization />} />
-            <Route path="/services/disaster-recovery" element={<DisasterRecovery />} />
-            <Route path="/services/containerization" element={<Containerization />} />
-            <Route path="/services/serverless" element={<Serverless />} />
-            <Route path="/services/cloud-infrastructure" element={<CloudInfrastructure />} />
-            
-            {/* Industry Routes */}
-            <Route path="/industries/financial-services" element={<FinancialServices />} />
-            <Route path="/industries/banking" element={<Banking />} />
-            
-            {/* Fallback route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </AnimatePresence>
-      </main>
-      <Footer />
-    </>
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <NavBar />
+        <main className="flex-grow">
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              {/* Public Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/industries" element={<Industries />} />
+              <Route path="/training" element={<Training />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/cookies" element={<CookiePolicy />} />
+              
+              {/* Service Routes */}
+              <Route path="/services/devops" element={<DevOps />} />
+              <Route path="/services/cloud-migration" element={<CloudMigration />} />
+              <Route path="/services/managed-services" element={<ManagedServices />} />
+              <Route path="/services/infrastructure-as-code" element={<InfrastructureAsCode />} />
+              <Route path="/services/architecture-design" element={<ArchitectureDesign />} />
+              <Route path="/services/security-compliance" element={<SecurityCompliance />} />
+              <Route path="/services/cloud-optimization" element={<CloudOptimization />} />
+              <Route path="/services/disaster-recovery" element={<DisasterRecovery />} />
+              <Route path="/services/containerization" element={<Containerization />} />
+              <Route path="/services/serverless" element={<Serverless />} />
+              <Route path="/services/cloud-infrastructure" element={<CloudInfrastructure />} />
+              
+              {/* Industry Routes */}
+              <Route path="/industries/financial-services" element={<FinancialServices />} />
+              <Route path="/industries/banking" element={<Banking />} />
+              
+              {/* Fallback route */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
+        <Footer />
+        <CookieConsent />
+      </div>
+    </Router>
   );
 };
 
