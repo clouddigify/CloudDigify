@@ -309,29 +309,43 @@ const About = () => {
           </motion.div>
           
           <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200 rounded-full"></div>
+            {/* Timeline Line - Hidden on mobile, visible on desktop */}
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200 rounded-full"></div>
             
             {/* Timeline Items */}
-            <div className="space-y-12">
+            <div className="space-y-8 md:space-y-12">
               {milestoneData.map((milestone, index) => (
                 <motion.div 
                   key={index}
-                  className={`relative flex items-center ${index % 2 === 0 ? 'justify-start' : 'justify-end'} md:justify-between`}
+                  className="relative flex flex-col md:flex-row md:items-center"
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true, amount: 0.2 }}
                 >
-                  {/* Circle in the middle of timeline */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-500 rounded-full border-4 border-white shadow"></div>
+                  {/* Circle in the middle of timeline - Hidden on mobile */}
+                  <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-500 rounded-full border-4 border-white shadow"></div>
+                  
+                  {/* Year marker for mobile */}
+                  <div className="md:hidden mb-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-bold w-fit">
+                    {milestone.year}
+                  </div>
                   
                   {/* Content Box */}
-                  <div className={`w-full md:w-5/12 p-6 bg-white rounded-xl shadow-lg border border-gray-100 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
-                    <div className="flex items-center justify-between mb-4">
+                  <div 
+                    className={`w-full md:w-5/12 p-6 bg-white rounded-xl shadow-lg border border-gray-100 ${
+                      index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'
+                    }`}
+                  >
+                    {/* Desktop header with year and title */}
+                    <div className="hidden md:flex items-center justify-between mb-4">
                       <span className="px-4 py-1 bg-blue-100 text-blue-800 rounded-full font-bold">{milestone.year}</span>
                       <h3 className="text-xl font-bold text-gray-800">{milestone.title}</h3>
                     </div>
+                    
+                    {/* Mobile title (without year) */}
+                    <h3 className="md:hidden text-xl font-bold text-gray-800 mb-2">{milestone.title}</h3>
+                    
                     <p className="text-gray-600">{milestone.description}</p>
                   </div>
                 </motion.div>
@@ -342,22 +356,22 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <motion.div 
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">Our Leadership</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-gray-800">Our Leadership</h2>
             <p className="text-lg text-gray-600">
               Meet the team behind CloudDigify's innovation and success
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
@@ -369,7 +383,7 @@ const About = () => {
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="h-48 bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center">
+                <div className="h-40 md:h-48 bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center">
                   {member.image ? (
                     <img 
                       src={member.image} 
@@ -377,15 +391,15 @@ const About = () => {
                       className="w-full h-full object-cover opacity-80 mix-blend-overlay"
                     />
                   ) : (
-                    <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center text-blue-500 text-5xl">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white flex items-center justify-center text-blue-500 text-4xl md:text-5xl">
                       {member.name.split(' ').map(n => n[0]).join('')}
                     </div>
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-1 text-gray-800">{member.name}</h3>
-                  <p className="text-blue-600 font-medium mb-4">{member.title}</p>
-                  <p className="text-gray-600">{member.bio}</p>
+                <div className="p-4 md:p-6">
+                  <h3 className="text-lg md:text-xl font-bold mb-1 text-gray-800">{member.name}</h3>
+                  <p className="text-blue-600 font-medium mb-3 md:mb-4">{member.title}</p>
+                  <p className="text-sm md:text-base text-gray-600">{member.bio}</p>
                 </div>
               </motion.div>
             ))}
@@ -394,26 +408,26 @@ const About = () => {
       </section>
 
       {/* Certifications Section */}
-      <section className="py-20 bg-white">
+      <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.div 
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">Our Certifications</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-gray-800">Our Certifications</h2>
             <p className="text-lg text-gray-600">
               Recognized expertise in cloud technologies and methodologies
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {certifications.map((cert, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center"
+                className="bg-white p-5 md:p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -421,17 +435,17 @@ const About = () => {
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <div className="w-14 h-14 md:w-16 md:h-16 mb-3 md:mb-4 flex items-center justify-center">
                   {cert.icon ? (
                     <img src={cert.icon} alt={cert.name} className="w-full h-auto" />
                   ) : (
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl">
+                    <div className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xl md:text-2xl">
                       <FaAward />
                     </div>
                   )}
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-gray-800">{cert.name}</h3>
-                <p className="text-gray-600 text-sm">{cert.description}</p>
+                <h3 className="text-base md:text-lg font-bold mb-2 text-gray-800">{cert.name}</h3>
+                <p className="text-xs md:text-sm text-gray-600">{cert.description}</p>
               </motion.div>
             ))}
           </div>
