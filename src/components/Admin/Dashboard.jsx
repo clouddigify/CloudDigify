@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaHome, FaUsers, FaFileAlt, FaImages, FaBars, FaSignOutAlt, FaUser, FaEdit, FaUpload, FaTrash, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaHome, FaUsers, FaFileAlt, FaImages, FaBars, FaSignOutAlt, FaUser, FaEdit, FaUpload, FaTrash, FaCheck, FaTimes, FaToggleOn } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -767,6 +767,18 @@ const Dashboard = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          )}
+
+          {activeTab === 'dashboard' && (
+            <div className="mt-6">
+              <Link
+                to="/admin/pages"
+                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 transition"
+              >
+                <FaToggleOn className="text-blue-500" />
+                <span>Page Manager</span>
+              </Link>
             </div>
           )}
         </main>
