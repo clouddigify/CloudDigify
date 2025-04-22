@@ -472,7 +472,7 @@ const NavBar = () => {
             <span className="font-bold text-xl text-blue-600">
               CloudDigify
             </span>
-          </Link>
+        </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
@@ -486,9 +486,9 @@ const NavBar = () => {
             </NavLink>
 
             {/* Solutions Link */}
-            <NavLink 
+              <NavLink
               to="/solutions" 
-              className={({ isActive }) => 
+                className={({ isActive }) =>
                 `text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
               }
             >
@@ -560,7 +560,7 @@ const NavBar = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+      </div>
 
             {/* Industries Menu */}
             <div 
@@ -608,7 +608,7 @@ const NavBar = () => {
                             style={{ marginLeft: '0.5rem' }}
                           >
                             {category.submenu.map((item, idx) => (
-                              <motion.div
+      <motion.div
                                 key={idx}
                                 variants={menuItemVariants}
                               >
@@ -640,14 +640,14 @@ const NavBar = () => {
             </NavLink>
 
             {/* Use Cases Link */}
-            <NavLink 
+              <NavLink
               to="/use-cases"
-              className={({ isActive }) => 
+                className={({ isActive }) =>
                 `text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
-              }
-            >
+                }
+              >
               Use Cases
-            </NavLink>
+              </NavLink>
 
             {/* Contact Button */}
             <Link 
@@ -864,7 +864,7 @@ const NavBar = () => {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+      </motion.div>
         )}
       </AnimatePresence>
     </motion.nav>
