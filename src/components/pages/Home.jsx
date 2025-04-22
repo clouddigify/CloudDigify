@@ -5,6 +5,7 @@ import Testimonials from '../sections/Testimonials';
 import Partners from '../sections/Partners';
 import QuickContact from '../sections/QuickContact';
 
+// This component structure follows a pattern that the PageEditor can recognize and extract content from
 const Home = () => {
   return (
     <div>
@@ -48,10 +49,13 @@ const Home = () => {
         </div>
       </section>
       
-      <WhyChooseUs />
-      <Testimonials />
-      <Partners />
-      <QuickContact />
+      {/* Components Section */}
+      <section>
+        <WhyChooseUs />
+        <Testimonials />
+        <Partners />
+        <QuickContact />
+      </section>
     </div>
   );
 };
