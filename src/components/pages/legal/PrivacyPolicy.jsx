@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  FaShieldAlt, FaUserCircle, FaCookieBite, FaGlobeAmericas, FaLock, 
+  FaShieldAlt, FaUserCircle, FaGlobeAmericas, FaLock, 
   FaUserCog, FaChild, FaHistory, FaEnvelope, FaDatabase, FaExchangeAlt,
   FaRegEye, FaUserShield, FaQuestionCircle
 } from 'react-icons/fa';
@@ -104,44 +104,8 @@ const PrivacyPolicy = () => {
       )
     },
     {
-      id: 'cookies',
-      title: '4. Cookies and Tracking Technologies',
-      icon: <FaCookieBite className="h-8 w-8 text-blue-600" />,
-      content: (
-        <>
-          <p className="mb-4">
-            We use cookies and similar tracking technologies to track activity on our website and store certain information. Cookies are files with small amounts of data that may include an anonymous unique identifier.
-          </p>
-          <p className="mb-4">
-            We use the following types of cookies:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
-              <h4 className="font-bold text-gray-800 mb-2">Essential Cookies</h4>
-              <p className="text-gray-700">Necessary for the website to function properly</p>
-            </div>
-            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
-              <h4 className="font-bold text-gray-800 mb-2">Analytical Cookies</h4>
-              <p className="text-gray-700">Help us improve our website by collecting usage information</p>
-            </div>
-            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
-              <h4 className="font-bold text-gray-800 mb-2">Functionality Cookies</h4>
-              <p className="text-gray-700">Enable us to personalize content and remember your preferences</p>
-            </div>
-            <div className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
-              <h4 className="font-bold text-gray-800 mb-2">Targeting Cookies</h4>
-              <p className="text-gray-700">Used to deliver relevant advertisements based on your interests</p>
-            </div>
-          </div>
-          <p className="mt-4">
-            You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our website. For more information, please see our <a href="/cookies" className="text-blue-600 hover:underline">Cookie Policy</a>.
-          </p>
-        </>
-      )
-    },
-    {
       id: 'data-security',
-      title: '5. Data Security',
+      title: '4. Data Security',
       icon: <FaLock className="h-8 w-8 text-blue-600" />,
       content: (
         <>
@@ -183,7 +147,7 @@ const PrivacyPolicy = () => {
     },
     {
       id: 'international-transfers',
-      title: '6. International Data Transfers',
+      title: '5. International Data Transfers',
       icon: <FaGlobeAmericas className="h-8 w-8 text-blue-600" />,
       content: (
         <p>
@@ -193,48 +157,31 @@ const PrivacyPolicy = () => {
     },
     {
       id: 'your-rights',
-      title: '7. Your Privacy Rights',
+      title: '6. Your Privacy Rights',
       icon: <FaUserCog className="h-8 w-8 text-blue-600" />,
       content: (
         <>
           <p className="mb-4">
-            Depending on your location, you may have the following rights regarding your personal data:
+            You have certain rights regarding your personal data, including:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
-              <h5 className="font-semibold">Right to Access</h5>
-              <p className="text-sm text-gray-600">Request access to your personal data</p>
-            </div>
-            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
-              <h5 className="font-semibold">Right to Rectification</h5>
-              <p className="text-sm text-gray-600">Request correction of inaccurate personal data</p>
-            </div>
-            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
-              <h5 className="font-semibold">Right to Erasure</h5>
-              <p className="text-sm text-gray-600">Request deletion of your personal data</p>
-            </div>
-            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
-              <h5 className="font-semibold">Right to Restriction</h5>
-              <p className="text-sm text-gray-600">Request restriction of processing your data</p>
-            </div>
-            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
-              <h5 className="font-semibold">Right to Portability</h5>
-              <p className="text-sm text-gray-600">Request the transfer of your personal data</p>
-            </div>
-            <div className="bg-white shadow-sm rounded-lg p-3 hover:shadow-md transition-shadow duration-300 border-l-2 border-blue-500">
-              <h5 className="font-semibold">Right to Object</h5>
-              <p className="text-sm text-gray-600">Object to processing of your personal data</p>
-            </div>
-          </div>
+          <ul className="list-disc pl-6 mb-4 space-y-2">
+            <li>The right to access your personal data</li>
+            <li>The right to correct inaccurate personal data</li>
+            <li>The right to request deletion of your personal data</li>
+            <li>The right to restrict processing of your personal data</li>
+            <li>The right to data portability</li>
+            <li>The right to object to processing of your personal data</li>
+            <li>The right to withdraw consent</li>
+          </ul>
           <p>
-            To exercise any of these rights, please contact us using the information provided in the "Contact Us" section. We may need to verify your identity before fulfilling your request.
+            To exercise any of these rights, please contact us using the information provided in the "Contact Us" section.
           </p>
         </>
       )
     },
     {
       id: 'children-privacy',
-      title: '8. Children\'s Privacy',
+      title: '7. Children\'s Privacy',
       icon: <FaChild className="h-8 w-8 text-blue-600" />,
       content: (
         <p>
@@ -244,7 +191,7 @@ const PrivacyPolicy = () => {
     },
     {
       id: 'changes',
-      title: '9. Changes to This Privacy Policy',
+      title: '8. Changes to This Privacy Policy',
       icon: <FaHistory className="h-8 w-8 text-blue-600" />,
       content: (
         <p>
@@ -254,7 +201,7 @@ const PrivacyPolicy = () => {
     },
     {
       id: 'contact',
-      title: '10. Contact Us',
+      title: '9. Contact Us',
       icon: <FaEnvelope className="h-8 w-8 text-blue-600" />,
       content: (
         <div className="bg-blue-50 p-5 rounded-lg">

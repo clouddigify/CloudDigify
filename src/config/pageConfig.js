@@ -141,6 +141,5 @@ export const industryPages = {
 // Legal pages
 export const legalPages = {
   terms: { path: '/terms' },
-  privacy: { path: '/privacy' },
-  cookies: { path: '/cookies' }
+  privacy: { path: '/privacy' }
 }; 
