@@ -232,13 +232,25 @@ const NavBar = () => {
   };
 
   const toggleSubmenu = (index) => {
-    setActiveSubmenu(activeSubmenu === index ? null : index);
-    setActiveCategory(null);
+    // If clicking on already open submenu, close it
+    if (activeSubmenu === index) {
+      setActiveSubmenu(null);
+      setActiveCategory(null);
+    } else {
+      // Otherwise open the clicked submenu and close any open category
+      setActiveSubmenu(index);
+      setActiveCategory(null);
+    }
   };
 
   const toggleCategory = (categoryIndex, e) => {
-    const position = checkSubmenuPosition(e);
-    setActiveCategory(activeCategory === categoryIndex ? null : categoryIndex);
+    // If clicking on already open category, close it
+    if (activeCategory === categoryIndex) {
+      setActiveCategory(null);
+    } else {
+      // Otherwise open the clicked category
+      setActiveCategory(categoryIndex);
+    }
   };
   
   // Handle hover for desktop
@@ -357,8 +369,6 @@ const NavBar = () => {
                           <li key={category.title} className="relative">
                             <div 
                               className="flex items-center justify-between px-4 py-2 hover:bg-blue-50 cursor-pointer"
-                              onClick={(e) => toggleCategory(categoryIndex, e)}
-                              onMouseEnter={() => handleCategoryMouseEnter(categoryIndex)}
                             >
                               <NavLink
                                 to={category.path}
@@ -372,24 +382,41 @@ const NavBar = () => {
                                 {category.icon}
                                 <span>{category.title}</span>
                               </NavLink>
-                              <FaChevronDown 
-                                className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                              <button 
+                                className="p-1 focus:outline-none"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  toggleCategory(categoryIndex);
-                                }} 
-                              />
+                                  toggleCategory(categoryIndex, e);
+                                }}
+                              >
+                                <FaChevronDown 
+                                  className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                                />
+                              </button>
                             </div>
                             
                             {/* Secondary dropdown (Category submenus) */}
                             {activeCategory === categoryIndex && (
                               <div 
                                 className={`absolute top-0 w-64 bg-white shadow-lg rounded-md overflow-hidden z-[70] max-h-[80vh] overflow-y-auto left-full`}
-                                onMouseEnter={() => handleCategoryMouseEnter(categoryIndex)}
-                                onMouseLeave={handleMouseLeave}
                                 style={{ boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
                               >
                                 <ul>
+                                  <li>
+                                    <NavLink
+                                      to={category.path}
+                                      className={({ isActive }) =>
+                                        `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'} font-medium border-b border-gray-100`
+                                      }
+                                      onClick={() => {
+                                        setActiveSubmenu(null);
+                                        setActiveCategory(null);
+                                        setMenuOpen(false);
+                                      }}
+                                    >
+                                      View All {category.title}
+                                    </NavLink>
+                                  </li>
                                   {category.submenu.map((subItem) => (
                                     <li key={subItem.path}>
                                       <NavLink
@@ -514,7 +541,6 @@ const NavBar = () => {
                         <li key={category.title} className="mb-2">
                           <div
                             className="flex items-center justify-between py-2 text-gray-700 border-t border-gray-200 mt-1"
-                            onClick={() => toggleCategory(categoryIndex)}
                           >
                             <NavLink
                               to={category.path}
@@ -529,17 +555,36 @@ const NavBar = () => {
                               {category.icon}
                               <span className="font-medium">{category.title}</span>
                             </NavLink>
-                            <FaChevronDown 
-                              className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                            <button
+                              className="p-1 focus:outline-none"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 toggleCategory(categoryIndex);
                               }}
-                            />
+                            >
+                              <FaChevronDown 
+                                className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                              />
+                            </button>
                           </div>
                           
                           {activeCategory === categoryIndex && (
                             <ul className="pl-6 py-1 bg-white rounded-md shadow-inner">
+                              <li className="border-b border-gray-200">
+                                <NavLink
+                                  to={category.path}
+                                  className={({ isActive }) =>
+                                    `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'} font-medium`
+                                  }
+                                  onClick={() => {
+                                    setMenuOpen(false);
+                                    setActiveSubmenu(null);
+                                    setActiveCategory(null);
+                                  }}
+                                >
+                                  View All {category.title}
+                                </NavLink>
+                              </li>
                               {category.submenu.map((subItem) => (
                                 <li key={subItem.path} className="border-b border-gray-100 last:border-0">
                                   <NavLink
