@@ -1,11 +1,37 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@pages': path.resolve(__dirname, './src/components/pages'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@utils': path.resolve(__dirname, './src/utils')
+    }
+  },
+  server: {
+    port: 3000,
+    open: true,
+    cors: true
+  },
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          animations: ['framer-motion', 'gsap'],
+          ui: ['@headlessui/react', 'react-icons']
+        }
+      }
+    }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion']
   }
-}); 
+});
