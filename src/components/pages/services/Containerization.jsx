@@ -64,7 +64,7 @@ const Containerization = () => {
                   <div>
                   <h3 className="text-xl font-semibold mb-2">Consistency Everywhere</h3>
                   <p className="text-gray-600">Eliminate "it works on my machine" problems with containers that run the same way in every environment.</p>
-                </div>
+                  </div>
                 </div>
 
               <div className="flex p-6 bg-gray-50 rounded-lg shadow-md">

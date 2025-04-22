@@ -112,7 +112,7 @@ const Home = () => {
       {/* Core Services */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
+  <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -152,22 +152,22 @@ const Home = () => {
                     ))}
                   </ul>
                   
-                  <Link
+      <Link
                     to={service.path}
                     className="inline-flex items-center justify-center w-full px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 group"
-                  >
+      >
                     Learn More
                     <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
-                  </Link>
+      </Link>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>
-
+    </section>
+    
       {/* Stats Section */}
       <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -217,10 +217,10 @@ const Home = () => {
                 <p className="text-gray-600">{highlight.description}</p>
               </motion.div>
             ))}
-          </div>
         </div>
-      </section>
-
+      </div>
+    </section>
+    
       {/* CTA Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -250,11 +250,11 @@ const Home = () => {
                 </Link>
               </div>
             </div>
-          </motion.div>
+  </motion.div>
         </div>
       </section>
     </PageTemplate>
-  );
+);
 };
 
-export default Home;
+export default Home; 

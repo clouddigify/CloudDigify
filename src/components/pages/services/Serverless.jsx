@@ -62,8 +62,8 @@ const Serverless = () => {
               <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">
                 Discover why leading organizations are adopting serverless architectures for their critical applications.
               </p>
-            </div>
-            
+                </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="flex p-6 bg-gray-50 rounded-lg shadow-md">
                 <div className="mr-4">
@@ -72,7 +72,7 @@ const Serverless = () => {
                   <div>
                   <h3 className="text-xl font-semibold mb-2">Zero Server Management</h3>
                   <p className="text-gray-600">Focus entirely on your application code while the cloud provider handles all server maintenance and updates.</p>
-                </div>
+                  </div>
                 </div>
 
               <div className="flex p-6 bg-gray-50 rounded-lg shadow-md">
