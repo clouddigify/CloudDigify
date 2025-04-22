@@ -17,7 +17,6 @@ import About from './components/pages/About';
 // Legal Pages
 import TermsAndConditions from './components/pages/legal/TermsAndConditions';
 import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
-import CookiePolicy from './components/pages/legal/CookiePolicy';
 
 // Service Pages
 import DevOps from './components/pages/services/DevOps';
@@ -53,7 +52,6 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/cookies" element={<CookiePolicy />} />
         
         {/* Service Routes */}
         <Route path="/services/devops" element={<DevOps />} />
