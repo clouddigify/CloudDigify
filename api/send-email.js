@@ -3,12 +3,12 @@ const nodemailer = require('nodemailer');
 
 // Create a transporter object using SMTP
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.zoho.com',
-  port: process.env.SMTP_PORT || 587,
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.SMTP_USER || 'your-email@clouddigify.com',
-    pass: process.env.SMTP_PASSWORD || 'your-zoho-mail-password'
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD
   }
 });
 
