@@ -9,25 +9,53 @@ const GITHUB_BRANCH = 'main';
 // In production, move this to environment variables
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-// Node.js doesn't have atob/btoa - add polyfill for atob
-const atob = (base64) => {
-  return Buffer.from(base64, 'base64').toString('binary');
+// Improved logging
+const logInfo = (message, data = {}) => {
+  console.log(`[${new Date().toISOString()}] [INFO] ${message}`, data);
+};
+
+const logError = (message, error = null) => {
+  console.error(`[${new Date().toISOString()}] [ERROR] ${message}`);
+  if (error) {
+    console.error('Error details:', error.message);
+    console.error('Stack trace:', error.stack);
+  }
 };
 
 // Helper to validate token (in production, use proper JWT verification)
 const validateToken = (authHeader) => {
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    logError('Invalid auth header format', { header: authHeader ? 'Present (but invalid)' : 'Missing' });
     return false;
   }
   
   const token = authHeader.split(' ')[1];
+  // Simple base64 decode
   try {
-    const decoded = JSON.parse(atob(token));
-    console.log('Token validation attempt:', decoded);
-    return decoded.role === 'admin';
+    logInfo('Attempting to validate token');
+    const decoded = JSON.parse(Buffer.from(token, 'base64').toString());
+    const isValid = decoded && decoded.role === 'admin';
+    logInfo(`Token validation ${isValid ? 'successful' : 'failed'}`);
+    return isValid;
   } catch (error) {
-    console.error('Token validation error:', error.message);
+    logError('Token validation error', error);
     return false;
+  }
+};
+
+// Check GitHub token and setup Octokit
+const setupGitHub = () => {
+  if (!GITHUB_TOKEN) {
+    logError('GITHUB_TOKEN environment variable is not set');
+    throw new Error('GitHub token is not configured');
+  }
+  
+  try {
+    // Test token by creating Octokit instance
+    return new Octokit({ auth: GITHUB_TOKEN });
+  } catch (error) {
+    logError('Failed to initialize GitHub API client', error);
+    throw new Error('GitHub API initialization failed');
   }
 };
 
@@ -244,142 +272,248 @@ const updateComponentContent = (fileContent, newContent) => {
 
 // Main handler function for serverless deployment
 export default async function handler(req, res) {
-  // Set CORS headers
+  // Handle CORS
+  res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  
-  // Handle OPTIONS request (preflight)
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization');
+
+  // Add request ID for tracking
+  const requestId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+  logInfo(`API Request [${requestId}]: ${req.method} ${req.url}`);
+
+  // Handle preflight request
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.status(200).end();
+    return;
   }
-  
-  // Debug output
-  console.log('API request received', {
-    method: req.method,
-    url: req.url,
-    query: req.query,
-    headers: req.headers,
-  });
-  
-  // Validate authorization for POST requests
-  if (req.method === 'POST') {
-    const isAuthorized = validateToken(req.headers.authorization);
-    if (!isAuthorized) {
-      console.log('Unauthorized access attempt');
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-  }
-  
-  try {
-    // Initialize GitHub API client
-    if (!GITHUB_TOKEN) {
-      console.error('GITHUB_TOKEN is not set!');
-      return res.status(500).json({ error: 'GitHub token not configured' });
-    }
-    
-    const octokit = new Octokit({
-      auth: GITHUB_TOKEN
+
+  // Special case for a test route that doesn't require authentication
+  if (req.url.includes('/test')) {
+    return res.status(200).json({ 
+      message: 'API is working',
+      timestamp: new Date().toISOString(),
+      github: {
+        tokenConfigured: !!GITHUB_TOKEN,
+        owner: GITHUB_OWNER,
+        repo: GITHUB_REPO
+      }
     });
+  }
+
+  // Validate auth token
+  const authHeader = req.headers.authorization;
+  logInfo(`Auth header present: ${!!authHeader}`);
+  
+  if (!validateToken(authHeader)) {
+    logError('Authentication failed - invalid or missing token');
     
-    // Extract the page path from query string
-    // Fix: use "path" param which is what PageEditor.jsx sends
-    const pagePath = req.query.path;
-    
-    if (!pagePath) {
-      return res.status(400).json({ error: 'Path parameter is required' });
-    }
-    
-    // Convert page path to file path
-    const filePath = pagePathMap[pagePath];
-    
-    if (!filePath) {
-      return res.status(404).json({ 
-        error: 'Page not found in mapping',
-        requestedPath: pagePath,
-        availablePaths: Object.keys(pagePathMap)
+    // More informative error response
+    return res.status(401).json({ 
+      message: 'Unauthorized - Invalid or missing authentication token',
+      detail: 'Please ensure you are logged in and your session is still valid',
+      help: 'Try logging out and back in if the problem persists' 
+    });
+  }
+
+  try {
+    // Setup GitHub API client - improved error handling
+    let octokit;
+    try {
+      octokit = setupGitHub();
+    } catch (error) {
+      return res.status(500).json({ 
+        message: 'Server configuration error (GitHub access)', 
+        detail: error.message,
+        requestId
       });
     }
     
-    console.log(`Processing request for page: ${pagePath}, file path: ${filePath}`);
-    
-    // Handle GET request - retrieve content
+    // GET - Load page content
     if (req.method === 'GET') {
-      // Fetch the file content from GitHub
-      const response = await octokit.repos.getContent({
-        owner: GITHUB_OWNER,
-        repo: GITHUB_REPO,
-        path: filePath,
-        ref: GITHUB_BRANCH
-      });
+      const { path } = req.query;
       
-      // Decode content from base64
-      const fileContent = atob(response.data.content);
-      console.log(`Retrieved file from GitHub, size: ${fileContent.length} bytes`);
-      
-      // Extract the component content
-      const componentContent = extractComponentContent(fileContent);
-      
-      return res.status(200).json({ 
-        content: componentContent,
-        title: pagePath.split('/').pop().replace(/-/g, ' '),
-        path: pagePath,
-        filePath: filePath
-      });
-    }
-    
-    // Handle POST request - update content
-    if (req.method === 'POST') {
-      const { content, path } = req.body;
-      
-      if (!content) {
-        return res.status(400).json({ error: 'Content is required' });
+      if (!path) {
+        return res.status(400).json({ message: 'Missing required parameter: path' });
       }
       
-      console.log('Received updated content with length:', content.length);
+      console.log(`Loading content for path: ${path}`);
       
-      // First, get the current file
-      const fileResponse = await octokit.repos.getContent({
-        owner: GITHUB_OWNER,
-        repo: GITHUB_REPO,
-        path: filePath,
-        ref: GITHUB_BRANCH
-      });
+      // Map the page path to a file path in the repo
+      const filePath = pagePathMap[path];
       
-      const currentContent = atob(fileResponse.data.content);
-      const sha = fileResponse.data.sha;
-      
-      // Update the content in the file
-      const updatedFileContent = updateComponentContent(currentContent, content);
-      
-      if (updatedFileContent === currentContent) {
-        console.warn('No changes detected in content');
-        return res.status(304).json({ message: 'No changes detected' });
+      if (!filePath) {
+        console.error(`No file mapping found for path: ${path}`);
+        return res.status(404).json({ message: `Page not found: ${path}` });
       }
       
-      // Commit the updated file to GitHub
-      await octokit.repos.createOrUpdateFileContents({
-        owner: GITHUB_OWNER,
-        repo: GITHUB_REPO,
-        path: filePath,
-        message: `Update content for ${pagePath} page via CMS`,
-        content: Buffer.from(updatedFileContent).toString('base64'),
-        sha: sha,
-        branch: GITHUB_BRANCH
+      try {
+        // Fetch file content from GitHub
+        const { data } = await octokit.repos.getContent({
+          owner: GITHUB_OWNER,
+          repo: GITHUB_REPO,
+          path: filePath,
+          ref: GITHUB_BRANCH
+        });
+        
+        if (!data.content) {
+          throw new Error('No content received from GitHub');
+        }
+        
+        const fileContent = Buffer.from(data.content, 'base64').toString();
+        const extractedContent = extractComponentContent(fileContent);
+        
+        console.log(`Successfully loaded content for ${path}, length: ${extractedContent.length}`);
+        return res.status(200).json({ 
+          content: extractedContent,
+          path: path,
+          title: path.split('/').pop() || 'Home'
+        });
+      } catch (error) {
+        console.error(`Error fetching content from GitHub: ${error.message}`);
+        return res.status(500).json({ message: `Failed to load content: ${error.message}` });
+      }
+    } 
+    // POST - Save page content
+    else if (req.method === 'POST') {
+      logInfo(`[${requestId}] Processing content save request`);
+      const { path, content, title, commitMessage } = req.body;
+      
+      logInfo(`[${requestId}] Attempting to save content:`, {
+        path,
+        title,
+        contentLength: content?.length || 0,
+        commitMessage
       });
       
-      console.log(`Content for ${pagePath} page updated successfully`);
-      return res.status(200).json({ message: 'Content updated successfully' });
+      if (!path || !content) {
+        logError(`[${requestId}] Missing required parameters`);
+        return res.status(400).json({ message: 'Missing required parameters: path and content are required' });
+      }
+      
+      // Map the page path to a file path in the repo
+      const filePath = pagePathMap[path];
+      
+      if (!filePath) {
+        logError(`[${requestId}] No file mapping found for path: ${path}`);
+        return res.status(404).json({ 
+          message: `Page not found: ${path}`,
+          availablePaths: Object.keys(pagePathMap).join(', ')
+        });
+      }
+      
+      // Add mock mode for testing without GitHub
+      if (process.env.MOCK_GITHUB === 'true') {
+        logInfo(`[${requestId}] Running in MOCK mode - GitHub operations simulated`);
+        return res.status(200).json({ 
+          message: 'Content saved successfully (MOCK MODE)',
+          path: path,
+          mock: true
+        });
+      }
+      
+      try {
+        // First get the file to check if it exists and get its SHA
+        let fileSha;
+        let currentFileContent;
+        
+        try {
+          const { data } = await octokit.repos.getContent({
+            owner: GITHUB_OWNER,
+            repo: GITHUB_REPO,
+            path: filePath,
+            ref: GITHUB_BRANCH
+          });
+          
+          fileSha = data.sha;
+          currentFileContent = Buffer.from(data.content, 'base64').toString();
+          logInfo(`[${requestId}] Existing file found with SHA: ${fileSha}`);
+        } catch (error) {
+          if (error.status === 404) {
+            logInfo(`[${requestId}] File doesn't exist yet, will create: ${filePath}`);
+          } else {
+            throw error;
+          }
+        }
+        
+        // Update the content in the file
+        let updatedContent;
+        if (currentFileContent) {
+          updatedContent = updateComponentContent(currentFileContent, content);
+          
+          // Extra validation to check if content was properly updated
+          if (updatedContent === currentFileContent) {
+            logError(`[${requestId}] Update pattern failed - content unchanged`);
+            return res.status(400).json({ 
+              message: 'Failed to update content - no matching patterns found',
+              help: 'The component structure may not match expected patterns'
+            });
+          }
+        } else {
+          // This is a new file - create minimal component with the content
+          updatedContent = `import React from 'react';\n\nexport default function ${title || 'Page'}() {\n  return (\n    ${content}\n  );\n}\n`;
+          logInfo(`[${requestId}] Created new component file content`);
+        }
+        
+        // Commit the changes to GitHub
+        const commitParams = {
+          owner: GITHUB_OWNER,
+          repo: GITHUB_REPO,
+          path: filePath,
+          message: commitMessage || `Update ${title || path} content`,
+          content: Buffer.from(updatedContent).toString('base64'),
+          branch: GITHUB_BRANCH
+        };
+        
+        // Add SHA if updating existing file
+        if (fileSha) {
+          commitParams.sha = fileSha;
+        }
+        
+        logInfo(`[${requestId}] Committing changes to GitHub: ${filePath}`);
+        const result = await octokit.repos.createOrUpdateFileContents(commitParams);
+        
+        logInfo(`[${requestId}] Successfully saved content for ${path}`);
+        logInfo(`[${requestId}] GitHub commit: ${result.data.commit.html_url}`);
+        
+        return res.status(200).json({ 
+          message: 'Content saved successfully',
+          path: path,
+          commit: result.data.commit.html_url,
+          requestId
+        });
+      } catch (error) {
+        logError(`[${requestId}] Error saving content to GitHub`, error);
+        
+        // Return specific error based on GitHub API response
+        let errorMessage = `Failed to save content: ${error.message}`;
+        let statusCode = 500;
+        
+        if (error.status === 401 || error.status === 403) {
+          statusCode = 403;
+          errorMessage = 'GitHub authorization failed. The token lacks permission to write to this repository.';
+        } else if (error.status === 404) {
+          statusCode = 404;
+          errorMessage = 'Repository or file path not found on GitHub.';
+        } else if (error.status === 422) {
+          statusCode = 422;
+          errorMessage = 'Validation error when writing to GitHub. This may indicate a conflict.';
+        }
+        
+        return res.status(statusCode).json({ 
+          message: errorMessage,
+          detail: error.message,
+          requestId 
+        });
+      }
+    } else {
+      return res.status(405).json({ message: 'Method not allowed' });
     }
-    
-    // Handle unsupported methods
-    return res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
-    console.error('Error processing request:', error);
+    logError(`Unexpected error in content API`, error);
     return res.status(500).json({ 
-      error: 'An error occurred processing your request',
-      message: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      message: `Server error: ${error.message}`,
+      requestId 
     });
   }
 } 

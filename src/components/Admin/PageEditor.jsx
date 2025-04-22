@@ -484,61 +484,119 @@ const PageEditor = () => {
     }
   };
 
-  // Modify handleSave to improve error handling
+  // Focus on fixing the handleSave function
   const handleSave = async () => {
-    // Prepare the content for saving - convert from visual editor format back to React format
-    const contentToSave = viewMode === 'visual' ? prepareContentForSave(content) : content;
-    
-    if (contentToSave === originalContent) {
-      setSaveMessage('No changes to save');
-      setTimeout(() => setSaveMessage(''), 3000);
-      return;
-    }
-
-    setSaving(true);
-    setSaveMessage('Saving...');
-
     try {
-      console.log('Saving content with auth token:', localStorage.getItem('authToken') ? 'Token exists' : 'No token');
-      console.log('Content path:', pagePath);
+      // Prepare content based on view mode
+      const contentToSave = viewMode === 'code' ? content : prepareContentForSave(content);
       
-      const response = await fetch('/api/content', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        },
-        body: JSON.stringify({
-          path: pagePath,
-          title: pageTitle,
-          content: contentToSave,
-          commitMessage: `Update ${pageTitle} content via admin panel`
-        })
-      });
+      // Check if there's actually content to save
+      if (!contentToSave || contentToSave.trim() === '') {
+        setSaveMessage('Cannot save empty content');
+        setTimeout(() => setSaveMessage(''), 3000);
+        return;
+      }
+      
+      // Check if content has changed
+      if (contentToSave === originalContent) {
+        setSaveMessage('No changes to save');
+        setTimeout(() => setSaveMessage(''), 3000);
+        return;
+      }
 
-      // Log response for debugging
-      const responseText = await response.text();
-      console.log('API Response status:', response.status);
-      console.log('API Response text:', responseText);
+      setSaving(true);
+      setSaveMessage('Saving...');
       
-      let responseData;
+      console.log('Saving content for path:', pagePath);
+      console.log('Content length:', contentToSave.length);
+      
+      // Check if token exists
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('Authentication token missing. Please log in again.');
+      }
+      
+      // Use AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      
       try {
-        responseData = JSON.parse(responseText);
-      } catch (e) {
-        // If not valid JSON, use text as message
-        responseData = { message: responseText || 'Unknown error' };
+        const response = await fetch('/api/content', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            path: pagePath,
+            content: contentToSave,
+            title: pageTitle,
+            commitMessage: `Update ${pageTitle || pagePath} content via admin`
+          }),
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        let responseData;
+        try {
+          const responseText = await response.text();
+          console.log('API Response status:', response.status);
+          console.log('API Response text:', responseText);
+          
+          try {
+            responseData = JSON.parse(responseText);
+          } catch (e) {
+            responseData = { message: responseText || 'Unknown response format' };
+          }
+        } catch (e) {
+          console.error('Error reading response:', e);
+          throw new Error('Failed to read server response');
+        }
+        
+        if (!response.ok) {
+          // Extract specific error information
+          const errorMessage = responseData.message || `Error ${response.status}: Failed to save`;
+          const errorDetail = responseData.detail || '';
+          throw new Error(`${errorMessage}${errorDetail ? ` - ${errorDetail}` : ''}`);
+        }
+        
+        // Success! Update original content to reflect saved state
+        setOriginalContent(contentToSave);
+        setSaveMessage('Content saved successfully!');
+        setTimeout(() => setSaveMessage(''), 3000);
+        
+        // If we have a commit URL, we could display it
+        if (responseData.commit) {
+          console.log('GitHub commit URL:', responseData.commit);
+        }
+      } catch (fetchError) {
+        clearTimeout(timeoutId);
+        
+        if (fetchError.name === 'AbortError') {
+          throw new Error('Request timed out. The server took too long to respond.');
+        }
+        
+        throw fetchError;
       }
-
-      if (!response.ok) {
-        throw new Error(responseData.message || 'Failed to save content');
-      }
-
-      setOriginalContent(contentToSave);
-      setSaveMessage('Content saved successfully!');
-      setTimeout(() => setSaveMessage(''), 3000);
     } catch (error) {
       console.error('Error saving content:', error);
-      setSaveMessage(`Error: ${error.message}`);
+      
+      // Create user-friendly error message
+      let errorMsg = error.message;
+      
+      // Handle specific error cases
+      if (errorMsg.includes('Failed to fetch') || error.name === 'TypeError') {
+        errorMsg = 'Network error. Please check your internet connection.';
+      } else if (errorMsg.includes('Unauthorized') || errorMsg.includes('authentication')) {
+        errorMsg = 'Session expired. Please log in again.';
+        // Optionally redirect to login
+        setTimeout(() => navigate('/admin/login'), 3000);
+      } else if (errorMsg.includes('GitHub')) {
+        errorMsg = 'GitHub error: ' + errorMsg;
+      }
+      
+      setSaveMessage(`Error: ${errorMsg}`);
       setTimeout(() => setSaveMessage(''), 5000);
     } finally {
       setSaving(false);

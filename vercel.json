@@ -38,6 +38,10 @@
       "status": 301
     },
     {
+      "src": "/api/github-test",
+      "dest": "/api/github-test.js"
+    },
+    {
       "src": "/api/test-email",
       "dest": "/api/test-email.js"
     },
