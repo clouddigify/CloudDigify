@@ -360,11 +360,25 @@ const NavBar = () => {
                               onClick={(e) => toggleCategory(categoryIndex, e)}
                               onMouseEnter={() => handleCategoryMouseEnter(categoryIndex)}
                             >
-                              <div className="flex items-center text-gray-700">
+                              <NavLink
+                                to={category.path}
+                                className="flex items-center text-gray-700"
+                                onClick={(e) => {
+                                  e.stopPropagation(); 
+                                  setActiveSubmenu(null);
+                                  setActiveCategory(null);
+                                }}
+                              >
                                 {category.icon}
                                 <span>{category.title}</span>
-                              </div>
-                              <FaChevronDown className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`} />
+                              </NavLink>
+                              <FaChevronDown 
+                                className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleCategory(categoryIndex);
+                                }} 
+                              />
                             </div>
                             
                             {/* Secondary dropdown (Category submenus) */}
@@ -502,11 +516,26 @@ const NavBar = () => {
                             className="flex items-center justify-between py-2 text-gray-700 border-t border-gray-200 mt-1"
                             onClick={() => toggleCategory(categoryIndex)}
                           >
-                            <div className="flex items-center">
+                            <NavLink
+                              to={category.path}
+                              className="flex items-center"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setMenuOpen(false);
+                                setActiveSubmenu(null);
+                                setActiveCategory(null);
+                              }}
+                            >
                               {category.icon}
                               <span className="font-medium">{category.title}</span>
-                            </div>
-                            <FaChevronDown className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`} />
+                            </NavLink>
+                            <FaChevronDown 
+                              className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleCategory(categoryIndex);
+                              }}
+                            />
                           </div>
                           
                           {activeCategory === categoryIndex && (
