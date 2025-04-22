@@ -372,6 +372,50 @@ const PageEditor = () => {
     }
   `;
 
+  // Ensure valid authentication
+  useEffect(() => {
+    // Check for auth token
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('No auth token found');
+      navigate('/admin/login', { state: { from: `/admin/edit/${pagePath}` } });
+      return;
+    }
+
+    // Validate token format
+    try {
+      const decoded = JSON.parse(atob(token));
+      if (!decoded || !decoded.role || decoded.role !== 'admin') {
+        throw new Error('Invalid token or insufficient permissions');
+      }
+      
+      // Check token expiration
+      if (decoded.exp && decoded.exp < Math.floor(Date.now() / 1000)) {
+        console.error('Token expired');
+        localStorage.removeItem('authToken');
+        navigate('/admin/login', { state: { from: `/admin/edit/${pagePath}` } });
+        return;
+      }
+      
+      // Log authentication success
+      console.log('Authentication valid for PageEditor');
+    } catch (error) {
+      console.error('Token validation error:', error);
+      localStorage.removeItem('authToken');
+      navigate('/admin/login', { state: { from: `/admin/edit/${pagePath}` } });
+    }
+  }, [navigate, pagePath]);
+  
+  // Simple base64 decoder that handles URL encoding issues
+  const atob = (str) => {
+    try {
+      return decodeURIComponent(escape(window.atob(str)));
+    } catch (e) {
+      // Fallback if the above fails
+      return window.atob(str);
+    }
+  };
+
   // Fetch page content on load
   useEffect(() => {
     fetchPageContent();

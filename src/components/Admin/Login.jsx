@@ -1,75 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaLock, FaUser, FaSpinner, FaCloud } from 'react-icons/fa';
+import { FaLock, FaUser } from 'react-icons/fa';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   // Check if already logged in
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    console.log('Token check on login page:', token ? 'Token exists' : 'No token');
-    
-    // Only attempt validation if token exists
     if (token) {
-      // Prevent validation loop - check if we were redirected from dashboard
-      const from = location.state?.from;
-      if (from === '/admin/dashboard') {
-        console.log('Preventing validation loop - coming from dashboard');
-        localStorage.removeItem('authToken');
-        return;
-      }
-      
-      const validateToken = async () => {
-        try {
-          console.log('Validating token...');
-          // Add a simple auth check instead of hitting the API
-          // This prevents a redirect loop if the API is having issues
-          try {
-            const tokenData = JSON.parse(atob(token));
-            if (!tokenData || !tokenData.role) {
-              throw new Error('Invalid token format');
-            }
-            console.log('Token format valid, redirecting to dashboard');
-            navigate('/admin/dashboard');
-            return;
-          } catch (parseError) {
-            console.error('Token parse error:', parseError);
-            localStorage.removeItem('authToken');
-            return;
-          }
-          
-          // If above check fails, try the API validation as fallback
-          const response = await fetch('/api/auth/validate', {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-          
-          if (response.ok) {
-            console.log('Token validated via API, redirecting to dashboard');
-            navigate('/admin/dashboard');
-          } else {
-            console.log('Token invalid via API, clearing');
-            localStorage.removeItem('authToken');
-          }
-        } catch (err) {
-          console.error('Error validating token:', err);
+      try {
+        // Try to decode token to validate it's still good
+        const decoded = JSON.parse(atob(token));
+        
+        // Check if token is expired
+        if (decoded.exp && decoded.exp < Math.floor(Date.now() / 1000)) {
+          console.log('Token expired, clearing...');
           localStorage.removeItem('authToken');
+          return;
         }
-      };
-      
-      validateToken();
+        
+        // Valid token, redirect to dashboard or intended destination
+        const destination = location.state?.from || '/admin/dashboard';
+        navigate(destination);
+      } catch (e) {
+        // Invalid token, clear it
+        console.error('Invalid token found:', e);
+        localStorage.removeItem('authToken');
+      }
     }
   }, [navigate, location]);
-
+  
   // Simple base64 decode function
   const atob = (str) => {
     try {
@@ -81,140 +47,143 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError('');
-    setMessage('Authenticating...');
+    
+    if (!username || !password) {
+      setError('Username and password are required');
+      return;
+    }
     
     try {
-      console.log('Attempting to log in');
+      setIsLoggingIn(true);
+      setError('');
+      
+      // Make API request to login endpoint
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({
+          username,
+          password
+        })
       });
       
-      // For debugging API response
-      const responseText = await response.text();
-      let responseData;
-      
-      try {
-        responseData = JSON.parse(responseText);
-      } catch (err) {
-        console.error('Error parsing response:', responseText);
-        throw new Error('Invalid response from server. Please try again later.');
-      }
+      const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(responseData.message || 'Authentication failed');
+        throw new Error(data.message || 'Failed to login');
       }
       
-      // Valid login
-      console.log('Login successful');
+      // Store token and user info
+      localStorage.setItem('authToken', data.token);
       
-      if (responseData.token) {
-        localStorage.setItem('authToken', responseData.token);
-        setMessage('Login successful! Redirecting...');
-        setTimeout(() => navigate('/admin/dashboard'), 1000);
-      } else {
-        throw new Error('No authentication token received');
+      // Log token details for debugging
+      try {
+        const decodedToken = JSON.parse(atob(data.token));
+        console.log('Token validation:', {
+          username: decodedToken.username,
+          role: decodedToken.role,
+          expires: new Date(decodedToken.exp * 1000).toLocaleString()
+        });
+      } catch (e) {
+        console.error('Error parsing token:', e);
       }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError(err.message || 'Authentication failed. Please try again.');
-      setMessage('');
+      
+      // Navigate to dashboard or intended destination
+      const destination = location.state?.from || '/admin/dashboard';
+      navigate(destination);
+      
+    } catch (error) {
+      console.error('Login error:', error);
+      setError(error.message || 'Failed to login. Please check your credentials.');
     } finally {
-      setIsLoading(false);
+      setIsLoggingIn(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        <div className="text-center mb-6">
-          <div className="mx-auto h-16 mb-2 flex items-center justify-center text-blue-600">
-            <FaCloud size={50} />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-800">CloudDigify Admin</h1>
-          <p className="text-gray-600 text-sm mt-1">Sign in to manage your website content</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow-md">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Admin Login
+          </h2>
         </div>
         
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
-            <strong>Error:</strong> {error}
+          <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            </div>
           </div>
         )}
         
-        {message && !error && (
-          <div className="mb-4 p-3 bg-blue-100 text-blue-700 rounded-md text-sm">
-            {message}
-          </div>
-        )}
-        
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="username">
-              Username
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FaUser className="text-gray-400" />
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <div className="rounded-md shadow-sm -space-y-px">
+            <div className="mb-4">
+              <label htmlFor="username" className="sr-only">Username</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaUser className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  required
+                  className="appearance-none rounded-lg relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
-              <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter your username"
-                required
-              />
+            </div>
+            <div>
+              <label htmlFor="password" className="sr-only">Password</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaLock className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="appearance-none rounded-lg relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-          
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
-              Password
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FaLock className="text-gray-400" />
-              </div>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
+
+          <div>
+            <button
+              type="submit"
+              disabled={isLoggingIn}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white 
+                ${isLoggingIn ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} 
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+            >
+              {isLoggingIn ? 'Logging in...' : 'Sign in'}
+            </button>
           </div>
           
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`w-full py-2 px-4 rounded-md text-white font-medium ${
-              isLoading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
-            } transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
-          >
-            {isLoading ? (
-              <span className="flex items-center justify-center">
-                <FaSpinner className="animate-spin mr-2" />
-                Logging in...
-              </span>
-            ) : (
-              'Sign In'
-            )}
-          </button>
+          <div className="text-center text-sm text-gray-600 mt-4">
+            <p>For testing: admin / password123</p>
+          </div>
         </form>
-        
-        <div className="mt-6 text-center text-xs text-gray-500">
-          <p>This is a secured area. Unauthorized access is prohibited.</p>
-          <p className="mt-1">For assistance, please contact your administrator.</p>
-        </div>
       </div>
     </div>
   );

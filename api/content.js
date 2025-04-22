@@ -1,5 +1,7 @@
 // This would be deployed as a serverless function on Vercel
 import { Octokit } from '@octokit/rest';
+import fs from 'fs';
+import path from 'path';
 
 // GitHub repository details
 const GITHUB_REPO = 'CloudDigify';
@@ -23,23 +25,30 @@ const logError = (message, error = null) => {
 };
 
 // Helper to validate token (in production, use proper JWT verification)
-const validateToken = (authHeader) => {
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    logError('Invalid auth header format', { header: authHeader ? 'Present (but invalid)' : 'Missing' });
-    return false;
-  }
-  
-  const token = authHeader.split(' ')[1];
-  // Simple base64 decode
+const validateToken = (token) => {
   try {
-    logInfo('Attempting to validate token');
+    if (!token) {
+      return { valid: false, message: "No token provided" };
+    }
+    
+    // Decode the token using Buffer in Node.js
     const decoded = JSON.parse(Buffer.from(token, 'base64').toString());
-    const isValid = decoded && decoded.role === 'admin';
-    logInfo(`Token validation ${isValid ? 'successful' : 'failed'}`);
-    return isValid;
+    
+    // Check if token is expired
+    const now = Math.floor(Date.now() / 1000);
+    if (decoded.exp && decoded.exp < now) {
+      return { valid: false, message: "Token expired" };
+    }
+    
+    // Check if the user has admin role
+    if (decoded.role !== 'admin') {
+      return { valid: false, message: "Insufficient permissions" };
+    }
+    
+    return { valid: true, user: decoded };
   } catch (error) {
-    logError('Token validation error', error);
-    return false;
+    console.error("Token validation error:", error);
+    return { valid: false, message: "Invalid token format" };
   }
 };
 
@@ -301,19 +310,25 @@ export default async function handler(req, res) {
     });
   }
 
-  // Validate auth token
+  // Extract token from Authorization header
   const authHeader = req.headers.authorization;
-  logInfo(`Auth header present: ${!!authHeader}`);
+  let token = null;
   
-  if (!validateToken(authHeader)) {
-    logError('Authentication failed - invalid or missing token');
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.substring(7);
+  }
+  
+  // Validate token for non-GET requests
+  if (req.method !== 'GET') {
+    const validation = validateToken(token);
     
-    // More informative error response
-    return res.status(401).json({ 
-      message: 'Unauthorized - Invalid or missing authentication token',
-      detail: 'Please ensure you are logged in and your session is still valid',
-      help: 'Try logging out and back in if the problem persists' 
-    });
+    if (!validation.valid) {
+      console.error("Authentication failed:", validation.message);
+      res.status(401).json({ error: validation.message });
+      return;
+    }
+    
+    console.log("Authenticated user:", validation.user.username);
   }
 
   try {
