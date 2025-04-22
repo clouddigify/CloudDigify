@@ -31,14 +31,206 @@ const PageEditor = () => {
 
   // Add editorStyles at the top of the component
   const editorStyles = `
-    .visual-editor {
-      min-height: 500px;
-      padding: 20px;
+    .page-editor {
+      background-color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .editor-header {
+      background-color: #ffffff;
+      padding: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #f1f5f9;
       border: 1px solid #e2e8f0;
       border-radius: 0.375rem;
+      font-weight: 500;
+      color: #475569;
+      transition: all 0.2s;
+    }
+    
+    .back-button:hover {
+      background-color: #e2e8f0;
+    }
+    
+    .page-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .editor-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .view-toggle, .save-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .view-toggle {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+    }
+    
+    .view-toggle.active {
+      background-color: #f1f5f9;
+      color: #1e293b;
+    }
+    
+    .save-button {
+      background-color: #3b82f6;
+      border: 1px solid #2563eb;
+      color: white;
+    }
+    
+    .save-button:hover:not(:disabled) {
+      background-color: #2563eb;
+    }
+    
+    .save-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .save-message {
+      padding: 0.75rem;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .save-message.success {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+    
+    .save-message.error {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    .editor-container {
+      flex: 1;
+      padding: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .editor-tools {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .toolbar-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .toolbar-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #64748b;
+      margin: 0 0 0.75rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .formatting-tools, .insert-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .tool-button {
+      min-width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      color: #475569;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .tool-button:hover {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    
+    .color-palette {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      padding: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .color-option {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.1s;
+    }
+    
+    .color-option:hover {
+      transform: scale(1.1);
+    }
+    
+    .color-option.selected {
+      border-color: #0f172a;
+      box-shadow: 0 0 0 2px white, 0 0 0 4px #cbd5e1;
+    }
+    
+    .visual-editor {
+      background-color: #ffffff;
+      min-height: 500px;
+      padding: 2rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.5;
-      background-color: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
     }
     
     .visual-editor h1 {
@@ -47,6 +239,7 @@ const PageEditor = () => {
       margin-top: 1.5rem;
       margin-bottom: 1rem;
       line-height: 1.2;
+      color: #111827;
     }
     
     .visual-editor h2 {
@@ -55,6 +248,7 @@ const PageEditor = () => {
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
       line-height: 1.3;
+      color: #1f2937;
     }
     
     .visual-editor h3 {
@@ -62,10 +256,12 @@ const PageEditor = () => {
       font-weight: 600;
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
+      color: #374151;
     }
     
     .visual-editor p {
       margin-bottom: 1rem;
+      color: #4b5563;
     }
     
     .visual-editor section {
@@ -76,81 +272,97 @@ const PageEditor = () => {
     }
     
     .component-placeholder {
-      background-color: #f0f4f8;
+      background-color: #f0f9ff;
       border: 2px dashed #93c5fd;
       border-radius: 0.375rem;
       padding: 1.5rem;
       margin: 1rem 0;
       text-align: center;
-      color: #3b82f6;
+      color: #2563eb;
       font-weight: 500;
-    }
-    
-    .editor-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      background-color: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
-    }
-    
-    .editor-toolbar button {
-      padding: 0.5rem;
-      background-color: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-    
-    .editor-toolbar button:hover {
-      background-color: #f1f5f9;
-    }
-    
-    .editor-toolbar .formatting-tools,
-    .editor-toolbar .insert-tools {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .editor-toolbar .insert-tools {
-      margin-left: auto;
-    }
-    
-    .color-palette {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      padding: 0.75rem;
-      background-color: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
-      margin-bottom: 1rem;
-    }
-    
-    .color-option {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid transparent;
-    }
-    
-    .color-option.selected {
-      border-color: #1e3a8a;
     }
     
     .code-editor {
       width: 100%;
       min-height: 500px;
-      font-family: monospace;
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
       padding: 1rem;
       border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
+      border-radius: 0.5rem;
       font-size: 0.875rem;
       line-height: 1.5;
+      background-color: #ffffff;
+      color: #1e293b;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .editor-footer {
+      background-color: #ffffff;
+      padding: 1rem;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+    
+    .github-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .last-saved {
+      font-style: italic;
+      color: #ef4444;
+    }
+    
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 0;
+      color: #64748b;
+    }
+    
+    .loading:before {
+      content: '';
+      width: 2rem;
+      height: 2rem;
+      border: 3px solid #e2e8f0;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .error-details {
+      background-color: #fee2e2;
+      border: 1px solid #fecaca;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #b91c1c;
+    }
+    
+    .error-details button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .error-details button:hover {
+      background-color: #dc2626;
     }
   `;
 
@@ -188,8 +400,8 @@ const PageEditor = () => {
       console.log('Content retrieved:', data);
       
       if (data.content && data.content.trim()) {
-        // Clean the content for visual editing
-        const cleanedContent = prepareVisualContent(data.content);
+        // Clean the content for visual editing and strip out any unwanted code elements
+        const cleanedContent = removePreamble(prepareVisualContent(data.content));
         setContent(cleanedContent);
         setOriginalContent(data.content);
       } else {
@@ -209,6 +421,29 @@ const PageEditor = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Function to remove code preamble and formatting elements often found at the top of React components
+  const removePreamble = (content) => {
+    // Replace any raw code structures that might appear at the top of the content
+    let cleaned = content
+      // Remove any raw code indicators
+      .replace(/^home\s*/, '')
+      .replace(/^CodeSave Changes\s*/, '')
+      .replace(/^B\/I\/U\s*/, '')
+      .replace(/^HAD Button\s*/, '')
+      // Remove raw React component markers
+      .replace(/<Home.*?>/g, '')
+      .replace(/<\/Home>/g, '')
+      // Remove any other raw code fragments that shouldn't be in the editor
+      .replace(/^[\s\S]*?(?=<section|<div|<h1|<p|<motion)/i, '');
+    
+    // If we've removed too much, go back to the original
+    if (!cleaned.trim()) {
+      return content;
+    }
+    
+    return cleaned;
   };
 
   const getPageTitleFromPath = (path) => {
@@ -267,7 +502,7 @@ const PageEditor = () => {
     }
   };
 
-  // Clean JSX content for visual editing
+  // Clean JSX content for visual editing - update this to be more comprehensive
   const prepareVisualContent = (jsxContent) => {
     if (!jsxContent) return '';
     
@@ -275,6 +510,9 @@ const PageEditor = () => {
     
     // First, handle special component tags
     let cleanedContent = jsxContent
+      // Replace raw JSX comments with HTML comments
+      .replace(/{\/\*\s*(.*?)\s*\*\/}/g, '<!-- $1 -->')
+      
       // Handle section components
       .replace(/<WhyChooseUs.*?\/>/g, '<div class="component-placeholder">[Why Choose Us Component]</div>')
       .replace(/<Testimonials.*?\/>/g, '<div class="component-placeholder">[Testimonials Component]</div>')
@@ -292,10 +530,7 @@ const PageEditor = () => {
       // Convert className to class
       .replace(/className=/g, 'class=')
       
-      // Handle JSX comments
-      .replace(/{\/\*.*?\*\/}/g, '<!-- $& -->')
-      
-      // Handle simple JSX expressions for strings, numbers, and booleans
+      // Handle simple JSX expressions
       .replace(/{([^{}]*?)}/g, (match, content) => {
         // Skip complex expressions
         if (content.includes('(') || content.includes('=>') || content.includes(':')) {
@@ -487,7 +722,7 @@ const PageEditor = () => {
         <button onClick={handleBack} className="back-button">
           <FaArrowLeft /> Back to Dashboard
         </button>
-        <h1>{pageTitle}</h1>
+        <h1 className="page-title">{pageTitle}</h1>
         <div className="editor-actions">
           <button 
             className={`view-toggle ${viewMode === 'visual' ? 'active' : ''}`} 
@@ -527,29 +762,45 @@ const PageEditor = () => {
         <div className="editor-container">
           {viewMode === 'visual' && (
             <>
-              <div className="editor-toolbar">
-                <div className="formatting-tools">
-                  <button onClick={() => applyFormatting('bold')} title="Bold">B</button>
-                  <button onClick={() => applyFormatting('italic')} title="Italic"><i>I</i></button>
-                  <button onClick={() => applyFormatting('underline')} title="Underline"><u>U</u></button>
-                  <button onClick={() => setShowStyleOptions(!showStyleOptions)} title="Color">
-                    <FaPalette style={{ color: selectedColor }} />
-                  </button>
+              <div className="editor-tools">
+                <div className="toolbar-section">
+                  <h3 className="toolbar-title">Format Text</h3>
+                  <div className="formatting-tools">
+                    <button onClick={() => applyFormatting('bold')} title="Bold" className="tool-button">
+                      <strong>B</strong>
+                    </button>
+                    <button onClick={() => applyFormatting('italic')} title="Italic" className="tool-button">
+                      <i>I</i>
+                    </button>
+                    <button onClick={() => applyFormatting('underline')} title="Underline" className="tool-button">
+                      <u>U</u>
+                    </button>
+                    <button 
+                      onClick={() => setShowStyleOptions(!showStyleOptions)} 
+                      title="Change Text Color" 
+                      className="tool-button"
+                    >
+                      <FaPalette style={{ color: selectedColor }} />
+                    </button>
+                  </div>
                 </div>
 
-                <div className="insert-tools">
-                  <button onClick={() => insertElement('heading')} title="Insert Heading">
-                    <FaHeading />
-                  </button>
-                  <button onClick={() => insertElement('paragraph')} title="Insert Paragraph">
-                    <FaFont />
-                  </button>
-                  <button onClick={() => insertElement('image')} title="Insert Image">
-                    <FaImage />
-                  </button>
-                  <button onClick={() => insertElement('button')} title="Insert Button">
-                    Button
-                  </button>
+                <div className="toolbar-section">
+                  <h3 className="toolbar-title">Insert Content</h3>
+                  <div className="insert-tools">
+                    <button onClick={() => insertElement('heading')} title="Insert Heading" className="tool-button">
+                      <FaHeading />
+                    </button>
+                    <button onClick={() => insertElement('paragraph')} title="Insert Paragraph" className="tool-button">
+                      <FaFont />
+                    </button>
+                    <button onClick={() => insertElement('image')} title="Insert Image" className="tool-button">
+                      <FaImage />
+                    </button>
+                    <button onClick={() => insertElement('button')} title="Insert Button" className="tool-button">
+                      Button
+                    </button>
+                  </div>
                 </div>
               </div>
               
