@@ -341,7 +341,7 @@ const NavBar = () => {
                           <NavLink
                             to={link.path}
                             className={({ isActive }) =>
-                              `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`
+                              `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'} font-medium border-b border-gray-100`
                             }
                             onClick={() => {
                               setActiveSubmenu(null);
@@ -414,9 +414,12 @@ const NavBar = () => {
                           <NavLink
                             to={link.path}
                             className={({ isActive }) =>
-                              `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`
+                              `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'} font-medium border-b border-gray-100`
                             }
-                            onClick={() => setActiveSubmenu(null)}
+                            onClick={() => {
+                              setActiveSubmenu(null);
+                              setActiveCategory(null);
+                            }}
                           >
                             All {link.title}
                           </NavLink>
@@ -484,7 +487,7 @@ const NavBar = () => {
                         <NavLink
                           to={link.path}
                           className={({ isActive }) =>
-                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
+                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'} border-b border-gray-200 mb-2`
                           }
                           onClick={() => setMenuOpen(false)}
                         >
