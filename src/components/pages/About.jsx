@@ -66,7 +66,7 @@ const About = () => (
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">About CloudDigify</h1>
           <p className="text-xl opacity-90 mb-8">
-            We're a&nbsp; team of cloud experts dedicated to transforming businesses through innovative cloud solutions.
+            We're a team of cloud experts dedicated to transforming businesses through innovative cloud solutions.
           </p>
         </div>
       </div></section>
