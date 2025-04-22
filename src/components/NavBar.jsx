@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog } from 'react-icons/fa';
@@ -216,18 +216,78 @@ const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [hoverTimeout, setHoverTimeout] = useState(null);
+  const navRef = useRef(null);
+  
+  // Function to check if submenu would go off-screen
+  const checkSubmenuPosition = (e) => {
+    if (!e) return 'left-full';
+    
+    const rect = e.target.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const remainingSpace = viewportWidth - rect.right;
+    
+    // If less than 300px from right edge, show on left side
+    return remainingSpace < 300 ? 'right-full' : 'left-full';
+  };
 
   const toggleSubmenu = (index) => {
     setActiveSubmenu(activeSubmenu === index ? null : index);
     setActiveCategory(null);
   };
 
-  const toggleCategory = (categoryIndex) => {
+  const toggleCategory = (categoryIndex, e) => {
+    const position = checkSubmenuPosition(e);
     setActiveCategory(activeCategory === categoryIndex ? null : categoryIndex);
   };
+  
+  // Handle hover for desktop
+  const handleMouseEnter = (index) => {
+    clearTimeout(hoverTimeout);
+    setActiveSubmenu(index);
+  };
+  
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setActiveSubmenu(null);
+      setActiveCategory(null);
+    }, 300);
+    setHoverTimeout(timeout);
+  };
+  
+  // Handle hover for category
+  const handleCategoryMouseEnter = (categoryIndex) => {
+    clearTimeout(hoverTimeout);
+    setActiveCategory(categoryIndex);
+  };
+  
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeout) {
+        clearTimeout(hoverTimeout);
+      }
+    };
+  }, [hoverTimeout]);
+
+  // Close menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setActiveSubmenu(null);
+        setActiveCategory(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <motion.nav
+      ref={navRef}
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -252,7 +312,11 @@ const NavBar = () => {
           {links.map((link, index) => (
             <li key={link.path} className="relative group">
               {link.hasSubmenu ? (
-                <div className="flex items-center cursor-pointer text-gray-700 hover:text-blue-600">
+                <div 
+                  className="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 py-2"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <span 
                     className="mr-1"
                     onClick={() => toggleSubmenu(index)}
@@ -266,7 +330,11 @@ const NavBar = () => {
                   
                   {/* Primary Dropdown */}
                   {activeSubmenu === index && link.isMultiLevel && (
-                    <div className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50 max-h-[80vh] overflow-y-auto">
+                    <div 
+                      className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-[60] max-h-[80vh] overflow-y-auto"
+                      onMouseEnter={() => handleMouseEnter(index)}
+                      onMouseLeave={handleMouseLeave}
+                    >
                       <ul>
                         {/* Main category link */}
                         <li>
@@ -275,7 +343,10 @@ const NavBar = () => {
                             className={({ isActive }) =>
                               `block px-4 py-2 hover:bg-blue-50 ${isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`
                             }
-                            onClick={() => setActiveSubmenu(null)}
+                            onClick={() => {
+                              setActiveSubmenu(null);
+                              setActiveCategory(null);
+                            }}
                           >
                             All {link.title}
                           </NavLink>
@@ -286,7 +357,8 @@ const NavBar = () => {
                           <li key={category.title} className="relative">
                             <div 
                               className="flex items-center justify-between px-4 py-2 hover:bg-blue-50 cursor-pointer"
-                              onClick={() => toggleCategory(categoryIndex)}
+                              onClick={(e) => toggleCategory(categoryIndex, e)}
+                              onMouseEnter={() => handleCategoryMouseEnter(categoryIndex)}
                             >
                               <div className="flex items-center text-gray-700">
                                 {category.icon}
@@ -297,7 +369,12 @@ const NavBar = () => {
                             
                             {/* Secondary dropdown (Category submenus) */}
                             {activeCategory === categoryIndex && (
-                              <div className="absolute left-full top-0 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50 max-h-[80vh] overflow-y-auto">
+                              <div 
+                                className={`absolute top-0 w-64 bg-white shadow-lg rounded-md overflow-hidden z-[70] max-h-[80vh] overflow-y-auto left-full`}
+                                onMouseEnter={() => handleCategoryMouseEnter(categoryIndex)}
+                                onMouseLeave={handleMouseLeave}
+                                style={{ boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
+                              >
                                 <ul>
                                   {category.submenu.map((subItem) => (
                                     <li key={subItem.path}>
@@ -309,6 +386,7 @@ const NavBar = () => {
                                         onClick={() => {
                                           setActiveSubmenu(null);
                                           setActiveCategory(null);
+                                          setMenuOpen(false);
                                         }}
                                       >
                                         {subItem.title}
@@ -326,7 +404,11 @@ const NavBar = () => {
 
                   {/* Simple Dropdown for non-multilevel menus */}
                   {activeSubmenu === index && !link.isMultiLevel && (
-                    <div className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50">
+                    <div 
+                      className="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50"
+                      onMouseEnter={() => handleMouseEnter(index)}
+                      onMouseLeave={handleMouseLeave}
+                    >
                       <ul>
                         <li>
                           <NavLink
@@ -362,8 +444,8 @@ const NavBar = () => {
                   to={link.path}
                   className={({ isActive }) =>
                     isActive
-                      ? 'text-blue-600 font-semibold'
-                      : 'text-gray-700 hover:text-blue-600'
+                      ? 'text-blue-600 font-semibold py-2 block'
+                      : 'text-gray-700 hover:text-blue-600 py-2 block'
                   }
                 >
                   {link.title}
@@ -387,22 +469,22 @@ const NavBar = () => {
               {link.hasSubmenu ? (
                 <div>
                   <div 
-                    className="flex items-center justify-between py-2 text-gray-700"
+                    className="flex items-center justify-between py-2 text-gray-700 border-b border-gray-100"
                     onClick={() => toggleSubmenu(index)}
                   >
-                    <span>{link.title}</span>
+                    <span className="font-medium">{link.title}</span>
                     <FaChevronDown className={`text-xs transition-transform duration-200 ${activeSubmenu === index ? 'rotate-180' : ''}`} />
                   </div>
                   
                   {/* Mobile Categories Dropdown */}
                   {activeSubmenu === index && link.isMultiLevel && (
-                    <ul className="pl-4 py-2">
+                    <ul className="pl-4 py-2 bg-gray-50 rounded-md my-2">
                       {/* Main category link */}
                       <li>
                         <NavLink
                           to={link.path}
                           className={({ isActive }) =>
-                            `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
+                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
                           }
                           onClick={() => setMenuOpen(false)}
                         >
@@ -412,28 +494,32 @@ const NavBar = () => {
                       
                       {/* Categories with submenu */}
                       {link.submenu.map((category, categoryIndex) => (
-                        <li key={category.title}>
+                        <li key={category.title} className="mb-2">
                           <div
-                            className="flex items-center justify-between py-2 text-gray-700"
+                            className="flex items-center justify-between py-2 text-gray-700 border-t border-gray-200 mt-1"
                             onClick={() => toggleCategory(categoryIndex)}
                           >
                             <div className="flex items-center">
                               {category.icon}
-                              <span>{category.title}</span>
+                              <span className="font-medium">{category.title}</span>
                             </div>
                             <FaChevronDown className={`text-xs transition-transform duration-200 ${activeCategory === categoryIndex ? 'rotate-180' : ''}`} />
                           </div>
                           
                           {activeCategory === categoryIndex && (
-                            <ul className="pl-8 py-1">
+                            <ul className="pl-6 py-1 bg-white rounded-md shadow-inner">
                               {category.submenu.map((subItem) => (
-                                <li key={subItem.path}>
+                                <li key={subItem.path} className="border-b border-gray-100 last:border-0">
                                   <NavLink
                                     to={subItem.path}
                                     className={({ isActive }) =>
                                       `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
                                     }
-                                    onClick={() => setMenuOpen(false)}
+                                    onClick={() => {
+                                      setMenuOpen(false);
+                                      setActiveSubmenu(null);
+                                      setActiveCategory(null);
+                                    }}
                                   >
                                     {subItem.title}
                                   </NavLink>
@@ -448,13 +534,13 @@ const NavBar = () => {
                   
                   {/* Mobile simple dropdown */}
                   {activeSubmenu === index && !link.isMultiLevel && (
-                    <ul className="pl-4 py-2">
+                    <ul className="pl-4 py-2 bg-gray-50 rounded-md my-2">
                       {/* Main link */}
                       <li>
                         <NavLink
                           to={link.path}
                           className={({ isActive }) =>
-                            `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
+                            `block py-2 font-medium ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
                           }
                           onClick={() => setMenuOpen(false)}
                         >
@@ -464,7 +550,7 @@ const NavBar = () => {
                       
                       {/* Submenu items */}
                       {link.submenu.map((subLink) => (
-                        <li key={subLink.path}>
+                        <li key={subLink.path} className="border-t border-gray-200">
                           <NavLink
                             to={subLink.path}
                             className={({ isActive }) =>
@@ -484,7 +570,7 @@ const NavBar = () => {
                   to={link.path}
                   onClick={() => setMenuOpen(false)}
                   className={({ isActive }) =>
-                    `block py-2 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`
+                    `block py-2 border-b border-gray-100 ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`
                   }
                 >
                   {link.title}
