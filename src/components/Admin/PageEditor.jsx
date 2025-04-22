@@ -29,6 +29,131 @@ const PageEditor = () => {
     '#757575', // Medium gray
   ];
 
+  // Add editorStyles at the top of the component
+  const editorStyles = `
+    .visual-editor {
+      min-height: 500px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      background-color: white;
+    }
+    
+    .visual-editor h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .visual-editor h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    
+    .visual-editor h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .visual-editor p {
+      margin-bottom: 1rem;
+    }
+    
+    .visual-editor section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px dashed #cbd5e0;
+      border-radius: 0.25rem;
+    }
+    
+    .component-placeholder {
+      background-color: #f0f4f8;
+      border: 2px dashed #93c5fd;
+      border-radius: 0.375rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      text-align: center;
+      color: #3b82f6;
+      font-weight: 500;
+    }
+    
+    .editor-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+    }
+    
+    .editor-toolbar button {
+      padding: 0.5rem;
+      background-color: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    
+    .editor-toolbar button:hover {
+      background-color: #f1f5f9;
+    }
+    
+    .editor-toolbar .formatting-tools,
+    .editor-toolbar .insert-tools {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .editor-toolbar .insert-tools {
+      margin-left: auto;
+    }
+    
+    .color-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background-color: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      margin-bottom: 1rem;
+    }
+    
+    .color-option {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    
+    .color-option.selected {
+      border-color: #1e3a8a;
+    }
+    
+    .code-editor {
+      width: 100%;
+      min-height: 500px;
+      font-family: monospace;
+      padding: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+  `;
+
   // Fetch page content on load
   useEffect(() => {
     fetchPageContent();
@@ -146,32 +271,41 @@ const PageEditor = () => {
   const prepareVisualContent = (jsxContent) => {
     if (!jsxContent) return '';
     
-    // Replace common React/JSX components with placeholders or simplified HTML
+    console.log('Original content:', jsxContent);
+    
+    // First, handle special component tags
     let cleanedContent = jsxContent
-      // Replace self-closing tags with placeholders
-      .replace(/<(NavBar|Footer)[^>]*\/>/g, (match, component) => 
-        `<div class="component-placeholder">${component} Component</div>`)
+      // Handle section components
+      .replace(/<WhyChooseUs.*?\/>/g, '<div class="component-placeholder">[Why Choose Us Component]</div>')
+      .replace(/<Testimonials.*?\/>/g, '<div class="component-placeholder">[Testimonials Component]</div>')
+      .replace(/<Partners.*?\/>/g, '<div class="component-placeholder">[Partners Component]</div>')
+      .replace(/<QuickContact.*?\/>/g, '<div class="component-placeholder">[Quick Contact Form]</div>')
       
-      // Replace component tags with placeholders
-      .replace(/<(NavBar|Footer)[^>]*>([\s\S]*?)<\/\1>/g, (match, component) => 
-        `<div class="component-placeholder">${component} Component</div>`)
+      // Handle HTML-like React components
+      .replace(/<motion\.([a-z0-9]+)([^>]*)>/gi, '<div data-motion-component="$1" $2>')
+      .replace(/<\/motion\.[a-z0-9]+>/gi, '</div>')
       
-      // Replace motion.div with regular divs
-      .replace(/<motion\.div([^>]*)>/g, '<div$1>')
-      .replace(/<\/motion\.div>/g, '</div>')
+      // Handle Link components  
+      .replace(/<Link([^>]*)to=["']([^"']*)["']([^>]*)>/g, '<a href="$2" data-react-link="true" $1$3>')
+      .replace(/<\/Link>/g, '</a>')
       
-      // Convert className to class for the visual editor
+      // Convert className to class
       .replace(/className=/g, 'class=')
       
-      // Replace framer-motion animation props which are objects
-      .replace(/\{[^{}]*\}/g, (match) => {
-        // Keep actual content in braces, but remove code-like structures
-        if (match.includes(':') || match.includes('function') || match.includes('=>')) {
-          return '"..."';
+      // Handle JSX comments
+      .replace(/{\/\*.*?\*\/}/g, '<!-- $& -->')
+      
+      // Handle simple JSX expressions for strings, numbers, and booleans
+      .replace(/{([^{}]*?)}/g, (match, content) => {
+        // Skip complex expressions
+        if (content.includes('(') || content.includes('=>') || content.includes(':')) {
+          return '«' + content + '»';
         }
-        return match;
+        // Handle simple variable or literal
+        return content;
       });
     
+    console.log('Cleaned content:', cleanedContent);
     return cleanedContent;
   };
 
@@ -184,25 +318,35 @@ const PageEditor = () => {
       // Convert class back to className
       .replace(/class=/g, 'className=')
       
-      // Replace regular divs with motion.div if they were converted
-      .replace(/<div(.*?)data-motion-div(.*?)>/g, '<motion.div$1$2>')
-      .replace(/<\/div>(\s*?)<!-- \/motion\.div -->/g, '</motion.div>');
+      // Convert data-motion-component divs back to motion components
+      .replace(/<div data-motion-component="([a-z0-9]+)"([^>]*)>/gi, '<motion.$1$2>')
+      .replace(/<\/div><!-- \/motion\.[a-z0-9]+ -->/gi, '</motion.$1>')
+      
+      // Convert anchors with data-react-link back to Link components
+      .replace(/<a href="([^"]*)" data-react-link="true"([^>]*)>/g, '<Link to="$1"$2>')
+      .replace(/<\/a><!-- \/Link -->/g, '</Link>')
+      
+      // Convert HTML comments back to JSX comments
+      .replace(/<!-- {\/\*(.*?)\*\/} -->/g, '{/*$1*/}')
+      
+      // Convert expression markers back to JSX expressions
+      .replace(/«([^»]*)»/g, '{$1}');
     
-    // If there are significant differences with originalContent structure,
-    // we might need to preserve some of the original structure
-    if (originalContent.includes('<motion.') && !reactContent.includes('<motion.')) {
-      // Try to preserve the motion components from original
-      const motionTags = originalContent.match(/<motion\.[^>]*>[\s\S]*?<\/motion\.[^>]*>/g) || [];
-      if (motionTags.length > 0) {
-        // This is a simplified approach - in a real implementation you might need
-        // a more sophisticated merge strategy
-        reactContent = motionTags.reduce((content, tag, index) => {
-          return content.replace(
-            new RegExp(`<div[^>]*>\\s*<!-- motion\\.div placeholder ${index} -->\\s*</div>`), 
-            tag
-          );
-        }, reactContent);
-      }
+    // Add back any specific components needed
+    if (originalContent.includes('<WhyChooseUs') && !reactContent.includes('<WhyChooseUs')) {
+      reactContent = reactContent.replace('[Why Choose Us Component]', '<WhyChooseUs />');
+    }
+    
+    if (originalContent.includes('<Testimonials') && !reactContent.includes('<Testimonials')) {
+      reactContent = reactContent.replace('[Testimonials Component]', '<Testimonials />');
+    }
+    
+    if (originalContent.includes('<Partners') && !reactContent.includes('<Partners')) {
+      reactContent = reactContent.replace('[Partners Component]', '<Partners />');
+    }
+    
+    if (originalContent.includes('<QuickContact') && !reactContent.includes('<QuickContact')) {
+      reactContent = reactContent.replace('[Quick Contact Form]', '<QuickContact />');
     }
     
     return reactContent;
@@ -337,6 +481,8 @@ const PageEditor = () => {
 
   return (
     <div className="page-editor">
+      <style>{editorStyles}</style>
+      
       <div className="editor-header">
         <button onClick={handleBack} className="back-button">
           <FaArrowLeft /> Back to Dashboard
