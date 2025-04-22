@@ -393,8 +393,6 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
-  const [activeSubmenu, setActiveSubmenu] = useState(null);
-  const [activeSubSubmenu, setActiveSubSubmenu] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navRef = useRef(null);
@@ -404,8 +402,6 @@ const NavBar = () => {
   useEffect(() => {
     setIsOpen(false);
     setActiveMenu(null);
-    setActiveSubmenu(null);
-    setActiveSubSubmenu(null);
   }, [location]);
 
   // Scroll effect
@@ -422,32 +418,11 @@ const NavBar = () => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setActiveMenu(null);
-        setActiveSubmenu(null);
-        setActiveSubSubmenu(null);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  // Menu handlers
-  const handleMenuEnter = (menu) => {
-    setActiveMenu(menu);
-  };
-
-  const handleSubmenuEnter = (submenu) => {
-    setActiveSubmenu(submenu);
-  };
-
-  const handleSubSubmenuEnter = (subSubmenu) => {
-    setActiveSubSubmenu(subSubmenu);
-  };
-
-  const handleMenuLeave = () => {
-    setActiveMenu(null);
-    setActiveSubmenu(null);
-    setActiveSubSubmenu(null);
-  };
 
   return (
     <motion.nav
@@ -490,173 +465,165 @@ const NavBar = () => {
               Home
             </NavLink>
 
-            {/* Training Services Mega Menu */}
+            {/* Solutions Link */}
+            <NavLink 
+              to="/solutions" 
+              className={({ isActive }) => 
+                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
+              }
+            >
+              <FaCubes className="mr-2" />
+              Solutions
+            </NavLink>
+
+            {/* Services Menu */}
             <div 
               className="relative"
-              onMouseEnter={() => handleMenuEnter('training')}
-              onMouseLeave={handleMenuLeave}
+              onMouseEnter={() => setActiveMenu('services')}
+              onMouseLeave={() => setActiveMenu(null)}
             >
               <button 
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
-                <FaGraduationCap className="mr-2" />
-                <span>Training Services</span>
-                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'training' ? 'rotate-180' : ''}`} />
+                <FaCogs className="mr-2" />
+                <span>Services</span>
+                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'services' ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
-                {activeMenu === 'training' && (
+                {activeMenu === 'services' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 w-[800px] bg-white rounded-lg shadow-xl border border-gray-100"
-                    style={{ marginLeft: '-200px' }}
+                    className="absolute top-full left-1/2 transform -translate-x-1/2 w-[1000px] bg-white rounded-2xl shadow-xl border border-gray-100 grid grid-cols-3 gap-6 p-8"
+                    style={{ marginTop: '1rem' }}
                   >
-                    <div className="flex h-[500px]">
-                      {/* Primary Menu */}
-                      <div className="w-1/3 bg-gray-50 p-4 border-r border-gray-100">
-                        {getNavLinks().find(link => link.title === 'Training Services')?.submenu.map((category, index) => (
-                          <motion.div
-                            key={index}
-                            className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${activeSubmenu === category.title ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
-                            onMouseEnter={() => handleSubmenuEnter(category.title)}
-                          >
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                {category.icon}
-                                <span>{category.title}</span>
-                              </div>
-                              <FaChevronRight className="text-sm opacity-50" />
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-
-                      {/* Secondary Menu */}
-                      <div className="w-2/3 p-6">
-                        <AnimatePresence mode="wait">
-                          {activeSubmenu && (
-                            <motion.div
-                              key={activeSubmenu}
-                              initial={{ opacity: 0, x: 20 }}
+                    {/* Service Categories */}
+                    {getServiceCategories().map((category, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="group"
+                      >
+                        <div className="flex items-center space-x-3 mb-4">
+                          <div className="p-2 rounded-lg bg-blue-50 text-blue-600">
+                            {category.icon}
+                          </div>
+                          <h3 className="font-semibold text-gray-900">{category.title}</h3>
+                        </div>
+                        <ul className="space-y-2">
+                          {category.submenu.map((item, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -20 }}
-                              transition={{ duration: 0.2 }}
-                              className="h-full"
+                              transition={{ delay: (index * 0.05) + (idx * 0.03) }}
                             >
-                              {getNavLinks()
-                                .find(link => link.title === 'Training Services')
-                                ?.submenu.find(cat => cat.title === activeSubmenu)
-                                ?.submenu.map((item, idx) => (
-                                  <Link
-                                    key={idx}
-                                    to={item.path}
-                                    className="block p-3 rounded-lg hover:bg-gray-50 group"
-                                  >
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
-                                        {item.title}
-                                      </span>
-                                      <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
-                                    </div>
-                                  </Link>
-                                ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
+                              <Link
+                                to={item.path}
+                                className="block text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg px-3 py-2 transition-colors duration-200"
+                              >
+                                {item.title}
+                              </Link>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* Use Cases Mega Menu */}
+            {/* Industries Menu */}
             <div 
               className="relative"
-              onMouseEnter={() => handleMenuEnter('use-cases')}
-              onMouseLeave={handleMenuLeave}
+              onMouseEnter={() => setActiveMenu('industries')}
+              onMouseLeave={() => setActiveMenu(null)}
             >
               <button 
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
-                <FaLightbulb className="mr-2" />
-                <span>Use Cases</span>
-                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'use-cases' ? 'rotate-180' : ''}`} />
+                <FaIndustry className="mr-2" />
+                <span>Industries</span>
+                <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'industries' ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
-                {activeMenu === 'use-cases' && (
+                {activeMenu === 'industries' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 w-[800px] bg-white rounded-lg shadow-xl border border-gray-100"
-                    style={{ marginRight: '-200px' }}
+                    className="absolute top-full left-1/2 transform -translate-x-1/2 w-[800px] bg-white rounded-2xl shadow-xl border border-gray-100 grid grid-cols-2 gap-6 p-8"
+                    style={{ marginTop: '1rem' }}
                   >
-                    <div className="flex h-[500px]">
-                      {/* Primary Menu */}
-                      <div className="w-1/3 bg-gray-50 p-4 border-r border-gray-100">
-                        {getNavLinks().find(link => link.title === 'Use Cases')?.submenu.map((category, index) => (
-                          <motion.div
-                            key={index}
-                            className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${activeSubmenu === category.title ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
-                            onMouseEnter={() => handleSubmenuEnter(category.title)}
-                          >
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                {category.icon}
-                                <span>{category.title}</span>
-                              </div>
-                              <FaChevronRight className="text-sm opacity-50" />
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-
-                      {/* Secondary Menu */}
-                      <div className="w-2/3 p-6">
-                        <AnimatePresence mode="wait">
-                          {activeSubmenu && (
-                            <motion.div
-                              key={activeSubmenu}
-                              initial={{ opacity: 0, x: 20 }}
+                    {getIndustryCategories().map((category, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="group"
+                      >
+                        <div className="flex items-center space-x-3 mb-4">
+                          <div className="p-2 rounded-lg bg-blue-50 text-blue-600">
+                            {category.icon}
+                          </div>
+                          <h3 className="font-semibold text-gray-900">{category.title}</h3>
+                        </div>
+                        <ul className="space-y-2">
+                          {category.submenu.map((item, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -20 }}
-                              transition={{ duration: 0.2 }}
-                              className="h-full"
+                              transition={{ delay: (index * 0.05) + (idx * 0.03) }}
                             >
-                              {getNavLinks()
-                                .find(link => link.title === 'Use Cases')
-                                ?.submenu.find(cat => cat.title === activeSubmenu)
-                                ?.submenu.map((item, idx) => (
-                                  <Link
-                                    key={idx}
-                                    to={item.path}
-                                    className="block p-3 rounded-lg hover:bg-gray-50 group"
-                                  >
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-gray-700 group-hover:text-blue-600 transition-colors">
-                                        {item.title}
-                                      </span>
-                                      <FaArrowRight className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
-                                    </div>
-                                  </Link>
-                                ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
+                              <Link
+                                to={item.path}
+                                className="block text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg px-3 py-2 transition-colors duration-200"
+                              >
+                                {item.title}
+                              </Link>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* Other Navigation Links */}
+            {/* Training Services Link */}
+            <NavLink 
+              to="/training-services"
+              className={({ isActive }) => 
+                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
+              }
+            >
+              <FaGraduationCap className="mr-2" />
+              Training
+            </NavLink>
+
+            {/* Use Cases Link */}
+            <NavLink 
+              to="/use-cases"
+              className={({ isActive }) => 
+                `flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 ${isActive ? 'text-blue-600' : ''}`
+              }
+            >
+              <FaLightbulb className="mr-2" />
+              Use Cases
+            </NavLink>
+
+            {/* Contact Button */}
             <NavLink 
               to="/contact"
               className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 group"
@@ -687,136 +654,138 @@ const NavBar = () => {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
           >
-            <div className="px-4 py-2 space-y-1">
-              <Link
-                to="/"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-              >
-                Home
-              </Link>
-
-              {/* Mobile Training Services Accordion */}
-              <div className="space-y-2">
-                <button
-                  onClick={() => setActiveMenu(activeMenu === 'mobile-training' ? null : 'mobile-training')}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            <div className="max-h-[80vh] overflow-y-auto">
+              <div className="px-4 py-2 space-y-1">
+                <Link
+                  to="/"
+                  className="flex items-center px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                 >
-                  <span>Training Services</span>
-                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-training' ? 'rotate-180' : ''}`} />
-                </button>
+                  <FaHome className="mr-3" />
+                  Home
+                </Link>
 
-                <AnimatePresence>
-                  {activeMenu === 'mobile-training' && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="pl-4"
-                    >
-                      {getNavLinks().find(link => link.title === 'Training Services')?.submenu.map((category, index) => (
-                        <div key={index} className="py-1">
-                          <button
-                            onClick={() => setActiveSubmenu(activeSubmenu === category.title ? null : category.title)}
-                            className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                          >
-                            <div className="flex items-center space-x-2">
-                              {category.icon}
-                              <span>{category.title}</span>
-                            </div>
-                            <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === category.title ? 'rotate-180' : ''}`} />
-                          </button>
-
-                          <AnimatePresence>
-                            {activeSubmenu === category.title && (
-                              <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className="pl-4"
-                              >
-                                {category.submenu.map((item, idx) => (
-                                  <Link
-                                    key={idx}
-                                    to={item.path}
-                                    className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                                  >
-                                    {item.title}
-                                  </Link>
-                                ))}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Mobile Use Cases Accordion */}
-              <div className="space-y-2">
-                <button
-                  onClick={() => setActiveMenu(activeMenu === 'mobile-use-cases' ? null : 'mobile-use-cases')}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                <Link
+                  to="/solutions"
+                  className="flex items-center px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                 >
-                  <span>Use Cases</span>
-                  <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-use-cases' ? 'rotate-180' : ''}`} />
-                </button>
+                  <FaCubes className="mr-3" />
+                  Solutions
+                </Link>
 
-                <AnimatePresence>
-                  {activeMenu === 'mobile-use-cases' && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="pl-4"
-                    >
-                      {getNavLinks().find(link => link.title === 'Use Cases')?.submenu.map((category, index) => (
-                        <div key={index} className="py-1">
-                          <button
-                            onClick={() => setActiveSubmenu(activeSubmenu === category.title ? null : category.title)}
-                            className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                          >
-                            <div className="flex items-center space-x-2">
+                {/* Mobile Services Accordion */}
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setActiveMenu(activeMenu === 'mobile-services' ? null : 'mobile-services')}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                  >
+                    <div className="flex items-center">
+                      <FaCogs className="mr-3" />
+                      <span>Services</span>
+                    </div>
+                    <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-services' ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {activeMenu === 'mobile-services' && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="pl-4"
+                      >
+                        {getServiceCategories().map((category, index) => (
+                          <div key={index} className="py-1">
+                            <div className="flex items-center px-3 py-2 text-sm font-medium text-gray-900">
                               {category.icon}
-                              <span>{category.title}</span>
+                              <span className="ml-2">{category.title}</span>
                             </div>
-                            <FaChevronDown className={`transform transition-transform duration-200 ${activeSubmenu === category.title ? 'rotate-180' : ''}`} />
-                          </button>
+                            <div className="pl-8">
+                              {category.submenu.map((item, idx) => (
+                                <Link
+                                  key={idx}
+                                  to={item.path}
+                                  className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg"
+                                >
+                                  {item.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
-                          <AnimatePresence>
-                            {activeSubmenu === category.title && (
-                              <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className="pl-4"
-                              >
-                                {category.submenu.map((item, idx) => (
-                                  <Link
-                                    key={idx}
-                                    to={item.path}
-                                    className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                                  >
-                                    {item.title}
-                                  </Link>
-                                ))}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Mobile Industries Accordion */}
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setActiveMenu(activeMenu === 'mobile-industries' ? null : 'mobile-industries')}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                  >
+                    <div className="flex items-center">
+                      <FaIndustry className="mr-3" />
+                      <span>Industries</span>
+                    </div>
+                    <FaChevronDown className={`transform transition-transform duration-200 ${activeMenu === 'mobile-industries' ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {activeMenu === 'mobile-industries' && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="pl-4"
+                      >
+                        {getIndustryCategories().map((category, index) => (
+                          <div key={index} className="py-1">
+                            <div className="flex items-center px-3 py-2 text-sm font-medium text-gray-900">
+                              {category.icon}
+                              <span className="ml-2">{category.title}</span>
+                            </div>
+                            <div className="pl-8">
+                              {category.submenu.map((item, idx) => (
+                                <Link
+                                  key={idx}
+                                  to={item.path}
+                                  className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg"
+                                >
+                                  {item.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <Link
+                  to="/training-services"
+                  className="flex items-center px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                >
+                  <FaGraduationCap className="mr-3" />
+                  Training
+                </Link>
+
+                <Link
+                  to="/use-cases"
+                  className="flex items-center px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                >
+                  <FaLightbulb className="mr-3" />
+                  Use Cases
+                </Link>
+
+                <Link
+                  to="/contact"
+                  className="flex items-center px-3 py-2 rounded-lg text-base font-medium bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700"
+                >
+                  <FaEnvelope className="mr-3" />
+                  Contact Us
+                </Link>
               </div>
-
-              <Link
-                to="/contact"
-                className="block px-3 py-2 rounded-md text-base font-medium bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700"
-              >
-                Contact Us
-              </Link>
             </div>
           </motion.div>
         )}
