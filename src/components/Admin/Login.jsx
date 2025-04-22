@@ -3,6 +3,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { FaLock, FaUser, FaCloud, FaSignInAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
+// Define default credentials for fallback (in case env variables aren't set)
+const DEFAULT_ADMIN_USERNAME = 'admin';
+const DEFAULT_ADMIN_PASSWORD = 'password123';
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -59,19 +63,38 @@ const Login = () => {
       setIsLoggingIn(true);
       setError('');
       
-      // IMPORTANT: This is a DEMO WORKAROUND
-      // For the demo, any username/password combination will work
-      // In a real application, you would verify credentials against your backend
+      // Access environment variables for admin credentials
+      // First check Vercel environment variables
+      // Fallback to default credentials if env variables aren't set
+      const envUsername = import.meta.env?.ADMIN_USERNAME || 
+                         process.env?.REACT_APP_ADMIN_USERNAME || 
+                         DEFAULT_ADMIN_USERNAME;
       
-      // Create a token that expires in 7 days
-      const fakeToken = btoa(JSON.stringify({
-        username: username || 'admin',
+      const envPassword = import.meta.env?.ADMIN_PASSWORD || 
+                         process.env?.REACT_APP_ADMIN_PASSWORD || 
+                         DEFAULT_ADMIN_PASSWORD;
+      
+      // Verify credentials
+      if (username !== envUsername || password !== envPassword) {
+        throw new Error('Invalid username or password');
+      }
+      
+      // If credentials are valid, create a token that expires in 7 days
+      const token = btoa(JSON.stringify({
+        username: username,
         role: 'admin',
         exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 days
       }));
       
       // Store token
-      localStorage.setItem('authToken', fakeToken);
+      localStorage.setItem('authToken', token);
+      
+      // If remember me is checked, store credentials in localStorage
+      if (rememberMe) {
+        localStorage.setItem('rememberedUser', username);
+      } else {
+        localStorage.removeItem('rememberedUser');
+      }
       
       // Navigate to dashboard or intended destination
       const destination = location.state?.from || '/admin/dashboard';
@@ -79,11 +102,20 @@ const Login = () => {
       
     } catch (error) {
       console.error('Login error:', error);
-      setError(error.message || 'Failed to login. Please check your credentials.');
+      setError(error.message || 'Invalid credentials. Please try again.');
     } finally {
       setIsLoggingIn(false);
     }
   };
+
+  // Load remembered username if exists
+  useEffect(() => {
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser) {
+      setUsername(rememberedUser);
+      setRememberMe(true);
+    }
+  }, []);
 
   // Variants for framer-motion animations
   const containerVariants = {
@@ -241,11 +273,10 @@ const Login = () => {
               <svg className="w-5 h-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
-              <span className="font-bold text-blue-700">Demo Mode</span>
+              <span className="font-bold text-blue-700">Secure Access</span>
             </div>
-            <p className="font-medium mb-1">Any username and password will work!</p>
-            <p className="text-xs text-gray-500">This is a demo application with mock authentication.</p>
-            <p className="text-xs text-gray-500 mt-2">Suggested credentials:</p>
+            <p className="font-medium mb-1">Please enter your admin credentials</p>
+            <p className="text-xs text-gray-500">For testing purposes, use:</p>
             <p>Username: <span className="font-mono bg-gray-100 px-2 py-1 rounded">admin</span></p>
             <p>Password: <span className="font-mono bg-gray-100 px-2 py-1 rounded">password123</span></p>
           </div>
