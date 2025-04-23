@@ -165,4 +165,4 @@ const Leadership = () => {
   return <PageTemplate pageInfo={pageInfo} pageType="content" />;
 };
 
-export default Leadership; 
+export default Leadership;
