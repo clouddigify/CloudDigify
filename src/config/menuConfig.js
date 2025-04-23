@@ -1,4 +1,4 @@
-import { FaCloud, FaCode, FaShieldAlt, FaDatabase, FaIndustry, FaGraduationCap, FaLightbulb, FaChartLine, FaCubes, FaRocket } from 'react-icons/fa';
+import { FaCloud, FaCode, FaShieldAlt, FaDatabase, FaIndustry, FaGraduationCap, FaLightbulb, FaChartLine, FaCubes, FaRocket, FaCogs, FaNetworkWired, FaTools, FaDesktop, FaSyncAlt, FaUsers, FaUsersCog } from 'react-icons/fa';
 
 export const menuConfig = {
   mainNav: [
