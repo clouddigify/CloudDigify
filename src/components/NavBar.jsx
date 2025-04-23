@@ -11,19 +11,29 @@ import {
   industryPages
 } from '../config/pageConfig';
 
-// Update the logo path
-const logoUrl = '/logo.svg';
+// Update logo path for PNG
+const logoUrl = '/images/logo.png';
 
-// Add logo styles at the top of the component
 const LogoWrapper = ({ children }) => (
   <motion.div
-    className="flex items-center"
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
+    className="flex items-center space-x-3"
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
     transition={{ duration: 0.2 }}
   >
     {children}
   </motion.div>
+);
+
+const BrandTitle = () => (
+  <div className="flex items-center">
+    <span className="text-2xl font-bold text-[#2B6CB0]">
+      Cloud
+    </span>
+    <span className="text-2xl font-bold text-[#4299E1]">
+      Digify
+    </span>
+  </div>
 );
 
 // Define the multi-level service structure
@@ -565,14 +575,14 @@ const NavBar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
               <LogoWrapper>
-                <img 
-                  src={logoUrl} 
-                  alt="CloudDigify Logo" 
-                  className="h-10 w-auto transform transition-transform duration-200 hover:scale-110"
-                />
-                <span className="ml-2 text-xl font-bold text-gray-900 hidden md:block">
-                  CloudDigify
-                </span>
+                <div className="relative w-12 h-12">
+                  <img 
+                    src={logoUrl} 
+                    alt="CloudDigify Logo" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <BrandTitle />
               </LogoWrapper>
             </Link>
             <div className="hidden lg:ml-10 lg:flex lg:space-x-8">
@@ -628,7 +638,7 @@ const NavBar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="hidden lg:flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
+              className="hidden lg:flex items-center px-4 py-2 text-sm font-medium text-white bg-[#2B6CB0] hover:bg-[#2563EB] rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
             >
               Get Started
               <FaArrowRight className="ml-2" />
@@ -724,7 +734,7 @@ const NavBar = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full mt-4 px-4 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                className="w-full mt-4 px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 Get Started
                 <FaArrowRight className="ml-2 inline" />
