@@ -417,26 +417,43 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave }) => {
   if (!isOpen || !items) return null;
 
   return (
-    <div
-      className="absolute z-50 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
+      className="absolute z-50 mt-2 w-72 rounded-xl shadow-2xl bg-white/95 backdrop-blur-sm ring-1 ring-black/5 border border-gray-100"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="py-1">
+      <div className="py-2">
         {items.map((item, index) => (
-          <div key={index} className="relative">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.05 }}
+            className="relative"
+          >
             {item.submenu ? (
               <div
-                className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer group"
                 onMouseEnter={() => onMouseEnter(item)}
               >
-                <div className="flex items-center">
-                  {item.icon && <span className="mr-2">{item.icon}</span>}
-                  {item.title}
+                <div className="flex items-center space-x-3">
+                  <span className="text-blue-600 group-hover:scale-110 transition-transform">
+                    {item.icon}
+                  </span>
+                  <div>
+                    <div className="font-medium">{item.title}</div>
+                    {item.description && (
+                      <div className="text-xs text-gray-500">{item.description}</div>
+                    )}
+                  </div>
                 </div>
-                <FaChevronRight className="ml-2" />
+                <FaChevronRight className="ml-2 text-gray-400 group-hover:text-blue-500 transition-colors" />
                 {activeSubmenu === item && (
-                  <div className="absolute left-full top-0 w-64 ml-1">
+                  <div className="absolute left-full top-0 w-72 ml-1">
                     <DropdownMenu
                       items={item.submenu}
                       isOpen={true}
@@ -449,19 +466,23 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave }) => {
             ) : (
               <Link
                 to={item.path}
-                className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 group"
               >
-                {item.icon && <span className="mr-2">{item.icon}</span>}
-                {item.title}
-                {item.description && (
-                  <span className="ml-2 text-xs text-gray-500">{item.description}</span>
-                )}
+                <span className="text-blue-600 group-hover:scale-110 transition-transform mr-3">
+                  {item.icon}
+                </span>
+                <div>
+                  <div className="font-medium">{item.title}</div>
+                  {item.description && (
+                    <div className="text-xs text-gray-500">{item.description}</div>
+                  )}
+                </div>
               </Link>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -469,10 +490,18 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef(null);
   const location = useLocation();
 
-  // Close menu when clicking outside
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -480,12 +509,10 @@ const NavBar = () => {
         setActiveSubmenu(null);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Close menu when route changes
   useEffect(() => {
     setIsOpen(false);
     setActiveMenu(null);
@@ -506,108 +533,186 @@ const NavBar = () => {
   };
 
   return (
-    <nav ref={menuRef} className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4">
+    <motion.nav
+      ref={menuRef}
+      initial={false}
+      animate={{
+        backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 1)',
+        backdropFilter: isScrolled ? 'blur(10px)' : 'blur(0px)',
+      }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${
+        isScrolled ? 'shadow-lg' : 'shadow-sm'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex">
+          <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <img className="h-8 w-auto" src={logoUrl} alt="Logo" />
+              <motion.img
+                whileHover={{ scale: 1.05 }}
+                className="h-10 w-auto"
+                src={logoUrl}
+                alt="Logo"
+              />
             </Link>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden lg:ml-10 lg:flex lg:space-x-8">
               {menuConfig.mainNav.map((item, index) => (
-                <div
+                <motion.div
                   key={index}
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(item)}
                   onMouseLeave={handleMouseLeave}
+                  whileHover={{ scale: 1.05 }}
                 >
                   {item.hasSubmenu ? (
-                    <button
-                      className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900"
-                    >
-                      {item.title}
-                      <FaChevronDown className="ml-1" />
+                    <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-900 rounded-full hover:bg-gray-50 transition-colors">
+                      <span>{item.title}</span>
+                      <motion.span
+                        animate={{ rotate: activeMenu === item ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <FaChevronDown className="ml-1 h-4 w-4" />
+                      </motion.span>
                     </button>
                   ) : (
                     <NavLink
                       to={item.path}
                       className={({ isActive }) =>
-                        `inline-flex items-center px-1 pt-1 text-sm font-medium ${
-                          isActive ? 'text-indigo-600' : 'text-gray-900'
+                        `inline-flex items-center px-3 py-2 text-sm font-medium rounded-full transition-colors ${
+                          isActive
+                            ? 'text-white bg-blue-600 hover:bg-blue-700'
+                            : 'text-gray-900 hover:bg-gray-50'
                         }`
                       }
                     >
                       {item.title}
                     </NavLink>
                   )}
-                  {item.hasSubmenu && activeMenu === item && (
-                    <DropdownMenu
-                      items={item.submenu}
-                      isOpen={true}
-                      onMouseEnter={() => handleMouseEnter(item)}
-                      onMouseLeave={handleMouseLeave}
-                    />
-                  )}
-                </div>
+                  <AnimatePresence>
+                    {item.hasSubmenu && activeMenu === item && (
+                      <DropdownMenu
+                        items={item.submenu}
+                        isOpen={true}
+                        onMouseEnter={() => handleMouseEnter(item)}
+                        onMouseLeave={handleMouseLeave}
+                      />
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               ))}
             </div>
           </div>
-          
-          {/* Mobile menu button */}
-          <div className="sm:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+
+          <div className="flex items-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="hidden lg:flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
             >
-              {isOpen ? <FaTimes /> : <FaBars />}
-            </button>
+              Get Started
+              <FaArrowRight className="ml-2" />
+            </motion.button>
+            
+            <div className="lg:hidden">
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsOpen(!isOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+              >
+                {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
+              </motion.button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`sm:hidden ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="pt-2 pb-3 space-y-1">
-          {menuConfig.mainNav.map((item, index) => (
-            <div key={index}>
-              {item.hasSubmenu ? (
-                <button
-                  onClick={() => handleMouseEnter(item)}
-                  className="w-full flex items-center px-3 py-2 text-base font-medium text-gray-900"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-white border-t"
+          >
+            <div className="pt-2 pb-3 space-y-1 px-4">
+              {menuConfig.mainNav.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  {item.title}
-                  <FaChevronDown className="ml-1" />
-                </button>
-              ) : (
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `block px-3 py-2 text-base font-medium ${
-                      isActive ? 'text-indigo-600' : 'text-gray-900'
-                    }`
-                  }
-                >
-                  {item.title}
-                </NavLink>
-              )}
-              {item.hasSubmenu && activeMenu === item && (
-                <div className="pl-4">
-                  {item.submenu.map((subItem, subIndex) => (
-                    <Link
-                      key={subIndex}
-                      to={subItem.path}
-                      className="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900"
+                  {item.hasSubmenu ? (
+                    <button
+                      onClick={() => handleMouseEnter(item)}
+                      className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-50"
                     >
-                      {subItem.title}
-                    </Link>
-                  ))}
-                </div>
-              )}
+                      {item.title}
+                      <motion.span
+                        animate={{ rotate: activeMenu === item ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <FaChevronDown className="ml-1 h-4 w-4" />
+                      </motion.span>
+                    </button>
+                  ) : (
+                    <NavLink
+                      to={item.path}
+                      className={({ isActive }) =>
+                        `block px-3 py-2 text-base font-medium rounded-lg ${
+                          isActive
+                            ? 'text-white bg-blue-600'
+                            : 'text-gray-900 hover:bg-gray-50'
+                        }`
+                      }
+                    >
+                      {item.title}
+                    </NavLink>
+                  )}
+                  <AnimatePresence>
+                    {item.hasSubmenu && activeMenu === item && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="pl-4 mt-2 space-y-1"
+                      >
+                        {item.submenu.map((subItem, subIndex) => (
+                          <motion.div
+                            key={subIndex}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: subIndex * 0.05 }}
+                          >
+                            <Link
+                              to={subItem.path}
+                              className="flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50"
+                            >
+                              {subItem.icon && (
+                                <span className="mr-3 text-blue-600">{subItem.icon}</span>
+                              )}
+                              {subItem.title}
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full mt-4 px-4 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Get Started
+                <FaArrowRight className="ml-2 inline" />
+              </motion.button>
             </div>
-          ))}
-        </div>
-      </div>
-    </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 
