@@ -69,11 +69,11 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.05 }}
             className="relative"
+            onMouseEnter={() => onMouseEnter(item)}
           >
             {item.submenu ? (
               <div
                 className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer group"
-                onMouseEnter={() => onMouseEnter(item)}
               >
                 <div className="flex items-center space-x-3 min-w-0">
                   <span className="flex-shrink-0 text-blue-600 group-hover:scale-110 transition-transform">
@@ -156,9 +156,11 @@ const NavBar = () => {
   }, [location]);
 
   const handleMouseEnter = (menu) => {
-    setActiveMenu(menu);
-    if (!menu.submenu) {
-      setActiveSubmenu(null);
+    if (menu.hasSubmenu) {
+      setActiveMenu(menu);
+    }
+    if (menu.submenu) {
+      setActiveSubmenu(menu);
     }
   };
 
