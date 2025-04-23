@@ -130,6 +130,7 @@ const NavBar = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef(null);
+  const timeoutRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -143,8 +144,7 @@ const NavBar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setActiveMenu(null);
-        setActiveSubmenu(null);
+        closeMenus();
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -153,13 +153,23 @@ const NavBar = () => {
 
   useEffect(() => {
     setIsOpen(false);
-    setActiveMenu(null);
-    setActiveSubmenu(null);
+    closeMenus();
   }, [location]);
 
+  const closeMenus = () => {
+    setActiveMenu(null);
+    setActiveSubmenu(null);
+  };
+
   const handleMouseEnter = (menu) => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
     if (menu.hasSubmenu) {
-    setActiveMenu(menu);
+      setActiveMenu(menu);
     }
     if (menu.submenu) {
       setActiveSubmenu(menu);
@@ -167,8 +177,10 @@ const NavBar = () => {
   };
 
   const handleMouseLeave = () => {
-    setActiveMenu(null);
-    setActiveSubmenu(null);
+    // Set a timeout before closing the menu
+    timeoutRef.current = setTimeout(() => {
+      closeMenus();
+    }, 300); // 300ms delay before closing
   };
 
   const handleItemClick = (item) => {
@@ -176,6 +188,15 @@ const NavBar = () => {
       setActiveSubmenu(activeSubmenu === item ? null : item);
     }
   };
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <motion.nav
