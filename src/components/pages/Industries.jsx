@@ -19,7 +19,7 @@ const Industries = () => {
   const industryCategories = [
     {
       icon: <FaIndustry className="text-5xl text-blue-600" />,
-    title: 'Manufacturing',
+      title: 'Manufacturing',
       description: 'Smart manufacturing solutions for Industry 4.0',
       features: [
         'Industrial IoT Integration',
@@ -27,13 +27,13 @@ const Industries = () => {
         'Supply Chain Optimization',
         'Digital Twin Technology'
       ],
-    path: '/industries/manufacturing',
+      path: '/industries/manufacturing',
       gradient: 'from-blue-500 to-cyan-500',
       image: '/images/industries/manufacturing.jpg'
     },
     {
       icon: <FaHospital className="text-5xl text-green-600" />,
-    title: 'Healthcare',
+      title: 'Healthcare',
       description: 'Digital healthcare solutions for modern medical needs',
       features: [
         'Telemedicine Platforms',
@@ -41,7 +41,7 @@ const Industries = () => {
         'Patient Experience',
         'Medical IoT Solutions'
       ],
-    path: '/industries/healthcare',
+      path: '/industries/healthcare',
       gradient: 'from-green-500 to-emerald-500',
       image: '/images/industries/healthcare.jpg'
     },
@@ -89,7 +89,7 @@ const Industries = () => {
     },
     {
       icon: <FaPlane className="text-5xl text-sky-600" />,
-    title: 'Travel & Hospitality',
+      title: 'Travel & Hospitality',
       description: 'Digital solutions for travel and hospitality',
       features: [
         'Booking Platforms',
@@ -97,7 +97,7 @@ const Industries = () => {
         'Revenue Management',
         'Travel Analytics'
       ],
-    path: '/industries/travel',
+      path: '/industries/travel',
       gradient: 'from-sky-500 to-blue-500',
       image: '/images/industries/travel.jpg'
     }
@@ -123,7 +123,7 @@ const Industries = () => {
       {/* Main Industries Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <motion.div
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -163,11 +163,11 @@ const Industries = () => {
                     ))}
                   </ul>
                   
-                  <Link 
+                  <Link
                     to={industry.path}
                     className="inline-flex items-center justify-center w-full px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 group"
                   >
-                    Learn More 
+                    Learn More
                     <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -191,7 +191,7 @@ const Industries = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Emerging Industries</h2>
             <p className="text-xl text-gray-600">Innovative solutions for emerging sectors</p>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {emergingIndustries.map((industry, index) => (
               <motion.div
@@ -205,7 +205,7 @@ const Industries = () => {
                 <div className="mb-4">{industry.icon}</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{industry.title}</h3>
                 <p className="text-gray-600 mb-4">{industry.description}</p>
-              <Link 
+                <Link
                   to={industry.path}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                 >
@@ -213,7 +213,7 @@ const Industries = () => {
                   <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-              </Link>
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -238,16 +238,16 @@ const Industries = () => {
                 <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
                   Let's discuss how our industry-specific solutions can drive your digital transformation
                 </p>
-            <Link
-              to="/contact"
+                <Link
+                  to="/contact"
                   className="inline-flex items-center px-8 py-4 rounded-full bg-white text-blue-600 font-semibold hover:bg-blue-50 transition-all duration-200 group"
                 >
                   Get Started
                   <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-            </Link>
-          </div>
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>
