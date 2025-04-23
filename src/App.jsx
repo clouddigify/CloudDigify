@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { siteConfig } from './config/siteConfig';
@@ -22,6 +22,51 @@ import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
 import CloudMigrationCases from './components/pages/use-cases/CloudMigrationCases';
 import DigitalInnovationCases from './components/pages/use-cases/DigitalInnovationCases';
 import EnterpriseUseCases from './components/pages/use-cases/EnterpriseUseCases';
+
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error:', error);
+    console.error('Error Info:', errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center p-8">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">Something went wrong</h1>
+            <p className="text-gray-600 mb-4">Please try refreshing the page</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Loading Component
+const LoadingSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
+  </div>
+);
 
 // Wrap routes with AnimatePresence
 const AnimatedRoutes = () => {
@@ -75,15 +120,19 @@ const AnimatedRoutes = () => {
 
 const App = () => {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <NavBar />
-        <main className="flex-grow">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <div className="flex flex-col min-h-screen bg-white">
+          <NavBar />
+          <Suspense fallback={<LoadingSpinner />}>
+            <main className="flex-grow">
+              <AnimatedRoutes />
+            </main>
+          </Suspense>
+          <Footer />
+        </div>
+      </Router>
+    </ErrorBoundary>
   );
 };
 
