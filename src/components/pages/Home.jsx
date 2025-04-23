@@ -165,7 +165,7 @@ const Home = () => {
           animate="visible"
         >
           <div className="text-center">
-            <motion.div
+  <motion.div
               className="mb-8"
               animate={{
                 rotate: [0, 5, -5, 0],
@@ -184,25 +184,25 @@ const Home = () => {
               />
             </motion.div>
 
-            <motion.h1 
+      <motion.h1
               className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200"
               variants={itemVariants}
             >
               Transform Your Digital Future
-            </motion.h1>
+      </motion.h1>
             
-            <motion.p 
+      <motion.p
               className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto"
               variants={itemVariants}
             >
               Accelerate your business with cloud-native solutions, AI-driven insights, and cutting-edge technology
-            </motion.p>
+      </motion.p>
 
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={itemVariants}
             >
-              <Link 
+      <Link
                 to="/contact"
                 className="group inline-flex items-center px-8 py-4 rounded-full bg-white text-blue-900 font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
                 onMouseEnter={() => setCursorVariant("hover")}
@@ -216,7 +216,7 @@ const Home = () => {
                 >
                   <FaArrowRight />
                 </motion.span>
-              </Link>
+      </Link>
 
               <motion.button 
                 className="inline-flex items-center px-8 py-4 rounded-full border-2 border-white text-white font-semibold hover:bg-white/10 transition-all duration-300"
@@ -463,13 +463,13 @@ const Home = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <WhyChooseUs />
-        <Testimonials />
-        <Partners />
-        <QuickContact />
-      </motion.div>
+    <WhyChooseUs />
+    <Testimonials />
+    <Partners />
+    <QuickContact />
+  </motion.div>
     </div>
-  );
+);
 };
 
 export default Home; 

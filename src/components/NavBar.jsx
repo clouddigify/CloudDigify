@@ -558,8 +558,8 @@ const NavBar = () => {
                                     <span>{item.title}</span>
                                   </Link>
                                 </motion.li>
-                              ))}
-                            </ul>
+          ))}
+        </ul>
                             <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-100 rounded-xl transition-colors duration-200" />
                           </motion.div>
                         ))}
@@ -625,7 +625,7 @@ const NavBar = () => {
                       {/* Industries Grid */}
                       <div className="grid grid-cols-2 gap-6 p-8">
                         {getIndustryCategories().map((category, index) => (
-                          <motion.div
+      <motion.div
                             key={index}
                             variants={menuItemVariants}
                             className="group relative bg-white rounded-xl p-4 hover:bg-blue-50 transition-colors duration-200"
