@@ -413,7 +413,7 @@ const menuContainerVariants = {
   }
 };
 
-const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave }) => {
+const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu }) => {
   if (!isOpen || !items) return null;
 
   return (
@@ -459,6 +459,7 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave }) => {
                       isOpen={true}
                       onMouseEnter={() => onMouseEnter(item)}
                       onMouseLeave={onMouseLeave}
+                      activeSubmenu={activeSubmenu}
                     />
                   </div>
                 )}
@@ -521,6 +522,9 @@ const NavBar = () => {
 
   const handleMouseEnter = (menu) => {
     setActiveMenu(menu);
+    if (!menu.submenu) {
+      setActiveSubmenu(null);
+    }
   };
 
   const handleSubmenuEnter = (submenu) => {
@@ -595,6 +599,7 @@ const NavBar = () => {
                         isOpen={true}
                         onMouseEnter={() => handleMouseEnter(item)}
                         onMouseLeave={handleMouseLeave}
+                        activeSubmenu={activeSubmenu}
                       />
                     )}
                   </AnimatePresence>

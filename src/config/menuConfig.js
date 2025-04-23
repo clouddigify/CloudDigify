@@ -18,7 +18,7 @@ export const menuConfig = {
         {
           title: 'Cloud Services',
           path: '/services/cloud-services',
-          icon: FaCloud,
+          icon: <FaCloud />,
           submenu: [
             { title: 'Cloud & Infrastructure Services', path: '/services/cloud-infrastructure' },
             { title: 'Cloud Migration', path: '/services/cloud-migration' },
@@ -30,7 +30,7 @@ export const menuConfig = {
         {
           title: 'DevOps & Engineering',
           path: '/services/devops-engineering',
-          icon: FaCode,
+          icon: <FaCode />,
           submenu: [
             { title: 'DevOps & CI/CD', path: '/services/devops' },
             { title: 'Infrastructure as Code', path: '/services/infrastructure-as-code' },
@@ -42,7 +42,7 @@ export const menuConfig = {
         {
           title: 'Security & Compliance',
           path: '/services/security',
-          icon: FaShieldAlt,
+          icon: <FaShieldAlt />,
           submenu: [
             { title: 'Security & Compliance', path: '/services/security-compliance' },
             { title: 'Cyber Defense Resiliency', path: '/services/cyber-defense' },
@@ -60,7 +60,7 @@ export const menuConfig = {
         {
           title: 'Financial Services',
           path: '/industries/financial-services',
-          icon: FaDatabase,
+          icon: <FaDatabase />,
           submenu: [
             { title: 'Banking', path: '/industries/banking' },
             { title: 'Insurance', path: '/industries/insurance' },
@@ -71,7 +71,7 @@ export const menuConfig = {
         {
           title: 'Manufacturing',
           path: '/industries/manufacturing',
-          icon: FaIndustry,
+          icon: <FaIndustry />,
           submenu: [
             { title: 'Manufacturing', path: '/industries/manufacturing-general' },
             { title: 'Advanced Manufacturing', path: '/industries/advanced-manufacturing' },
@@ -89,25 +89,25 @@ export const menuConfig = {
         {
           title: 'AWS Training',
           path: '/training-services/aws',
-          icon: FaCloud,
+          icon: <FaCloud />,
           description: 'Master AWS cloud services and architecture'
         },
         {
           title: 'Azure Training',
           path: '/training-services/azure',
-          icon: FaCloud,
+          icon: <FaCloud />,
           description: 'Learn Microsoft Azure cloud platform'
         },
         {
           title: 'DevOps Training',
           path: '/training-services/devops',
-          icon: FaCode,
+          icon: <FaCode />,
           description: 'Master DevOps practices and tools'
         },
         {
           title: 'Kubernetes Training',
           path: '/training-services/kubernetes',
-          icon: FaDocker,
+          icon: <FaDocker />,
           description: 'Learn container orchestration with Kubernetes'
         }
       ]
@@ -120,19 +120,19 @@ export const menuConfig = {
         {
           title: 'Enterprise Transformation',
           path: '/use-cases/enterprise',
-          icon: FaChartLine,
+          icon: <FaChartLine />,
           description: 'Digital transformation success stories'
         },
         {
           title: 'Cloud Migration',
           path: '/use-cases/migration',
-          icon: FaCloud,
+          icon: <FaCloud />,
           description: 'Successful cloud migration cases'
         },
         {
           title: 'Digital Innovation',
           path: '/use-cases/innovation',
-          icon: FaLightbulb,
+          icon: <FaLightbulb />,
           description: 'Innovation and modernization stories'
         }
       ]
