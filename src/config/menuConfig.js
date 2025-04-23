@@ -150,15 +150,15 @@ export const menuConfig = {
         {
           title: 'Cloud Training',
           icon: 'Cloud',
-          submenu: [
-            { 
-              title: 'AWS Training',
-              path: '/training-services/aws',
+      submenu: [
+        {
+          title: 'AWS Training',
+          path: '/training-services/aws',
               description: 'Amazon Web Services certification'
-            },
-            { 
-              title: 'Azure Training',
-              path: '/training-services/azure',
+        },
+        {
+          title: 'Azure Training',
+          path: '/training-services/azure',
               description: 'Microsoft Azure certification'
             }
           ]
@@ -169,19 +169,19 @@ export const menuConfig = {
           submenu: [
             { 
               title: 'DevOps Fundamentals',
-              path: '/training-services/devops',
+          path: '/training-services/devops',
               description: 'Core DevOps practices'
-            },
-            { 
+        },
+        {
               title: 'Kubernetes',
-              path: '/training-services/kubernetes',
+          path: '/training-services/kubernetes',
               description: 'Container orchestration'
             }
           ]
         }
       ]
     },
-    { 
+    {
       title: 'Use Cases',
       path: '/use-cases',
       hasSubmenu: true,
@@ -192,12 +192,12 @@ export const menuConfig = {
           submenu: [
             { 
               title: 'Enterprise Cases',
-              path: '/use-cases/enterprise',
+          path: '/use-cases/enterprise',
               description: 'Enterprise transformation stories'
-            },
-            { 
-              title: 'Cloud Migration',
-              path: '/use-cases/migration',
+        },
+        {
+          title: 'Cloud Migration',
+          path: '/use-cases/migration',
               description: 'Successful migration cases'
             }
           ]
@@ -222,6 +222,6 @@ export const menuConfig = {
     },
     { title: 'Contact', path: '/contact' }
   ]
-};
+}; 
 
 export { Icons }; 
