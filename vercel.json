@@ -15,107 +15,31 @@
       "use": "@vercel/static-build",
       "config": {
         "buildCommand": "npm run build",
-        "outputDirectory": "dist"
+        "outputDirectory": "dist",
+        "distDir": "dist"
       }
     }
   ],
   "routes": [
     {
-      "src": "/(www\\.)?clouddigify\\.com/(.*)",
-      "dest": "https://clouddigify.com/$2",
-      "status": 301
-    },
-    {
-      "src": "/(.*)",
-      "has": [
-        {
-          "type": "header",
-          "key": "x-forwarded-proto",
-          "value": "http"
-        }
-      ],
-      "dest": "https://clouddigify.com/$1",
-      "status": 301
-    },
-    {
-      "src": "/test-api",
-      "dest": "/test_api.html"
-    },
-    {
-      "src": "/api/github-test",
-      "dest": "/api/github-test.js"
-    },
-    {
-      "src": "/api/test-email",
-      "dest": "/api/test-email.js"
-    },
-    {
-      "src": "/api/send-email",
-      "dest": "/api/send-email.js"
-    },
-    {
-      "src": "/api/images",
-      "dest": "/api/images.js"
-    },
-    {
-      "src": "/api/auth/login",
-      "dest": "/api/auth/login.js"
-    },
-    {
-      "src": "/api/content",
-      "dest": "/api/content.js"
-    },
-    {
-      "src": "/api/auth",
-      "dest": "/api/auth.js"
-    },
-    {
-      "src": "/api/menus",
-      "dest": "/api/menus.js"
-    },
-    {
-      "src": "/api/simple",
-      "dest": "/api/simple.js"
-    },
-    {
       "handle": "filesystem"
     },
     {
-      "src": "/admin.*",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/.*",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/api/debug",
-      "dest": "/api/debug.js"
-    },
-    {
-      "src": "/api/test",
-      "dest": "/api/auth.js"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
       "src": "/static/(.*)",
-      "headers": { "cache-control": "public, max-age=31536000, immutable" },
+      "headers": { 
+        "cache-control": "public, max-age=31536000, immutable" 
+      },
       "dest": "/static/$1"
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "/asset-manifest.json",
-      "dest": "/asset-manifest.json"
-    },
-    {
-      "src": "/manifest.json",
-      "dest": "/manifest.json"
-    },
-    {
       "src": "/assets/(.*)",
-      "headers": { "cache-control": "public, max-age=31536000, immutable" },
+      "headers": { 
+        "cache-control": "public, max-age=31536000, immutable" 
+      },
       "dest": "/assets/$1"
     },
     {
@@ -131,7 +55,7 @@
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
         "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
-        "Content-Security-Policy": "default-src 'self'; img-src 'self' data: https://images.unsplash.com https://logos-world.net https://via.placeholder.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self';"
+        "Content-Security-Policy": "default-src 'self' https:; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https:; object-src 'none';"
       },
       "dest": "/index.html"
     }
