@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaArrowRight } from 'react-icons/fa';
-import { menuConfig } from '../config/menuConfig';
+import { menuConfig, Icons } from '../config/menuConfig';
+import IconRenderer from './IconRenderer';
 
 // Update logo path for PNG
 const logoUrl = '/images/logo.png';
@@ -58,7 +59,7 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
               >
                 <div className="flex items-center space-x-3">
                   <span className="text-blue-600 group-hover:scale-110 transition-transform">
-                    {item.icon}
+                    <IconRenderer icon={item.icon} className="w-5 h-5" />
                   </span>
                   <div>
                     <div className="font-medium antialiased">{item.title}</div>
@@ -86,7 +87,7 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
                 className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 group"
               >
                 <span className="text-blue-600 group-hover:scale-110 transition-transform mr-3">
-                  {item.icon}
+                  <IconRenderer icon={item.icon} className="w-5 h-5" />
                 </span>
                 <div>
                   <div className="font-medium antialiased">{item.title}</div>

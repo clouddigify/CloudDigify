@@ -1,4 +1,23 @@
-import { FaCloud, FaCode, FaShieldAlt, FaDatabase, FaIndustry, FaGraduationCap, FaLightbulb, FaChartLine, FaCubes, FaRocket, FaCogs, FaNetworkWired, FaTools, FaDesktop, FaSyncAlt, FaUsers, FaUsersCog } from 'react-icons/fa';
+import { 
+  FaCloud, 
+  FaCode, 
+  FaShieldAlt, 
+  FaDatabase, 
+  FaIndustry, 
+  FaChartLine, 
+  FaCubes 
+} from 'react-icons/fa';
+
+// Create a mapping of icon components
+const Icons = {
+  Cloud: FaCloud,
+  Code: FaCode,
+  Shield: FaShieldAlt,
+  Database: FaDatabase,
+  Industry: FaIndustry,
+  Chart: FaChartLine,
+  Cubes: FaCubes
+};
 
 export const menuConfig = {
   mainNav: [
@@ -11,7 +30,7 @@ export const menuConfig = {
       submenu: [
         {
           title: 'Cloud Services',
-          icon: <FaCloud className="w-5 h-5" />,
+          icon: 'Cloud',
           submenu: [
             { 
               title: 'Cloud Infrastructure',
@@ -32,7 +51,7 @@ export const menuConfig = {
         },
         {
           title: 'DevOps & Engineering',
-          icon: <FaCode className="w-5 h-5" />,
+          icon: 'Code',
           submenu: [
             { 
               title: 'DevOps Services',
@@ -53,7 +72,7 @@ export const menuConfig = {
         },
         {
           title: 'Security & Compliance',
-          icon: <FaShieldAlt className="w-5 h-5" />,
+          icon: 'ShieldAlt',
           submenu: [
             { 
               title: 'Security Services',
@@ -81,7 +100,7 @@ export const menuConfig = {
       submenu: [
         {
           title: 'Financial Services',
-          icon: <FaDatabase className="w-5 h-5" />,
+          icon: 'Database',
           submenu: [
             { 
               title: 'Banking Solutions',
@@ -102,7 +121,7 @@ export const menuConfig = {
         },
         {
           title: 'Manufacturing',
-          icon: <FaIndustry className="w-5 h-5" />,
+          icon: 'Industry',
           submenu: [
             { 
               title: 'Smart Manufacturing',
@@ -130,7 +149,7 @@ export const menuConfig = {
       submenu: [
         {
           title: 'Cloud Training',
-          icon: <FaCloud className="w-5 h-5" />,
+          icon: 'Cloud',
           submenu: [
             { 
               title: 'AWS Training',
@@ -146,7 +165,7 @@ export const menuConfig = {
         },
         {
           title: 'DevOps Training',
-          icon: <FaCode className="w-5 h-5" />,
+          icon: 'Code',
           submenu: [
             { 
               title: 'DevOps Fundamentals',
@@ -169,7 +188,7 @@ export const menuConfig = {
       submenu: [
         {
           title: 'Success Stories',
-          icon: <FaChartLine className="w-5 h-5" />,
+          icon: 'ChartLine',
           submenu: [
             { 
               title: 'Enterprise Cases',
@@ -185,7 +204,7 @@ export const menuConfig = {
         },
         {
           title: 'Solutions',
-          icon: <FaCubes className="w-5 h-5" />,
+          icon: 'Cubes',
           submenu: [
             { 
               title: 'Industry Solutions',
@@ -203,4 +222,6 @@ export const menuConfig = {
     },
     { title: 'Contact', path: '/contact' }
   ]
-}; 
+};
+
+export { Icons }; 
