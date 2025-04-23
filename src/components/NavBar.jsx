@@ -11,8 +11,20 @@ import {
   industryPages
 } from '../config/pageConfig';
 
-// You can replace this with your actual logo path
-const logoUrl = '/logo.png';
+// Update the logo path
+const logoUrl = '/logo.svg';
+
+// Add logo styles at the top of the component
+const LogoWrapper = ({ children }) => (
+  <motion.div
+    className="flex items-center"
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    transition={{ duration: 0.2 }}
+  >
+    {children}
+  </motion.div>
+);
 
 // Define the multi-level service structure
 const getServiceCategories = () => {
@@ -552,12 +564,16 @@ const NavBar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <motion.img
-                whileHover={{ scale: 1.05 }}
-                className="h-10 w-auto"
-                src={logoUrl}
-                alt="Logo"
-              />
+              <LogoWrapper>
+                <img 
+                  src={logoUrl} 
+                  alt="CloudDigify Logo" 
+                  className="h-10 w-auto transform transition-transform duration-200 hover:scale-110"
+                />
+                <span className="ml-2 text-xl font-bold text-gray-900 hidden md:block">
+                  CloudDigify
+                </span>
+              </LogoWrapper>
             </Link>
             <div className="hidden lg:ml-10 lg:flex lg:space-x-8">
               {menuConfig.mainNav.map((item, index) => (
