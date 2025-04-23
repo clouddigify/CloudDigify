@@ -1,51 +1,22 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { siteConfig } from './config/siteConfig';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
 // Page Components
 import Home from './components/pages/Home';
+import About from './components/pages/About';
 import Services from './components/pages/Services';
 import Industries from './components/pages/Industries';
 import TrainingServices from './components/pages/TrainingServices';
 import UseCases from './components/pages/UseCases';
 import Blogs from './components/pages/Blogs';
 import Contact from './components/pages/Contact';
-import About from './components/pages/About';
-
-// Legal Pages
 import TermsAndConditions from './components/pages/legal/TermsAndConditions';
 import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
-
-// Service Pages
-import DevOps from './components/pages/services/DevOps';
-import CloudMigration from './components/pages/services/CloudMigration';
-import ManagedServices from './components/pages/services/ManagedServices';
-import InfrastructureAsCode from './components/pages/services/InfrastructureAsCode';
-import ArchitectureDesign from './components/pages/services/ArchitectureDesign';
-import SecurityCompliance from './components/pages/services/SecurityCompliance';
-import CloudOptimization from './components/pages/services/CloudOptimization';
-import DisasterRecovery from './components/pages/services/DisasterRecovery';
-import Containerization from './components/pages/services/Containerization';
-import Serverless from './components/pages/services/Serverless';
-import CloudInfrastructure from './components/pages/services/CloudInfrastructure';
-
-// Training Pages
-import AwsTraining from './components/pages/training/AwsTraining';
-import AzureTraining from './components/pages/training/AzureTraining';
-import DevOpsTraining from './components/pages/training/DevOpsTraining';
-import KubernetesTraining from './components/pages/training/KubernetesTraining';
-
-// Use Cases Pages
-import EnterpriseUseCases from './components/pages/use-cases/EnterpriseUseCases';
-import CloudMigrationCases from './components/pages/use-cases/CloudMigrationCases';
-import DigitalInnovationCases from './components/pages/use-cases/DigitalInnovationCases';
-
-// Industry Pages
-import FinancialServices from './components/pages/industries/FinancialServices';
-import Banking from './components/pages/industries/Banking';
 
 // Wrap routes with AnimatePresence
 const AnimatedRoutes = () => {
@@ -54,45 +25,39 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} />
-        <Route path="/training-services" element={<TrainingServices />} />
-        <Route path="/use-cases" element={<UseCases />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
+        {/* Main Routes */}
+        <Route path="/" element={<Home pageInfo={siteConfig.pages.home} />} />
         
-        {/* Service Routes */}
-        <Route path="/services/devops" element={<DevOps />} />
-        <Route path="/services/cloud-migration" element={<CloudMigration />} />
-        <Route path="/services/managed-services" element={<ManagedServices />} />
-        <Route path="/services/infrastructure-as-code" element={<InfrastructureAsCode />} />
-        <Route path="/services/architecture-design" element={<ArchitectureDesign />} />
-        <Route path="/services/security-compliance" element={<SecurityCompliance />} />
-        <Route path="/services/cloud-optimization" element={<CloudOptimization />} />
-        <Route path="/services/disaster-recovery" element={<DisasterRecovery />} />
-        <Route path="/services/containerization" element={<Containerization />} />
-        <Route path="/services/serverless" element={<Serverless />} />
-        <Route path="/services/cloud-infrastructure" element={<CloudInfrastructure />} />
+        {/* Generate routes from navigation config */}
+        {siteConfig.navigation.map(item => (
+          <React.Fragment key={item.path}>
+            {/* Main route */}
+            <Route 
+              path={item.path} 
+              element={React.createElement(
+                // Dynamically get the component based on the path
+                require(`./components/pages${item.path === '/training-services' ? '/TrainingServices' : item.path.charAt(0).toUpperCase() + item.path.slice(1)}`).default,
+                { pageInfo: siteConfig.pages[item.path.substring(1).replace(/-./g, x => x[1].toUpperCase())] }
+              )}
+            />
+            
+            {/* Submenu routes */}
+            {item.submenu?.map(subItem => (
+              <Route
+                key={subItem.path}
+                path={subItem.path}
+                element={React.createElement(
+                  require(`./components/pages${subItem.path}`).default,
+                  { pageInfo: { ...subItem, type: item.path.substring(1) } }
+                )}
+              />
+            ))}
+          </React.Fragment>
+        ))}
         
-        {/* Training Routes */}
-        <Route path="/training-services/aws" element={<AwsTraining />} />
-        <Route path="/training-services/azure" element={<AzureTraining />} />
-        <Route path="/training-services/devops" element={<DevOpsTraining />} />
-        <Route path="/training-services/kubernetes" element={<KubernetesTraining />} />
-        
-        {/* Use Cases Routes */}
-        <Route path="/use-cases/enterprise" element={<EnterpriseUseCases />} />
-        <Route path="/use-cases/migration" element={<CloudMigrationCases />} />
-        <Route path="/use-cases/innovation" element={<DigitalInnovationCases />} />
-        
-        {/* Industry Routes */}
-        <Route path="/industries/financial-services" element={<FinancialServices />} />
-        <Route path="/industries/banking" element={<Banking />} />
+        {/* Legal Routes */}
+        <Route path="/terms" element={<TermsAndConditions pageInfo={siteConfig.pages.legal.terms} />} />
+        <Route path="/privacy" element={<PrivacyPolicy pageInfo={siteConfig.pages.legal.privacy} />} />
         
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
