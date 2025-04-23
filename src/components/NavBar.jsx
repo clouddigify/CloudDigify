@@ -5,12 +5,13 @@ import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaArrowRight } from 're
 import { menuConfig, Icons } from '../config/menuConfig';
 import IconRenderer from './IconRenderer';
 
-// Update logo path for PNG
-const logoUrl = '/images/logo.png';
+// Update logo paths
+const logoSvg = '/images/logo.svg';
+const logoPng = '/images/logo.png';
 
 const LogoWrapper = ({ children }) => (
   <motion.div
-    className="flex items-center space-x-3"
+    className="flex items-center space-x-3 hover:opacity-90"
     whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
     transition={{ duration: 0.2 }}
@@ -19,9 +20,26 @@ const LogoWrapper = ({ children }) => (
   </motion.div>
 );
 
+const Logo = () => {
+  return (
+    <div className="relative w-12 h-12">
+      <picture>
+        <source srcSet={logoSvg} type="image/svg+xml" />
+        <img 
+          src={logoPng}
+          alt="CloudDigify Logo" 
+          className="w-full h-full object-contain"
+          loading="eager"
+          style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(89%) saturate(1857%) hue-rotate(199deg) brightness(91%) contrast(88%)' }}
+        />
+      </picture>
+    </div>
+  );
+};
+
 const BrandTitle = () => (
   <div className="flex items-center">
-    <span className="text-2xl font-bold text-[#2B6CB0]">
+    <span className="text-2xl font-bold bg-gradient-to-r from-[#2B6CB0] to-[#4299E1] bg-clip-text text-transparent">
       Cloud
     </span>
     <span className="text-2xl font-bold text-[#4299E1]">
@@ -57,18 +75,18 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
                 className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer group"
                 onMouseEnter={() => onMouseEnter(item)}
               >
-                <div className="flex items-center space-x-3">
-                  <span className="text-blue-600 group-hover:scale-110 transition-transform">
+                <div className="flex items-center space-x-3 min-w-0">
+                  <span className="flex-shrink-0 text-blue-600 group-hover:scale-110 transition-transform">
                     <IconRenderer icon={item.icon} className="w-5 h-5" />
                   </span>
-                  <div>
-                    <div className="font-medium antialiased">{item.title}</div>
+                  <div className="min-w-0">
+                    <div className="font-medium antialiased truncate">{item.title}</div>
                     {item.description && (
-                      <div className="text-xs text-gray-500 antialiased">{item.description}</div>
+                      <div className="text-xs text-gray-500 antialiased truncate">{item.description}</div>
                     )}
                   </div>
                 </div>
-                <FaChevronRight className="ml-2 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                <FaChevronRight className="ml-3 flex-shrink-0 text-gray-400 group-hover:text-blue-500 transition-colors" />
                 {activeSubmenu === item && (
                   <div className="absolute left-full top-0 w-72 ml-1">
                     <DropdownMenu
@@ -86,13 +104,13 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
                 to={item.path}
                 className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 group"
               >
-                <span className="text-blue-600 group-hover:scale-110 transition-transform mr-3">
+                <span className="flex-shrink-0 text-blue-600 group-hover:scale-110 transition-transform mr-3">
                   <IconRenderer icon={item.icon} className="w-5 h-5" />
                 </span>
-                <div>
-                  <div className="font-medium antialiased">{item.title}</div>
+                <div className="min-w-0">
+                  <div className="font-medium antialiased truncate">{item.title}</div>
                   {item.description && (
-                    <div className="text-xs text-gray-500 antialiased">{item.description}</div>
+                    <div className="text-xs text-gray-500 antialiased truncate">{item.description}</div>
                   )}
                 </div>
               </Link>
@@ -144,10 +162,6 @@ const NavBar = () => {
     }
   };
 
-  const handleSubmenuEnter = (submenu) => {
-    setActiveSubmenu(submenu);
-  };
-
   const handleMouseLeave = () => {
     setActiveMenu(null);
     setActiveSubmenu(null);
@@ -170,17 +184,11 @@ const NavBar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
               <LogoWrapper>
-                <div className="relative w-12 h-12">
-                  <img 
-                    src={logoUrl} 
-                    alt="CloudDigify Logo" 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                <Logo />
                 <BrandTitle />
               </LogoWrapper>
             </Link>
-            <div className="hidden lg:ml-10 lg:flex lg:space-x-8">
+            <div className="hidden lg:ml-10 lg:flex lg:items-center lg:space-x-4">
               {menuConfig.mainNav.map((item, index) => (
                 <motion.div
                   key={index}
@@ -190,20 +198,21 @@ const NavBar = () => {
                   whileHover={{ scale: 1.05 }}
                 >
                   {item.hasSubmenu ? (
-                    <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-900 rounded-full hover:bg-gray-50 transition-colors">
+                    <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 rounded-full hover:bg-gray-50 transition-colors">
                       <span>{item.title}</span>
                       <motion.span
                         animate={{ rotate: activeMenu === item ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
+                        className="ml-1"
                       >
-                        <FaChevronDown className="ml-1 h-4 w-4" />
+                        <FaChevronDown className="h-4 w-4" />
                       </motion.span>
                     </button>
                   ) : (
                     <NavLink
                       to={item.path}
                       className={({ isActive }) =>
-                        `inline-flex items-center px-3 py-2 text-sm font-medium rounded-full transition-colors ${
+                        `inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors ${
                           isActive
                             ? 'text-white bg-blue-600 hover:bg-blue-700'
                             : 'text-gray-900 hover:bg-gray-50'
@@ -229,11 +238,11 @@ const NavBar = () => {
             </div>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="hidden lg:flex items-center px-4 py-2 text-sm font-medium text-white bg-[#2B6CB0] hover:bg-[#2563EB] rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
+              className="hidden lg:flex items-center px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 rounded-full transition-all duration-200 shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-600"
             >
               Get Started
               <FaArrowRight className="ml-2" />
@@ -271,21 +280,21 @@ const NavBar = () => {
                   {item.hasSubmenu ? (
                     <button
                       onClick={() => handleMouseEnter(item)}
-                      className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-50"
+                      className="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-50"
                     >
                       {item.title}
                       <motion.span
                         animate={{ rotate: activeMenu === item ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <FaChevronDown className="ml-1 h-4 w-4" />
+                        <FaChevronDown className="h-4 w-4" />
                       </motion.span>
                     </button>
                   ) : (
                     <NavLink
                       to={item.path}
                       className={({ isActive }) =>
-                        `block px-3 py-2 text-base font-medium rounded-lg ${
+                        `block px-4 py-2 text-base font-medium rounded-lg ${
                           isActive
                             ? 'text-white bg-blue-600'
                             : 'text-gray-900 hover:bg-gray-50'
@@ -312,10 +321,12 @@ const NavBar = () => {
                           >
                             <Link
                               to={subItem.path}
-                              className="flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50"
+                              className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50"
                             >
                               {subItem.icon && (
-                                <span className="mr-3 text-blue-600">{subItem.icon}</span>
+                                <span className="mr-3 text-blue-600">
+                                  <IconRenderer icon={subItem.icon} className="w-5 h-5" />
+                                </span>
                               )}
                               {subItem.title}
                             </Link>
