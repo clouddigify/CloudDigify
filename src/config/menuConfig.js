@@ -1,4 +1,4 @@
-import { icons } from './icons';
+import { FaCloud, FaCode, FaShieldAlt, FaDatabase, FaIndustry, FaGraduationCap, FaLightbulb, FaChartLine, FaCubes, FaRocket } from 'react-icons/fa';
 
 export const menuConfig = {
   mainNav: [
@@ -11,37 +11,65 @@ export const menuConfig = {
       submenu: [
         {
           title: 'Cloud Services',
-          path: '/services/cloud-services',
-          icon: icons.cloud,
+          icon: <FaCloud className="w-5 h-5" />,
           submenu: [
-            { title: 'Cloud & Infrastructure Services', path: '/services/cloud-infrastructure' },
-            { title: 'Cloud Migration', path: '/services/cloud-migration' },
-            { title: 'Cloud Optimization', path: '/services/cloud-optimization' },
-            { title: 'Disaster Recovery', path: '/services/disaster-recovery' },
-            { title: 'Next Generation Workplace', path: '/services/next-gen-workplace' }
+            { 
+              title: 'Cloud Infrastructure',
+              path: '/services/cloud-infrastructure',
+              description: 'Enterprise cloud infrastructure solutions'
+            },
+            { 
+              title: 'Cloud Migration',
+              path: '/services/cloud-migration',
+              description: 'Seamless cloud migration services'
+            },
+            { 
+              title: 'Cloud Optimization',
+              path: '/services/cloud-optimization',
+              description: 'Optimize your cloud resources'
+            }
           ]
         },
         {
           title: 'DevOps & Engineering',
-          path: '/services/devops-engineering',
-          icon: icons.code,
+          icon: <FaCode className="w-5 h-5" />,
           submenu: [
-            { title: 'DevOps & CI/CD', path: '/services/devops' },
-            { title: 'Infrastructure as Code', path: '/services/infrastructure-as-code' },
-            { title: 'Containerization', path: '/services/containerization' },
-            { title: 'Serverless Architecture', path: '/services/serverless' },
-            { title: 'Agile Transformation', path: '/services/agile-transformation' }
+            { 
+              title: 'DevOps Services',
+              path: '/services/devops',
+              description: 'End-to-end DevOps solutions'
+            },
+            { 
+              title: 'Infrastructure as Code',
+              path: '/services/infrastructure-as-code',
+              description: 'Automated infrastructure deployment'
+            },
+            { 
+              title: 'Containerization',
+              path: '/services/containerization',
+              description: 'Container orchestration services'
+            }
           ]
         },
         {
           title: 'Security & Compliance',
-          path: '/services/security',
-          icon: icons.shield,
+          icon: <FaShieldAlt className="w-5 h-5" />,
           submenu: [
-            { title: 'Security & Compliance', path: '/services/security-compliance' },
-            { title: 'Cyber Defense Resiliency', path: '/services/cyber-defense' },
-            { title: 'Privacy Services', path: '/services/privacy-services' },
-            { title: 'Privacy SmartHub', path: '/services/privacy-smarthub' }
+            { 
+              title: 'Security Services',
+              path: '/services/security-compliance',
+              description: 'Comprehensive security solutions'
+            },
+            { 
+              title: 'Compliance Management',
+              path: '/services/compliance',
+              description: 'Regulatory compliance services'
+            },
+            { 
+              title: 'Security Assessment',
+              path: '/services/security-assessment',
+              description: 'Security auditing and testing'
+            }
           ]
         }
       ]
@@ -53,24 +81,44 @@ export const menuConfig = {
       submenu: [
         {
           title: 'Financial Services',
-          path: '/industries/financial-services',
-          icon: icons.database,
+          icon: <FaDatabase className="w-5 h-5" />,
           submenu: [
-            { title: 'Banking', path: '/industries/banking' },
-            { title: 'Insurance', path: '/industries/insurance' },
-            { title: 'Capital Markets', path: '/industries/capital-markets' },
-            { title: 'Fintech', path: '/industries/fintech' }
+            { 
+              title: 'Banking Solutions',
+              path: '/industries/banking',
+              description: 'Digital banking transformation'
+            },
+            { 
+              title: 'Insurance',
+              path: '/industries/insurance',
+              description: 'Insurance technology solutions'
+            },
+            { 
+              title: 'Fintech',
+              path: '/industries/fintech',
+              description: 'Financial technology innovation'
+            }
           ]
         },
         {
           title: 'Manufacturing',
-          path: '/industries/manufacturing',
-          icon: icons.industry,
+          icon: <FaIndustry className="w-5 h-5" />,
           submenu: [
-            { title: 'Manufacturing', path: '/industries/manufacturing-general' },
-            { title: 'Advanced Manufacturing', path: '/industries/advanced-manufacturing' },
-            { title: 'Automotive', path: '/industries/automotive' },
-            { title: 'Industrial IoT', path: '/industries/industrial-iot' }
+            { 
+              title: 'Smart Manufacturing',
+              path: '/industries/manufacturing',
+              description: 'Industry 4.0 solutions'
+            },
+            { 
+              title: 'Industrial IoT',
+              path: '/industries/industrial-iot',
+              description: 'Connected manufacturing'
+            },
+            { 
+              title: 'Supply Chain',
+              path: '/industries/supply-chain',
+              description: 'Digital supply chain solutions'
+            }
           ]
         }
       ]
@@ -81,53 +129,75 @@ export const menuConfig = {
       hasSubmenu: true,
       submenu: [
         {
-          title: 'AWS Training',
-          path: '/training-services/aws',
-          icon: icons.cloud,
-          description: 'Master AWS cloud services and architecture'
-        },
-        {
-          title: 'Azure Training',
-          path: '/training-services/azure',
-          icon: icons.cloud,
-          description: 'Learn Microsoft Azure cloud platform'
+          title: 'Cloud Training',
+          icon: <FaCloud className="w-5 h-5" />,
+          submenu: [
+            { 
+              title: 'AWS Training',
+              path: '/training-services/aws',
+              description: 'Amazon Web Services certification'
+            },
+            { 
+              title: 'Azure Training',
+              path: '/training-services/azure',
+              description: 'Microsoft Azure certification'
+            }
+          ]
         },
         {
           title: 'DevOps Training',
-          path: '/training-services/devops',
-          icon: icons.code,
-          description: 'Master DevOps practices and tools'
-        },
-        {
-          title: 'Kubernetes Training',
-          path: '/training-services/kubernetes',
-          icon: icons.docker,
-          description: 'Learn container orchestration with Kubernetes'
+          icon: <FaCode className="w-5 h-5" />,
+          submenu: [
+            { 
+              title: 'DevOps Fundamentals',
+              path: '/training-services/devops',
+              description: 'Core DevOps practices'
+            },
+            { 
+              title: 'Kubernetes',
+              path: '/training-services/kubernetes',
+              description: 'Container orchestration'
+            }
+          ]
         }
       ]
     },
-    {
+    { 
       title: 'Use Cases',
       path: '/use-cases',
       hasSubmenu: true,
       submenu: [
         {
-          title: 'Enterprise Transformation',
-          path: '/use-cases/enterprise',
-          icon: icons.chart,
-          description: 'Digital transformation success stories'
+          title: 'Success Stories',
+          icon: <FaChartLine className="w-5 h-5" />,
+          submenu: [
+            { 
+              title: 'Enterprise Cases',
+              path: '/use-cases/enterprise',
+              description: 'Enterprise transformation stories'
+            },
+            { 
+              title: 'Cloud Migration',
+              path: '/use-cases/migration',
+              description: 'Successful migration cases'
+            }
+          ]
         },
         {
-          title: 'Cloud Migration',
-          path: '/use-cases/migration',
-          icon: icons.cloud,
-          description: 'Successful cloud migration cases'
-        },
-        {
-          title: 'Digital Innovation',
-          path: '/use-cases/innovation',
-          icon: icons.lightbulb,
-          description: 'Innovation and modernization stories'
+          title: 'Solutions',
+          icon: <FaCubes className="w-5 h-5" />,
+          submenu: [
+            { 
+              title: 'Industry Solutions',
+              path: '/use-cases/industry-solutions',
+              description: 'Industry-specific solutions'
+            },
+            { 
+              title: 'Custom Solutions',
+              path: '/use-cases/custom-solutions',
+              description: 'Tailored digital solutions'
+            }
+          ]
         }
       ]
     },
