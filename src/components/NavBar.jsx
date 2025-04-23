@@ -359,7 +359,7 @@ const menuVariants = {
     opacity: 0,
     y: -5,
     transition: {
-      duration: 0.2,
+      duration: 0.15,
       ease: "easeInOut"
     }
   },
@@ -367,19 +367,19 @@ const menuVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.2,
+      duration: 0.15,
       ease: "easeOut",
-      staggerChildren: 0.05
+      staggerChildren: 0.03
     }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -10 },
+  hidden: { opacity: 0, y: -5 },
   visible: { 
     opacity: 1, 
-    x: 0,
-    transition: { duration: 0.2 }
+    y: 0,
+    transition: { duration: 0.15 }
   }
 };
 
@@ -477,22 +477,22 @@ const NavBar = () => {
       className="fixed w-full z-50 transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 flex items-center space-x-3">
-            <img src="/logo.png" alt="CloudDigify" className="h-10 w-auto" />
-            <span className="font-bold text-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <img src="/logo.png" alt="CloudDigify" className="h-8 w-auto" />
+            <span className="font-bold text-xl text-blue-600">
               CloudDigify
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-6">
             <NavLink 
               to="/" 
               className={({ isActive }) => 
-                `px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 ${
-                  isActive ? 'text-blue-600 bg-blue-50' : ''
+                `text-gray-700 hover:text-blue-600 transition-all duration-200 ${
+                  isActive ? 'text-blue-600' : ''
                 }`
               }
             >
@@ -506,8 +506,8 @@ const NavBar = () => {
               onMouseLeave={handleMouseLeave}
             >
               <button 
-                className={`px-4 py-2 rounded-lg flex items-center space-x-1 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 ${
-                  activeMenu === 'services' ? 'text-blue-600 bg-blue-50' : ''
+                className={`flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-all duration-200 ${
+                  activeMenu === 'services' ? 'text-blue-600' : ''
                 }`}
               >
                 <span>Services</span>
@@ -515,7 +515,7 @@ const NavBar = () => {
                   animate={{ rotate: activeMenu === 'services' ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <FaChevronDown className="h-4 w-4" />
+                  <FaChevronDown className="h-3 w-3 ml-1" />
                 </motion.span>
               </button>
 
@@ -526,68 +526,47 @@ const NavBar = () => {
                     initial="hidden"
                     animate="visible"
                     exit="hidden"
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 w-[1000px] bg-white rounded-2xl shadow-lg border border-gray-100/50 backdrop-blur-xl"
+                    className="absolute top-full left-0 w-[600px] bg-white rounded-lg shadow-lg border border-gray-100/50 py-4"
                     style={{ 
-                      marginTop: '1rem',
-                      background: 'linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.95))'
+                      marginTop: '0.5rem',
                     }}
                   >
-                    <div className="grid grid-cols-3 gap-6 p-8">
-                      {getServiceCategories().map((category, index) => (
+                    <div className="grid grid-cols-2 gap-2 p-3">
+                      {getServiceCategories().slice(0, 6).map((category, index) => (
                         <motion.div
                           key={index}
                           variants={itemVariants}
-                          className="group relative"
+                          className="group"
                         >
-                          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="relative p-4">
-                            <div className="flex items-center space-x-3 mb-4">
-                              <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-500 text-white transform group-hover:scale-110 transition-transform duration-300">
+                          <div className="relative p-3 hover:bg-blue-50 rounded-lg transition-colors duration-200">
+                            <div className="flex items-center space-x-3">
+                              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
                                 {category.icon}
                               </div>
-                              <h3 className="font-semibold text-gray-900">
-                                {category.title}
-                              </h3>
+                              <div>
+                                <h3 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                                  {category.title}
+                                </h3>
+                                <ul className="mt-1 space-y-1">
+                                  {category.submenu.map((item, idx) => (
+                                    <motion.li
+                                      key={idx}
+                                      variants={itemVariants}
+                                    >
+                                      <Link
+                                        to={item.path}
+                                        className="block text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                                      >
+                                        {item.title}
+                                      </Link>
+                                    </motion.li>
+                                  ))}
+                                </ul>
+                              </div>
                             </div>
-                            <ul className="space-y-1">
-                              {category.submenu.map((item, idx) => (
-                                <motion.li
-                                  key={idx}
-                                  variants={itemVariants}
-                                >
-                                  <Link
-                                    to={item.path}
-                                    className="flex items-center space-x-2 text-sm text-gray-600 hover:text-blue-600 rounded-lg px-3 py-2 transition-all duration-200 hover:bg-blue-50/50"
-                                  >
-                                    <motion.span
-                                      initial={{ width: 0 }}
-                                      whileHover={{ width: '6px' }}
-                                      className="h-1.5 bg-blue-600 rounded-full"
-                                    />
-                                    <span>{item.title}</span>
-                                  </Link>
-                                </motion.li>
-                              ))}
-                            </ul>
                           </div>
                         </motion.div>
                       ))}
-                    </div>
-
-                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 rounded-b-2xl">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="text-lg font-semibold text-white mb-2">Ready to Transform?</h4>
-                          <p className="text-blue-100">Discover how our services can elevate your business</p>
-                        </div>
-                        <Link
-                          to="/contact"
-                          className="inline-flex items-center px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-blue-50 transition-all duration-200 transform hover:scale-105"
-                        >
-                          Get Started
-                          <FaArrowRight className="ml-2" />
-                        </Link>
-                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -601,8 +580,8 @@ const NavBar = () => {
               onMouseLeave={handleMouseLeave}
             >
               <button 
-                className={`px-4 py-2 rounded-lg flex items-center space-x-1 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 ${
-                  activeMenu === 'industries' ? 'text-blue-600 bg-blue-50' : ''
+                className={`flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-all duration-200 ${
+                  activeMenu === 'industries' ? 'text-blue-600' : ''
                 }`}
               >
                 <span>Industries</span>
@@ -610,7 +589,7 @@ const NavBar = () => {
                   animate={{ rotate: activeMenu === 'industries' ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <FaChevronDown className="h-4 w-4" />
+                  <FaChevronDown className="h-3 w-3 ml-1" />
                 </motion.span>
               </button>
 
@@ -621,68 +600,47 @@ const NavBar = () => {
                     initial="hidden"
                     animate="visible"
                     exit="hidden"
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 w-[800px] bg-white rounded-2xl shadow-lg border border-gray-100/50 backdrop-blur-xl"
+                    className="absolute top-full left-0 w-[500px] bg-white rounded-lg shadow-lg border border-gray-100/50 py-4"
                     style={{ 
-                      marginTop: '1rem',
-                      background: 'linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.95))'
+                      marginTop: '0.5rem',
                     }}
                   >
-                    <div className="grid grid-cols-2 gap-6 p-8">
-                      {getIndustryCategories().map((industry, index) => (
+                    <div className="grid grid-cols-2 gap-2 p-3">
+                      {getIndustryCategories().slice(0, 6).map((industry, index) => (
                         <motion.div
                           key={index}
                           variants={itemVariants}
-                          className="group relative"
+                          className="group"
                         >
-                          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="relative p-4">
-                            <div className="flex items-center space-x-3 mb-4">
-                              <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-500 to-blue-500 text-white transform group-hover:scale-110 transition-transform duration-300">
+                          <div className="relative p-3 hover:bg-indigo-50 rounded-lg transition-colors duration-200">
+                            <div className="flex items-center space-x-3">
+                              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-200">
                                 {industry.icon}
                               </div>
-                              <h3 className="font-semibold text-gray-900">
-                                {industry.title}
-                              </h3>
+                              <div>
+                                <h3 className="font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-200">
+                                  {industry.title}
+                                </h3>
+                                <ul className="mt-1 space-y-1">
+                                  {industry.submenu.map((item, idx) => (
+                                    <motion.li
+                                      key={idx}
+                                      variants={itemVariants}
+                                    >
+                                      <Link
+                                        to={item.path}
+                                        className="block text-sm text-gray-600 hover:text-indigo-600 transition-colors duration-200"
+                                      >
+                                        {item.title}
+                                      </Link>
+                                    </motion.li>
+                                  ))}
+                                </ul>
+                              </div>
                             </div>
-                            <ul className="space-y-1">
-                              {industry.submenu.map((item, idx) => (
-                                <motion.li
-                                  key={idx}
-                                  variants={itemVariants}
-                                >
-                                  <Link
-                                    to={item.path}
-                                    className="flex items-center space-x-2 text-sm text-gray-600 hover:text-indigo-600 rounded-lg px-3 py-2 transition-all duration-200 hover:bg-indigo-50/50"
-                                  >
-                                    <motion.span
-                                      initial={{ width: 0 }}
-                                      whileHover={{ width: '6px' }}
-                                      className="h-1.5 bg-indigo-600 rounded-full"
-                                    />
-                                    <span>{item.title}</span>
-                                  </Link>
-                                </motion.li>
-                              ))}
-                            </ul>
                           </div>
                         </motion.div>
                       ))}
-                    </div>
-
-                    <div className="bg-gradient-to-r from-indigo-600 to-blue-600 p-6 rounded-b-2xl">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="text-lg font-semibold text-white mb-2">Industry Expertise</h4>
-                          <p className="text-blue-100">Solutions tailored for your industry challenges</p>
-                        </div>
-                        <Link
-                          to="/industries"
-                          className="inline-flex items-center px-4 py-2 rounded-lg bg-white text-indigo-600 hover:bg-indigo-50 transition-all duration-200 transform hover:scale-105"
-                        >
-                          Explore Industries
-                          <FaArrowRight className="ml-2" />
-                        </Link>
-                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -692,8 +650,8 @@ const NavBar = () => {
             <NavLink 
               to="/training" 
               className={({ isActive }) => 
-                `px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 ${
-                  isActive ? 'text-blue-600 bg-blue-50' : ''
+                `text-gray-700 hover:text-blue-600 transition-all duration-200 ${
+                  isActive ? 'text-blue-600' : ''
                 }`
               }
             >
@@ -703,8 +661,8 @@ const NavBar = () => {
             <NavLink 
               to="/use-cases" 
               className={({ isActive }) => 
-                `px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 ${
-                  isActive ? 'text-blue-600 bg-blue-50' : ''
+                `text-gray-700 hover:text-blue-600 transition-all duration-200 ${
+                  isActive ? 'text-blue-600' : ''
                 }`
               }
             >
@@ -713,7 +671,7 @@ const NavBar = () => {
 
             <Link
               to="/contact"
-              className="ml-4 px-6 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-200"
+              className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200"
             >
               Contact Us
             </Link>
