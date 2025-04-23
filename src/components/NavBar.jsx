@@ -467,9 +467,9 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
                     {item.icon}
                   </span>
                   <div>
-                    <div className="font-medium">{item.title}</div>
+                    <div className="font-medium antialiased">{item.title}</div>
                     {item.description && (
-                      <div className="text-xs text-gray-500">{item.description}</div>
+                      <div className="text-xs text-gray-500 antialiased">{item.description}</div>
                     )}
                   </div>
                 </div>
@@ -495,9 +495,9 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
                   {item.icon}
                 </span>
                 <div>
-                  <div className="font-medium">{item.title}</div>
+                  <div className="font-medium antialiased">{item.title}</div>
                   {item.description && (
-                    <div className="text-xs text-gray-500">{item.description}</div>
+                    <div className="text-xs text-gray-500 antialiased">{item.description}</div>
                   )}
                 </div>
               </Link>
