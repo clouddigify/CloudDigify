@@ -130,7 +130,7 @@ const SubMenu = ({ items, depth, parentRef }) => {
                   </div>
                   <FaChevronRight className="ml-2 text-gray-400" />
                 </div>
-                {activeItems[index] && (
+                {activeItems[index] && item.submenu && (
                   <SubMenu
                     items={item.submenu}
                     depth={depth + 1}
@@ -191,7 +191,7 @@ const NavItem = ({ item }) => {
     };
   }, []);
 
-  if (item.hasSubmenu) {
+  if (item.hasSubmenu && Array.isArray(item.submenu)) {
     return (
       <div
         ref={itemRef}
@@ -203,7 +203,9 @@ const NavItem = ({ item }) => {
           <span>{item.title}</span>
           <FaChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
-        {isOpen && <SubMenu items={item.submenu} depth={0} parentRef={itemRef} />}
+        {isOpen && Array.isArray(item.submenu) && (
+          <SubMenu items={item.submenu} depth={0} parentRef={itemRef} />
+        )}
       </div>
     );
   }
@@ -300,9 +302,15 @@ const NavBar = () => {
             className="lg:hidden bg-white border-t"
           >
             <div className="pt-2 pb-3 space-y-1 px-4">
-              {menuConfig.mainNav.map((item, index) => (
-                <NavItem key={index} item={item} />
-              ))}
+              {menuConfig.mainNav.map((item, index) => {
+                // Make sure item and submenu are valid
+                if (item.hasSubmenu && !Array.isArray(item.submenu)) {
+                  return null;
+                }
+                return (
+                  <NavItem key={index} item={item} />
+                );
+              })}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
