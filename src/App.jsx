@@ -75,16 +75,15 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} />
-        <Route path="/training" element={<Training />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
+        {/* Main Routes */}
+        <Route path="/" element={<Home pageInfo={siteConfig.pages.home} />} />
+        <Route path="/about" element={<About pageInfo={siteConfig.pages.about} />} />
+        <Route path="/services" element={<Services pageInfo={siteConfig.pages.services} />} />
+        <Route path="/industries" element={<Industries pageInfo={siteConfig.pages.industries} />} />
+        <Route path="/training-services" element={<TrainingServices pageInfo={siteConfig.pages.training} />} />
+        <Route path="/use-cases" element={<UseCases pageInfo={siteConfig.pages.useCases} />} />
+        <Route path="/blogs" element={<Blogs pageInfo={siteConfig.pages.blogs} />} />
+        <Route path="/contact" element={<Contact pageInfo={siteConfig.pages.contact} />} />
         
         {/* Use Cases Routes */}
         <Route path="/use-cases/cloud-migration" element={<CloudMigrationCases pageInfo={siteConfig.pages.useCases.cloudMigration} />} />
