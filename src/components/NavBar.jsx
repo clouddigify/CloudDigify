@@ -58,8 +58,14 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
       className="absolute z-50 mt-2 w-72 rounded-xl shadow-2xl bg-white/95 backdrop-blur-sm ring-1 ring-black/5 border border-gray-100"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={(e) => {
+        e.stopPropagation();
+        onMouseEnter();
+      }}
+      onMouseLeave={(e) => {
+        e.stopPropagation();
+        onMouseLeave();
+      }}
     >
       <div className="py-2">
         {items.map((item, index) => (
@@ -69,12 +75,18 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.05 }}
             className="relative"
-            onMouseEnter={() => onMouseEnter(item)}
+            onMouseEnter={(e) => {
+              e.stopPropagation();
+              onMouseEnter(item);
+            }}
           >
             {item.submenu ? (
               <div
                 className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer group"
-                onClick={() => onItemClick(item)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onItemClick(item);
+                }}
               >
                 <div className="flex items-center space-x-3 min-w-0">
                   <span className="flex-shrink-0 text-blue-600 group-hover:scale-110 transition-transform">
@@ -89,7 +101,13 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
                 </div>
                 <FaChevronRight className="ml-3 flex-shrink-0 text-gray-400 group-hover:text-blue-500 transition-colors" />
                 {activeSubmenu === item && (
-                  <div className="absolute left-full top-0 w-72 ml-1">
+                  <div 
+                    className="absolute left-full top-0 w-72 ml-1"
+                    onMouseEnter={(e) => {
+                      e.stopPropagation();
+                      onMouseEnter(item);
+                    }}
+                  >
                     <DropdownMenu
                       items={item.submenu}
                       isOpen={true}
@@ -157,12 +175,15 @@ const NavBar = () => {
   }, [location]);
 
   const closeMenus = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
     setActiveMenu(null);
     setActiveSubmenu(null);
   };
 
   const handleMouseEnter = (menu) => {
-    // Clear any existing timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -171,38 +192,28 @@ const NavBar = () => {
     if (menu.hasSubmenu) {
       setActiveMenu(menu);
     }
-    
-    // Keep the parent menu active when hovering over submenu items
     if (menu.submenu) {
       setActiveSubmenu(menu);
-    } else {
-      // If hovering over a main menu item, clear submenu
-      setActiveSubmenu(null);
     }
   };
 
   const handleMouseLeave = () => {
-    // Set a timeout before closing the menu
     timeoutRef.current = setTimeout(() => {
       closeMenus();
-    }, 400); // Increased delay to 400ms for better usability
+    }, 500); // Increased delay for better usability
   };
 
   const handleItemClick = (item) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    
     if (item.submenu) {
-      // Toggle submenu without closing parent menu
-      setActiveSubmenu(activeSubmenu === item ? null : item);
+      setActiveSubmenu(item);
+      setActiveMenu((prevMenu) => prevMenu || item);
     }
   };
-
-  // Clean up timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
 
   return (
     <motion.nav
