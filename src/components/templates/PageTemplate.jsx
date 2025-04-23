@@ -35,6 +35,16 @@ const itemVariants = {
   }
 };
 
+// Grid pattern SVG as a base64 string
+const gridPattern = `data:image/svg+xml;base64,${btoa(`
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.5"/>
+  </pattern>
+  <rect width="100" height="100" fill="url(#grid)" />
+</svg>
+`)}`;
+
 // Unified template component for creating various types of pages
 const PageTemplate = ({ pageInfo, pageType = 'service' }) => {
   // Helper to determine the page type
@@ -51,12 +61,18 @@ const PageTemplate = ({ pageInfo, pageType = 'service' }) => {
         {/* Hero Section with modern gradient and glass effect */}
         <section className={`relative overflow-hidden`}>
           <motion.div 
-            className={`absolute inset-0 bg-gradient-to-r ${pageInfo.heroBackground} opacity-90`}
+            className={`absolute inset-0 bg-gradient-to-r ${pageInfo?.heroBackground || 'from-blue-600 via-indigo-600 to-blue-800'} opacity-90`}
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5 }}
           />
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+          <div 
+            className="absolute inset-0 opacity-10"
+            style={{ 
+              backgroundImage: `url("${gridPattern}")`,
+              backgroundSize: '20px 20px'
+            }} 
+          />
           
           <div className="relative py-24 px-6">
             <motion.div 
@@ -72,7 +88,7 @@ const PageTemplate = ({ pageInfo, pageType = 'service' }) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                  {isIndustry ? `${pageInfo.title} Solutions` : pageInfo.title}
+                  {isIndustry ? `${pageInfo?.title} Solutions` : pageInfo?.title}
                 </motion.h1>
                 <motion.p 
                   className="text-xl text-white/90 mb-8 leading-relaxed"
@@ -80,20 +96,20 @@ const PageTemplate = ({ pageInfo, pageType = 'service' }) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.6 }}
                 >
-                  {pageInfo.description}
+                  {pageInfo?.description}
                 </motion.p>
-                {pageInfo.showCta !== false && (
+                {pageInfo?.showCta !== false && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
                   >
                     <Link
-                      to={pageInfo.ctaLink || "/contact"}
+                      to={pageInfo?.ctaLink || "/contact"}
                       className="group inline-flex items-center bg-white text-blue-700 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all duration-300"
                     >
                       <span className="mr-2">
-                        {pageInfo.ctaText || (isService ? "Request a Consultation" : isContent ? pageInfo.defaultCtaText || "Learn More" : "Schedule a Consultation")}
+                        {pageInfo?.ctaText || (isService ? "Request a Consultation" : isContent ? pageInfo?.defaultCtaText || "Learn More" : "Schedule a Consultation")}
                       </span>
                       <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
                     </Link>

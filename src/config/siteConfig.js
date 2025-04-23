@@ -94,11 +94,6 @@ export const siteConfig = {
 
   // Page Configurations
   pages: {
-    home: {
-      title: 'Cloud Solutions for Digital Success',
-      description: 'Transform your business with our comprehensive cloud services and solutions',
-      type: 'home'
-    },
     about: {
       title: 'About Us',
       description: 'Leading the way in cloud innovation and digital transformation',
@@ -204,7 +199,7 @@ export const siteConfig = {
       },
       privacy: {
         title: 'Privacy Policy',
-        description: 'How we protect and handle your data',
+        description: 'Our privacy policy and data protection guidelines',
         type: 'legal',
         breadcrumbs: [
           { title: 'Home', path: '/' },
