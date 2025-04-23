@@ -95,7 +95,7 @@ const AnimatedRoutes = () => {
         <Route path="/privacy" element={<PrivacyPolicy pageInfo={siteConfig.pages.legal.privacy} />} />
         
         {/* Dynamic Subroutes */}
-        {siteConfig.navigation.main?.filter(item => item.submenu)?.map(item => 
+        {siteConfig.navigation?.map(item => 
           item.submenu?.map(subItem => (
             <Route
               key={subItem.path}
