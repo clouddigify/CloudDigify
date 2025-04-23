@@ -51,6 +51,7 @@ const BrandTitle = () => (
 const SubMenu = ({ items, depth, parentRef }) => {
   const [activeItems, setActiveItems] = useState({});
   const menuRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -65,12 +66,29 @@ const SubMenu = ({ items, depth, parentRef }) => {
   }, [parentRef]);
 
   const handleMouseEnter = (itemId) => {
+    // Clear any previous timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
     setActiveItems(prev => ({ ...prev, [itemId]: true }));
   };
 
-  const handleMouseLeave = (itemId) => {
-    setActiveItems(prev => ({ ...prev, [itemId]: false }));
+  const handleMouseLeave = () => {
+    // Set a delay before closing submenus
+    timeoutRef.current = setTimeout(() => {
+      setActiveItems({});
+    }, 500);  // Increased delay for better usability
   };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div 
@@ -78,6 +96,14 @@ const SubMenu = ({ items, depth, parentRef }) => {
       className={`absolute ${
         depth === 0 ? 'top-full left-0 mt-2' : 'left-full top-0 ml-0.5'
       } min-w-[250px] rounded-xl shadow-lg bg-white/95 backdrop-blur-sm ring-1 ring-black/5 border border-gray-100 z-50`}
+      onMouseEnter={() => {
+        // Clear any timeout when entering the menu
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
+        }
+      }}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="py-1">
         {items.map((item, index) => (
@@ -85,7 +111,6 @@ const SubMenu = ({ items, depth, parentRef }) => {
             key={index}
             className="relative"
             onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
           >
             {item.submenu ? (
               <>
@@ -141,14 +166,30 @@ const SubMenu = ({ items, depth, parentRef }) => {
 const NavItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   const itemRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
     setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
-    setIsOpen(false);
+    timeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 500);
   };
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   if (item.hasSubmenu) {
     return (
@@ -219,12 +260,12 @@ const NavBar = () => {
                 <Logo />
                 <BrandTitle />
               </LogoWrapper>
-            </Link>
+          </Link>
             <div className="hidden lg:ml-10 lg:flex lg:items-center lg:space-x-4">
-              {menuConfig.mainNav.map((item, index) => (
+            {menuConfig.mainNav.map((item, index) => (
                 <NavItem key={index} item={item} />
               ))}
-            </div>
+              </div>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -240,7 +281,7 @@ const NavBar = () => {
             <div className="lg:hidden">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(!isOpen)}
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
               >
                 {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
