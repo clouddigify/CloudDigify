@@ -14,6 +14,28 @@ const Leadership = () => {
         linkedin: 'https://linkedin.com/in/chiragmalhotra',
         twitter: 'https://twitter.com/chiragmalhotra'
       }
+    },
+    {
+      name: 'Manish Sharma',
+      title: 'Co-Founder & CTO',
+      email: 'manish@clouddigify.com',
+      bio: 'With deep expertise in cloud architecture and DevOps, Manish leads our technical strategy and ensures delivery of cutting-edge solutions to our clients.',
+      image: '/images/leaders/manish-sharma.jpg', // Replace with actual image path
+      social: {
+        linkedin: 'https://linkedin.com/in/manishsharma',
+        twitter: 'https://twitter.com/manishsharma'
+      }
+    },
+    {
+      name: 'Deepak Verma',
+      title: 'Co-Founder & COO',
+      email: 'deepak@clouddigify.com',
+      bio: 'Deepak oversees our operations and client delivery, ensuring excellence in service quality and maximum business value for our clients.',
+      image: '/images/leaders/deepak-verma.jpg', // Replace with actual image path
+      social: {
+        linkedin: 'https://linkedin.com/in/deepakverma',
+        twitter: 'https://twitter.com/deepakverma'
+      }
     }
   ];
 
