@@ -9,7 +9,8 @@ import Footer from './components/Footer';
 import Home from './components/pages/Home';
 import Services from './components/pages/Services';
 import Industries from './components/pages/Industries';
-import Training from './components/pages/Training';
+import TrainingServices from './components/pages/TrainingServices';
+import UseCases from './components/pages/UseCases';
 import Blogs from './components/pages/Blogs';
 import Contact from './components/pages/Contact';
 import About from './components/pages/About';
@@ -31,6 +32,17 @@ import Containerization from './components/pages/services/Containerization';
 import Serverless from './components/pages/services/Serverless';
 import CloudInfrastructure from './components/pages/services/CloudInfrastructure';
 
+// Training Pages
+import AwsTraining from './components/pages/training/AwsTraining';
+import AzureTraining from './components/pages/training/AzureTraining';
+import DevOpsTraining from './components/pages/training/DevOpsTraining';
+import KubernetesTraining from './components/pages/training/KubernetesTraining';
+
+// Use Cases Pages
+import EnterpriseUseCases from './components/pages/use-cases/EnterpriseUseCases';
+import CloudMigrationCases from './components/pages/use-cases/CloudMigrationCases';
+import DigitalInnovationCases from './components/pages/use-cases/DigitalInnovationCases';
+
 // Industry Pages
 import FinancialServices from './components/pages/industries/FinancialServices';
 import Banking from './components/pages/industries/Banking';
@@ -47,7 +59,8 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/industries" element={<Industries />} />
-        <Route path="/training" element={<Training />} />
+        <Route path="/training-services" element={<TrainingServices />} />
+        <Route path="/use-cases" element={<UseCases />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<TermsAndConditions />} />
@@ -65,6 +78,17 @@ const AnimatedRoutes = () => {
         <Route path="/services/containerization" element={<Containerization />} />
         <Route path="/services/serverless" element={<Serverless />} />
         <Route path="/services/cloud-infrastructure" element={<CloudInfrastructure />} />
+        
+        {/* Training Routes */}
+        <Route path="/training-services/aws" element={<AwsTraining />} />
+        <Route path="/training-services/azure" element={<AzureTraining />} />
+        <Route path="/training-services/devops" element={<DevOpsTraining />} />
+        <Route path="/training-services/kubernetes" element={<KubernetesTraining />} />
+        
+        {/* Use Cases Routes */}
+        <Route path="/use-cases/enterprise" element={<EnterpriseUseCases />} />
+        <Route path="/use-cases/migration" element={<CloudMigrationCases />} />
+        <Route path="/use-cases/innovation" element={<DigitalInnovationCases />} />
         
         {/* Industry Routes */}
         <Route path="/industries/financial-services" element={<FinancialServices />} />
