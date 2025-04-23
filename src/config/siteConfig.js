@@ -38,7 +38,24 @@ export const siteConfig = {
       {
         title: 'Use Cases',
         path: '/use-cases',
-        icon: FaLightbulb
+        icon: FaLightbulb,
+        submenu: [
+          {
+            title: 'Cloud Migration',
+            path: '/use-cases/cloud-migration',
+            icon: FaCloud
+          },
+          {
+            title: 'Digital Innovation',
+            path: '/use-cases/digital-innovation',
+            icon: FaLightbulb
+          },
+          {
+            title: 'Enterprise Solutions',
+            path: '/use-cases/enterprise',
+            icon: FaIndustry
+          }
+        ]
       },
       {
         title: 'Blog',
@@ -55,7 +72,23 @@ export const siteConfig = {
       services: [],
       industries: [],
       training: [],
-      useCases: []
+      useCases: [
+        {
+          title: 'Cloud Migration',
+          path: '/use-cases/cloud-migration',
+          icon: FaCloud
+        },
+        {
+          title: 'Digital Innovation',
+          path: '/use-cases/digital-innovation',
+          icon: FaLightbulb
+        },
+        {
+          title: 'Enterprise Solutions',
+          path: '/use-cases/enterprise',
+          icon: FaIndustry
+        }
+      ]
     }
   },
 
@@ -109,7 +142,37 @@ export const siteConfig = {
       breadcrumbs: [
         { title: 'Home', path: '/' },
         { title: 'Use Cases', path: '/use-cases' }
-      ]
+      ],
+      cloudMigration: {
+        title: 'Cloud Migration Success Stories',
+        description: 'Real-world cloud migration implementations and transformations',
+        type: 'use-case',
+        breadcrumbs: [
+          { title: 'Home', path: '/' },
+          { title: 'Use Cases', path: '/use-cases' },
+          { title: 'Cloud Migration', path: '/use-cases/cloud-migration' }
+        ]
+      },
+      digitalInnovation: {
+        title: 'Digital Innovation Cases',
+        description: 'Innovative digital transformation success stories',
+        type: 'use-case',
+        breadcrumbs: [
+          { title: 'Home', path: '/' },
+          { title: 'Use Cases', path: '/use-cases' },
+          { title: 'Digital Innovation', path: '/use-cases/digital-innovation' }
+        ]
+      },
+      enterprise: {
+        title: 'Enterprise Solution Cases',
+        description: 'Enterprise-scale digital transformation success stories',
+        type: 'use-case',
+        breadcrumbs: [
+          { title: 'Home', path: '/' },
+          { title: 'Use Cases', path: '/use-cases' },
+          { title: 'Enterprise Solutions', path: '/use-cases/enterprise' }
+        ]
+      }
     },
     blogs: {
       title: 'Blog',

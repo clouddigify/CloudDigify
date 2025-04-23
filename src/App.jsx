@@ -18,6 +18,11 @@ import Contact from './components/pages/Contact';
 import TermsAndConditions from './components/pages/legal/TermsAndConditions';
 import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
 
+// Use Case Components
+import CloudMigrationCases from './components/pages/use-cases/CloudMigrationCases';
+import DigitalInnovationCases from './components/pages/use-cases/DigitalInnovationCases';
+import EnterpriseUseCases from './components/pages/use-cases/EnterpriseUseCases';
+
 // Wrap routes with AnimatePresence
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -27,37 +32,39 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         {/* Main Routes */}
         <Route path="/" element={<Home pageInfo={siteConfig.pages.home} />} />
+        <Route path="/about" element={<About pageInfo={siteConfig.pages.about} />} />
+        <Route path="/services" element={<Services pageInfo={siteConfig.pages.services} />} />
+        <Route path="/industries" element={<Industries pageInfo={siteConfig.pages.industries} />} />
+        <Route path="/training-services" element={<TrainingServices pageInfo={siteConfig.pages.training} />} />
+        <Route path="/use-cases" element={<UseCases pageInfo={siteConfig.pages.useCases} />} />
+        <Route path="/blogs" element={<Blogs pageInfo={siteConfig.pages.blogs} />} />
+        <Route path="/contact" element={<Contact pageInfo={siteConfig.pages.contact} />} />
         
-        {/* Generate routes from navigation config */}
-        {siteConfig.navigation.map(item => (
-          <React.Fragment key={item.path}>
-            {/* Main route */}
-            <Route 
-              path={item.path} 
-              element={React.createElement(
-                // Dynamically get the component based on the path
-                require(`./components/pages${item.path === '/training-services' ? '/TrainingServices' : item.path.charAt(0).toUpperCase() + item.path.slice(1)}`).default,
-                { pageInfo: siteConfig.pages[item.path.substring(1).replace(/-./g, x => x[1].toUpperCase())] }
-              )}
-            />
-            
-            {/* Submenu routes */}
-            {item.submenu?.map(subItem => (
-              <Route
-                key={subItem.path}
-                path={subItem.path}
-                element={React.createElement(
-                  require(`./components/pages${subItem.path}`).default,
-                  { pageInfo: { ...subItem, type: item.path.substring(1) } }
-                )}
-              />
-            ))}
-          </React.Fragment>
-        ))}
+        {/* Use Cases Routes */}
+        <Route path="/use-cases/cloud-migration" element={<CloudMigrationCases pageInfo={siteConfig.pages.useCases.cloudMigration} />} />
+        <Route path="/use-cases/digital-innovation" element={<DigitalInnovationCases pageInfo={siteConfig.pages.useCases.digitalInnovation} />} />
+        <Route path="/use-cases/enterprise" element={<EnterpriseUseCases pageInfo={siteConfig.pages.useCases.enterprise} />} />
         
         {/* Legal Routes */}
         <Route path="/terms" element={<TermsAndConditions pageInfo={siteConfig.pages.legal.terms} />} />
         <Route path="/privacy" element={<PrivacyPolicy pageInfo={siteConfig.pages.legal.privacy} />} />
+        
+        {/* Dynamic Subroutes */}
+        {siteConfig.navigation?.map(item => 
+          item.submenu?.map(subItem => (
+            <Route
+              key={subItem.path}
+              path={subItem.path}
+              element={
+                React.createElement(
+                  // Try to load the component dynamically
+                  require(`./components/pages${subItem.path}`).default,
+                  { pageInfo: { ...subItem, type: item.path.slice(1) } }
+                )
+              }
+            />
+          ))
+        )}
         
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
