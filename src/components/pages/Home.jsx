@@ -8,7 +8,10 @@ import Testimonials from '../sections/Testimonials';
 import Partners from '../sections/Partners';
 import QuickContact from '../sections/QuickContact';
 
-const Home = ({ pageInfo }) => {
+const Home = ({ pageInfo = {
+  title: 'CloudDigify',
+  description: 'Transform Your Digital Future with Cloud Innovation'
+} }) => {
   const services = [
     { 
       icon: <FaCloud className="text-4xl" />, 
@@ -74,10 +77,10 @@ const Home = ({ pageInfo }) => {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                {pageInfo.title}
+                {pageInfo?.title || 'CloudDigify'}
               </h1>
               <p className="text-xl text-blue-100 mb-8">
-                {pageInfo.description}
+                {pageInfo?.description || 'Transform Your Digital Future with Cloud Innovation'}
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
