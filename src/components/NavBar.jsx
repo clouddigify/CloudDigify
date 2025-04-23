@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaCloud, FaServer, FaCode, FaShieldAlt, FaDatabase, FaUsers, FaMobileAlt, FaRobot, FaCogs, FaBrain, FaNetworkWired, FaDesktop, FaProjectDiagram, FaCheckCircle, FaTools, FaIndustry, FaCubes, FaSyncAlt, FaUsersCog, FaArrowRight, FaSearch, FaHome, FaGraduationCap, FaBlog, FaEnvelope, FaLightbulb, FaChartLine, FaRocket } from 'react-icons/fa';
+import { menuConfig } from '../config/menuConfig';
 
 // Import the page configuration for paths
 import { 
@@ -414,282 +415,102 @@ const menuContainerVariants = {
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const navRef = useRef(null);
   const location = useLocation();
-  const [hoverTimeout, setHoverTimeout] = useState(null);
-  
+
   useEffect(() => {
     setIsOpen(false);
     setActiveMenu(null);
   }, [location]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (navRef.current && !navRef.current.contains(event.target)) {
-        setActiveMenu(null);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   const handleMouseEnter = (menu) => {
-    if (hoverTimeout) clearTimeout(hoverTimeout);
     setActiveMenu(menu);
   };
 
   const handleMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setActiveMenu(null);
-    }, 300);
-    setHoverTimeout(timeout);
+    setActiveMenu(null);
   };
 
   return (
-    <motion.nav
-      ref={navRef}
-      initial={false}
-      animate={isScrolled ? "scrolled" : "top"}
-      variants={{
-        scrolled: {
-          backgroundColor: "rgba(255, 255, 255, 0.98)",
-          backdropFilter: "blur(12px)",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
-        },
-        top: {
-          backgroundColor: "rgba(255, 255, 255, 1)",
-          backdropFilter: "none",
-          boxShadow: "none"
-        }
-      }}
-      className="fixed w-full z-50 transition-all duration-300"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav ref={navRef} className="bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0 flex items-center space-x-3">
-            <img src="/logo.png" alt="CloudDigify" className="h-8 w-auto" />
-            <span className="font-bold text-xl text-blue-600">
-              CloudDigify
-            </span>
+          <Link to="/" className="flex items-center">
+            <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
-            <NavLink 
-              to="/" 
-              className={({ isActive }) => 
-                `text-gray-700 hover:text-blue-600 transition-all duration-200 ${
-                  isActive ? 'text-blue-600' : ''
-                }`
-              }
-            >
-              Home
-            </NavLink>
-
-            {/* Services Menu */}
-            <div 
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('services')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button 
-                className={`flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-all duration-200 ${
-                  activeMenu === 'services' ? 'text-blue-600' : ''
-                }`}
-              >
-                <span>Services</span>
-                <motion.span
-                  animate={{ rotate: activeMenu === 'services' ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <FaChevronDown className="h-3 w-3 ml-1" />
-                </motion.span>
-              </button>
-
-              <AnimatePresence>
-                {activeMenu === 'services' && (
-                  <motion.div
-                    variants={menuVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                    className="absolute top-full left-0 w-[600px] bg-white rounded-lg shadow-lg border border-gray-100/50 py-4"
-                    style={{ 
-                      marginTop: '0.5rem',
-                    }}
+          <div className="hidden md:flex items-center space-x-4">
+            {menuConfig.mainNav.map((item, index) => (
+              <div key={index} className="relative">
+                {item.hasSubmenu ? (
+                  <div
+                    onMouseEnter={() => handleMouseEnter(item.title)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <div className="grid grid-cols-2 gap-2 p-3">
-                      {getServiceCategories().slice(0, 6).map((category, index) => (
+                    <button className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-blue-600">
+                      <span>{item.title}</span>
+                      <FaChevronDown className="h-4 w-4" />
+                    </button>
+
+                    <AnimatePresence>
+                      {activeMenu === item.title && item.submenu && (
                         <motion.div
-                          key={index}
-                          variants={itemVariants}
-                          className="group"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2"
                         >
-                          <div className="relative p-3 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                            <div className="flex items-center space-x-3">
-                              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
-                                {category.icon}
-                              </div>
+                          {item.submenu.map((subItem, subIndex) => (
+                            <Link
+                              key={subIndex}
+                              to={subItem.path}
+                              className="flex items-center px-4 py-3 hover:bg-blue-50"
+                            >
+                              {subItem.icon && (
+                                <subItem.icon className="w-5 h-5 mr-3 text-blue-500" />
+                              )}
                               <div>
-                                <h3 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
-                                  {category.title}
-                                </h3>
-                                <ul className="mt-1 space-y-1">
-                                  {category.submenu.map((item, idx) => (
-                                    <motion.li
-                                      key={idx}
-                                      variants={itemVariants}
-                                    >
-                                      <Link
-                                        to={item.path}
-                                        className="block text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
-                                      >
-                                        {item.title}
-                                      </Link>
-                                    </motion.li>
-                                  ))}
-                                </ul>
+                                <div className="font-medium text-gray-900">{subItem.title}</div>
+                                {subItem.description && (
+                                  <div className="text-sm text-gray-500">{subItem.description}</div>
+                                )}
                               </div>
-                            </div>
-                          </div>
+                            </Link>
+                          ))}
                         </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Industries Menu */}
-            <div 
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('industries')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button 
-                className={`flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-all duration-200 ${
-                  activeMenu === 'industries' ? 'text-blue-600' : ''
-                }`}
-              >
-                <span>Industries</span>
-                <motion.span
-                  animate={{ rotate: activeMenu === 'industries' ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <FaChevronDown className="h-3 w-3 ml-1" />
-                </motion.span>
-              </button>
-
-              <AnimatePresence>
-                {activeMenu === 'industries' && (
-                  <motion.div
-                    variants={menuVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                    className="absolute top-full left-0 w-[500px] bg-white rounded-lg shadow-lg border border-gray-100/50 py-4"
-                    style={{ 
-                      marginTop: '0.5rem',
-                    }}
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `px-3 py-2 text-gray-700 hover:text-blue-600 ${
+                        isActive ? 'text-blue-600' : ''
+                      }`
+                    }
                   >
-                    <div className="grid grid-cols-2 gap-2 p-3">
-                      {getIndustryCategories().slice(0, 6).map((industry, index) => (
-                        <motion.div
-                          key={index}
-                          variants={itemVariants}
-                          className="group"
-                        >
-                          <div className="relative p-3 hover:bg-indigo-50 rounded-lg transition-colors duration-200">
-                            <div className="flex items-center space-x-3">
-                              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-200">
-                                {industry.icon}
-                              </div>
-                              <div>
-                                <h3 className="font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-200">
-                                  {industry.title}
-                                </h3>
-                                <ul className="mt-1 space-y-1">
-                                  {industry.submenu.map((item, idx) => (
-                                    <motion.li
-                                      key={idx}
-                                      variants={itemVariants}
-                                    >
-                                      <Link
-                                        to={item.path}
-                                        className="block text-sm text-gray-600 hover:text-indigo-600 transition-colors duration-200"
-                                      >
-                                        {item.title}
-                                      </Link>
-                                    </motion.li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
+                    {item.title}
+                  </NavLink>
                 )}
-              </AnimatePresence>
-            </div>
-
-            <NavLink 
-              to="/training" 
-              className={({ isActive }) => 
-                `text-gray-700 hover:text-blue-600 transition-all duration-200 ${
-                  isActive ? 'text-blue-600' : ''
-                }`
-              }
-            >
-              Training
-            </NavLink>
-
-            <NavLink 
-              to="/use-cases" 
-              className={({ isActive }) => 
-                `text-gray-700 hover:text-blue-600 transition-all duration-200 ${
-                  isActive ? 'text-blue-600' : ''
-                }`
-              }
-            >
-              Use Cases
-            </NavLink>
-
-            <Link
-              to="/contact"
-              className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200"
-            >
-              Contact Us
-            </Link>
+              </div>
+            ))}
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
-            >
-              {isOpen ? (
-                <FaTimes className="h-6 w-6" />
-              ) : (
-                <FaBars className="h-6 w-6" />
-              )}
-            </button>
-          </div>
+          <button
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? (
+              <FaTimes className="h-6 w-6" />
+            ) : (
+              <FaBars className="h-6 w-6" />
+            )}
+          </button>
         </div>
       </div>
 
@@ -698,18 +519,50 @@ const NavBar = () => {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t border-gray-100"
+            className="md:hidden"
           >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-              {/* Mobile menu content */}
-              {/* ... Implement mobile menu content ... */}
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {menuConfig.mainNav.map((item, index) => (
+                <div key={index}>
+                  {item.hasSubmenu ? (
+                    <div className="space-y-2">
+                      <div className="font-medium px-3 py-2">{item.title}</div>
+                      {item.submenu?.map((subItem, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          to={subItem.path}
+                          className="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {subItem.icon && (
+                            <subItem.icon className="w-5 h-5 mr-3 text-blue-500" />
+                          )}
+                          {subItem.title}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <NavLink
+                      to={item.path}
+                      className={({ isActive }) =>
+                        `block px-3 py-2 text-gray-700 hover:text-blue-600 ${
+                          isActive ? 'text-blue-600' : ''
+                        }`
+                      }
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.title}
+                    </NavLink>
+                  )}
+                </div>
+              ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 };
 
