@@ -171,8 +171,13 @@ const NavBar = () => {
     if (menu.hasSubmenu) {
       setActiveMenu(menu);
     }
+    
+    // Keep the parent menu active when hovering over submenu items
     if (menu.submenu) {
       setActiveSubmenu(menu);
+    } else {
+      // If hovering over a main menu item, clear submenu
+      setActiveSubmenu(null);
     }
   };
 
@@ -180,11 +185,12 @@ const NavBar = () => {
     // Set a timeout before closing the menu
     timeoutRef.current = setTimeout(() => {
       closeMenus();
-    }, 300); // 300ms delay before closing
+    }, 400); // Increased delay to 400ms for better usability
   };
 
   const handleItemClick = (item) => {
     if (item.submenu) {
+      // Toggle submenu without closing parent menu
       setActiveSubmenu(activeSubmenu === item ? null : item);
     }
   };
