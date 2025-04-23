@@ -48,7 +48,7 @@ const BrandTitle = () => (
   </div>
 );
 
-const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu }) => {
+const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu, onItemClick }) => {
   if (!isOpen || !items) return null;
 
   return (
@@ -74,6 +74,7 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
             {item.submenu ? (
               <div
                 className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer group"
+                onClick={() => onItemClick(item)}
               >
                 <div className="flex items-center space-x-3 min-w-0">
                   <span className="flex-shrink-0 text-blue-600 group-hover:scale-110 transition-transform">
@@ -95,6 +96,7 @@ const DropdownMenu = ({ items, isOpen, onMouseEnter, onMouseLeave, activeSubmenu
                       onMouseEnter={() => onMouseEnter(item)}
                       onMouseLeave={onMouseLeave}
                       activeSubmenu={activeSubmenu}
+                      onItemClick={onItemClick}
                     />
                   </div>
                 )}
@@ -169,6 +171,12 @@ const NavBar = () => {
     setActiveSubmenu(null);
   };
 
+  const handleItemClick = (item) => {
+    if (item.submenu) {
+      setActiveSubmenu(activeSubmenu === item ? null : item);
+    }
+  };
+
   return (
     <motion.nav
       ref={menuRef}
@@ -200,7 +208,10 @@ const NavBar = () => {
                   whileHover={{ scale: 1.05 }}
                 >
                   {item.hasSubmenu ? (
-                    <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 rounded-full hover:bg-gray-50 transition-colors">
+                    <button 
+                      className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 rounded-full hover:bg-gray-50 transition-colors"
+                      onClick={() => handleItemClick(item)}
+                    >
                       <span>{item.title}</span>
                       <motion.span
                         animate={{ rotate: activeMenu === item ? 180 : 0 }}
@@ -232,6 +243,7 @@ const NavBar = () => {
                         onMouseEnter={() => handleMouseEnter(item)}
                         onMouseLeave={handleMouseLeave}
                         activeSubmenu={activeSubmenu}
+                        onItemClick={handleItemClick}
                       />
                     )}
                   </AnimatePresence>
