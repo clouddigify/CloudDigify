@@ -75,7 +75,7 @@ module.exports = async (req, res) => {
     }
 
     // Email content
-    const ccRecipients = ['chirag@clouddigify.com', 'manish@clouddigify.com', 'deepak@clouddigify.com'];
+    const ccRecipients = ['chirag@clouddigify.com'];
     
     // Determine which email address to use as primary recipient based on form type
     const toEmail = formType === 'quick-contact' ? 'info@clouddigify.com' : 'contact@clouddigify.com';
