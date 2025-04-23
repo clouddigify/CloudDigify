@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaRocket, FaCloud, FaCogs, FaShieldAlt, FaDatabase, FaChartLine, 
@@ -207,20 +206,6 @@ const Home = ({ pageInfo }) => {
       <QuickContact />
     </div>
   );
-};
-
-Home.propTypes = {
-  pageInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    breadcrumbs: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        path: PropTypes.string.isRequired
-      })
-    ).isRequired
-  })
 };
 
 export default Home; 
