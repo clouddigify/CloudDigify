@@ -159,7 +159,7 @@ const NavBar = () => {
 
   const handleMouseEnter = (menu) => {
     if (menu.hasSubmenu) {
-      setActiveMenu(menu);
+    setActiveMenu(menu);
     }
     if (menu.submenu) {
       setActiveSubmenu(menu);
@@ -197,9 +197,9 @@ const NavBar = () => {
                 <Logo />
                 <BrandTitle />
               </LogoWrapper>
-            </Link>
+          </Link>
             <div className="hidden lg:ml-10 lg:flex lg:items-center lg:space-x-4">
-              {menuConfig.mainNav.map((item, index) => (
+            {menuConfig.mainNav.map((item, index) => (
                 <motion.div
                   key={index}
                   className="relative"
@@ -207,7 +207,7 @@ const NavBar = () => {
                   onMouseLeave={handleMouseLeave}
                   whileHover={{ scale: 1.05 }}
                 >
-                  {item.hasSubmenu ? (
+                {item.hasSubmenu ? (
                     <button 
                       className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 rounded-full hover:bg-gray-50 transition-colors"
                       onClick={() => handleItemClick(item)}
@@ -218,23 +218,23 @@ const NavBar = () => {
                         transition={{ duration: 0.2 }}
                         className="ml-1"
                       >
-                        <FaChevronDown className="h-4 w-4" />
+                      <FaChevronDown className="h-4 w-4" />
                       </motion.span>
                     </button>
-                  ) : (
-                    <NavLink
-                      to={item.path}
-                      className={({ isActive }) =>
+                ) : (
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
                         `inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors ${
                           isActive
                             ? 'text-white bg-blue-600 hover:bg-blue-700'
                             : 'text-gray-900 hover:bg-gray-50'
-                        }`
-                      }
-                    >
-                      {item.title}
-                    </NavLink>
-                  )}
+                      }`
+                    }
+                  >
+                    {item.title}
+                  </NavLink>
+                )}
                   <AnimatePresence>
                     {item.hasSubmenu && activeMenu === item && (
                       <DropdownMenu
@@ -249,7 +249,7 @@ const NavBar = () => {
                   </AnimatePresence>
                 </motion.div>
               ))}
-            </div>
+              </div>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -265,7 +265,7 @@ const NavBar = () => {
             <div className="lg:hidden">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(!isOpen)}
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
               >
                 {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
