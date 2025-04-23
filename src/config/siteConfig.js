@@ -8,13 +8,19 @@ import {
   FaInfoCircle,
   FaBook,
   FaFileContract,
-  FaShieldAlt
+  FaShieldAlt,
+  FaHome
 } from 'react-icons/fa';
 
 export const siteConfig = {
   // Main Navigation Structure
   navigation: {
     main: [
+      {
+        title: 'Home',
+        path: '/',
+        icon: FaHome
+      },
       {
         title: 'About',
         path: '/about',
@@ -94,6 +100,14 @@ export const siteConfig = {
 
   // Page Configurations
   pages: {
+    home: {
+      title: 'CloudDigify',
+      description: 'Transform Your Digital Future with Cloud Innovation',
+      type: 'home',
+      breadcrumbs: [
+        { title: 'Home', path: '/' }
+      ]
+    },
     about: {
       title: 'About Us',
       description: 'Leading the way in cloud innovation and digital transformation',

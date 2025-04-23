@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaRocket, FaCloud, FaCogs, FaShieldAlt, FaDatabase, FaChartLine, 
@@ -8,7 +9,7 @@ import Testimonials from '../sections/Testimonials';
 import Partners from '../sections/Partners';
 import QuickContact from '../sections/QuickContact';
 
-const Home = () => {
+const Home = ({ pageInfo }) => {
   const services = [
     { 
       icon: <FaCloud className="text-4xl" />, 
@@ -74,10 +75,10 @@ const Home = () => {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Transform Your Digital Future
+                {pageInfo.title}
               </h1>
               <p className="text-xl text-blue-100 mb-8">
-                Accelerate your business with cloud-native solutions, AI-driven insights, and cutting-edge technology.
+                {pageInfo.description}
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
@@ -206,6 +207,20 @@ const Home = () => {
       <QuickContact />
     </div>
   );
+};
+
+Home.propTypes = {
+  pageInfo: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    breadcrumbs: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        path: PropTypes.string.isRequired
+      })
+    ).isRequired
+  })
 };
 
 export default Home; 
