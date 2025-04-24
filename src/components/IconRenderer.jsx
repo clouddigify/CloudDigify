@@ -7,7 +7,22 @@ import {
   FaIndustry, 
   FaChartLine, 
   FaCubes,
-  FaQuestionCircle 
+  FaHome,
+  FaInfo,
+  FaGraduationCap,
+  FaBuilding,
+  FaClipboardCheck,
+  FaBrain,
+  FaLink,
+  FaChartBar,
+  FaCog,
+  FaFlask,
+  FaTools,
+  FaLock,
+  FaServer,
+  FaRobot,
+  FaDesktop,
+  FaQuestionCircle
 } from 'react-icons/fa';
 
 // Create a mapping of icon names to components
@@ -20,7 +35,22 @@ const ICONS = {
   Industry: FaIndustry,
   Chart: FaChartLine,
   ChartLine: FaChartLine,
-  Cubes: FaCubes
+  Cubes: FaCubes,
+  Home: FaHome,
+  Info: FaInfo,
+  GraduationCap: FaGraduationCap,
+  Building: FaBuilding,
+  Solutions: FaClipboardCheck,
+  Brain: FaBrain,
+  Link: FaLink,
+  ChartBar: FaChartBar,
+  Cog: FaCog,
+  Flask: FaFlask,
+  Tools: FaTools,
+  Lock: FaLock,
+  Server: FaServer,
+  Robot: FaRobot,
+  Desktop: FaDesktop
 };
 
 const IconRenderer = ({ icon, className }) => {

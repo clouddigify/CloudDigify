@@ -48,22 +48,23 @@ const BrandTitle = () => (
   </div>
 );
 
-const SubMenu = ({ items, depth, parentRef }) => {
-  const [activeItems, setActiveItems] = useState({});
+const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex }) => {
   const menuRef = useRef(null);
   const timeoutRef = useRef(null);
+  const [nestedActiveIndex, setNestedActiveIndex] = useState(-1);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target) && 
           parentRef.current && !parentRef.current.contains(event.target)) {
-        setActiveItems({});
+        setActiveItemIndex(-1);
+        setNestedActiveIndex(-1);
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [parentRef]);
+  }, [parentRef, setActiveItemIndex]);
 
   const handleMouseEnter = (itemId) => {
     // Clear any previous timeout
@@ -71,14 +72,18 @@ const SubMenu = ({ items, depth, parentRef }) => {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    setActiveItems(prev => ({ ...prev, [itemId]: true }));
+    // Immediately set active item - this will close other submenus
+    setActiveItemIndex(itemId);
+    // Clear any active nested items when entering a new item
+    setNestedActiveIndex(-1);
   };
 
   const handleMouseLeave = () => {
-    // Set a delay before closing submenus
+    // When leaving the submenu, set a delay before closing
     timeoutRef.current = setTimeout(() => {
-      setActiveItems({});
-    }, 500);  // Increased delay for better usability
+      setActiveItemIndex(-1);
+      setNestedActiveIndex(-1);
+    }, 300); // Reduced delay for better responsiveness
   };
 
   // Cleanup timeout on unmount
@@ -114,7 +119,13 @@ const SubMenu = ({ items, depth, parentRef }) => {
           >
             {item.submenu ? (
               <>
-                <div className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer">
+                <div 
+                  className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer"
+                  onMouseEnter={() => {
+                    // When hovering on the submenu title itself, set it as active immediately
+                    setActiveItemIndex(index);
+                  }}
+                >
                   <div className="flex items-center space-x-3 min-w-0">
                     {item.icon && (
                       <span className="flex-shrink-0 text-blue-600">
@@ -130,11 +141,13 @@ const SubMenu = ({ items, depth, parentRef }) => {
                   </div>
                   <FaChevronRight className="ml-2 text-gray-400" />
                 </div>
-                {activeItems[index] && item.submenu && (
+                {activeItemIndex === index && item.submenu && (
                   <SubMenu
                     items={item.submenu}
                     depth={depth + 1}
                     parentRef={menuRef}
+                    activeItemIndex={nestedActiveIndex}
+                    setActiveItemIndex={setNestedActiveIndex}
                   />
                 )}
               </>
@@ -165,21 +178,42 @@ const SubMenu = ({ items, depth, parentRef }) => {
 
 const NavItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeItemIndex, setActiveItemIndex] = useState(-1);
   const itemRef = useRef(null);
   const timeoutRef = useRef(null);
+  const activationTimeoutRef = useRef(null);
 
   const handleMouseEnter = () => {
+    // Clear any previous timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    setIsOpen(true);
+    
+    // Clear any previous activation timeout
+    if (activationTimeoutRef.current) {
+      clearTimeout(activationTimeoutRef.current);
+    }
+    
+    // Add a very short delay when opening the top-level menu
+    // to prevent flickering during quick mouse movements
+    activationTimeoutRef.current = setTimeout(() => {
+      setIsOpen(true);
+    }, 50); // Very short delay
   };
 
   const handleMouseLeave = () => {
+    // Clear any activation timeout
+    if (activationTimeoutRef.current) {
+      clearTimeout(activationTimeoutRef.current);
+      activationTimeoutRef.current = null;
+    }
+    
+    // Set timeout to close the menu
     timeoutRef.current = setTimeout(() => {
       setIsOpen(false);
-    }, 500);
+      setActiveItemIndex(-1); // Reset active submenu item when leaving
+    }, 300); // Delay before closing
   };
 
   // Clean up timeout on unmount
@@ -187,6 +221,9 @@ const NavItem = ({ item }) => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
+      }
+      if (activationTimeoutRef.current) {
+        clearTimeout(activationTimeoutRef.current);
       }
     };
   }, []);
@@ -204,7 +241,13 @@ const NavItem = ({ item }) => {
           <FaChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
         {isOpen && Array.isArray(item.submenu) && (
-          <SubMenu items={item.submenu} depth={0} parentRef={itemRef} />
+          <SubMenu 
+            items={item.submenu} 
+            depth={0} 
+            parentRef={itemRef} 
+            activeItemIndex={activeItemIndex}
+            setActiveItemIndex={setActiveItemIndex}
+          />
         )}
       </div>
     );
