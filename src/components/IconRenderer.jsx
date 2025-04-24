@@ -49,14 +49,22 @@ import {
   FaHeartbeat,
   FaPlug,
   FaClock,
-  FaPaintBrush
+  FaPaintBrush,
+  FaPalette,
+  FaGlobeAsia
 } from 'react-icons/fa';
 
 import { 
   SiAmazonaws,
-  SiMicrosoft,
-  SiGoogle
+  SiMicrosoftazure,
+  SiGoogle,
+  SiOracle,
+  SiAzuredevops,
+  SiGooglecloud,
+  SiDatabricks
 } from 'react-icons/si';
+
+import { getBrandColor } from '../utils/brandColors';
 
 // Create a mapping of icon names to components
 const ICONS = {
@@ -91,10 +99,10 @@ const ICONS = {
   'fa-info': FaInfo,
   'fa-cloud': FaCloud,
   'fa-aws': SiAmazonaws,
-  'fa-microsoft': SiMicrosoft,
+  'fa-microsoft': SiMicrosoftazure,
   'fa-google': SiGoogle,
   'fa-database': FaDatabase,
-  'fa-alipay': FaDatabase, // Fallback
+  'fa-alipay': FaGlobeAsia,
   'fa-network-wired': FaNetworkWired,
   'fa-lightbulb': FaLightbulb,
   'fa-chart-line': FaChartLine,
@@ -102,6 +110,7 @@ const ICONS = {
   'fa-warehouse': FaWarehouse,
   'fa-cubes': FaCubes,
   'fa-paint-brush': FaPaintBrush,
+  'fa-palette': FaPalette,
   'fa-plug': FaPlug,
   'fa-clock': FaClock,
   'fa-robot': FaRobot,
@@ -132,22 +141,71 @@ const ICONS = {
   'fa-chart-bar': FaChartBar,
   'fa-cloud-shield': FaCloud,
   'fa-clipboard-list': FaClipboardList,
-  'fa-code': FaCode
+  'fa-code': FaCode,
+  
+  // Brand-specific cloud provider icons with exact brand names as keys
+  'AWS': SiAmazonaws,
+  'Amazon Web Services': SiAmazonaws,
+  'Microsoft Azure': SiMicrosoftazure,
+  'Azure': SiAzuredevops,
+  'Google Cloud': SiGooglecloud,
+  'GCP': SiGooglecloud,
+  'Oracle': SiOracle,
+  'Oracle Cloud': SiOracle,
+  'Alibaba': FaGlobeAsia,
+  'Alibaba Cloud': FaGlobeAsia,
+  'DataBricks': SiDatabricks
 };
 
-const IconRenderer = ({ icon, className }) => {
-  if (!icon) return null;
+const IconRenderer = ({ icon, className, title }) => {
+  if (!icon && !title) return null;
+  
+  // Get brand-specific color based on the title
+  const brandColor = title ? getBrandColor(title) : null;
   
   // Check in our direct mapping first
-  const IconComponent = ICONS[icon] || null;
+  const IconComponent = title && ICONS[title] ? ICONS[title] : ICONS[icon] || null;
   
   // If we found a direct match, use it
   if (IconComponent) {
-    return <IconComponent className={className} />;
+    return (
+      <div style={{ color: brandColor || 'currentColor' }}>
+        <IconComponent className={className} />
+      </div>
+    );
+  }
+  
+  // For cloud-related items, try to intelligently assign an icon and color
+  if (title) {
+    const titleLower = title.toLowerCase();
+    
+    if (titleLower.includes('cloud')) {
+      return (
+        <div style={{ color: brandColor || '#4285F4' }}> {/* Default cloud blue */}
+          <FaCloud className={className} />
+        </div>
+      );
+    }
+    
+    if (titleLower.includes('database')) {
+      return (
+        <div style={{ color: brandColor || '#F80000' }}> {/* Oracle red for databases */}
+          <FaDatabase className={className} />
+        </div>
+      );
+    }
+    
+    if (titleLower.includes('server')) {
+      return (
+        <div style={{ color: brandColor || '#0078D4' }}> {/* Microsoft blue for servers */}
+          <FaServer className={className} />
+        </div>
+      );
+    }
   }
   
   // Fallback to the question mark icon
-  console.log(`Icon not found: ${icon}`);
+  console.log(`Icon not found: ${icon || title}`);
   const FallbackIcon = FaQuestionCircle;
   return <FallbackIcon className={className} />;
 };
