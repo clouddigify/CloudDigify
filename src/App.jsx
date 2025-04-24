@@ -14,6 +14,7 @@ import UseCases from './components/pages/UseCases';
 import Blogs from './components/pages/Blogs';
 import Contact from './components/pages/Contact';
 import About from './components/pages/About';
+import BrandedIconsDemo from './components/pages/BrandedIconsDemo';
 
 // Legal Pages
 import TermsAndConditions from './components/pages/legal/TermsAndConditions';
@@ -65,6 +66,7 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/icons-demo" element={<BrandedIconsDemo />} />
         
         {/* Service Routes */}
         <Route path="/services/devops" element={<DevOps />} />
