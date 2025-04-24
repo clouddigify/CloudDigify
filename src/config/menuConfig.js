@@ -5,91 +5,355 @@ import {
   FaDatabase, 
   FaIndustry, 
   FaChartLine, 
-  FaCubes 
+  FaCubes,
+  FaHome,
+  FaInfo,
+  FaGraduationCap,
+  FaBuilding,
+  FaClipboardList,
+  FaBrain,
+  FaLink,
+  FaChartBar,
+  FaCog,
+  FaLightbulb,
+  FaTools,
+  FaLock,
+  FaServer,
+  FaRobot,
+  FaDesktop,
+  FaNetworkWired,
+  FaWarehouse,
+  FaPlay,
+  FaMicrochip,
+  FaUserShield,
+  FaCogs,
+  FaCheck,
+  FaUniversity,
+  FaTshirt,
+  FaBolt,
+  FaSearch,
+  FaLandmark,
+  FaSyncAlt,
+  FaProjectDiagram,
+  FaCodeBranch,
+  FaFileCode,
+  FaBox,
+  FaLaptopCode,
+  FaVial,
+  FaHeartbeat,
+  FaPlug,
+  FaClock,
+  FaPaintBrush
 } from 'react-icons/fa';
+
+import { 
+  SiAmazonaws,
+  SiMicrosoft,
+  SiGoogle
+} from 'react-icons/si';
 
 // Create a mapping of icon components
 const Icons = {
-  Cloud: FaCloud,
-  Code: FaCode,
-  Shield: FaShieldAlt,
-  Database: FaDatabase,
-  Industry: FaIndustry,
-  Chart: FaChartLine,
-  Cubes: FaCubes
+  // Simple mapping of icon name strings to components
+  'fa-home': FaHome,
+  'fa-info': FaInfo,
+  'fa-cloud': FaCloud,
+  'fa-aws': SiAmazonaws,
+  'fa-microsoft': SiMicrosoft,
+  'fa-google': SiGoogle,
+  'fa-database': FaDatabase,
+  'fa-alipay': FaDatabase, // Fallback
+  'fa-network-wired': FaNetworkWired,
+  'fa-lightbulb': FaLightbulb,
+  'fa-chart-line': FaChartLine,
+  'fa-brain': FaBrain,
+  'fa-warehouse': FaWarehouse,
+  'fa-cubes': FaCubes,
+  'fa-paint-brush': FaPaintBrush,
+  'fa-plug': FaPlug,
+  'fa-clock': FaClock,
+  'fa-robot': FaRobot,
+  'fa-microchip': FaMicrochip,
+  'fa-project-diagram': FaProjectDiagram,
+  'fa-cogs': FaCogs,
+  'fa-link': FaLink,
+  'fa-lightbulb-on': FaLightbulb,
+  'fa-code-branch': FaCodeBranch,
+  'fa-file-code': FaFileCode,
+  'fa-box': FaBox,
+  'fa-sync': FaSyncAlt,
+  'fa-shield-alt': FaShieldAlt,
+  'fa-user-shield': FaUserShield,
+  'fa-laptop-code': FaLaptopCode,
+  'fa-server': FaServer,
+  'fa-vial': FaVial,
+  'fa-tools': FaTools,
+  'fa-building': FaBuilding,
+  'fa-graduation-cap': FaGraduationCap,
+  'fa-heartbeat': FaHeartbeat,
+  'fa-university': FaUniversity,
+  'fa-tshirt': FaTshirt,
+  'fa-industry': FaIndustry,
+  'fa-bolt': FaBolt,
+  'fa-search': FaSearch,
+  'fa-landmark': FaLandmark,
+  'fa-chart-bar': FaChartBar,
+  'fa-cloud-shield': FaCloud
 };
 
 export const menuConfig = {
   mainNav: [
-    { title: 'Home', path: '/' },
-    { title: 'About', path: '/about' },
+    { title: 'Home', path: '/', icon: 'fa-home' },
+    { title: 'About Us', path: '/about', icon: 'fa-info' },
     { 
       title: 'Services', 
       path: '/services', 
       hasSubmenu: true,
+      icon: 'fa-cogs',
       submenu: [
         {
-          title: 'Cloud Services',
-          icon: 'Cloud',
+          title: 'Cloud & Infrastructure',
+          icon: 'fa-cloud',
           submenu: [
             { 
-              title: 'Cloud Infrastructure',
-              path: '/services/cloud-infrastructure',
-              description: 'Enterprise cloud infrastructure solutions'
+              title: 'AWS',
+              path: '/services/cloud/aws',
+              icon: 'fa-aws'
             },
             { 
-              title: 'Cloud Migration',
-              path: '/services/cloud-migration',
-              description: 'Seamless cloud migration services'
+              title: 'Microsoft Azure',
+              path: '/services/cloud/azure',
+              icon: 'fa-microsoft'
             },
             { 
-              title: 'Cloud Optimization',
-              path: '/services/cloud-optimization',
-              description: 'Optimize your cloud resources'
+              title: 'Google Cloud',
+              path: '/services/cloud/google-cloud',
+              icon: 'fa-google'
+            },
+            { 
+              title: 'Oracle',
+              path: '/services/cloud/oracle',
+              icon: 'fa-database'
+            },
+            { 
+              title: 'Alibaba',
+              path: '/services/cloud/alibaba',
+              icon: 'fa-alipay'
+            },
+            {
+              title: 'Infrastructure Service',
+              path: '/services/infrastructure-service',
+              icon: 'fa-network-wired'
             }
           ]
         },
         {
-          title: 'DevOps & Engineering',
-          icon: 'Code',
+          title: 'Consulting',
+          icon: 'fa-lightbulb',
           submenu: [
             { 
-              title: 'DevOps Services',
-              path: '/services/devops',
-              description: 'End-to-end DevOps solutions'
+              title: 'Consulting Overview',
+              path: '/services/consulting',
+              icon: 'fa-lightbulb'
             },
             { 
-              title: 'Infrastructure as Code',
-              path: '/services/infrastructure-as-code',
-              description: 'Automated infrastructure deployment'
+              title: 'Digital & Data Consulting',
+              icon: 'fa-database',
+              submenu: [
+                { 
+                  title: 'Data Analytics Services',
+                  path: '/services/consulting/data-analytics',
+                  icon: 'fa-chart-line'
+                },
+                { 
+                  title: 'Business Intelligence',
+                  path: '/services/consulting/business-intelligence',
+                  icon: 'fa-brain'
+                },
+                { 
+                  title: 'Data Warehousing',
+                  path: '/services/consulting/data-warehousing',
+                  icon: 'fa-warehouse'
+                },
+                { 
+                  title: 'DataBricks',
+                  path: '/services/consulting/databricks',
+                  icon: 'fa-cubes'
+                },
+                { 
+                  title: 'Experience Design',
+                  path: '/services/consulting/experience-design',
+                  icon: 'fa-paint-brush'
+                },
+                { 
+                  title: 'Digital Integration',
+                  path: '/services/consulting/digital-integration',
+                  icon: 'fa-plug'
+                },
+                { 
+                  title: 'Digital Runtime',
+                  path: '/services/consulting/digital-runtime',
+                  icon: 'fa-clock'
+                }
+              ]
             },
-            { 
-              title: 'Containerization',
-              path: '/services/containerization',
-              description: 'Container orchestration services'
+            {
+              title: 'AI & Automations',
+              icon: 'fa-robot',
+              submenu: [
+                { 
+                  title: 'Artificial Intelligence',
+                  path: '/services/ai/artificial-intelligence',
+                  icon: 'fa-robot'
+                },
+                { 
+                  title: 'Cognitive Services',
+                  path: '/services/ai/cognitive-services',
+                  icon: 'fa-brain'
+                },
+                { 
+                  title: 'Agentic AI',
+                  path: '/services/ai/agentic-ai',
+                  icon: 'fa-microchip'
+                },
+                { 
+                  title: 'Machine Learning Operations',
+                  path: '/services/ai/mlops',
+                  icon: 'fa-project-diagram'
+                },
+                { 
+                  title: 'RPA Automations',
+                  path: '/services/ai/rpa',
+                  icon: 'fa-cogs'
+                }
+              ]
+            },
+            {
+              title: 'Blockchain',
+              path: '/services/blockchain',
+              icon: 'fa-link'
+            },
+            {
+              title: 'Strategy, Experience and Applied Innovation',
+              path: '/services/strategy',
+              icon: 'fa-lightbulb-on'
+            },
+            {
+              title: 'DevOps & Engineering',
+              icon: 'fa-code-branch',
+              submenu: [
+                { 
+                  title: 'DevOps & CI/CD',
+                  path: '/services/devops/cicd',
+                  icon: 'fa-code-branch'
+                },
+                { 
+                  title: 'Infrastructure as a Code',
+                  path: '/services/devops/iac',
+                  icon: 'fa-file-code'
+                },
+                { 
+                  title: 'Containerization',
+                  path: '/services/devops/containerization',
+                  icon: 'fa-box'
+                },
+                { 
+                  title: 'Serverless Architecture',
+                  path: '/services/devops/serverless',
+                  icon: 'fa-cloud'
+                },
+                { 
+                  title: 'Agile Transformation',
+                  path: '/services/devops/agile',
+                  icon: 'fa-sync'
+                }
+              ]
             }
           ]
         },
         {
           title: 'Security & Compliance',
-          icon: 'ShieldAlt',
+          icon: 'fa-shield-alt',
           submenu: [
             { 
-              title: 'Security Services',
-              path: '/services/security-compliance',
-              description: 'Comprehensive security solutions'
+              title: 'Cyber Defence Resiliency',
+              path: '/services/security/cyber-defence',
+              icon: 'fa-shield-alt'
             },
             { 
-              title: 'Compliance Management',
-              path: '/services/compliance',
-              description: 'Regulatory compliance services'
-            },
-            { 
-              title: 'Security Assessment',
-              path: '/services/security-assessment',
-              description: 'Security auditing and testing'
+              title: 'Privacy SmartHub',
+              path: '/services/security/privacy-smarthub',
+              icon: 'fa-user-shield'
             }
           ]
+        },
+        {
+          title: 'Digital Engineering',
+          path: '/services/digital-engineering',
+          icon: 'fa-laptop-code'
+        },
+        {
+          title: 'Platform Operation',
+          path: '/services/platform-operation',
+          icon: 'fa-server'
+        },
+        {
+          title: 'Quality Engineering',
+          path: '/services/quality-engineering',
+          icon: 'fa-vial'
+        }
+      ]
+    },
+    { 
+      title: 'Training', 
+      path: '/training', 
+      hasSubmenu: true,
+      icon: 'fa-graduation-cap',
+      submenu: [
+        { 
+          title: 'Amazon Web Services',
+          path: '/training/aws',
+          icon: 'fa-aws'
+        },
+        { 
+          title: 'Microsoft Azure',
+          path: '/training/azure',
+          icon: 'fa-microsoft'
+        },
+        { 
+          title: 'Google Cloud',
+          path: '/training/google-cloud',
+          icon: 'fa-google'
+        },
+        { 
+          title: 'Alibaba Cloud',
+          path: '/training/alibaba-cloud',
+          icon: 'fa-alipay'
+        },
+        { 
+          title: 'Oracle',
+          path: '/training/oracle',
+          icon: 'fa-database'
+        },
+        { 
+          title: 'AI & ML',
+          path: '/training/ai-ml',
+          icon: 'fa-robot'
+        },
+        { 
+          title: 'Automation Tools',
+          path: '/training/automation',
+          icon: 'fa-tools'
+        },
+        { 
+          title: 'Corporate Training',
+          path: '/training/corporate',
+          icon: 'fa-building'
+        },
+        { 
+          title: 'On Campus Training',
+          path: '/training/campus',
+          icon: 'fa-graduation-cap'
         }
       ]
     },
@@ -97,130 +361,63 @@ export const menuConfig = {
       title: 'Industries', 
       path: '/industries', 
       hasSubmenu: true,
+      icon: 'fa-industry',
       submenu: [
-        {
-          title: 'Financial Services',
-          icon: 'Database',
-          submenu: [
-            { 
-              title: 'Banking Solutions',
-              path: '/industries/banking',
-              description: 'Digital banking transformation'
-            },
-            { 
-              title: 'Insurance',
-              path: '/industries/insurance',
-              description: 'Insurance technology solutions'
-            },
-            { 
-              title: 'Fintech',
-              path: '/industries/fintech',
-              description: 'Financial technology innovation'
-            }
-          ]
+        { 
+          title: 'Healthcare',
+          path: '/industries/healthcare',
+          icon: 'fa-heartbeat'
         },
-        {
-          title: 'Manufacturing',
-          icon: 'Industry',
-          submenu: [
-            { 
-              title: 'Smart Manufacturing',
-              path: '/industries/manufacturing',
-              description: 'Industry 4.0 solutions'
-            },
-            { 
-              title: 'Industrial IoT',
-              path: '/industries/industrial-iot',
-              description: 'Connected manufacturing'
-            },
-            { 
-              title: 'Supply Chain',
-              path: '/industries/supply-chain',
-              description: 'Digital supply chain solutions'
-            }
-          ]
+        { 
+          title: 'Banking',
+          path: '/industries/banking',
+          icon: 'fa-university'
+        },
+        { 
+          title: 'Textile & Apparel Industries',
+          path: '/industries/textile',
+          icon: 'fa-tshirt'
+        },
+        { 
+          title: 'Industrial Automation & Control System',
+          path: '/industries/automation',
+          icon: 'fa-industry'
+        },
+        { 
+          title: 'Electrical & Equipment',
+          path: '/industries/electrical',
+          icon: 'fa-bolt'
+        },
+        { 
+          title: 'Research & Advisory Services',
+          path: '/industries/research',
+          icon: 'fa-search'
+        },
+        { 
+          title: 'Public Administration & Governance',
+          path: '/industries/governance',
+          icon: 'fa-landmark'
         }
       ]
     },
     { 
-      title: 'Training Services',
-      path: '/training-services',
+      title: 'Customer Solutions', 
+      path: '/solutions', 
       hasSubmenu: true,
+      icon: 'fa-clipboard-list',
       submenu: [
-        {
-          title: 'Cloud Training',
-          icon: 'Cloud',
-          submenu: [
-            {
-              title: 'AWS Training',
-              path: '/training-services/aws',
-              description: 'Amazon Web Services certification'
-            },
-            {
-              title: 'Azure Training',
-              path: '/training-services/azure',
-              description: 'Microsoft Azure certification'
-            }
-          ]
+        { 
+          title: 'Transforming Data, Empowering Growth',
+          path: '/solutions/data-transformation',
+          icon: 'fa-chart-bar'
         },
-        {
-          title: 'DevOps Training',
-          icon: 'Code',
-          submenu: [
-            { 
-              title: 'DevOps Fundamentals',
-              path: '/training-services/devops',
-              description: 'Core DevOps practices'
-            },
-            {
-              title: 'Kubernetes',
-              path: '/training-services/kubernetes',
-              description: 'Container orchestration'
-            }
-          ]
+        { 
+          title: 'Secure, Efficient, and Cloud-Driven',
+          path: '/solutions/cloud-driven',
+          icon: 'fa-cloud-shield'
         }
       ]
-    },
-    {
-      title: 'Use Cases',
-      path: '/use-cases',
-      hasSubmenu: true,
-      submenu: [
-        {
-          title: 'Success Stories',
-          icon: 'ChartLine',
-          submenu: [
-            { 
-              title: 'Enterprise Cases',
-              path: '/use-cases/enterprise',
-              description: 'Enterprise transformation stories'
-            },
-            {
-              title: 'Cloud Migration',
-              path: '/use-cases/migration',
-              description: 'Successful migration cases'
-            }
-          ]
-        },
-        {
-          title: 'Solutions',
-          icon: 'Cubes',
-          submenu: [
-            { 
-              title: 'Industry Solutions',
-              path: '/use-cases/industry-solutions',
-              description: 'Industry-specific solutions'
-            },
-            { 
-              title: 'Custom Solutions',
-              path: '/use-cases/custom-solutions',
-              description: 'Tailored digital solutions'
-            }
-          ]
-        }
-      ]
-    },
-    { title: 'Contact', path: '/contact' }
+    }
   ]
 }; 
 
