@@ -226,6 +226,90 @@ const NavItem = ({ item }) => {
   );
 };
 
+// Mobile submenu component specifically for mobile view
+const MobileSubMenu = ({ items }) => {
+  return (
+    <div className="pl-4 mt-2 space-y-1">
+      {items.map((item, index) => (
+        <div key={index} className="py-1">
+          {item.submenu ? (
+            <MobileMenuItem item={item} />
+          ) : (
+            <Link
+              to={item.path}
+              className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50"
+            >
+              {item.icon && (
+                <span className="mr-3 text-blue-600">
+                  <IconRenderer icon={item.icon} className="w-5 h-5" />
+                </span>
+              )}
+              {item.title}
+              {item.description && (
+                <span className="ml-2 text-xs text-gray-500">{item.description}</span>
+              )}
+            </Link>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Mobile menu item component specifically for mobile view
+const MobileMenuItem = ({ item }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSubmenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  if (item.submenu && Array.isArray(item.submenu)) {
+    return (
+      <div className="mb-2">
+        <button
+          onClick={toggleSubmenu}
+          className="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-50"
+        >
+          {item.icon && (
+            <span className="mr-3 text-blue-600">
+              <IconRenderer icon={item.icon} className="w-5 h-5" />
+            </span>
+          )}
+          <span className="flex-1 text-left">{item.title}</span>
+          <motion.span
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <FaChevronDown className="h-4 w-4" />
+          </motion.span>
+        </button>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <MobileSubMenu items={item.submenu} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      to={item.path}
+      className="block px-4 py-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-50"
+    >
+      {item.title}
+    </Link>
+  );
+};
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -283,7 +367,7 @@ const NavBar = () => {
             <div className="lg:hidden">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-            onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setIsOpen(!isOpen)}
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
               >
                 {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
@@ -299,18 +383,12 @@ const NavBar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t"
+            className="lg:hidden bg-white border-t overflow-y-auto max-h-[80vh]"
           >
             <div className="pt-2 pb-3 space-y-1 px-4">
-              {menuConfig.mainNav.map((item, index) => {
-                // Make sure item and submenu are valid
-                if (item.hasSubmenu && !Array.isArray(item.submenu)) {
-                  return null;
-                }
-                return (
-                  <NavItem key={index} item={item} />
-                );
-              })}
+              {menuConfig.mainNav.map((item, index) => (
+                <MobileMenuItem key={index} item={item} />
+              ))}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
