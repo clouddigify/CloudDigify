@@ -1,5 +1,5 @@
 import React from 'react';
-import { SiGooglecloud } from 'react-icons/si';
+import { SiAlibabacloud } from 'react-icons/si';
 import { 
   FaServer, 
   FaGlobe, 
@@ -10,31 +10,38 @@ import {
   FaChartLine,
   FaShieldAlt,
   FaCode,
-  FaCloudUploadAlt
+  FaCloudUploadAlt,
+  FaCheckCircle,
+  FaCloud,
+  FaLock,
+  FaTools,
+  FaDatabase,
+  FaNetworkWired,
+  FaArrowRight
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTemplate from '../../templates/PageTemplate';
 import ImageSlider from '../../common/ImageSlider';
 
-const GoogleCloud = () => {
+const AlibabaCloud = () => {
   const sliderImages = [
     {
-      url: '/images/google/cloud-platform.jpg',
-      alt: 'Google Cloud Platform',
+      url: '/images/alibaba/cloud-infrastructure.jpg',
+      alt: 'Alibaba Cloud Infrastructure',
       overlay: true,
-      title: 'Google Cloud Platform',
-      description: 'Enterprise-grade cloud computing solutions powered by Google'
+      title: 'Global Cloud Infrastructure',
+      description: 'Leverage Alibaba Cloud\'s extensive network of data centers worldwide'
     },
     {
-      url: '/images/google/cloud-ai.jpg',
-      alt: 'Google Cloud AI & ML',
+      url: '/images/alibaba/cloud-analytics.jpg',
+      alt: 'Alibaba Cloud Analytics',
       overlay: true,
-      title: 'AI & Machine Learning',
-      description: 'Advanced AI and ML capabilities for intelligent applications'
+      title: 'Data Intelligence',
+      description: 'Advanced analytics and AI capabilities powered by Alibaba Cloud'
     },
     {
-      url: '/images/google/cloud-security.jpg',
-      alt: 'Google Cloud Security',
+      url: '/images/alibaba/cloud-security.jpg',
+      alt: 'Alibaba Cloud Security',
       overlay: true,
       title: 'Enterprise Security',
       description: 'Comprehensive security solutions for your cloud infrastructure'
@@ -48,23 +55,23 @@ const GoogleCloud = () => {
       unit: '%',
       label: 'Uptime Guarantee',
       description: 'Enterprise-grade reliability',
-      color: 'from-blue-500 to-blue-600',
-      metric: 'Average across all deployments',
+      color: 'from-orange-500 to-orange-600',
+      metric: 'Average across all services',
       achievement: '5-star reliability rating'
     },
     {
       icon: <FaRocket className="text-4xl" />,
-      value: '150+',
+      value: '165+',
       unit: '',
       label: 'Successful Launches',
       description: 'Cloud migrations completed',
-      color: 'from-indigo-500 to-indigo-600',
+      color: 'from-amber-500 to-amber-600',
       metric: 'In the last 24 months',
       achievement: 'Zero downtime migrations'
     },
     {
       icon: <FaPiggyBank className="text-4xl" />,
-      value: '65',
+      value: '62',
       unit: '%',
       label: 'Cost Reduction',
       description: 'Average client savings',
@@ -77,37 +84,40 @@ const GoogleCloud = () => {
       value: '100',
       unit: '%',
       label: 'Security Score',
-      description: 'GCP security standards',
+      description: 'Alibaba security standards',
       color: 'from-purple-500 to-purple-600',
       metric: 'Compliance rate',
       achievement: 'Zero security incidents'
     },
     {
       icon: <FaGlobe className="text-4xl" />,
-      value: '35+',
+      value: '25+',
       unit: '',
       label: 'Global Regions',
       description: 'Worldwide deployment',
-      color: 'from-rose-500 to-rose-600',
+      color: 'from-blue-500 to-blue-600',
       metric: 'Multi-region presence',
       achievement: '24/7 global support'
     },
     {
       icon: <FaChartLine className="text-4xl" />,
-      value: '40',
+      value: '35',
       unit: 'min',
       label: 'Response Time',
       description: 'Average resolution time',
-      color: 'from-amber-500 to-amber-600',
+      color: 'from-red-500 to-red-600',
       metric: 'Support SLA',
-      achievement: '97% client satisfaction'
+      achievement: '96% client satisfaction'
     }
   ];
 
   const pricingModels = [
     {
       title: 'Managed Hourly Service',
-      price: '$75/hour',
+      description: '68/hour',
+      subtitle: 'Perfect for small projects',
+      ctaText: 'Start Now',
+      bgClass: 'bg-gradient-to-b from-gray-50 to-white',
       features: [
         'Pay as you go',
         'Flexible scheduling',
@@ -117,9 +127,12 @@ const GoogleCloud = () => {
     },
     {
       title: 'Weekly Engagements',
-      price: '$2,800/week',
+      description: '2,500/week',
+      subtitle: 'Ideal for ongoing projects',
+      ctaText: 'Schedule Call',
+      bgClass: 'bg-gradient-to-b from-orange-50 to-white',
       features: [
-        'Dedicated GCP expert',
+        'Dedicated Alibaba expert',
         'Weekly progress reports',
         'Priority support',
         'Regular check-ins'
@@ -127,7 +140,10 @@ const GoogleCloud = () => {
     },
     {
       title: 'Monthly Retainer',
-      price: '$8,500/month',
+      description: '7,600/month',
+      subtitle: 'Best value for enterprises',
+      ctaText: 'Get Started',
+      bgClass: 'bg-gradient-to-b from-[#FF6A00] to-white',
       features: [
         'Full-time dedicated team',
         'Comprehensive management',
@@ -137,7 +153,10 @@ const GoogleCloud = () => {
     },
     {
       title: 'Custom Enterprise',
-      price: 'Custom Quote',
+      description: 'Custom Quote',
+      subtitle: 'Tailored to your needs',
+      ctaText: 'Request Quote',
+      bgClass: 'bg-gradient-to-b from-purple-50 to-white',
       features: [
         'Tailored solutions',
         'Multiple dedicated teams',
@@ -151,26 +170,26 @@ const GoogleCloud = () => {
     {
       phase: 'Discovery & Planning',
       duration: '1-2 weeks',
-      icon: <FaSearch className="text-3xl text-blue-500" />,
+      icon: <FaSearch className="text-3xl text-orange-500" />,
       activities: [
         'Initial consultation and requirements gathering',
         'Infrastructure assessment and gap analysis',
-        'GCP solution architecture design',
+        'Alibaba Cloud solution architecture design',
         'Cost estimation and resource planning'
       ],
-      color: 'from-blue-500 to-blue-600'
+      color: 'from-orange-500 to-orange-600'
     },
     {
       phase: 'Foundation Setup',
       duration: '1-2 weeks',
-      icon: <FaCloudUploadAlt className="text-3xl text-indigo-500" />,
+      icon: <FaCloudUploadAlt className="text-3xl text-[#FF6A00]" />,
       activities: [
-        'GCP project configuration and setup',
+        'Alibaba Cloud account configuration',
         'Network architecture implementation',
         'Security baseline establishment',
         'CI/CD pipeline setup'
       ],
-      color: 'from-indigo-500 to-indigo-600'
+      color: 'from-[#FF6A00] to-[#FF8533]'
     },
     {
       phase: 'Migration & Development',
@@ -210,26 +229,96 @@ const GoogleCloud = () => {
     }
   ];
 
+  const whyChooseUs = [
+    {
+      icon: <FaCheckCircle className="text-4xl text-[#FF6A00]" />,
+      title: 'Certified Alibaba Cloud Experts',
+      description: 'Our team consists of certified Alibaba Cloud professionals with extensive experience in Asian and global markets.'
+    },
+    {
+      icon: <FaCloud className="text-4xl text-[#FF6A00]" />,
+      title: 'End-to-End Solutions',
+      description: 'From migration planning to ongoing maintenance, we provide comprehensive Alibaba Cloud services.'
+    },
+    {
+      icon: <FaLock className="text-4xl text-[#FF6A00]" />,
+      title: 'Security First Approach',
+      description: 'We implement robust security practices aligned with Alibaba Cloud\'s security framework.'
+    },
+    {
+      icon: <FaTools className="text-4xl text-[#FF6A00]" />,
+      title: 'Optimization Experts',
+      description: 'Our team ensures your Alibaba Cloud resources are optimized for performance and cost.'
+    }
+  ];
+
+  const ourServices = [
+    {
+      icon: <FaCloud className="text-4xl text-[#FF6A00]" />,
+      title: 'Alibaba Cloud Migration',
+      description: 'Seamless migration of your applications and infrastructure to Alibaba Cloud.',
+      features: [
+        'Assessment and planning',
+        'Workload migration',
+        'Data transfer',
+        'Post-migration support'
+      ]
+    },
+    {
+      icon: <FaDatabase className="text-4xl text-[#FF6A00]" />,
+      title: 'Database Services',
+      description: 'Expert management of ApsaraDB and other database services.',
+      features: [
+        'Database migration',
+        'Performance tuning',
+        'High availability setup',
+        'Backup and recovery'
+      ]
+    },
+    {
+      icon: <FaNetworkWired className="text-4xl text-[#FF6A00]" />,
+      title: 'Infrastructure Management',
+      description: 'Complete management of your Alibaba Cloud infrastructure.',
+      features: [
+        'Infrastructure as Code',
+        'Resource optimization',
+        'Monitoring and alerts',
+        'Cost management'
+      ]
+    },
+    {
+      icon: <FaShieldAlt className="text-4xl text-[#FF6A00]" />,
+      title: 'Security Services',
+      description: 'Comprehensive security solutions for your Alibaba Cloud environment.',
+      features: [
+        'Security assessment',
+        'Compliance management',
+        'Identity and access control',
+        'Threat protection'
+      ]
+    }
+  ];
+
   const pageInfo = {
-    icon: <SiGooglecloud className="text-[#4285F4] text-6xl mb-6" />,
-    title: 'Google Cloud Platform (GCP)',
-    description: 'Transform your business with Google Cloud solutions. We help you leverage the full power of GCP to build, deploy, and scale applications with confidence.',
-    heroBackground: 'from-blue-600 to-blue-800',
-    overviewTitle: 'Google Cloud Solutions',
-    overviewDescription1: 'Google Cloud Platform (GCP) offers a suite of cloud computing services running on the same infrastructure that Google uses internally for its end-user products.',
-    overviewDescription2: 'As a Google Cloud partner, we help organizations accelerate their cloud journey with expert guidance, proven methodologies, and cutting-edge solutions tailored to their unique needs.',
+    icon: <SiAlibabacloud className="text-[#FF6A00] text-6xl mb-6" />,
+    title: 'Alibaba Cloud',
+    description: 'Transform your business with Alibaba Cloud solutions. We help you leverage the full power of Alibaba Cloud to build, deploy, and scale applications with confidence.',
+    heroBackground: 'from-[#FF6A00] to-[#FF8533]',
+    overviewTitle: 'Alibaba Cloud Solutions',
+    overviewDescription1: 'Alibaba Cloud provides a comprehensive suite of cloud computing services to power both enterprise and startup businesses with industry-leading infrastructure.',
+    overviewDescription2: 'As an Alibaba Cloud partner, we help organizations accelerate their cloud journey with expert guidance, proven methodologies, and cutting-edge solutions tailored to their unique needs.',
     benefits: [
-      'Global Infrastructure - Access to Google\'s state-of-the-art global network',
-      'Cost Optimization - Smart pricing and resource management tools',
-      'Advanced Security - Built-in security at every layer',
-      'Innovation Platform - Access to cutting-edge AI and ML tools'
+      'Global Scale - Access to Alibaba\'s extensive network of data centers',
+      'Cost Optimization - Smart pricing and predictable cost management',
+      'Advanced Security - Built-in security with comprehensive controls',
+      'Innovation Platform - Access to cutting-edge AI and ML services'
     ],
     approachPoints: [
-      'Infrastructure assessment and planning',
-      'Custom migration strategy',
-      'Implementation and testing',
-      'Continuous monitoring',
-      'Regular security updates'
+      'Assessment of your current infrastructure',
+      'Custom migration strategy development',
+      'Seamless implementation and testing',
+      'Continuous monitoring and optimization',
+      'Regular security audits and updates'
     ],
     ctaText: 'Book Free Consultation',
     ctaLink: '/contact',
@@ -244,8 +333,8 @@ const GoogleCloud = () => {
     features: pricingModels.map((model, index) => ({
       className: `relative bg-white rounded-xl transition-all duration-300 ease-in-out
         ${index === 2 
-          ? 'border-2 border-emerald-400' 
-          : 'border border-blue-100'} 
+          ? 'border-2 border-[#FF6A00]' 
+          : 'border border-orange-100'} 
         shadow-sm hover:shadow-xl
         p-4
         flex flex-col
@@ -257,7 +346,7 @@ const GoogleCloud = () => {
         <div className="flex flex-col h-full">
           {index === 2 && (
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-emerald-400 text-white px-3 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+              <span className="bg-[#FF6A00] text-white px-3 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
                 Most Popular
               </span>
             </div>
@@ -265,22 +354,27 @@ const GoogleCloud = () => {
           
           <div className="text-center mb-4">
             <h3 className={`text-base font-semibold ${
-              index === 2 ? 'text-emerald-500' : 'text-blue-500'
+              index === 2 ? 'text-[#FF6A00]' : 'text-orange-500'
             }`}>
               {model.title}
             </h3>
 
             <div className="mt-2">
               <div className="flex items-baseline justify-center">
-                {!model.price.includes('Custom') && (
-                  <span className="text-2xl font-bold text-gray-900">{model.price}</span>
+                {!model.description.includes('Custom') && (
+                  <span className="text-lg font-semibold text-gray-900">$</span>
                 )}
-                {model.price.includes('Custom') && (
-                  <span className="text-2xl font-bold text-gray-900">Custom Quote</span>
+                <span className={`text-2xl font-bold text-gray-900 ${!model.description.includes('Custom') ? 'ml-0.5' : ''}`}>
+                  {model.description.includes('Custom') ? 'Custom Quote' : model.description.split('/')[0].trim()}
+                </span>
+                {!model.description.includes('Custom') && (
+                  <span className="text-gray-500 ml-1.5 text-sm">
+                    /{model.description.split('/')[1]}
+                  </span>
                 )}
               </div>
               <p className="text-gray-500 mt-1 text-xs">
-                {model.price.includes('Custom') ? 'Contact us for custom pricing' : 'Billed per period'}
+                {model.description.includes('Custom') ? 'Contact us for custom pricing' : 'Billed per period'}
               </p>
             </div>
           </div>
@@ -291,7 +385,7 @@ const GoogleCloud = () => {
                 <li key={idx} className="flex items-start">
                   <svg 
                     className={`h-3.5 w-3.5 mr-2 mt-0.5 flex-shrink-0 ${
-                      index === 2 ? 'text-emerald-400' : 'text-blue-400'
+                      index === 2 ? 'text-[#FF6A00]' : 'text-orange-400'
                     }`}
                     fill="none" 
                     viewBox="0 0 24 24" 
@@ -315,8 +409,8 @@ const GoogleCloud = () => {
           <div className="mt-4">
             <button className={`w-full py-2 px-3 rounded-lg text-xs font-medium text-white transition-all duration-300
               ${index === 2 
-                ? 'bg-emerald-400 hover:bg-emerald-500' 
-                : 'bg-blue-500 hover:bg-blue-600'
+                ? 'bg-[#FF6A00] hover:bg-[#FF8533]' 
+                : 'bg-orange-500 hover:bg-orange-600'
               }
               hover:shadow-lg active:scale-[0.98]
             `}>
@@ -330,7 +424,7 @@ const GoogleCloud = () => {
       {
         content: (
           <div className="space-y-12">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-12">
+            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#FF6A00] to-[#FF8533] bg-clip-text text-transparent mb-12">
               Delivery Timeline
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -348,7 +442,7 @@ const GoogleCloud = () => {
                       {phase.icon}
                     </div>
                     <div className="text-xl font-bold text-gray-800 mb-2">{phase.phase}</div>
-                    <div className="text-sm text-blue-600 font-medium mb-4 flex items-center">
+                    <div className="text-sm text-[#FF6A00] font-medium mb-4 flex items-center">
                       <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -358,7 +452,7 @@ const GoogleCloud = () => {
                       {phase.activities.map((activity, idx) => (
                         <li key={idx} className="flex items-start text-sm">
                           <svg 
-                            className="w-4 h-4 mr-2 mt-0.5 text-green-500 flex-shrink-0"
+                            className="w-4 h-4 mr-2 mt-0.5 text-[#FF6A00] flex-shrink-0"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -386,7 +480,7 @@ const GoogleCloud = () => {
       {
         content: (
           <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-8">
+            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#FF6A00] to-[#FF8533] bg-clip-text text-transparent mb-8">
               Our Track Record
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -435,4 +529,4 @@ const GoogleCloud = () => {
   );
 };
 
-export default GoogleCloud;
+export default AlibabaCloud; 
