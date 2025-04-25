@@ -167,7 +167,7 @@ export const menuConfig = {
           submenu: [
             { 
               title: 'Consulting Overview',
-              path: '/services/consulting',
+              path: '/services/consulting/overview',
               icon: 'fa-lightbulb'
             },
             { 
