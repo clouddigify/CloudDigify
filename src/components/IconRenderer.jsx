@@ -50,17 +50,16 @@ import {
   FaPlug,
   FaClock,
   FaPaintBrush,
-  FaPalette,
-  FaGlobeAsia
+  FaPalette
 } from 'react-icons/fa';
 
 import { 
   SiAmazonaws,
   SiMicrosoftazure,
-  SiGoogle,
-  SiOracle,
-  SiAzuredevops,
   SiGooglecloud,
+  SiOracle,
+  SiAlibabacloud,
+  SiAzuredevops,
   SiDatabricks
 } from 'react-icons/si';
 
@@ -100,9 +99,9 @@ const ICONS = {
   'fa-cloud': FaCloud,
   'fa-aws': SiAmazonaws,
   'fa-microsoft': SiMicrosoftazure,
-  'fa-google': SiGoogle,
-  'fa-database': FaDatabase,
-  'fa-alipay': FaGlobeAsia,
+  'fa-google': SiGooglecloud,
+  'fa-oracle': SiOracle,
+  'fa-alibaba': SiAlibabacloud,
   'fa-network-wired': FaNetworkWired,
   'fa-lightbulb': FaLightbulb,
   'fa-chart-line': FaChartLine,
@@ -147,13 +146,13 @@ const ICONS = {
   'AWS': SiAmazonaws,
   'Amazon Web Services': SiAmazonaws,
   'Microsoft Azure': SiMicrosoftazure,
-  'Azure': SiAzuredevops,
+  'Azure': SiMicrosoftazure,
   'Google Cloud': SiGooglecloud,
   'GCP': SiGooglecloud,
   'Oracle': SiOracle,
   'Oracle Cloud': SiOracle,
-  'Alibaba': FaGlobeAsia,
-  'Alibaba Cloud': FaGlobeAsia,
+  'Alibaba': SiAlibabacloud,
+  'Alibaba Cloud': SiAlibabacloud,
   'DataBricks': SiDatabricks
 };
 

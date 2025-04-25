@@ -43,13 +43,14 @@ import {
   FaHeartbeat,
   FaPlug,
   FaClock,
-  FaPaintBrush
+  FaPaintBrush,
+  FaGlobeAsia
 } from 'react-icons/fa';
 
 import { 
   SiAmazonaws,
-  SiMicrosoft,
-  SiGoogle,
+  SiMicrosoftazure,
+  SiGooglecloud,
   SiOracle,
   SiAlibabacloud
 } from 'react-icons/si';
@@ -61,8 +62,8 @@ const Icons = {
   'fa-info': FaInfo,
   'fa-cloud': FaCloud,
   'fa-aws': SiAmazonaws,
-  'fa-microsoft': SiMicrosoft,
-  'fa-google': SiGoogle,
+  'fa-microsoft': SiMicrosoftazure,
+  'fa-google': SiGooglecloud,
   'fa-oracle': SiOracle,
   'fa-alibaba': SiAlibabacloud,
   'fa-database': FaDatabase,
