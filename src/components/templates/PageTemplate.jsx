@@ -236,84 +236,76 @@ const PageTemplate = ({ pageInfo, pageType = 'service' }) => {
 
         {/* Features Section with modern cards */}
         {pageInfo.showFeatures !== false && (
-          <section className="py-20 px-6 relative overflow-hidden">
+          <section className="py-10 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white/50 backdrop-blur-3xl" />
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={containerVariants}
-              className="max-w-6xl mx-auto relative z-10"
+              className="relative z-10"
             >
-              <motion.div variants={itemVariants} className="text-center mb-16">
-                <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  {isService 
-                    ? (pageInfo.featuresTitle || "Our Services")
-                    : isContent
-                    ? (pageInfo.featuresTitle || pageInfo.defaultFeaturesTitle || "Key Features")
-                    : (pageInfo.solutionsTitle || `Our ${pageInfo.title} Solutions`)}
+              <div className="text-center mb-8 px-4">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  {pageInfo.featuresTitle || (
+                    isService ? "Our Services" :
+                    isContent ? pageInfo.defaultFeaturesTitle || "Key Features" :
+                    "Industry Solutions"
+                  )}
                 </h2>
-                {(isService || isContent) && pageInfo.showFeaturesDescription !== false && (
-                  <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-                    {pageInfo.featuresDescription || (
-                      isService 
-                        ? "Comprehensive solutions tailored to your specific requirements."
-                        : pageInfo.defaultFeaturesDescription || "Important information you need to know"
-                    )}
+                {pageInfo.featuresDescription && (
+                  <p className="text-gray-600 text-sm max-w-2xl mx-auto">
+                    {pageInfo.featuresDescription}
                   </p>
                 )}
-              </motion.div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {(isService ? pageInfo.features : isContent ? pageInfo.features : pageInfo.solutions)?.map((item, index) => (
-                  <motion.div 
-                    key={index} 
-                    variants={itemVariants}
-                    whileHover={{ y: -5 }}
-                    className="backdrop-blur-sm bg-white/80 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-blue-600"
-                  >
-                    {(isIndustry || (isContent && item.icon)) && (
-                      <motion.div 
-                        className="mb-6 text-4xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        {item.icon}
-                      </motion.div>
-                    )}
-                    <h3 className={`text-${isIndustry ? '2xl' : 'xl'} font-semibold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent`}>
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-700 mb-6 leading-relaxed">
-                      {item.description}
-                    </p>
-                    {(isIndustry || (isContent && item.features)) && item.features && (
-                      <>
-                        <h4 className="font-medium text-gray-800 mb-4">Key Features:</h4>
-                        <ul className="space-y-3">
-                          {item.features.map((feature, idx) => (
-                            <motion.li 
-                              key={idx} 
-                              className="flex items-start group"
-                              variants={{
-                                hidden: { opacity: 0, x: -20 },
-                                visible: { 
-                                  opacity: 1, 
-                                  x: 0,
-                                  transition: { delay: idx * 0.1 }
-                                }
-                              }}
-                            >
-                              <span className="text-green-500 mr-3 transform group-hover:scale-110 transition-transform">✓</span>
-                              <span className="text-gray-700 group-hover:text-gray-900 transition-colors">{feature}</span>
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
-                  </motion.div>
-                ))}
               </div>
+
+              {Array.isArray(pageInfo.features) && pageInfo.features.length > 0 && (
+                <div className={pageInfo.featuresContainerClassName || 'container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl'}>
+                  <div className={pageInfo.featuresWrapperClassName || `
+                    grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 
+                    gap-3 lg:gap-4
+                    auto-rows-fr
+                    justify-items-center
+                  `}>
+                    {pageInfo.features.map((feature, index) => (
+                      <motion.div
+                        key={index}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { 
+                            opacity: 1, 
+                            y: 0,
+                            transition: { 
+                              type: "spring",
+                              stiffness: 100,
+                              damping: 15,
+                              delay: index * 0.1 
+                            }
+                          }
+                        }}
+                        whileHover={{ 
+                          y: -4,
+                          transition: { 
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25
+                          }
+                        }}
+                        className={feature.className || `
+                          relative bg-white rounded-xl p-4
+                          shadow-md hover:shadow-xl
+                          transition-all duration-300
+                          h-full flex flex-col
+                          min-h-[420px] w-full max-w-[240px]
+                        `}
+                      >
+                        {feature.content}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
           </section>
         )}
