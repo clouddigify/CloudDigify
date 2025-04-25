@@ -45,6 +45,10 @@ import Containerization from './components/services/devops/Containerization';
 import ServerlessArchitecture from './components/services/devops/ServerlessArchitecture';
 import AgileTransformation from './components/services/devops/AgileTransformation';
 
+// Security & Compliance Pages
+import CyberDefence from './components/services/security/CyberDefence';
+import PrivacySmartHub from './components/services/security/PrivacySmartHub';
+
 // Training Pages
 import AwsTraining from './components/pages/training/AwsTraining';
 import AzureTraining from './components/pages/training/AzureTraining';
@@ -158,6 +162,10 @@ const AnimatedRoutes = () => {
         <Route path="/services/devops/containerization" element={<Containerization />} />
         <Route path="/services/devops/serverless" element={<ServerlessArchitecture />} />
         <Route path="/services/devops/agile" element={<AgileTransformation />} />
+        
+        {/* Security & Compliance Routes */}
+        <Route path="/services/security/cyber-defence" element={<CyberDefence />} />
+        <Route path="/services/security/privacy-smarthub" element={<PrivacySmartHub />} />
         
         {/* AI Service Routes */}
         <Route path="/services/ai/artificial-intelligence" element={<ArtificialIntelligence />} />
