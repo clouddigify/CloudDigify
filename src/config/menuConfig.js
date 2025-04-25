@@ -131,12 +131,12 @@ export const menuConfig = {
               icon: 'fa-google'
             },
             { 
-              title: 'Oracle Cloud',
+              title: 'Oracle',
               path: '/services/cloud/oracle',
               icon: 'fa-database'
             },
             { 
-              title: 'Alibaba Cloud',
+              title: 'Alibaba',
               path: '/services/cloud/alibaba',
               icon: 'fa-alipay'
             },
@@ -163,32 +163,32 @@ export const menuConfig = {
                 { 
                   title: 'Data Analytics Services',
                   path: '/services/consulting/data-analytics',
-                  icon: 'fa-chart-bar'
+                  icon: 'fa-chart-line'
                 },
                 { 
                   title: 'Business Intelligence',
                   path: '/services/consulting/business-intelligence',
-                  icon: 'fa-chart-line'
+                  icon: 'fa-brain'
                 },
                 { 
                   title: 'Data Warehousing',
                   path: '/services/consulting/data-warehousing',
-                  icon: 'fa-database'
+                  icon: 'fa-warehouse'
                 },
                 { 
                   title: 'DataBricks',
                   path: '/services/consulting/databricks',
-                  icon: 'DataBricks'
+                  icon: 'fa-cubes'
                 },
                 { 
                   title: 'Experience Design',
                   path: '/services/consulting/experience-design',
-                  icon: 'fa-palette'
+                  icon: 'fa-paint-brush'
                 },
                 { 
                   title: 'Digital Integration',
                   path: '/services/consulting/digital-integration',
-                  icon: 'fa-link'
+                  icon: 'fa-plug'
                 },
                 { 
                   title: 'Digital Runtime',
@@ -199,7 +199,7 @@ export const menuConfig = {
             },
             {
               title: 'AI & Automations',
-              icon: 'fa-brain',
+              icon: 'fa-robot',
               submenu: [
                 { 
                   title: 'Artificial Intelligence',
@@ -219,12 +219,12 @@ export const menuConfig = {
                 { 
                   title: 'Machine Learning Operations',
                   path: '/services/ai/mlops',
-                  icon: 'fa-cogs'
+                  icon: 'fa-project-diagram'
                 },
                 { 
                   title: 'RPA Automations',
                   path: '/services/ai/rpa',
-                  icon: 'fa-robot'
+                  icon: 'fa-cogs'
                 }
               ]
             },
@@ -236,7 +236,7 @@ export const menuConfig = {
             {
               title: 'Strategy, Experience and Applied Innovation',
               path: '/services/strategy',
-              icon: 'fa-lightbulb'
+              icon: 'fa-lightbulb-on'
             },
             {
               title: 'DevOps & Engineering',
@@ -255,12 +255,12 @@ export const menuConfig = {
                 { 
                   title: 'Containerization',
                   path: '/services/devops/containerization',
-                  icon: 'fa-cube'
+                  icon: 'fa-box'
                 },
                 { 
                   title: 'Serverless Architecture',
                   path: '/services/devops/serverless',
-                  icon: 'fa-server'
+                  icon: 'fa-cloud'
                 },
                 { 
                   title: 'Agile Transformation',
@@ -331,7 +331,7 @@ export const menuConfig = {
           icon: 'fa-alipay'
         },
         { 
-          title: 'Oracle Cloud',
+          title: 'Oracle',
           path: '/training/oracle',
           icon: 'fa-database'
         },
@@ -417,8 +417,7 @@ export const menuConfig = {
           icon: 'fa-cloud-shield'
         }
       ]
-    },
-    { title: 'Icons Demo', path: '/icons-demo', icon: 'fa-palette' }
+    }
   ]
 }; 
 
