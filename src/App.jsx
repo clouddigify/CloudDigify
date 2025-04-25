@@ -32,6 +32,7 @@ import DisasterRecovery from './components/pages/services/DisasterRecovery';
 import Containerization from './components/pages/services/Containerization';
 import Serverless from './components/pages/services/Serverless';
 import CloudInfrastructure from './components/pages/services/CloudInfrastructure';
+import AWS from './components/services/cloud/AWS';
 
 // Training Pages
 import AwsTraining from './components/pages/training/AwsTraining';
@@ -80,6 +81,7 @@ const AnimatedRoutes = () => {
         <Route path="/services/containerization" element={<Containerization />} />
         <Route path="/services/serverless" element={<Serverless />} />
         <Route path="/services/cloud-infrastructure" element={<CloudInfrastructure />} />
+        <Route path="/services/cloud/aws" element={<AWS />} />
         
         {/* Training Routes */}
         <Route path="/training-services/aws" element={<AwsTraining />} />
