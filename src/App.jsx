@@ -68,6 +68,13 @@ import DigitalRuntime from './components/services/consulting/DigitalRuntime';
 import Strategy from './components/services/strategy/Strategy';
 import Blockchain from './components/services/blockchain/Blockchain';
 
+// AI Service Components
+import ArtificialIntelligence from './components/services/ai/ArtificialIntelligence';
+import CognitiveServices from './components/services/ai/CognitiveServices';
+import AgenticAI from './components/services/ai/AgenticAI';
+import MLOps from './components/services/ai/MLOps';
+import RPA from './components/services/ai/RPA';
+
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -140,6 +147,13 @@ const AnimatedRoutes = () => {
         <Route path="/services/cloud/oraclecloud" element={<OracleCloud />} />
         <Route path="/services/cloud/alibabacloud" element={<AlibabaCloud />} />
         <Route path="/services/infrastructure" element={<InfrastructureServices />} />
+        
+        {/* AI Service Routes */}
+        <Route path="/services/ai/artificial-intelligence" element={<ArtificialIntelligence />} />
+        <Route path="/services/ai/cognitive-services" element={<CognitiveServices />} />
+        <Route path="/services/ai/agentic-ai" element={<AgenticAI />} />
+        <Route path="/services/ai/mlops" element={<MLOps />} />
+        <Route path="/services/ai/rpa" element={<RPA />} />
         
         {/* Training Routes */}
         <Route path="/training-services/aws" element={<AwsTraining />} />
