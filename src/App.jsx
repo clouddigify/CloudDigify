@@ -33,6 +33,11 @@ import Containerization from './components/pages/services/Containerization';
 import Serverless from './components/pages/services/Serverless';
 import CloudInfrastructure from './components/pages/services/CloudInfrastructure';
 import AWS from './components/services/cloud/AWS';
+import Azure from './components/services/cloud/Azure';
+import GoogleCloud from './components/services/cloud/GoogleCloud';
+import OracleCloud from './components/services/cloud/OracleCloud';
+import AlibabaCloud from './components/services/cloud/AlibabaCloud';
+import InfrastructureServices from './components/services/infrastructure/InfrastructureServices';
 
 // Training Pages
 import AwsTraining from './components/pages/training/AwsTraining';
@@ -49,15 +54,49 @@ import DigitalInnovationCases from './components/pages/use-cases/DigitalInnovati
 import FinancialServices from './components/pages/industries/FinancialServices';
 import Banking from './components/pages/industries/Banking';
 
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught by boundary:', error);
+    console.error('Error info:', errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-4">
+          <h1>Something went wrong.</h1>
+          <pre>{this.state.error?.toString()}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 // Wrap routes with AnimatePresence
 const AnimatedRoutes = () => {
   const location = useLocation();
+  console.log('Current location:', location.pathname);
   
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         {/* Public Routes */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+          <ErrorBoundary>
+            <Home />
+          </ErrorBoundary>
+        } />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/industries" element={<Industries />} />
@@ -82,6 +121,11 @@ const AnimatedRoutes = () => {
         <Route path="/services/serverless" element={<Serverless />} />
         <Route path="/services/cloud-infrastructure" element={<CloudInfrastructure />} />
         <Route path="/services/cloud/aws" element={<AWS />} />
+        <Route path="/services/cloud/azure" element={<Azure />} />
+        <Route path="/services/cloud/googlecloud" element={<GoogleCloud />} />
+        <Route path="/services/cloud/oraclecloud" element={<OracleCloud />} />
+        <Route path="/services/cloud/alibabacloud" element={<AlibabaCloud />} />
+        <Route path="/services/infrastructure" element={<InfrastructureServices />} />
         
         {/* Training Routes */}
         <Route path="/training-services/aws" element={<AwsTraining />} />
@@ -106,15 +150,18 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
+  console.log('App rendering');
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <NavBar />
-        <main className="flex-grow">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-      </div>
+      <ErrorBoundary>
+        <div className="flex flex-col min-h-screen">
+          <NavBar />
+          <main className="flex-grow">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </div>
+      </ErrorBoundary>
     </Router>
   );
 };

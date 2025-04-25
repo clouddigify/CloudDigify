@@ -19,25 +19,25 @@ import ImageSlider from '../../common/ImageSlider';
 const AWS = () => {
   const sliderImages = [
     {
-      url: '/images/aws/aws-infrastructure.jpg',
-      alt: 'AWS Cloud Infrastructure',
+      url: '/images/aws/cloud-dashboard.jpg',
+      alt: 'AWS Cloud Dashboard Interface',
       overlay: true,
-      title: 'AWS Cloud Infrastructure',
-      description: 'Build scalable and reliable applications with AWS cloud services'
+      title: 'AWS Cloud Solutions',
+      description: 'Comprehensive cloud services and infrastructure management on AWS'
     },
     {
-      url: '/images/aws/aws-security.jpg',
-      alt: 'AWS Security',
+      url: '/images/aws/cloud-security.jpg',
+      alt: 'AWS Security and Compliance',
       overlay: true,
       title: 'Enterprise-Grade Security',
-      description: "Protect your data with AWS's comprehensive security features"
+      description: 'Advanced security protocols and compliance measures for AWS environments'
     },
     {
-      url: '/images/aws/aws-automation.jpg',
-      alt: 'AWS Automation',
+      url: '/images/aws/cloud-analytics.jpg',
+      alt: 'AWS Data Analytics Dashboard',
       overlay: true,
-      title: 'DevOps & Automation',
-      description: 'Streamline your operations with AWS automation tools'
+      title: 'Cloud Analytics & Insights',
+      description: 'Real-time monitoring and analytics for optimal cloud performance'
     }
   ];
 

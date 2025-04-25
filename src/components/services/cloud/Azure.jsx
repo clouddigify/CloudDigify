@@ -1,5 +1,5 @@
 import React from 'react';
-import { SiGooglecloud } from 'react-icons/si';
+import { SiMicrosoftazure } from 'react-icons/si';
 import { 
   FaServer, 
   FaGlobe, 
@@ -10,34 +10,40 @@ import {
   FaChartLine,
   FaShieldAlt,
   FaCode,
-  FaCloudUploadAlt
+  FaCloudUploadAlt,
+  FaCheckCircle,
+  FaCloud,
+  FaLock,
+  FaTools,
+  FaDatabase,
+  FaNetworkWired
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTemplate from '../../templates/PageTemplate';
 import ImageSlider from '../../common/ImageSlider';
 
-const GoogleCloud = () => {
+const AzureCloud = () => {
   const sliderImages = [
     {
-      url: '/images/google/cloud-platform.jpg',
-      alt: 'Google Cloud Platform',
+      url: '/images/azure/cloud-platform.jpg',
+      alt: 'Azure Cloud Platform',
       overlay: true,
-      title: 'Google Cloud Platform',
-      description: 'Enterprise-grade cloud computing solutions powered by Google'
+      title: 'Azure Cloud Platform',
+      description: 'Enterprise-grade cloud computing solutions powered by Microsoft Azure'
     },
     {
-      url: '/images/google/cloud-ai.jpg',
-      alt: 'Google Cloud AI & ML',
+      url: '/images/azure/cloud-devops.jpg',
+      alt: 'Azure DevOps Integration',
       overlay: true,
-      title: 'AI & Machine Learning',
-      description: 'Advanced AI and ML capabilities for intelligent applications'
+      title: 'DevOps Excellence',
+      description: 'Seamless integration of development and operations with Azure DevOps'
     },
     {
-      url: '/images/google/cloud-security.jpg',
-      alt: 'Google Cloud Security',
+      url: '/images/azure/cloud-hybrid.jpg',
+      alt: 'Azure Hybrid Cloud',
       overlay: true,
-      title: 'Enterprise Security',
-      description: 'Comprehensive security solutions for your cloud infrastructure'
+      title: 'Hybrid Cloud Solutions',
+      description: 'Unified management of on-premises and cloud resources with Azure'
     }
   ];
 
@@ -49,16 +55,16 @@ const GoogleCloud = () => {
       label: 'Uptime Guarantee',
       description: 'Enterprise-grade reliability',
       color: 'from-blue-500 to-blue-600',
-      metric: 'Average across all deployments',
+      metric: 'Average across all services',
       achievement: '5-star reliability rating'
     },
     {
       icon: <FaRocket className="text-4xl" />,
-      value: '150+',
+      value: '175+',
       unit: '',
       label: 'Successful Launches',
       description: 'Cloud migrations completed',
-      color: 'from-indigo-500 to-indigo-600',
+      color: 'from-cyan-500 to-cyan-600',
       metric: 'In the last 24 months',
       achievement: 'Zero downtime migrations'
     },
@@ -77,37 +83,40 @@ const GoogleCloud = () => {
       value: '100',
       unit: '%',
       label: 'Security Score',
-      description: 'GCP security standards',
+      description: 'Azure security standards',
       color: 'from-purple-500 to-purple-600',
       metric: 'Compliance rate',
       achievement: 'Zero security incidents'
     },
     {
       icon: <FaGlobe className="text-4xl" />,
-      value: '35+',
+      value: '60+',
       unit: '',
       label: 'Global Regions',
       description: 'Worldwide deployment',
-      color: 'from-rose-500 to-rose-600',
+      color: 'from-indigo-500 to-indigo-600',
       metric: 'Multi-region presence',
       achievement: '24/7 global support'
     },
     {
       icon: <FaChartLine className="text-4xl" />,
-      value: '40',
+      value: '30',
       unit: 'min',
       label: 'Response Time',
       description: 'Average resolution time',
       color: 'from-amber-500 to-amber-600',
       metric: 'Support SLA',
-      achievement: '97% client satisfaction'
+      achievement: '98% client satisfaction'
     }
   ];
 
   const pricingModels = [
     {
       title: 'Managed Hourly Service',
-      price: '$75/hour',
+      description: '65/hour',
+      subtitle: 'Perfect for small projects',
+      ctaText: 'Start Now',
+      bgClass: 'bg-gradient-to-b from-gray-50 to-white',
       features: [
         'Pay as you go',
         'Flexible scheduling',
@@ -117,9 +126,12 @@ const GoogleCloud = () => {
     },
     {
       title: 'Weekly Engagements',
-      price: '$2,800/week',
+      description: '2,400/week',
+      subtitle: 'Ideal for ongoing projects',
+      ctaText: 'Schedule Call',
+      bgClass: 'bg-gradient-to-b from-blue-50 to-white',
       features: [
-        'Dedicated GCP expert',
+        'Dedicated Azure expert',
         'Weekly progress reports',
         'Priority support',
         'Regular check-ins'
@@ -127,7 +139,10 @@ const GoogleCloud = () => {
     },
     {
       title: 'Monthly Retainer',
-      price: '$8,500/month',
+      description: '7,500/month',
+      subtitle: 'Best value for enterprises',
+      ctaText: 'Get Started',
+      bgClass: 'bg-gradient-to-b from-[#0078D4] to-white',
       features: [
         'Full-time dedicated team',
         'Comprehensive management',
@@ -137,7 +152,10 @@ const GoogleCloud = () => {
     },
     {
       title: 'Custom Enterprise',
-      price: 'Custom Quote',
+      description: 'Custom Quote',
+      subtitle: 'Tailored to your needs',
+      ctaText: 'Request Quote',
+      bgClass: 'bg-gradient-to-b from-purple-50 to-white',
       features: [
         'Tailored solutions',
         'Multiple dedicated teams',
@@ -155,7 +173,7 @@ const GoogleCloud = () => {
       activities: [
         'Initial consultation and requirements gathering',
         'Infrastructure assessment and gap analysis',
-        'GCP solution architecture design',
+        'Azure solution architecture design',
         'Cost estimation and resource planning'
       ],
       color: 'from-blue-500 to-blue-600'
@@ -163,14 +181,14 @@ const GoogleCloud = () => {
     {
       phase: 'Foundation Setup',
       duration: '1-2 weeks',
-      icon: <FaCloudUploadAlt className="text-3xl text-indigo-500" />,
+      icon: <FaCloudUploadAlt className="text-3xl text-[#0078D4]" />,
       activities: [
-        'GCP project configuration and setup',
+        'Azure account configuration and setup',
         'Network architecture implementation',
         'Security baseline establishment',
         'CI/CD pipeline setup'
       ],
-      color: 'from-indigo-500 to-indigo-600'
+      color: 'from-[#0078D4] to-[#0091FF]'
     },
     {
       phase: 'Migration & Development',
@@ -210,26 +228,96 @@ const GoogleCloud = () => {
     }
   ];
 
+  const whyChooseUs = [
+    {
+      icon: <FaCheckCircle className="text-4xl text-[#0078D4]" />,
+      title: 'Certified Azure Experts',
+      description: 'Our team consists of certified Azure professionals with years of experience in cloud solutions.'
+    },
+    {
+      icon: <FaCloud className="text-4xl text-[#0078D4]" />,
+      title: 'End-to-End Solutions',
+      description: 'From migration planning to ongoing maintenance, we provide comprehensive Azure cloud services.'
+    },
+    {
+      icon: <FaLock className="text-4xl text-[#0078D4]" />,
+      title: 'Security First Approach',
+      description: 'We implement industry-leading security practices to protect your cloud infrastructure.'
+    },
+    {
+      icon: <FaTools className="text-4xl text-[#0078D4]" />,
+      title: 'Optimization Experts',
+      description: 'Our team ensures your Azure resources are optimized for performance and cost.'
+    }
+  ];
+
+  const ourServices = [
+    {
+      icon: <FaCloud className="text-4xl text-[#0078D4]" />,
+      title: 'Azure Migration Services',
+      description: 'Seamless migration of your applications and infrastructure to Azure cloud.',
+      features: [
+        'Assessment and planning',
+        'Workload migration',
+        'Data transfer',
+        'Post-migration support'
+      ]
+    },
+    {
+      icon: <FaDatabase className="text-4xl text-[#0078D4]" />,
+      title: 'Azure Database Services',
+      description: 'Expert management of Azure SQL, Cosmos DB, and other database services.',
+      features: [
+        'Database migration',
+        'Performance tuning',
+        'High availability setup',
+        'Backup and recovery'
+      ]
+    },
+    {
+      icon: <FaNetworkWired className="text-4xl text-[#0078D4]" />,
+      title: 'Azure Infrastructure Management',
+      description: 'Complete management of your Azure cloud infrastructure.',
+      features: [
+        'Infrastructure as Code',
+        'Resource optimization',
+        'Monitoring and alerts',
+        'Cost management'
+      ]
+    },
+    {
+      icon: <FaShieldAlt className="text-4xl text-[#0078D4]" />,
+      title: 'Azure Security Services',
+      description: 'Comprehensive security solutions for your Azure environment.',
+      features: [
+        'Security assessment',
+        'Compliance management',
+        'Identity and access control',
+        'Threat protection'
+      ]
+    }
+  ];
+
   const pageInfo = {
-    icon: <SiGooglecloud className="text-[#4285F4] text-6xl mb-6" />,
-    title: 'Google Cloud Platform (GCP)',
-    description: 'Transform your business with Google Cloud solutions. We help you leverage the full power of GCP to build, deploy, and scale applications with confidence.',
-    heroBackground: 'from-blue-600 to-blue-800',
-    overviewTitle: 'Google Cloud Solutions',
-    overviewDescription1: 'Google Cloud Platform (GCP) offers a suite of cloud computing services running on the same infrastructure that Google uses internally for its end-user products.',
-    overviewDescription2: 'As a Google Cloud partner, we help organizations accelerate their cloud journey with expert guidance, proven methodologies, and cutting-edge solutions tailored to their unique needs.',
+    icon: <SiMicrosoftazure className="text-[#0078D4] text-6xl mb-6" />,
+    title: 'Azure Cloud',
+    description: 'Transform your business with Azure cloud solutions. We help you leverage the full power of Microsoft Azure to build, deploy, and scale applications with confidence.',
+    heroBackground: 'from-[#0078D4] to-[#0091FF]',
+    overviewTitle: 'Azure Cloud Solutions',
+    overviewDescription1: 'Microsoft Azure provides a comprehensive suite of cloud computing services to power both enterprise and startup businesses with industry-leading infrastructure.',
+    overviewDescription2: 'As an Azure Cloud partner, we help organizations accelerate their cloud journey with expert guidance, proven methodologies, and cutting-edge solutions tailored to their unique needs.',
     benefits: [
-      'Global Infrastructure - Access to Google\'s state-of-the-art global network',
-      'Cost Optimization - Smart pricing and resource management tools',
-      'Advanced Security - Built-in security at every layer',
-      'Innovation Platform - Access to cutting-edge AI and ML tools'
+      'Global Scale - Access to Microsoft\'s extensive network of data centers',
+      'Cost Optimization - Smart pricing and predictable cost management',
+      'Advanced Security - Built-in security with comprehensive controls',
+      'Innovation Platform - Access to cutting-edge AI and ML services'
     ],
     approachPoints: [
-      'Infrastructure assessment and planning',
-      'Custom migration strategy',
-      'Implementation and testing',
-      'Continuous monitoring',
-      'Regular security updates'
+      'Assessment of your current infrastructure',
+      'Custom migration strategy development',
+      'Seamless implementation and testing',
+      'Continuous monitoring and optimization',
+      'Regular security audits and updates'
     ],
     ctaText: 'Book Free Consultation',
     ctaLink: '/contact',
@@ -244,7 +332,7 @@ const GoogleCloud = () => {
     features: pricingModels.map((model, index) => ({
       className: `relative bg-white rounded-xl transition-all duration-300 ease-in-out
         ${index === 2 
-          ? 'border-2 border-emerald-400' 
+          ? 'border-2 border-[#0078D4]' 
           : 'border border-blue-100'} 
         shadow-sm hover:shadow-xl
         p-4
@@ -257,7 +345,7 @@ const GoogleCloud = () => {
         <div className="flex flex-col h-full">
           {index === 2 && (
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-emerald-400 text-white px-3 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+              <span className="bg-[#0078D4] text-white px-3 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
                 Most Popular
               </span>
             </div>
@@ -265,22 +353,27 @@ const GoogleCloud = () => {
           
           <div className="text-center mb-4">
             <h3 className={`text-base font-semibold ${
-              index === 2 ? 'text-emerald-500' : 'text-blue-500'
+              index === 2 ? 'text-[#0078D4]' : 'text-blue-500'
             }`}>
               {model.title}
             </h3>
 
             <div className="mt-2">
               <div className="flex items-baseline justify-center">
-                {!model.price.includes('Custom') && (
-                  <span className="text-2xl font-bold text-gray-900">{model.price}</span>
+                {!model.description.includes('Custom') && (
+                  <span className="text-lg font-semibold text-gray-900">$</span>
                 )}
-                {model.price.includes('Custom') && (
-                  <span className="text-2xl font-bold text-gray-900">Custom Quote</span>
+                <span className={`text-2xl font-bold text-gray-900 ${!model.description.includes('Custom') ? 'ml-0.5' : ''}`}>
+                  {model.description.includes('Custom') ? 'Custom Quote' : model.description.split('/')[0].trim()}
+                </span>
+                {!model.description.includes('Custom') && (
+                  <span className="text-gray-500 ml-1.5 text-sm">
+                    /{model.description.split('/')[1]}
+                  </span>
                 )}
               </div>
               <p className="text-gray-500 mt-1 text-xs">
-                {model.price.includes('Custom') ? 'Contact us for custom pricing' : 'Billed per period'}
+                {model.description.includes('Custom') ? 'Contact us for custom pricing' : 'Billed per period'}
               </p>
             </div>
           </div>
@@ -291,7 +384,7 @@ const GoogleCloud = () => {
                 <li key={idx} className="flex items-start">
                   <svg 
                     className={`h-3.5 w-3.5 mr-2 mt-0.5 flex-shrink-0 ${
-                      index === 2 ? 'text-emerald-400' : 'text-blue-400'
+                      index === 2 ? 'text-[#0078D4]' : 'text-blue-400'
                     }`}
                     fill="none" 
                     viewBox="0 0 24 24" 
@@ -315,7 +408,7 @@ const GoogleCloud = () => {
           <div className="mt-4">
             <button className={`w-full py-2 px-3 rounded-lg text-xs font-medium text-white transition-all duration-300
               ${index === 2 
-                ? 'bg-emerald-400 hover:bg-emerald-500' 
+                ? 'bg-[#0078D4] hover:bg-[#0091FF]' 
                 : 'bg-blue-500 hover:bg-blue-600'
               }
               hover:shadow-lg active:scale-[0.98]
@@ -330,7 +423,7 @@ const GoogleCloud = () => {
       {
         content: (
           <div className="space-y-12">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-12">
+            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#0078D4] to-[#0091FF] bg-clip-text text-transparent mb-12">
               Delivery Timeline
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -348,7 +441,7 @@ const GoogleCloud = () => {
                       {phase.icon}
                     </div>
                     <div className="text-xl font-bold text-gray-800 mb-2">{phase.phase}</div>
-                    <div className="text-sm text-blue-600 font-medium mb-4 flex items-center">
+                    <div className="text-sm text-[#0078D4] font-medium mb-4 flex items-center">
                       <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -358,7 +451,7 @@ const GoogleCloud = () => {
                       {phase.activities.map((activity, idx) => (
                         <li key={idx} className="flex items-start text-sm">
                           <svg 
-                            className="w-4 h-4 mr-2 mt-0.5 text-green-500 flex-shrink-0"
+                            className="w-4 h-4 mr-2 mt-0.5 text-[#0078D4] flex-shrink-0"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -386,7 +479,7 @@ const GoogleCloud = () => {
       {
         content: (
           <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-8">
+            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#0078D4] to-[#0091FF] bg-clip-text text-transparent mb-8">
               Our Track Record
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -435,4 +528,4 @@ const GoogleCloud = () => {
   );
 };
 
-export default GoogleCloud;
+export default AzureCloud; 

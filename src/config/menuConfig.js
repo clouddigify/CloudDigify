@@ -49,7 +49,9 @@ import {
 import { 
   SiAmazonaws,
   SiMicrosoft,
-  SiGoogle
+  SiGoogle,
+  SiOracle,
+  SiAlibabacloud
 } from 'react-icons/si';
 
 // Create a mapping of icon components
@@ -61,8 +63,9 @@ const Icons = {
   'fa-aws': SiAmazonaws,
   'fa-microsoft': SiMicrosoft,
   'fa-google': SiGoogle,
+  'fa-oracle': SiOracle,
+  'fa-alibaba': SiAlibabacloud,
   'fa-database': FaDatabase,
-  'fa-alipay': FaDatabase, // Fallback
   'fa-network-wired': FaNetworkWired,
   'fa-lightbulb': FaLightbulb,
   'fa-chart-line': FaChartLine,
@@ -127,23 +130,26 @@ export const menuConfig = {
             },
             { 
               title: 'Google Cloud',
-              path: '/services/cloud/google-cloud',
+              path: '/services/cloud/googlecloud',
               icon: 'fa-google'
             },
             { 
               title: 'Oracle Cloud',
-              path: '/services/cloud/oracle',
-              icon: 'fa-database'
+              path: '/services/cloud/oraclecloud',
+              icon: 'fa-oracle',
+              description: 'Enterprise-grade cloud solutions'
             },
             { 
               title: 'Alibaba Cloud',
-              path: '/services/cloud/alibaba',
-              icon: 'fa-alipay'
+              path: '/services/cloud/alibabacloud',
+              icon: 'fa-alibaba',
+              description: "Asia's largest cloud provider"
             },
             {
-              title: 'Infrastructure Service',
-              path: '/services/infrastructure-service',
-              icon: 'fa-network-wired'
+              title: 'Infrastructure Services',
+              path: '/services/infrastructure',
+              icon: 'fa-network-wired',
+              description: 'Enterprise infrastructure solutions'
             }
           ]
         },
@@ -322,18 +328,18 @@ export const menuConfig = {
         },
         { 
           title: 'Google Cloud',
-          path: '/training/google-cloud',
+          path: '/training/googlecloud',
           icon: 'fa-google'
         },
         { 
           title: 'Alibaba Cloud',
-          path: '/training/alibaba-cloud',
-          icon: 'fa-alipay'
+          path: '/training/alibabacloud',
+          icon: 'fa-alibabacloud'
         },
         { 
           title: 'Oracle Cloud',
           path: '/training/oracle',
-          icon: 'fa-database'
+          icon: 'fa-oracle'
         },
         { 
           title: 'AI & ML',
