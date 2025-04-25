@@ -44,7 +44,8 @@ import {
   FaPlug,
   FaClock,
   FaPaintBrush,
-  FaGlobeAsia
+  FaPalette,
+  FaCube
 } from 'react-icons/fa';
 
 import { 
@@ -52,7 +53,8 @@ import {
   SiMicrosoftazure,
   SiGooglecloud,
   SiOracle,
-  SiAlibabacloud
+  SiAlibabacloud,
+  SiDatabricks
 } from 'react-icons/si';
 
 // Create a mapping of icon components
@@ -74,6 +76,7 @@ const Icons = {
   'fa-warehouse': FaWarehouse,
   'fa-cubes': FaCubes,
   'fa-paint-brush': FaPaintBrush,
+  'fa-palette': FaPalette,
   'fa-plug': FaPlug,
   'fa-clock': FaClock,
   'fa-robot': FaRobot,
@@ -102,7 +105,11 @@ const Icons = {
   'fa-search': FaSearch,
   'fa-landmark': FaLandmark,
   'fa-chart-bar': FaChartBar,
-  'fa-cloud-shield': FaCloud
+  'fa-cloud-shield': FaCloud,
+  'fa-clipboard-list': FaClipboardList,
+  'fa-code': FaCode,
+  'fa-cube': FaCube,
+  'DataBricks': SiDatabricks
 };
 
 export const menuConfig = {
