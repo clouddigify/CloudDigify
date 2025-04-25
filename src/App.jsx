@@ -54,6 +54,20 @@ import DigitalInnovationCases from './components/pages/use-cases/DigitalInnovati
 import FinancialServices from './components/pages/industries/FinancialServices';
 import Banking from './components/pages/industries/Banking';
 
+// Consulting Services
+import DigitalIntegration from './components/services/consulting/DigitalIntegration';
+import ConsultingOverview from './components/services/consulting/ConsultingOverview';
+import ExperienceDesign from './components/services/consulting/ExperienceDesign';
+import Databricks from './components/services/consulting/Databricks';
+import DataWarehousing from './components/services/consulting/DataWarehousing';
+import BusinessIntelligence from './components/services/consulting/BusinessIntelligence';
+import DataAnalytics from './components/services/consulting/DataAnalytics';
+import DigitalRuntime from './components/services/consulting/DigitalRuntime';
+
+// Strategy and Blockchain Services
+import Strategy from './components/services/strategy/Strategy';
+import Blockchain from './components/services/blockchain/Blockchain';
+
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -141,6 +155,20 @@ const AnimatedRoutes = () => {
         {/* Industry Routes */}
         <Route path="/industries/financial-services" element={<FinancialServices />} />
         <Route path="/industries/banking" element={<Banking />} />
+        
+        {/* Consulting Service Routes */}
+        <Route path="/services/consulting/digital-integration" element={<DigitalIntegration />} />
+        <Route path="/services/consulting/overview" element={<ConsultingOverview />} />
+        <Route path="/services/consulting/experience-design" element={<ExperienceDesign />} />
+        <Route path="/services/consulting/databricks" element={<Databricks />} />
+        <Route path="/services/consulting/data-warehousing" element={<DataWarehousing />} />
+        <Route path="/services/consulting/business-intelligence" element={<BusinessIntelligence />} />
+        <Route path="/services/consulting/data-analytics" element={<DataAnalytics />} />
+        <Route path="/services/consulting/digital-runtime" element={<DigitalRuntime />} />
+
+        {/* Strategy and Blockchain Routes */}
+        <Route path="/services/strategy" element={<Strategy />} />
+        <Route path="/services/blockchain" element={<Blockchain />} />
         
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
