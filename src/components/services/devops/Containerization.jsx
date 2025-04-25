@@ -1,127 +1,67 @@
-import React, { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { FaDocker, FaBox, FaServer, FaCloud, FaNetworkWired, FaCubes, FaRocket, FaShieldAlt } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 
 const Containerization = () => {
-  const [activeContainer, setActiveContainer] = useState(null);
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
-
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  // Container Stack Animation
-  const ContainerAnimation = () => {
+  // Simple Container Animation
+  const SimpleContainerAnimation = () => {
     const containers = [
-      { id: 'app1', label: 'Web App', color: 'blue', x: 400 },
-      { id: 'app2', label: 'API Service', color: 'green', x: 450 },
-      { id: 'app3', label: 'Database', color: 'purple', x: 500 },
-      { id: 'app4', label: 'Cache', color: 'orange', x: 550 }
+      { id: 'web', label: 'Web App', color: '#60A5FA' },
+      { id: 'api', label: 'API Service', color: '#34D399' },
+      { id: 'db', label: 'Database', color: '#A78BFA' },
+      { id: 'cache', label: 'Cache', color: '#F97316' }
     ];
 
     return (
-      <motion.div
-        className="relative w-full h-[400px] overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <svg className="w-full h-full" viewBox="0 0 1000 400">
-          {/* Docker Whale Silhouette */}
-          <motion.path
-            d="M100,200 C150,150 200,180 250,200 S350,220 400,200 S500,180 550,200 S650,220 700,200"
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2 }}
-          />
-
-          {/* Container Stack */}
-          {containers.map((container, index) => {
-            const y = 250 - (index * 60);
-            const isActive = activeContainer === container.id;
-
-            return (
-              <motion.g
+      <div className="flex justify-center mt-8">
+        <div className="relative w-full max-w-lg">
+          <div className="flex flex-col items-center">
+            {/* Docker Logo */}
+            <motion.div
+              className="mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <FaDocker className="text-4xl text-blue-300" />
+            </motion.div>
+            
+            {/* Container Stack */}
+            {containers.map((container, index) => (
+              <motion.div
                 key={container.id}
-                initial={{ x: -100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: index * 0.2 }}
-                onMouseEnter={() => setActiveContainer(container.id)}
-                onMouseLeave={() => setActiveContainer(null)}
+                className="w-full mb-4 relative"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
               >
-                {/* Container Box */}
-                <motion.rect
-                  x={container.x}
-                  y={y}
-                  width="200"
-                  height="50"
-                  rx="5"
-                  fill={`var(--color-${container.color}-500)`}
-                  fillOpacity={isActive ? "0.8" : "0.6"}
-                  animate={{
-                    scale: isActive ? 1.05 : 1,
-                    y: isActive ? y - 5 : y
+                <div 
+                  className="flex items-center justify-between px-6 py-3 rounded-lg"
+                  style={{ 
+                    backgroundColor: `${container.color}22`, 
+                    borderLeft: `4px solid ${container.color}`
                   }}
-                />
-
-                {/* Container Label */}
-                <motion.text
-                  x={container.x + 100}
-                  y={y + 30}
-                  textAnchor="middle"
-                  fill="white"
-                  fontSize="16"
-                  fontWeight="bold"
                 >
-                  {container.label}
-                </motion.text>
-
-                {/* Container Icons */}
-                <motion.g
-                  animate={{
-                    scale: isActive ? 1.2 : 1,
-                    rotate: isActive ? 360 : 0
-                  }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <FaDocker
-                    x={container.x + 20}
-                    y={y + 15}
-                    className="w-5 h-5 text-white"
-                  />
-                </motion.g>
-              </motion.g>
-            );
-          })}
-
-          {/* Connection Lines */}
-          {containers.map((container, index) => {
-            if (index === containers.length - 1) return null;
-            const isActive = activeContainer === container.id;
-
-            return (
-              <motion.path
-                key={`connection-${index}`}
-                d={`M ${container.x + 100} ${250 - (index * 60)} L ${container.x + 100} ${250 - ((index + 1) * 60)}`}
-                stroke="white"
-                strokeWidth={isActive ? "3" : "1"}
-                strokeOpacity={isActive ? "0.8" : "0.3"}
-                strokeDasharray="5,5"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1, delay: index * 0.2 }}
-              />
-            );
-          })}
-        </svg>
-      </motion.div>
+                  <div className="flex items-center">
+                    <FaBox className="mr-3" style={{ color: container.color }} />
+                    <span className="text-white">{container.label}</span>
+                  </div>
+                  <span className="text-xs px-2 py-1 rounded-full bg-white bg-opacity-20 text-white">
+                    Container
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -130,32 +70,29 @@ const Containerization = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800"
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100"
     >
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <motion.div
-          style={{ opacity, scale }}
-          className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600"
-        />
+      {/* Hero Section with fixed height */}
+      <section className="relative h-screen max-h-[750px] overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600" />
         
-        <div className="relative z-10 container mx-auto px-4">
+        <div className="relative z-10 container mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="text-center text-white"
+            className="text-white"
           >
             <motion.div
-              className="text-6xl mb-6 flex justify-center"
+              className="text-5xl mb-6 flex justify-center"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <FaDocker />
+              <FaDocker className="text-white" />
             </motion.div>
             <motion.h1
-              className="text-6xl font-bold mb-6"
+              className="text-5xl font-bold mb-6"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -163,7 +100,7 @@ const Containerization = () => {
               Containerization
             </motion.h1>
             <motion.p
-              className="text-xl text-gray-200 mb-12 max-w-3xl mx-auto"
+              className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -171,20 +108,30 @@ const Containerization = () => {
               Modernize your applications with container technology and orchestration
             </motion.p>
             
-            <ContainerAnimation />
+            <SimpleContainerAnimation />
           </motion.div>
+        </div>
+        
+        {/* Wave SVG at bottom */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg className="w-full h-16" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path
+              d="M0,100 C240,0 480,0 720,0 C960,0 1200,0 1440,0 L1440,100 L0,100 Z"
+              fill="white"
+            />
+          </svg>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-800">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.h2
             ref={ref}
             initial={{ y: 20, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-4xl font-bold text-white text-center mb-16"
+            className="text-4xl font-bold text-gray-900 text-center mb-16"
           >
             Key Features
           </motion.h2>
@@ -227,11 +174,11 @@ const Containerization = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={inView ? { y: 0, opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-700 rounded-lg p-8 hover:bg-gray-600 transition-colors"
+                className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
               >
-                <feature.icon className="text-4xl text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-white mb-4">{feature.title}</h3>
-                <p className="text-gray-300">{feature.description}</p>
+                <feature.icon className="text-4xl text-blue-600 mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -239,12 +186,12 @@ const Containerization = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.h2
             initial={{ y: 20, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
-            className="text-4xl font-bold text-white text-center mb-16"
+            className="text-4xl font-bold text-gray-900 text-center mb-16"
           >
             Benefits
           </motion.h2>
@@ -277,11 +224,11 @@ const Containerization = () => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={inView ? { scale: 1, opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8"
+                className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg p-8 shadow-lg"
               >
                 <h3 className="text-2xl font-bold text-white mb-2">{benefit.title}</h3>
                 <div className="text-4xl font-bold text-white mb-2">{benefit.value}</div>
-                <p className="text-gray-200">{benefit.description}</p>
+                <p className="text-blue-50">{benefit.description}</p>
               </motion.div>
             ))}
           </div>
