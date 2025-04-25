@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { FaCode, FaRocket, FaGithub, FaDocker, FaCloudUploadAlt, FaCheckCircle, FaBug, FaChartLine, FaCogs } from 'react-icons/fa';
+import { FaGithub, FaDocker, FaRocket, FaChartLine, FaCodeBranch } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 
 const CICD = () => {
@@ -11,41 +11,53 @@ const CICD = () => {
 
   // Simplified Pipeline Animation
   const SimplePipelineAnimation = () => {
-    const stages = [
-      { id: 'code', label: 'Code', icon: FaCode, color: '#60A5FA' },
-      { id: 'build', label: 'Build', icon: FaCogs, color: '#34D399' },
-      { id: 'test', label: 'Test', icon: FaBug, color: '#A78BFA' },
-      { id: 'deploy', label: 'Deploy', icon: FaRocket, color: '#F97316' },
-      { id: 'monitor', label: 'Monitor', icon: FaChartLine, color: '#EC4899' }
+    const pipelineStages = [
+      { id: 'code', label: 'Code', icon: FaCodeBranch, color: '#60A5FA' },
+      { id: 'build', label: 'Build', icon: FaGithub, color: '#34D399' },
+      { id: 'test', label: 'Test', icon: FaDocker, color: '#F59E0B' },
+      { id: 'deploy', label: 'Deploy', icon: FaRocket, color: '#EC4899' },
+      { id: 'monitor', label: 'Monitor', icon: FaChartLine, color: '#8B5CF6' }
     ];
 
     return (
-      <div className="flex justify-center items-center mt-6">
-        <div className="flex flex-row items-center space-x-5">
-          {stages.map((stage, index) => (
-            <React.Fragment key={stage.id}>
-              <motion.div 
-                className="flex flex-col items-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="bg-white bg-opacity-10 p-4 rounded-full">
-                  <stage.icon className="text-3xl" style={{ color: stage.color }} />
-                </div>
-                <span className="text-sm mt-2 text-white">{stage.label}</span>
-              </motion.div>
-              
-              {index < stages.length - 1 && (
-                <motion.div 
-                  className="w-8 h-0.5 bg-white bg-opacity-20"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
-                />
-              )}
-            </React.Fragment>
-          ))}
+      <div className="w-full flex justify-center mt-8">
+        <div className="relative w-full max-w-4xl">
+          <div className="flex flex-col items-center">
+            {/* Pipeline flow */}
+            <div className="flex justify-between items-center w-full mb-2">
+              {pipelineStages.map((stage, index) => (
+                <motion.div
+                  key={stage.id}
+                  className="flex flex-col items-center relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 + index * 0.15 }}
+                >
+                  <div 
+                    className="rounded-lg p-4 mb-2 z-10 shadow-lg w-[100px] flex justify-center"
+                    style={{ backgroundColor: `${stage.color}22` }}
+                  >
+                    <stage.icon 
+                      className="text-2xl" 
+                      style={{ color: stage.color }} 
+                    />
+                  </div>
+                  <span className="text-sm text-white font-medium">{stage.label}</span>
+                  
+                  {/* Don't render arrow after the last item */}
+                  {index < pipelineStages.length - 1 && (
+                    <motion.div 
+                      className="absolute left-[110px] top-1/2 transform -translate-y-1/2 w-[calc(100vw/6)] h-0.5 bg-gray-300"
+                      style={{ width: 'calc((100% - 120px) / 2)' }}
+                      initial={{ scaleX: 0, originX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -60,7 +72,7 @@ const CICD = () => {
     >
       {/* Hero Section with fixed height */}
       <section className="relative h-screen max-h-[750px] overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600" />
         
         <div className="relative z-10 container mx-auto px-4 text-center">
           <motion.div
@@ -91,7 +103,7 @@ const CICD = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Accelerate your software delivery with automated pipelines and DevOps best practices
+              Accelerate your development with automated pipelines and continuous delivery
             </motion.p>
             
             <SimplePipelineAnimation />
@@ -127,32 +139,32 @@ const CICD = () => {
               {
                 icon: FaGithub,
                 title: "Source Control Integration",
-                description: "Seamless integration with Git and other version control systems"
+                description: "Seamless integration with Git, GitHub, GitLab, and more"
               },
               {
                 icon: FaDocker,
                 title: "Container Support",
-                description: "Built-in support for Docker and container orchestration"
+                description: "Built-in support for Docker and Kubernetes"
               },
               {
                 icon: FaRocket,
                 title: "Automated Deployments",
-                description: "Zero-touch deployment to any environment"
-              },
-              {
-                icon: FaBug,
-                title: "Automated Testing",
-                description: "Comprehensive testing at every stage"
-              },
-              {
-                icon: FaCheckCircle,
-                title: "Quality Gates",
-                description: "Enforce quality standards automatically"
+                description: "Zero-touch deployments to multiple environments"
               },
               {
                 icon: FaChartLine,
                 title: "Metrics & Analytics",
-                description: "Real-time pipeline analytics and insights"
+                description: "Comprehensive insights into your pipeline performance"
+              },
+              {
+                icon: FaCodeBranch,
+                title: "Branch-Based Workflows",
+                description: "Support for feature branches and pull request validation"
+              },
+              {
+                icon: FaRocket,
+                title: "Infrastructure as Code",
+                description: "Deploy infrastructure alongside your applications"
               }
             ].map((feature, index) => (
               <motion.div
@@ -185,24 +197,24 @@ const CICD = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "Faster Time to Market",
+                title: "Deploy Frequency",
+                value: "200x",
+                description: "Faster deployments compared to traditional methods"
+              },
+              {
+                title: "Time to Market",
                 value: "60%",
-                description: "Reduction in deployment time"
+                description: "Reduction in time to market for new features"
               },
               {
-                title: "Improved Quality",
-                value: "80%",
-                description: "Reduction in production defects"
+                title: "Recovery Time",
+                value: "90%",
+                description: "Faster recovery from failures"
               },
               {
-                title: "Team Efficiency",
-                value: "40%",
-                description: "Increase in developer productivity"
-              },
-              {
-                title: "Cost Reduction",
-                value: "30%",
-                description: "Reduction in operational costs"
+                title: "Change Failure Rate",
+                value: "7x",
+                description: "Lower change failure rate compared to manual processes"
               }
             ].map((benefit, index) => (
               <motion.div

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaDocker, FaBox, FaServer, FaCloud, FaNetworkWired, FaCubes, FaRocket, FaShieldAlt } from 'react-icons/fa';
+import { FaDocker, FaServer, FaCloud, FaNetworkWired, FaShieldAlt } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 
 const Containerization = () => {
@@ -9,56 +9,33 @@ const Containerization = () => {
     threshold: 0.1,
   });
 
-  // Simple Container Animation
-  const SimpleContainerAnimation = () => {
-    const containers = [
-      { id: 'web', label: 'Web App', color: '#60A5FA' },
-      { id: 'api', label: 'API Service', color: '#34D399' },
-      { id: 'db', label: 'Database', color: '#A78BFA' },
-      { id: 'cache', label: 'Cache', color: '#F97316' }
-    ];
-
+  // Simple Static Container Display
+  const ContainerVisual = () => {
     return (
-      <div className="flex justify-center mt-8">
-        <div className="relative w-full max-w-lg">
+      <div className="relative w-full flex justify-center mt-8">
+        <div className="rounded-lg bg-white bg-opacity-10 p-8 shadow-lg">
           <div className="flex flex-col items-center">
             {/* Docker Logo */}
-            <motion.div
-              className="mb-10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <FaDocker className="text-4xl text-blue-300" />
-            </motion.div>
+            <div className="mb-5">
+              <FaDocker className="text-6xl text-blue-400" />
+            </div>
             
-            {/* Container Stack */}
-            {containers.map((container, index) => (
-              <motion.div
-                key={container.id}
-                className="w-full mb-4 relative"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-              >
+            {/* Container Layers */}
+            <div className="flex flex-col w-60 gap-2">
+              {['Application', 'Dependencies', 'Runtime', 'OS Libs'].map((layer, index) => (
                 <div 
-                  className="flex items-center justify-between px-6 py-3 rounded-lg"
-                  style={{ 
-                    backgroundColor: `${container.color}22`, 
-                    borderLeft: `4px solid ${container.color}`
-                  }}
+                  key={index}
+                  className="bg-gradient-to-r from-blue-500 to-indigo-500 bg-opacity-80 
+                            text-white text-center py-2 px-4 rounded-md shadow-md"
+                  style={{ opacity: 1 - (index * 0.15) }}
                 >
-                  <div className="flex items-center">
-                    <FaBox className="mr-3" style={{ color: container.color }} />
-                    <span className="text-white">{container.label}</span>
-                  </div>
-                  <span className="text-xs px-2 py-1 rounded-full bg-white bg-opacity-20 text-white">
-                    Container
-                  </span>
+                  {layer}
                 </div>
-              </motion.div>
-            ))}
+              ))}
+              <div className="bg-gray-700 text-white text-center py-2 px-4 rounded-md mt-1 shadow-md">
+                Container Runtime
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -66,50 +43,25 @@ const Containerization = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100"
-    >
-      {/* Hero Section with fixed height */}
-      <section className="relative h-screen max-h-[750px] overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600" />
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      {/* Hero Section with reduced height */}
+      <section className="relative h-[650px] overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
         
         <div className="relative z-10 container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="text-white"
-          >
-            <motion.div
-              className="text-5xl mb-6 flex justify-center"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
+          <div className="text-white">
+            <div className="text-5xl mb-6 flex justify-center">
               <FaDocker className="text-white" />
-            </motion.div>
-            <motion.h1
-              className="text-5xl font-bold mb-6"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
+            </div>
+            <h1 className="text-5xl font-bold mb-6">
               Containerization
-            </motion.h1>
-            <motion.p
-              className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              Modernize your applications with container technology and orchestration
-            </motion.p>
+            </h1>
+            <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
+              Package, distribute, and run your applications consistently across any environment
+            </p>
             
-            <SimpleContainerAnimation />
-          </motion.div>
+            <ContainerVisual />
+          </div>
         </div>
         
         {/* Wave SVG at bottom */}
@@ -139,34 +91,34 @@ const Containerization = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: FaBox,
-                title: "Container Management",
-                description: "Efficient container lifecycle management"
-              },
-              {
-                icon: FaServer,
-                title: "Orchestration",
-                description: "Advanced container orchestration with Kubernetes"
+                icon: FaDocker,
+                title: "Docker Integration",
+                description: "Build, ship, and run Docker containers with ease"
               },
               {
                 icon: FaCloud,
                 title: "Cloud Native",
-                description: "Built for modern cloud environments"
+                description: "Designed for modern cloud environments and architectures"
+              },
+              {
+                icon: FaServer,
+                title: "Resource Optimization",
+                description: "Maximize hardware utilization and reduce overhead"
               },
               {
                 icon: FaNetworkWired,
-                title: "Service Mesh",
-                description: "Advanced networking and service discovery"
+                title: "Service Networking",
+                description: "Simplified container networking and service discovery"
               },
               {
-                icon: FaCubes,
-                title: "Microservices",
-                description: "Support for microservices architecture"
+                icon: FaShieldAlt,
+                title: "Security Controls",
+                description: "Enhanced security with container isolation and scanning"
               },
               {
-                icon: FaRocket,
-                title: "Auto Scaling",
-                description: "Dynamic scaling based on demand"
+                icon: FaDocker,
+                title: "Container Orchestration",
+                description: "Scale and manage containers with Kubernetes integration"
               }
             ].map((feature, index) => (
               <motion.div
@@ -176,7 +128,7 @@ const Containerization = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
               >
-                <feature.icon className="text-4xl text-blue-600 mb-4" />
+                <feature.icon className="text-4xl text-blue-500 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </motion.div>
@@ -199,24 +151,24 @@ const Containerization = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "Resource Efficiency",
-                value: "70%",
-                description: "Better resource utilization"
-              },
-              {
                 title: "Deployment Speed",
-                value: "85%",
-                description: "Faster application deployment"
+                value: "300%",
+                description: "Faster application deployments"
               },
               {
-                title: "Development Efficiency",
+                title: "Resource Efficiency",
+                value: "80%",
+                description: "Improved resource utilization"
+              },
+              {
+                title: "Dev/Prod Parity",
+                value: "100%",
+                description: "Identical environments across lifecycle"
+              },
+              {
+                title: "Maintenance Costs",
                 value: "50%",
-                description: "Improved developer productivity"
-              },
-              {
-                title: "Infrastructure Savings",
-                value: "40%",
-                description: "Reduced infrastructure costs"
+                description: "Reduction in operational overhead"
               }
             ].map((benefit, index) => (
               <motion.div
@@ -234,7 +186,7 @@ const Containerization = () => {
           </div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
 };
 
