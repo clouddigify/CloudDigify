@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/common/ScrollToTop';
 
 // Page Components
 import Home from './components/pages/Home';
@@ -196,6 +197,7 @@ const App = () => {
   return (
     <Router>
       <ErrorBoundary>
+        <ScrollToTop />
         <div className="flex flex-col min-h-screen">
           <NavBar />
           <main className="flex-grow">
