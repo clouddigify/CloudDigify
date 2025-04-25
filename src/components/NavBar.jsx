@@ -166,7 +166,7 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
                   <div className="flex items-center space-x-3 min-w-0 overflow-hidden max-w-[200px]">
                     {item.icon && (
                       <span className="flex-shrink-0 text-blue-600 w-5 h-5 flex items-center justify-center">
-                        <IconRenderer icon={item.icon} className="w-4 h-4" title={item.title} />
+                        <IconRenderer icon={item.icon} className="w-4 h-4" />
                       </span>
                     )}
                     <div className="truncate">
@@ -197,7 +197,7 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
                 <div className="flex items-center space-x-3 min-w-0 overflow-hidden max-w-[200px]">
                   {item.icon && (
                     <span className="flex-shrink-0 text-blue-600 w-5 h-5 flex items-center justify-center">
-                      <IconRenderer icon={item.icon} className="w-4 h-4" title={item.title} />
+                      <IconRenderer icon={item.icon} className="w-4 h-4" />
                     </span>
                   )}
                   <div className="truncate">
@@ -432,7 +432,7 @@ const MobileSubMenu = ({ items }) => {
               <div className="flex items-center min-w-0 overflow-hidden">
                 {item.icon && (
                   <span className="mr-3 text-blue-600 flex-shrink-0">
-                    <IconRenderer icon={item.icon} className="w-5 h-5" title={item.title} />
+                    <IconRenderer icon={item.icon} className="w-5 h-5" />
                   </span>
                 )}
                 <div className="truncate">
@@ -469,7 +469,7 @@ const MobileMenuItem = ({ item }) => {
           <div className="flex items-center min-w-0 overflow-hidden">
             {item.icon && (
               <span className="mr-3 text-blue-600 flex-shrink-0 w-5 h-5 flex items-center justify-center">
-                <IconRenderer icon={item.icon} className="w-4 h-4" title={item.title} />
+                <IconRenderer icon={item.icon} className="w-4 h-4" />
               </span>
             )}
             <div className="truncate max-w-[200px]">
@@ -511,15 +511,10 @@ const MobileMenuItem = ({ item }) => {
       <div className="flex items-center min-w-0 overflow-hidden">
         {item.icon && (
           <span className="mr-3 text-blue-600 flex-shrink-0 w-5 h-5 flex items-center justify-center">
-            <IconRenderer icon={item.icon} className="w-5 h-5" title={item.title} />
+            <IconRenderer icon={item.icon} className="w-4 h-4" />
           </span>
         )}
-        <div className="truncate max-w-[200px]">
-          <div className="truncate">{item.title}</div>
-          {item.description && (
-            <div className="text-xs text-gray-500 truncate">{item.description}</div>
-          )}
-        </div>
+        <span className="truncate max-w-[200px]">{item.title}</span>
       </div>
       {item.type === 'action' && <FaArrowRight className="ml-2 text-gray-400 flex-shrink-0 w-4 h-4" />}
     </Link>
@@ -641,6 +636,15 @@ const NavBar = () => {
             </div>
 
             <div className="flex items-center space-x-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="hidden lg:flex items-center px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 rounded-full transition-all duration-200 shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-600"
+              >
+                Get Started
+                <FaArrowRight className="ml-2" />
+              </motion.button>
+              
               <div className="lg:hidden">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
@@ -669,6 +673,14 @@ const NavBar = () => {
                 {menuConfig.mainNav.map((item, index) => (
                   <MobileMenuItem key={index} item={item} />
                 ))}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full mt-4 px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center sm:w-auto sm:inline-flex"
+                >
+                  Get Started
+                  <FaArrowRight className="ml-2 inline" />
+                </motion.button>
               </div>
             </motion.div>
           )}
