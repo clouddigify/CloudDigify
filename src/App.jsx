@@ -25,12 +25,10 @@ import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
 import DevOps from './components/pages/services/DevOps';
 import CloudMigration from './components/pages/services/CloudMigration';
 import ManagedServices from './components/pages/services/ManagedServices';
-import InfrastructureAsCode from './components/pages/services/InfrastructureAsCode';
 import ArchitectureDesign from './components/pages/services/ArchitectureDesign';
 import SecurityCompliance from './components/pages/services/SecurityCompliance';
 import CloudOptimization from './components/pages/services/CloudOptimization';
 import DisasterRecovery from './components/pages/services/DisasterRecovery';
-import Containerization from './components/pages/services/Containerization';
 import Serverless from './components/pages/services/Serverless';
 import CloudInfrastructure from './components/pages/services/CloudInfrastructure';
 import AWS from './components/services/cloud/AWS';
@@ -39,6 +37,13 @@ import GoogleCloud from './components/services/cloud/GoogleCloud';
 import OracleCloud from './components/services/cloud/OracleCloud';
 import AlibabaCloud from './components/services/cloud/AlibabaCloud';
 import InfrastructureServices from './components/services/infrastructure/InfrastructureServices';
+
+// DevOps Service Pages
+import CICD from './components/services/devops/CICD';
+import InfrastructureAsCode from './components/services/devops/InfrastructureAsCode';
+import Containerization from './components/services/devops/Containerization';
+import ServerlessArchitecture from './components/services/devops/ServerlessArchitecture';
+import AgileTransformation from './components/services/devops/AgileTransformation';
 
 // Training Pages
 import AwsTraining from './components/pages/training/AwsTraining';
@@ -134,12 +139,10 @@ const AnimatedRoutes = () => {
         <Route path="/services/devops" element={<DevOps />} />
         <Route path="/services/cloud-migration" element={<CloudMigration />} />
         <Route path="/services/managed-services" element={<ManagedServices />} />
-        <Route path="/services/infrastructure-as-code" element={<InfrastructureAsCode />} />
         <Route path="/services/architecture-design" element={<ArchitectureDesign />} />
         <Route path="/services/security-compliance" element={<SecurityCompliance />} />
         <Route path="/services/cloud-optimization" element={<CloudOptimization />} />
         <Route path="/services/disaster-recovery" element={<DisasterRecovery />} />
-        <Route path="/services/containerization" element={<Containerization />} />
         <Route path="/services/serverless" element={<Serverless />} />
         <Route path="/services/cloud-infrastructure" element={<CloudInfrastructure />} />
         <Route path="/services/cloud/aws" element={<AWS />} />
@@ -148,6 +151,13 @@ const AnimatedRoutes = () => {
         <Route path="/services/cloud/oraclecloud" element={<OracleCloud />} />
         <Route path="/services/cloud/alibabacloud" element={<AlibabaCloud />} />
         <Route path="/services/infrastructure" element={<InfrastructureServices />} />
+        
+        {/* DevOps Service Routes */}
+        <Route path="/services/devops/cicd" element={<CICD />} />
+        <Route path="/services/devops/iac" element={<InfrastructureAsCode />} />
+        <Route path="/services/devops/containerization" element={<Containerization />} />
+        <Route path="/services/devops/serverless" element={<ServerlessArchitecture />} />
+        <Route path="/services/devops/agile" element={<AgileTransformation />} />
         
         {/* AI Service Routes */}
         <Route path="/services/ai/artificial-intelligence" element={<ArtificialIntelligence />} />
