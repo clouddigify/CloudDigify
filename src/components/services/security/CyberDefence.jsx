@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaShieldAlt, FaLock, FaEye, FaUserSecret, FaServer, FaExclamationTriangle, FaClipboardCheck, FaNetworkWired, FaDatabase, FaChartLine, FaLaptop, FaUserLock, FaUserTie, FaAward, FaCertificate, FaArrowRight } from 'react-icons/fa';
-import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const CyberDefence = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  
   const [showInquiryForm, setShowInquiryForm] = useState(false);
   const [inquiryType, setInquiryType] = useState('Cyber Defence');
   
@@ -224,10 +218,10 @@ const CyberDefence = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.h2
-            ref={ref}
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ y: 10, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.4 }}
             className="text-4xl font-bold text-gray-900 text-center mb-16"
           >
             Our Comprehensive Services
@@ -268,9 +262,10 @@ const CyberDefence = () => {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ y: 20, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
                 className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
               >
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
@@ -286,8 +281,10 @@ const CyberDefence = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.h2
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
+            initial={{ y: 10, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.4 }}
             className="text-4xl font-bold text-gray-900 text-center mb-16"
           >
             Business Benefits
@@ -318,9 +315,10 @@ const CyberDefence = () => {
             ].map((benefit, index) => (
               <motion.div
                 key={index}
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={inView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.3, delay: Math.min(index * 0.1, 0.3) }}
                 className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg p-8 shadow-lg"
               >
                 <h3 className="text-2xl font-bold text-white mb-2">{benefit.title}</h3>
