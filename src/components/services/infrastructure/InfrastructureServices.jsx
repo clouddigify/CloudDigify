@@ -27,9 +27,23 @@ import {
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTemplate from '../../templates/PageTemplate';
-import ImageSlider from '../../common/ImageSlider';
 
 const InfrastructureServices = () => {
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   const sliderImages = [
     {
       url: '/images/infra/server-room-blue.jpg',
@@ -58,38 +72,50 @@ const InfrastructureServices = () => {
     {
       icon: <FaServer className="w-8 h-8" />,
       title: "Compute Infrastructure",
-      description: "High-performance server solutions and virtualization",
+      description: "CloudDigify builds high-performance server solutions tailored to your workloads",
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <FaDatabase className="w-8 h-8" />,
       title: "Storage Solutions",
-      description: "Enterprise storage and data management",
+      description: "We implement enterprise storage systems optimized for your data needs",
       color: "from-indigo-500 to-indigo-600"
     },
     {
       icon: <FaNetworkWired className="w-8 h-8" />,
       title: "Network Architecture",
-      description: "Secure and scalable networking",
+      description: "Our experts design secure and scalable networking for your organization",
       color: "from-purple-500 to-purple-600"
     },
     {
       icon: <FaLayerGroup className="w-8 h-8" />,
       title: "Hybrid Infrastructure",
-      description: "Seamless cloud and on-premises integration",
+      description: "CloudDigify enables seamless integration between cloud and on-premises systems",
       color: "from-cyan-500 to-cyan-600"
     },
     {
       icon: <FaShieldAlt className="w-8 h-8" />,
       title: "Security & Compliance",
-      description: "Enterprise-grade security measures",
+      description: "We implement enterprise-grade security measures for your infrastructure",
       color: "from-teal-500 to-teal-600"
     },
     {
       icon: <FaChartBar className="w-8 h-8" />,
       title: "Infrastructure Monitoring",
-      description: "Real-time performance analytics",
+      description: "CloudDigify deploys real-time monitoring solutions for optimal performance",
       color: "from-emerald-500 to-emerald-600"
+    },
+    {
+      icon: <FaCloud className="w-8 h-8" />,
+      title: "Cloud Migration",
+      description: "We manage seamless transitions from legacy systems to cloud infrastructure",
+      color: "from-blue-400 to-blue-500"
+    },
+    {
+      icon: <FaHdd className="w-8 h-8" />,
+      title: "Disaster Recovery",
+      description: "CloudDigify builds resilient backup and recovery systems for business continuity",
+      color: "from-gray-600 to-gray-700"
     }
   ];
 
@@ -172,7 +198,7 @@ const InfrastructureServices = () => {
 
   const pricingModels = [
     {
-      title: 'Managed Hourly Service',
+      title: 'Hourly Services',
       description: '75/hour',
       subtitle: 'Infrastructure tuning & updates',
       ctaText: 'Start Now',
@@ -185,7 +211,7 @@ const InfrastructureServices = () => {
       ]
     },
     {
-      title: 'Weekly Engagements',
+      title: 'Weekly Plan',
       description: '2,800/week',
       subtitle: 'Infrastructure setup & migration',
       ctaText: 'Schedule Call',
@@ -211,7 +237,7 @@ const InfrastructureServices = () => {
       ]
     },
     {
-      title: 'Custom Enterprise',
+      title: 'Enterprise',
       description: 'Custom Quote',
       subtitle: 'SLA-backed enterprise management',
       ctaText: 'Request Quote',
@@ -288,222 +314,6 @@ const InfrastructureServices = () => {
     }
   ];
 
-  const pageInfo = {
-    icon: <FaServer className="text-gray-800 text-6xl mb-6" />,
-    title: 'Infrastructure Services',
-    description: 'Unlock resilient, scalable, and secure infrastructure tailored to your business needs.',
-    heroBackground: 'from-gray-800 to-blue-700',
-    overviewTitle: 'Robust Infrastructure Solutions',
-    overviewDescription1: 'We provide comprehensive end-to-end infrastructure management services, from initial assessment to continuous optimization, ensuring your systems run at peak performance.',
-    overviewDescription2: 'Our expertise spans cloud-to-on-premises modernization, helping organizations build and maintain resilient infrastructure that scales with their business needs.',
-    benefits: [
-      'High Availability - Redundant systems and failover protection',
-      'Scalability - Elastic infrastructure that grows with you',
-      'Security - Enterprise-grade security at every layer',
-      'Automation - Streamlined operations and reduced manual work'
-    ],
-    approachPoints: [
-      'Infrastructure audit & gap analysis',
-      'Resilient architecture design',
-      'Infrastructure as Code setup',
-      'Automated deployments & scaling',
-      'Ongoing support and patching'
-    ],
-    ctaText: 'Ready to optimize your infrastructure? Let\'s architect, automate, and scale together.',
-    ctaLink: '/contact',
-    showBenefits: true,
-    showSidebar: true,
-    showCta: true,
-    showFeatures: true,
-    featuresTitle: 'Our Pricing Models',
-    featuresDescription: 'Choose the perfect infrastructure management plan for your business',
-    featuresContainerClassName: 'container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl',
-    featuresWrapperClassName: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center',
-    features: pricingModels.map((model, index) => ({
-      className: `relative bg-white rounded-xl transition-all duration-300 ease-in-out
-        ${index === 2 
-          ? 'border-2 border-blue-600' 
-          : 'border border-gray-100'} 
-        shadow-sm hover:shadow-xl
-        p-4
-        flex flex-col
-        h-full w-full
-        min-h-[380px] max-w-[280px]
-        ${index === 2 ? 'lg:-translate-y-2' : ''}
-      `,
-      content: (
-        <div className="flex flex-col h-full">
-          {index === 2 && (
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-blue-600 text-white px-3 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
-                Most Popular
-              </span>
-            </div>
-          )}
-          
-          <div className="text-center mb-4">
-            <h3 className={`text-base font-semibold ${
-              index === 2 ? 'text-blue-600' : 'text-gray-800'
-            }`}>
-              {model.title}
-            </h3>
-
-            <div className="mt-2">
-              <div className="flex items-baseline justify-center">
-                {!model.description.includes('Custom') && (
-                  <span className="text-lg font-semibold text-gray-900">$</span>
-                )}
-                <span className={`text-2xl font-bold text-gray-900 ${!model.description.includes('Custom') ? 'ml-0.5' : ''}`}>
-                  {model.description.includes('Custom') ? 'Custom Quote' : model.description.split('/')[0].trim()}
-                </span>
-                {!model.description.includes('Custom') && (
-                  <span className="text-gray-500 ml-1.5 text-sm">
-                    /{model.description.split('/')[1]}
-                  </span>
-                )}
-              </div>
-              <p className="text-gray-500 mt-1 text-xs">
-                {model.description.includes('Custom') ? 'Contact us for custom pricing' : 'Billed per period'}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex-grow">
-            <ul className="space-y-2">
-              {model.features.map((feature, idx) => (
-                <li key={idx} className="flex items-start">
-                  <svg 
-                    className={`h-3.5 w-3.5 mr-2 mt-0.5 flex-shrink-0 ${
-                      index === 2 ? 'text-blue-600' : 'text-gray-400'
-                    }`}
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-600 text-xs leading-relaxed">
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="mt-4">
-            <button className={`w-full py-2 px-3 rounded-lg text-xs font-medium text-white transition-all duration-300
-              ${index === 2 
-                ? 'bg-blue-600 hover:bg-blue-700' 
-                : 'bg-gray-600 hover:bg-gray-700'
-              }
-              hover:shadow-lg active:scale-[0.98]
-            `}>
-              Get Started
-            </button>
-          </div>
-        </div>
-      )
-    })),
-    additionalSections: [
-      {
-        content: (
-          <div className="space-y-12">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent mb-12">
-              Delivery Timeline
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-              {deliveryTimeline.map((phase, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${phase.color} rounded-t-xl`} />
-                  <div className="p-6">
-                    <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-gray-50 group-hover:scale-110 transition-transform duration-300">
-                      {phase.icon}
-                    </div>
-                    <div className="text-xl font-bold text-gray-800 mb-2">{phase.phase}</div>
-                    <div className="text-sm text-blue-600 font-medium mb-4 flex items-center">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {phase.duration}
-                    </div>
-                    <ul className="space-y-2">
-                      {phase.activities.map((activity, idx) => (
-                        <li key={idx} className="flex items-start text-sm">
-                          <svg 
-                            className="w-4 h-4 mr-2 mt-0.5 text-blue-600 flex-shrink-0"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path 
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                          <span className="text-gray-600 group-hover:text-gray-800 transition-colors">
-                            {activity}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )
-      },
-      {
-        content: (
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent mb-8">
-              Our Track Record
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {metrics.map((metric, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${metric.color}`} />
-                  <div className="p-4">
-                    <div className="flex flex-col items-center">
-                      <div className={`flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${metric.color} text-white transform group-hover:scale-110 transition-transform duration-300 mb-3`}>
-                        {React.cloneElement(metric.icon, { className: "text-2xl" })}
-                      </div>
-                      <div className="text-center">
-                        <div className="flex items-baseline justify-center">
-                          <span className="text-2xl font-bold text-gray-800">{metric.value}</span>
-                          <span className="text-lg font-semibold text-gray-600 ml-0.5">{metric.label}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    ]
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -543,95 +353,184 @@ const InfrastructureServices = () => {
       </div>
 
       {/* Infrastructure Grid */}
-      <div className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">Infrastructure Solutions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {infrastructureGrid.map((item, index) => (
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Infrastructure Solutions By CloudDigify
+            </h2>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              CloudDigify delivers comprehensive infrastructure services to build, deploy, and manage 
+              systems that help our customers achieve their business goals with confidence
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {infrastructureGrid.map((service, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                variants={fadeInUp}
+                className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                <div className={`h-2 bg-gradient-to-r ${item.color}`} />
-                <div className="p-6">
-                  <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center mb-4`}>
-                    {item.icon}
+                <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
+                <div className="flex flex-col items-start h-full">
+                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    {service.description}
+                  </p>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </div>
-
-      {/* Approach Timeline */}
-      <div className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">Our Approach</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {approachTimeline.map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative"
-              >
-                <div className="bg-white rounded-xl p-6 shadow-lg">
-                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white mb-4">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                  <p className="text-gray-600 mb-4">{step.description}</p>
-                  <ul className="space-y-2">
-                    {step.details.map((detail, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-gray-600">
-                        <FaCheckCircle className="text-blue-600 mr-2 flex-shrink-0" />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {index < approachTimeline.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 right-0 w-full h-0.5 bg-blue-200 transform translate-x-1/2">
-                    <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2">
-                      <FaArrowRight className="text-blue-400" />
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
+      </section>
 
       {/* Metrics Section */}
-      <div className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+      <motion.section 
+        className="py-20 px-6 bg-gradient-to-b from-white to-gray-50"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            variants={fadeInUp}
+          >
+            Infrastructure Performance Metrics
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {metrics.map((metric, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gradient-to-br from-gray-900 to-blue-800 rounded-xl p-8 text-center text-white"
+                variants={fadeInUp}
+                className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
               >
-                <div className="flex justify-center mb-4">
-                  {React.cloneElement(metric.icon, { className: "w-8 h-8 text-blue-400" })}
+                <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r from-blue-500 to-blue-600`} />
+                <div className="flex items-start">
+                  <div className="mr-4">{metric.icon}</div>
+                  <div>
+                    <div className="flex items-baseline">
+                      <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mt-2">{metric.label}</h3>
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <p className="text-sm font-medium text-blue-600 mt-1">Industry-leading performance</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-4xl font-bold mb-2">{metric.value}</div>
-                <div className="text-blue-200">{metric.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </motion.section>
+
+      {/* Pricing Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Flexible Pricing Models
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {pricingModels.map((model, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
+                    ${index === 2 ? 'border-2 border-blue-500 scale-105' : 'border border-transparent hover:border-blue-200'}`}
+                >
+                  {index === 2 && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
+                  <p className="text-2xl font-bold text-blue-600 mb-2">${model.description}</p>
+                  <p className="text-gray-600 mb-6">{model.subtitle}</p>
+                  <ul className="space-y-3 mb-8 flex-grow">
+                    {model.features.map((feature, i) => (
+                      <li key={i} className="flex items-center text-gray-700">
+                        <FaCheckCircle className="text-blue-500 mr-2 flex-shrink-0" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto">
+                    <button className="w-full py-3 px-6 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
+                      {model.ctaText}
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Delivery Timeline */}
+      <section className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-12 text-gray-900"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Implementation Timeline
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+            {deliveryTimeline.map((phase, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
+                >
+                  <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
+                  <div className="mb-3">{phase.icon}</div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
+                  <p className="text-blue-600 font-semibold mb-3 text-sm">{phase.duration}</p>
+                  <ul className="space-y-2 text-sm">
+                    {phase.activities.map((activity, i) => (
+                      <li key={i} className="flex items-start text-gray-700">
+                        <FaCheckCircle className="text-blue-500 mr-2 mt-1 flex-shrink-0" />
+                        <span>{activity}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+          </div>
+        </div>
+      </section>
 
       {/* Compliance Section */}
       <div className="py-20 bg-gray-50">
@@ -678,4 +577,4 @@ const InfrastructureServices = () => {
   );
 };
 
-export default InfrastructureServices; 
+export default InfrastructureServices;

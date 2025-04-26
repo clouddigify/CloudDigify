@@ -18,10 +18,14 @@ import {
   FaTools,
   FaDatabase,
   FaNetworkWired,
-  FaArrowRight
+  FaArrowRight,
+  FaMicrochip,
+  FaRobot,
+  FaUsersCog,
+  FaWindowRestore,
+  FaSitemap
 } from 'react-icons/fa';
 import { SiMicrosoftazure } from 'react-icons/si';
-import ImageSlider from '../../common/ImageSlider';
 
 const Azure = () => {
   // Animation variants
@@ -61,6 +65,57 @@ const Azure = () => {
       overlay: true,
       title: 'Hybrid Cloud Solutions',
       description: 'Unified management of on-premises and cloud resources with Azure'
+    }
+  ];
+
+  const azureServices = [
+    {
+      icon: <FaCloud className="text-4xl text-blue-500" />,
+      title: 'Azure Infrastructure',
+      description: 'CloudDigify architects highly available Azure infrastructure solutions',
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      icon: <FaShieldAlt className="text-4xl text-red-500" />,
+      title: 'Azure Security',
+      description: 'We implement Microsoft\'s advanced security controls to protect your data',
+      color: 'from-red-500 to-red-600'
+    },
+    {
+      icon: <FaDatabase className="text-4xl text-green-500" />,
+      title: 'Azure Databases',
+      description: 'Our team deploys and optimizes Azure database services for your enterprise needs',
+      color: 'from-green-500 to-green-600'
+    },
+    {
+      icon: <FaCode className="text-4xl text-yellow-500" />,
+      title: 'Azure App Services',
+      description: 'CloudDigify builds and deploys web applications on Azure App Services',
+      color: 'from-yellow-500 to-yellow-600'
+    },
+    {
+      icon: <FaWindowRestore className="text-4xl text-purple-500" />,
+      title: 'Azure Virtual Desktop',
+      description: 'We deploy secure virtual desktop environments with Azure Virtual Desktop',
+      color: 'from-purple-500 to-purple-600'
+    },
+    {
+      icon: <FaMicrochip className="text-4xl text-red-400" />,
+      title: 'Azure AI & ML',
+      description: 'CloudDigify implements AI solutions with Azure\'s cognitive services',
+      color: 'from-red-400 to-red-500'
+    },
+    {
+      icon: <FaNetworkWired className="text-4xl text-blue-400" />,
+      title: 'Azure Networking',
+      description: 'We design and implement global network architecture on Azure',
+      color: 'from-blue-400 to-blue-500'
+    },
+    {
+      icon: <FaSitemap className="text-4xl text-green-400" />,
+      title: 'Azure DevOps',
+      description: 'CloudDigify enables CI/CD automation using Azure DevOps tools',
+      color: 'from-green-400 to-green-500'
     }
   ];
 
@@ -292,10 +347,52 @@ const Azure = () => {
         </div>
       </section>
 
-      {/* Image Slider Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <ImageSlider images={sliderImages} />
+      {/* Azure Services Grid Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Azure Solutions By CloudDigify
+            </h2>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              CloudDigify delivers comprehensive Azure services to build, deploy, and manage 
+              applications that help our customers achieve their business goals with confidence
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {azureServices.map((service, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
+                <div className="flex flex-col items-start h-full">
+                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    {service.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -343,7 +440,7 @@ const Azure = () => {
         </div>
       </motion.section>
 
-      {/* Pricing Section */}
+      {/* Pricing Section - Modified for hover effects and consistent buttons */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
@@ -356,63 +453,73 @@ const Azure = () => {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {pricingModels.map((model, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300`}
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
-                <p className="text-2xl font-bold text-blue-600 mb-2">${model.description}</p>
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
+                    ${index === 2 ? 'border-2 border-[#0078D4] scale-105' : 'border border-transparent hover:border-blue-200'}`}
+                >
+                  {index === 2 && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-[#0078D4] text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
+                <p className="text-2xl font-bold text-[#0078D4] mb-2">${model.description}</p>
                 <p className="text-gray-600 mb-6">{model.subtitle}</p>
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-grow">
                   {model.features.map((feature, i) => (
                     <li key={i} className="flex items-center text-gray-700">
-                      <FaCheckCircle className="text-blue-500 mr-2" />
-                      {feature}
+                      <FaCheckCircle className="text-[#0078D4] mr-2 flex-shrink-0" />
+                      <span className="text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <button className="w-full py-3 px-6 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
-                  {model.ctaText}
-                </button>
+                <div className="mt-auto">
+                  <button className="w-full py-3 px-6 rounded-full bg-[#0078D4] text-white hover:bg-blue-700 transition-colors duration-300">
+                    {model.ctaText}
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Delivery Timeline */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+      {/* Delivery Timeline - Modified to display all items in a single row */}
+      <section className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
-            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            className="text-3xl font-bold text-center mb-12 text-gray-900"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
             Implementation Timeline
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {deliveryTimeline.map((phase, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
-              >
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
+                >
                 <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
-                <div className="mb-4">{phase.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{phase.phase}</h3>
-                <p className="text-blue-600 font-semibold mb-4">{phase.duration}</p>
-                <ul className="space-y-3">
+                <div className="mb-3">{phase.icon}</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
+                <p className="text-[#0078D4] font-semibold mb-3 text-sm">{phase.duration}</p>
+                <ul className="space-y-2 text-sm">
                   {phase.activities.map((activity, i) => (
                     <li key={i} className="flex items-start text-gray-700">
-                      <FaCheckCircle className="text-blue-500 mr-2 mt-1 flex-shrink-0" />
+                      <FaCheckCircle className="text-[#0078D4] mr-2 mt-1 flex-shrink-0" />
                       <span>{activity}</span>
                     </li>
                   ))}

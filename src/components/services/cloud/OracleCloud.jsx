@@ -18,10 +18,14 @@ import {
   FaTools,
   FaDatabase,
   FaNetworkWired,
-  FaArrowRight
+  FaArrowRight,
+  FaMicrochip,
+  FaRobot,
+  FaUsersCog,
+  FaIndustry,
+  FaCubes
 } from 'react-icons/fa';
 import { SiOracle } from 'react-icons/si';
-import ImageSlider from '../../common/ImageSlider';
 
 const OracleCloud = () => {
   // Animation variants
@@ -38,6 +42,57 @@ const OracleCloud = () => {
       }
     }
   };
+
+  const oracleCloudServices = [
+    {
+      icon: <FaCloud className="text-4xl text-red-500" />,
+      title: 'Oracle Cloud Infrastructure',
+      description: 'CloudDigify builds enterprise-grade infrastructure on Oracle\'s second-generation cloud',
+      color: 'from-red-500 to-red-600'
+    },
+    {
+      icon: <FaDatabase className="text-4xl text-red-600" />,
+      title: 'Oracle Database Cloud',
+      description: 'We optimize and manage mission-critical Oracle databases in the cloud',
+      color: 'from-red-600 to-red-700'
+    },
+    {
+      icon: <FaShieldAlt className="text-4xl text-orange-500" />,
+      title: 'Oracle Security',
+      description: 'Our team implements Oracle\'s advanced security controls for your data',
+      color: 'from-orange-500 to-orange-600'
+    },
+    {
+      icon: <FaIndustry className="text-4xl text-amber-500" />,
+      title: 'Oracle ERP Cloud',
+      description: 'CloudDigify deploys and configures Oracle ERP cloud solutions for enterprises',
+      color: 'from-amber-500 to-amber-600'
+    },
+    {
+      icon: <FaNetworkWired className="text-4xl text-red-400" />,
+      title: 'Oracle Networking',
+      description: 'We design and implement high-performance networking on Oracle Cloud',
+      color: 'from-red-400 to-red-500'
+    },
+    {
+      icon: <FaMicrochip className="text-4xl text-orange-600" />,
+      title: 'Oracle Analytics',
+      description: 'CloudDigify creates insightful analytics solutions using Oracle Cloud tools',
+      color: 'from-orange-600 to-orange-700'
+    },
+    {
+      icon: <FaCubes className="text-4xl text-amber-600" />,
+      title: 'Oracle Integration',
+      description: 'Our experts integrate Oracle Cloud services with your existing systems',
+      color: 'from-amber-600 to-amber-700'
+    },
+    {
+      icon: <FaRobot className="text-4xl text-red-500" />,
+      title: 'Oracle Autonomous',
+      description: 'CloudDigify leverages Oracle\'s autonomous services for your business',
+      color: 'from-red-500 to-red-600'
+    }
+  ];
 
   // Content data
   const sliderImages = [
@@ -129,7 +184,7 @@ const OracleCloud = () => {
 
   const pricingModels = [
     {
-      title: 'Managed Hourly Service',
+      title: 'Hourly Services',
       description: '70/hour',
       subtitle: 'Perfect for small projects',
       ctaText: 'Start Now',
@@ -142,7 +197,7 @@ const OracleCloud = () => {
       ]
     },
     {
-      title: 'Weekly Engagements',
+      title: 'Weekly Plan',
       description: '2,600/week',
       subtitle: 'Ideal for ongoing projects',
       ctaText: 'Schedule Call',
@@ -168,7 +223,7 @@ const OracleCloud = () => {
       ]
     },
     {
-      title: 'Custom Enterprise',
+      title: 'Enterprise',
       description: 'Custom Quote',
       subtitle: 'Tailored to your needs',
       ctaText: 'Request Quote',
@@ -250,7 +305,7 @@ const OracleCloud = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-400 opacity-90"
+          className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-400 opacity-90"
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5 }}
@@ -272,7 +327,7 @@ const OracleCloud = () => {
                 </h1>
               </div>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Transform your business with Oracle Cloud Infrastructure - enterprise-grade performance with unmatched database capabilities.
+                Leverage the power of Oracle Cloud Infrastructure for enterprise-grade performance, security, and scalability.
               </p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -289,13 +344,55 @@ const OracleCloud = () => {
               </motion.div>
             </div>
           </motion.div>
-        </div>
+          </div>
       </section>
 
-      {/* Image Slider Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <ImageSlider images={sliderImages} />
+      {/* Oracle Cloud Services Grid Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Oracle Cloud Solutions By CloudDigify
+            </h2>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              CloudDigify delivers comprehensive Oracle Cloud services to build, deploy, and manage 
+              applications that help our customers achieve their business goals with confidence
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {oracleCloudServices.map((service, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
+                <div className="flex flex-col items-start h-full">
+                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    {service.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -356,28 +453,38 @@ const OracleCloud = () => {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {pricingModels.map((model, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300`}
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
+                    ${index === 2 ? 'border-2 border-red-500 scale-105' : 'border border-transparent hover:border-red-200'}`}
+                >
+                  {index === 2 && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-red-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
                 <p className="text-2xl font-bold text-red-600 mb-2">${model.description}</p>
                 <p className="text-gray-600 mb-6">{model.subtitle}</p>
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-grow">
                   {model.features.map((feature, i) => (
                     <li key={i} className="flex items-center text-gray-700">
-                      <FaCheckCircle className="text-red-500 mr-2" />
-                      {feature}
+                      <FaCheckCircle className="text-red-500 mr-2 flex-shrink-0" />
+                      <span className="text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <button className="w-full py-3 px-6 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300">
-                  {model.ctaText}
-                </button>
+                <div className="mt-auto">
+                  <button className="w-full py-3 px-6 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300">
+                    {model.ctaText}
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -385,31 +492,31 @@ const OracleCloud = () => {
       </section>
 
       {/* Delivery Timeline */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
-            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            className="text-3xl font-bold text-center mb-12 text-gray-900"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
             Implementation Timeline
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {deliveryTimeline.map((phase, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
-              >
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
+                >
                 <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
-                <div className="mb-4">{phase.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{phase.phase}</h3>
-                <p className="text-red-600 font-semibold mb-4">{phase.duration}</p>
-                <ul className="space-y-3">
+                <div className="mb-3">{phase.icon}</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
+                <p className="text-red-600 font-semibold mb-3 text-sm">{phase.duration}</p>
+                <ul className="space-y-2 text-sm">
                   {phase.activities.map((activity, i) => (
                     <li key={i} className="flex items-start text-gray-700">
                       <FaCheckCircle className="text-red-500 mr-2 mt-1 flex-shrink-0" />
@@ -422,7 +529,7 @@ const OracleCloud = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
   );
 };
 
