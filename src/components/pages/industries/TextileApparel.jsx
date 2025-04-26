@@ -2,64 +2,64 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  FaUniversity,
-  FaShieldAlt,
-  FaBrain,
-  FaMobileAlt,
+  FaTshirt,
+  FaBoxes,
+  FaNetworkWired,
   FaChartLine,
-  FaUserShield,
-  FaExchangeAlt,
-  FaFingerprint
+  FaTruck,
+  FaBarcode,
+  FaRobot,
+  FaWarehouse
 } from 'react-icons/fa';
 
-const Banking = () => {
+const TextileApparel = () => {
   const solutions = [
     {
-      title: 'Digital Banking Platform',
-      icon: <FaMobileAlt className="text-3xl" />,
-      description: 'Modern digital banking solutions with omnichannel experience',
-      expertise: 'Serving 10M+ users across digital banking platforms'
+      title: 'Supply Chain Automation',
+      icon: <FaBoxes className="text-3xl" />,
+      description: 'End-to-end supply chain automation and tracking',
+      expertise: 'Optimized supply chains for 50+ textile manufacturers'
     },
     {
-      title: 'AI-Powered Risk Management',
-      icon: <FaBrain className="text-3xl" />,
-      description: 'Advanced fraud detection and risk assessment',
-      expertise: 'Prevented $100M+ in potential fraud losses'
+      title: 'Smart Manufacturing',
+      icon: <FaRobot className="text-3xl" />,
+      description: 'IoT-enabled manufacturing and quality control',
+      expertise: 'Reduced production defects by 40% through automation'
     },
     {
-      title: 'Payment Solutions',
-      icon: <FaExchangeAlt className="text-3xl" />,
-      description: 'Secure payment processing and settlement systems',
-      expertise: 'Processing $1B+ in daily transactions'
+      title: 'Inventory Management',
+      icon: <FaWarehouse className="text-3xl" />,
+      description: 'Real-time inventory tracking and optimization',
+      expertise: 'Managing 1M+ SKUs across multiple warehouses'
     },
     {
-      title: 'Banking Analytics',
+      title: 'Performance Analytics',
       icon: <FaChartLine className="text-3xl" />,
-      description: 'Customer insights and operational analytics',
-      expertise: 'Enhanced customer engagement by 60%'
+      description: 'Production and supply chain analytics',
+      expertise: 'Improved operational efficiency by 35%'
     },
   ];
 
   const features = [
     {
-      title: 'Secure Access',
-      description: 'Multi-factor authentication',
-      icon: <FaFingerprint className="text-2xl text-blue-600" />
+      title: 'RFID Tracking',
+      description: 'Real-time asset tracking',
+      icon: <FaBarcode className="text-2xl text-blue-600" />
     },
     {
-      title: 'Data Protection',
-      description: 'Bank-grade encryption',
-      icon: <FaShieldAlt className="text-2xl text-blue-600" />
+      title: 'IoT Integration',
+      description: 'Connected manufacturing',
+      icon: <FaNetworkWired className="text-2xl text-blue-600" />
     },
     {
-      title: 'Compliance',
-      description: 'Regulatory compliance',
-      icon: <FaUserShield className="text-2xl text-blue-600" />
+      title: 'Logistics',
+      description: 'Smart logistics solutions',
+      icon: <FaTruck className="text-2xl text-blue-600" />
     },
     {
-      title: 'Real-time Processing',
-      description: 'Instant transactions',
-      icon: <FaExchangeAlt className="text-2xl text-blue-600" />
+      title: 'Production',
+      description: 'Automated production lines',
+      icon: <FaRobot className="text-2xl text-blue-600" />
     },
   ];
 
@@ -80,12 +80,12 @@ const Banking = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaUniversity className="text-6xl mb-6" />
+                <FaTshirt className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Modern Banking Solutions
+                  Smart Textile & Apparel Solutions
                 </h1>
                 <p className="text-xl mb-8">
-                  Secure, innovative banking solutions powered by AI and advanced analytics
+                  Innovative solutions for modern textile and apparel manufacturing with IoT and automation
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
@@ -110,7 +110,7 @@ const Banking = () => {
                 transition={{ delay: 0.4 }}
                 className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
               >
-                <h2 className="text-2xl font-semibold mb-4">Our Banking Expertise</h2>
+                <h2 className="text-2xl font-semibold mb-4">Our Textile Expertise</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {features.map((feature, index) => (
                     <div key={index} className="bg-white/10 rounded-lg p-4">
@@ -130,7 +130,7 @@ const Banking = () => {
 
       {/* Solutions Section */}
       <div id="solutions" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">Banking Technology Solutions</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Textile Industry Solutions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {solutions.map((solution, index) => (
             <motion.div
@@ -159,22 +159,22 @@ const Banking = () => {
       {/* Why Choose Us Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Banking</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Textile & Apparel</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-6">
-              <FaShieldAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Bank-Grade Security</h3>
-              <p className="text-gray-600">Enterprise security with advanced encryption and compliance</p>
+              <FaBoxes className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Supply Chain Excellence</h3>
+              <p className="text-gray-600">End-to-end supply chain optimization and automation</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
-              <FaBrain className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">AI Innovation</h3>
-              <p className="text-gray-600">Advanced AI solutions for risk management and automation</p>
+              <FaNetworkWired className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">IoT Integration</h3>
+              <p className="text-gray-600">Connected manufacturing and real-time monitoring</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
-              <FaMobileAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Digital Excellence</h3>
-              <p className="text-gray-600">Modern digital banking platforms and solutions</p>
+              <FaRobot className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Smart Manufacturing</h3>
+              <p className="text-gray-600">Automated production and quality control systems</p>
             </div>
           </div>
         </div>
@@ -183,9 +183,9 @@ const Banking = () => {
       {/* CTA Section */}
       <div className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Transform Your Banking Services</h2>
+          <h2 className="text-3xl font-bold mb-6">Transform Your Textile Operations</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Partner with us to modernize your banking operations with secure, AI-powered solutions
+            Partner with us to modernize your textile and apparel manufacturing with IoT and automation
           </p>
           <Link
             to="/contact"
@@ -199,4 +199,4 @@ const Banking = () => {
   );
 };
 
-export default Banking; 
+export default TextileApparel; 

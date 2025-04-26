@@ -2,64 +2,63 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  FaUniversity,
-  FaShieldAlt,
+  FaBolt,
+  FaMicrochip,
+  FaNetworkWired,
   FaBrain,
-  FaMobileAlt,
   FaChartLine,
-  FaUserShield,
-  FaExchangeAlt,
-  FaFingerprint
+  FaCogs,
+  FaTools
 } from 'react-icons/fa';
 
-const Banking = () => {
+const ElectricalEquipment = () => {
   const solutions = [
     {
-      title: 'Digital Banking Platform',
-      icon: <FaMobileAlt className="text-3xl" />,
-      description: 'Modern digital banking solutions with omnichannel experience',
-      expertise: 'Serving 10M+ users across digital banking platforms'
+      title: 'Smart Equipment Solutions',
+      icon: <FaMicrochip className="text-3xl" />,
+      description: 'IoT-enabled electrical equipment and monitoring',
+      expertise: 'Deployed smart solutions across 1000+ equipment units'
     },
     {
-      title: 'AI-Powered Risk Management',
-      icon: <FaBrain className="text-3xl" />,
-      description: 'Advanced fraud detection and risk assessment',
-      expertise: 'Prevented $100M+ in potential fraud losses'
+      title: 'Predictive Maintenance',
+      icon: <FaTools className="text-3xl" />,
+      description: 'AI-driven equipment maintenance and optimization',
+      expertise: 'Reduced equipment downtime by 60% for clients'
     },
     {
-      title: 'Payment Solutions',
-      icon: <FaExchangeAlt className="text-3xl" />,
-      description: 'Secure payment processing and settlement systems',
-      expertise: 'Processing $1B+ in daily transactions'
+      title: 'Energy Management',
+      icon: <FaBolt className="text-3xl" />,
+      description: 'Smart energy monitoring and optimization',
+      expertise: 'Achieved 40% energy savings for industrial clients'
     },
     {
-      title: 'Banking Analytics',
+      title: 'Performance Analytics',
       icon: <FaChartLine className="text-3xl" />,
-      description: 'Customer insights and operational analytics',
-      expertise: 'Enhanced customer engagement by 60%'
+      description: 'Real-time equipment performance monitoring',
+      expertise: 'Monitoring 100K+ sensors in real-time'
     },
   ];
 
   const features = [
     {
-      title: 'Secure Access',
-      description: 'Multi-factor authentication',
-      icon: <FaFingerprint className="text-2xl text-blue-600" />
+      title: 'IoT Integration',
+      description: 'Connected equipment',
+      icon: <FaNetworkWired className="text-2xl text-blue-600" />
     },
     {
-      title: 'Data Protection',
-      description: 'Bank-grade encryption',
-      icon: <FaShieldAlt className="text-2xl text-blue-600" />
+      title: 'Smart Sensors',
+      description: 'Advanced monitoring',
+      icon: <FaMicrochip className="text-2xl text-blue-600" />
     },
     {
-      title: 'Compliance',
-      description: 'Regulatory compliance',
-      icon: <FaUserShield className="text-2xl text-blue-600" />
+      title: 'AI Analytics',
+      description: 'Intelligent insights',
+      icon: <FaBrain className="text-2xl text-blue-600" />
     },
     {
-      title: 'Real-time Processing',
-      description: 'Instant transactions',
-      icon: <FaExchangeAlt className="text-2xl text-blue-600" />
+      title: 'Automation',
+      description: 'Process automation',
+      icon: <FaCogs className="text-2xl text-blue-600" />
     },
   ];
 
@@ -80,12 +79,12 @@ const Banking = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaUniversity className="text-6xl mb-6" />
+                <FaBolt className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Modern Banking Solutions
+                  Smart Electrical Solutions
                 </h1>
                 <p className="text-xl mb-8">
-                  Secure, innovative banking solutions powered by AI and advanced analytics
+                  Innovative electrical equipment solutions powered by IoT and smart technology
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
@@ -110,7 +109,7 @@ const Banking = () => {
                 transition={{ delay: 0.4 }}
                 className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
               >
-                <h2 className="text-2xl font-semibold mb-4">Our Banking Expertise</h2>
+                <h2 className="text-2xl font-semibold mb-4">Our Equipment Expertise</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {features.map((feature, index) => (
                     <div key={index} className="bg-white/10 rounded-lg p-4">
@@ -130,7 +129,7 @@ const Banking = () => {
 
       {/* Solutions Section */}
       <div id="solutions" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">Banking Technology Solutions</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Electrical Equipment Solutions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {solutions.map((solution, index) => (
             <motion.div
@@ -159,22 +158,22 @@ const Banking = () => {
       {/* Why Choose Us Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Banking</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Electrical Equipment</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-6">
-              <FaShieldAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Bank-Grade Security</h3>
-              <p className="text-gray-600">Enterprise security with advanced encryption and compliance</p>
+              <FaMicrochip className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Smart Technology</h3>
+              <p className="text-gray-600">Advanced IoT solutions for equipment monitoring</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
               <FaBrain className="text-4xl text-blue-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">AI Innovation</h3>
-              <p className="text-gray-600">Advanced AI solutions for risk management and automation</p>
+              <p className="text-gray-600">Intelligent analytics and predictive maintenance</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
-              <FaMobileAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Digital Excellence</h3>
-              <p className="text-gray-600">Modern digital banking platforms and solutions</p>
+              <FaBolt className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Energy Efficiency</h3>
+              <p className="text-gray-600">Optimized energy management solutions</p>
             </div>
           </div>
         </div>
@@ -183,9 +182,9 @@ const Banking = () => {
       {/* CTA Section */}
       <div className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Transform Your Banking Services</h2>
+          <h2 className="text-3xl font-bold mb-6">Transform Your Electrical Equipment</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Partner with us to modernize your banking operations with secure, AI-powered solutions
+            Partner with us to modernize your electrical equipment with IoT and smart technology
           </p>
           <Link
             to="/contact"
@@ -199,4 +198,4 @@ const Banking = () => {
   );
 };
 
-export default Banking; 
+export default ElectricalEquipment; 

@@ -75,6 +75,12 @@ import DigitalInnovationCases from './components/pages/use-cases/DigitalInnovati
 // Industry Pages
 import FinancialServices from './components/pages/industries/FinancialServices';
 import Banking from './components/pages/industries/Banking';
+import Healthcare from './components/pages/industries/Healthcare';
+import Textile from './components/pages/industries/Textile';
+import IndustrialAutomation from './components/pages/industries/IndustrialAutomation';
+import Electrical from './components/pages/industries/Electrical';
+import Research from './components/pages/industries/Research';
+import PublicAdmin from './components/pages/industries/PublicAdmin';
 
 // Consulting Services
 import DigitalIntegration from './components/services/consulting/DigitalIntegration';
@@ -213,6 +219,12 @@ const AnimatedRoutes = () => {
         {/* Industry Routes */}
         <Route path="/industries/financial-services" element={<FinancialServices />} />
         <Route path="/industries/banking" element={<Banking />} />
+        <Route path="/industries/healthcare" element={<Healthcare />} />
+        <Route path="/industries/textile" element={<Textile />} />
+        <Route path="/industries/automation" element={<IndustrialAutomation />} />
+        <Route path="/industries/electrical" element={<Electrical />} />
+        <Route path="/industries/research" element={<Research />} />
+        <Route path="/industries/governance" element={<PublicAdmin />} />
         
         {/* Consulting Service Routes */}
         <Route path="/services/consulting/digital-integration" element={<DigitalIntegration />} />
