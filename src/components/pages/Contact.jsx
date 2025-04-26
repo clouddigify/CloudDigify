@@ -126,8 +126,8 @@ const Contact = () => {
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Send us a Message</h2>
             <p className="text-gray-600 mb-8">Fill out the form below and we'll get back to you shortly.</p>
-            
-            {formStatus.submitted && (
+              
+              {formStatus.submitted && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -136,98 +136,98 @@ const Contact = () => {
                 <p className="font-medium">Thank you for reaching out!</p>
                 <p className="text-sm">We'll get back to you as soon as possible.</p>
               </motion.div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+              )}
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name
                   </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     placeholder="John Doe"
-                  />
-                </div>
-                <div>
+                    />
+                  </div>
+                  <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     placeholder="john@example.com"
-                  />
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Phone Number
                   </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     placeholder="+1 (123) 456-7890"
-                  />
-                </div>
-                <div>
+                    />
+                  </div>
+                  <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Subject
                   </label>
-                  <input
-                    type="text"
+                    <input
+                      type="text"
                     name="subject"
                     value={formData.subject}
-                    onChange={handleChange}
+                      onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     placeholder="How can we help?"
-                  />
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div>
+                
+                <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Message
                 </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
                   rows="4"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="Tell us about your project..."
-                ></textarea>
-              </div>
-
-              <motion.button
+                  ></textarea>
+                </div>
+                
+                <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                type="submit"
-                disabled={formStatus.submitting}
+                  type="submit"
+                  disabled={formStatus.submitting}
                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium
                          hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
                          focus:ring-offset-2 transition-all duration-200 disabled:opacity-50
                          shadow-lg shadow-blue-500/30"
-              >
-                {formStatus.submitting ? 'Sending...' : 'Send Message'}
-              </motion.button>
-            </form>
+                >
+                  {formStatus.submitting ? 'Sending...' : 'Send Message'}
+                </motion.button>
+              </form>
           </motion.div>
 
           {/* Contact Information */}
@@ -267,17 +267,17 @@ const Contact = () => {
 
             {/* Map */}
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-[300px] border border-gray-100">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1039033942423!2d-122.39776548441904!3d37.78750921931642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807ded297e89%3A0xcfd1b8f860eb90f6!2s123%20Main%20St%2C%20San%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1653598279798!5m2!1sen!2sus"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="CloudDigify Office Location"
-              ></iframe>
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1039033942423!2d-122.39776548441904!3d37.78750921931642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807ded297e89%3A0xcfd1b8f860eb90f6!2s123%20Main%20St%2C%20San%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1653598279798!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="CloudDigify Office Location"
+            ></iframe>
+          </div>
 
             {/* Social Links */}
             <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
