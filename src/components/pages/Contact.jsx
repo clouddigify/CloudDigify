@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaArrowRight, FaHeadset } from 'react-icons/fa';
-import PageTemplate from '../templates/PageTemplate';
+import { 
+  FaMapMarkerAlt, 
+  FaPhone, 
+  FaEnvelope, 
+  FaClock, 
+  FaGlobe,
+  FaLinkedin,
+  FaTwitter,
+  FaFacebook,
+  FaWhatsapp
+} from 'react-icons/fa';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    company: '',
+    subject: '',
     message: ''
   });
   
@@ -30,233 +39,234 @@ const Contact = () => {
     e.preventDefault();
     setFormStatus({ submitting: true, submitted: false, error: null });
     
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...formData,
-          formType: 'contact-page'
-        })
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit form');
-      }
-      
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        message: ''
-      });
-      
+    // Simulate API call
+    setTimeout(() => {
       setFormStatus({
         submitting: false,
         submitted: true,
         error: null
       });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setFormStatus({
-        submitting: false,
-        submitted: false,
-        error: error.message || 'An error occurred. Please try again.'
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
       });
-    }
+    }, 1500);
   };
 
-  const pageInfo = {
-    title: "Contact Us",
-    description: "Have questions about our cloud services? Ready to start your digital transformation journey? Our team of experts is here to help you every step of the way.",
-    icon: <FaHeadset />,
-    heroBackground: "from-blue-600 via-indigo-600 to-blue-800",
-    
-    // Default text configurations
-    defaultCtaText: "Schedule a Consultation",
-    defaultOverviewTitle: "Get in Touch",
-    defaultBenefitsTitle: "Ways to Connect",
-    defaultSidebarTitle: "Business Hours",
-    defaultSecondaryCta: "Call Support",
-    defaultFeaturesTitle: "Office Locations",
-    defaultFeaturesDescription: "Visit our headquarters or regional offices",
-    defaultCtaTitle: "Need Immediate Assistance?",
-    defaultCtaDescription: "Our support team is available to help with urgent needs.",
-    defaultFinalCta: "Call Now",
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-r from-blue-600 to-indigo-700 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Let's Start a Conversation
+            </h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Whether you're looking to transform your business or just want to learn more,
+              we're here to help you every step of the way.
+            </p>
+          </motion.div>
+        </div>
+      </div>
 
-    // Custom links
-    ctaLink: "/schedule",
-    secondaryCtaLink: "tel:+18005551234",
-    finalCtaLink: "tel:+18005551234",
-    
-    // Content sections
-    overviewTitle: "Contact Information",
-    overviewDescription1: "We're here to help with all your cloud computing needs.",
-    overviewDescription2: "Reach out through any of our communication channels for expert assistance.",
-    
-    // Contact methods (using benefits section)
-    benefitsTitle: "Ways to Reach Us",
-    benefits: [
-      "Phone: +1 (800) 555-1234",
-      "Email: contact@clouddigify.com",
-      "Address: 123 Cloud Avenue, Suite 400, San Francisco, CA 94105",
-      "Support Hours: Monday - Friday, 9:00 AM - 6:00 PM PST"
-    ],
-    
-    sidebarTitle: "Business Hours",
-    approachPoints: [
-      "Monday: 9:00 AM - 6:00 PM PST",
-      "Tuesday: 9:00 AM - 6:00 PM PST",
-      "Wednesday: 9:00 AM - 6:00 PM PST",
-      "Thursday: 9:00 AM - 6:00 PM PST",
-      "Friday: 9:00 AM - 6:00 PM PST",
-      "Saturday: Closed",
-      "Sunday: Closed"
-    ],
-    
-    // Office locations (using features section)
-    featuresTitle: "Our Locations",
-    featuresDescription: "Visit our offices worldwide",
-    features: [
-      {
-        title: "San Francisco HQ",
-        description: "Our main headquarters in the heart of Silicon Valley",
-        icon: <FaMapMarkerAlt />,
-        features: [
-          "123 Cloud Avenue, Suite 400",
-          "San Francisco, CA 94105",
-          "United States",
-          "+1 (800) 555-1234"
-        ]
-      },
-      {
-        title: "London Office",
-        description: "Our European headquarters",
-        icon: <FaMapMarkerAlt />,
-        features: [
-          "456 Tech Square",
-          "London, EC2A 4HJ",
-          "United Kingdom",
-          "+44 20 7123 4567"
-        ]
-      }
-    ],
-    
-    // Contact form section
-    additionalSections: [
-      {
-        content: (
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100">
-              <h2 className="text-2xl font-bold mb-6 text-gray-800">Send Us a Message</h2>
+      {/* Quick Contact Bar */}
+      <div className="bg-white shadow-lg transform -translate-y-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6">
+            <a href="tel:+18005551234" className="flex items-center justify-center space-x-4 px-6 py-4 rounded-lg hover:bg-gray-50 transition-colors group">
+              <div className="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors">
+                <FaPhone className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Call Us</p>
+                <p className="font-semibold text-gray-900">+1 (800) 555-1234</p>
+              </div>
+            </a>
+            <a href="mailto:contact@clouddigify.com" className="flex items-center justify-center space-x-4 px-6 py-4 rounded-lg hover:bg-gray-50 transition-colors group">
+              <div className="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors">
+                <FaEnvelope className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Email Us</p>
+                <p className="font-semibold text-gray-900">contact@clouddigify.com</p>
+              </div>
+            </a>
+            <a href="https://wa.me/18005551234" className="flex items-center justify-center space-x-4 px-6 py-4 rounded-lg hover:bg-gray-50 transition-colors group">
+              <div className="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors">
+                <FaWhatsapp className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">WhatsApp</p>
+                <p className="font-semibold text-gray-900">Chat with Us</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Send us a Message</h2>
+            <p className="text-gray-600 mb-8">Fill out the form below and we'll get back to you shortly.</p>
               
               {formStatus.submitted && (
-                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
-                  <p>Thank you for your message! We'll get back to you shortly.</p>
-                </div>
-              )}
-              
-              {formStatus.error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
-                  <p>{formStatus.error}</p>
-                </div>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-xl mb-6"
+              >
+                <p className="font-medium">Thank you for reaching out!</p>
+                <p className="text-sm">We'll get back to you as soon as possible.</p>
+              </motion.div>
               )}
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-gray-700 mb-2 font-medium">Full Name*</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name
+                  </label>
                     <input
                       type="text"
-                      id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Your Name"
                       required
-                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="John Doe"
                     />
                   </div>
-                  
                   <div>
-                    <label htmlFor="email" className="block text-gray-700 mb-2 font-medium">Email Address*</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address
+                  </label>
                     <input
                       type="email"
-                      id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="Your Email"
                       required
-                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="john@example.com"
                     />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-gray-700 mb-2 font-medium">Phone Number</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number
+                  </label>
                     <input
                       type="tel"
-                      id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="Your Phone Number"
-                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="+1 (123) 456-7890"
                     />
                   </div>
-                  
                   <div>
-                    <label htmlFor="company" className="block text-gray-700 mb-2 font-medium">Company</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Subject
+                  </label>
                     <input
                       type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
+                    name="subject"
+                    value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Your Company"
-                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="How can we help?"
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-gray-700 mb-2 font-medium">Message*</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Message
+                </label>
                   <textarea
-                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="How can we help you?"
                     required
-                    rows="5"
-                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  rows="4"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  placeholder="Tell us about your project..."
                   ></textarea>
                 </div>
                 
                 <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={formStatus.submitting}
-                  className={`px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors ${formStatus.submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
+                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium
+                         hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                         focus:ring-offset-2 transition-all duration-200 disabled:opacity-50
+                         shadow-lg shadow-blue-500/30"
                 >
                   {formStatus.submitting ? 'Sending...' : 'Send Message'}
                 </motion.button>
               </form>
+          </motion.div>
+
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-8"
+          >
+            {/* Office Information */}
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Office</h3>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <FaMapMarkerAlt className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-1">San Francisco HQ</h4>
+                    <p className="text-gray-600">123 Cloud Avenue, Suite 400</p>
+                    <p className="text-gray-600">San Francisco, CA 94105</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <FaClock className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-1">Business Hours</h4>
+                    <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM PST</p>
+                    <p className="text-gray-600">Saturday - Sunday: Closed</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        )
-      },
-      {
-        content: (
-          <div className="w-full h-96 rounded-xl overflow-hidden shadow-lg border border-gray-100">
+
+            {/* Map */}
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-[300px] border border-gray-100">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1039033942423!2d-122.39776548441904!3d37.78750921931642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807ded297e89%3A0xcfd1b8f860eb90f6!2s123%20Main%20St%2C%20San%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1653598279798!5m2!1sen!2sus"
               width="100%"
@@ -268,26 +278,27 @@ const Contact = () => {
               title="CloudDigify Office Location"
             ></iframe>
           </div>
-        )
-      }
-    ],
-    
-    // CTA section
-    ctaTitle: "Need Immediate Assistance?",
-    ctaDescription: "Our support team is available 24/7 to help with urgent needs.",
-    finalCta: "Call Support Now",
-    
-    // Section visibility controls
-    showCta: true,
-    showBenefits: true,
-    showSidebar: true,
-    showSecondaryCta: true,
-    showFeatures: true,
-    showFeaturesDescription: true,
-    showFinalCta: true
-  };
 
-  return <PageTemplate pageInfo={pageInfo} pageType="content" />;
+            {/* Social Links */}
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Connect With Us</h3>
+              <div className="flex space-x-6">
+                <a href="#" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                  <FaLinkedin className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
+                </a>
+                <a href="#" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                  <FaTwitter className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
+                </a>
+                <a href="#" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                  <FaFacebook className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Contact; 
