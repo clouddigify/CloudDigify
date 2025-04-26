@@ -62,6 +62,20 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
   const [nestedActiveIndex, setNestedActiveIndex] = useState(-1);
   const [wasClicked, setWasClicked] = useState(false);
   const { setPreventClose } = useContext(MenuContext);
+  const [shouldAlignLeft, setShouldAlignLeft] = useState(false);
+
+  useEffect(() => {
+    if (menuRef.current && parentRef.current) {
+      const rect = parentRef.current.getBoundingClientRect();
+      const menuWidth = menuRef.current.offsetWidth;
+      const viewportWidth = window.innerWidth;
+      
+      // If submenu would extend beyond viewport, align it to the left
+      if (rect.right + menuWidth > viewportWidth) {
+        setShouldAlignLeft(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -135,10 +149,15 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
     <div 
       ref={menuRef}
       className={`absolute ${
-        depth === 0 ? 'top-full left-0 mt-2' : 'left-full top-0 ml-0.5'
+        depth === 0 
+          ? shouldAlignLeft 
+            ? 'top-full right-0 mt-2' 
+            : 'top-full left-0 mt-2'
+          : shouldAlignLeft
+            ? 'right-full top-0 mr-0.5'
+            : 'left-full top-0 ml-0.5'
       } w-[280px] rounded-xl shadow-lg bg-white/95 backdrop-blur-sm ring-1 ring-black/5 border border-gray-100 z-50`}
       onMouseEnter={() => {
-        // Clear any timeout when entering the menu
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
           timeoutRef.current = null;
@@ -158,25 +177,24 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
                 <div 
                   className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer h-10 w-full"
                   onMouseEnter={() => {
-                    // When hovering on the submenu title itself, set it as active immediately
                     setActiveItemIndex(index);
                   }}
                   onClick={handleItemClick(index, true)}
                 >
-                  <div className="flex items-center space-x-3 min-w-0 overflow-hidden max-w-[200px]">
+                  <div className="flex items-center space-x-3 min-w-0 overflow-hidden max-w-[280px]">
                     {item.icon && (
                       <span className="flex-shrink-0 text-blue-600 w-5 h-5 flex items-center justify-center">
                         <IconRenderer icon={item.icon} className="w-4 h-4" title={item.title} />
                       </span>
                     )}
-                    <div className="truncate">
-                      <div className="font-medium truncate">{item.title}</div>
+                    <div className="whitespace-normal">
+                      <div className="font-medium">{item.title}</div>
                       {item.description && (
-                        <div className="text-xs text-gray-500 truncate">{item.description}</div>
+                        <div className="text-xs text-gray-500">{item.description}</div>
                       )}
                     </div>
                   </div>
-                  <FaChevronRight className="ml-2 text-gray-400 flex-shrink-0 w-4 h-4" />
+                  <FaChevronRight className={`ml-2 text-gray-400 flex-shrink-0 w-4 h-4 ${shouldAlignLeft ? 'rotate-180' : ''}`} />
                 </div>
                 {activeItemIndex === index && item.submenu && (
                   <SubMenu
@@ -194,16 +212,16 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
                 className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 h-10 w-full"
                 onClick={handleItemClick(index, false)}
               >
-                <div className="flex items-center space-x-3 min-w-0 overflow-hidden max-w-[200px]">
+                <div className="flex items-center space-x-3 min-w-0 overflow-hidden max-w-[280px]">
                   {item.icon && (
                     <span className="flex-shrink-0 text-blue-600 w-5 h-5 flex items-center justify-center">
                       <IconRenderer icon={item.icon} className="w-4 h-4" title={item.title} />
                     </span>
                   )}
-                  <div className="truncate">
-                    <div className="font-medium truncate">{item.title}</div>
+                  <div className="whitespace-normal">
+                    <div className="font-medium">{item.title}</div>
                     {item.description && (
-                      <div className="text-xs text-gray-500 truncate">{item.description}</div>
+                      <div className="text-xs text-gray-500">{item.description}</div>
                     )}
                   </div>
                 </div>
@@ -641,7 +659,7 @@ const NavBar = () => {
               </Link>
 
               {/* Main Navigation */}
-              <nav className="hidden lg:flex items-center ml-8">
+              <nav className="hidden lg:flex items-center ml-auto mr-8">
                <ul className="flex items-center space-x-6">
                   {menuConfig.mainNav.map((item, index) => (
                     <li key={index}>

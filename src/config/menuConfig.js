@@ -473,8 +473,7 @@ export const menuConfig = {
           icon: 'fa-landmark'
         }
       ]
-    },
-    { title: 'Contact', path: '/contact', icon: 'fa-envelope' }
+    }
   ],
   footerNav: {
     company: [
