@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaChartBar, FaDatabase, FaChartLine, FaChartPie, FaBrain, FaRocket, FaSearch, FaCogs, FaLightbulb, FaCheckCircle } from 'react-icons/fa';
+import { FaChartBar, FaDatabase, FaChartLine, FaChartPie, FaBrain, FaRocket, FaSearch, FaCogs, FaLightbulb, FaCheckCircle, FaLock, FaClock, FaUsers } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
@@ -36,31 +36,28 @@ const DataAnalytics = () => {
         "Our expert team combines industry knowledge with cutting-edge analytics techniques to deliver actionable insights tailored to your specific business challenges."
       ]
     },
-    benefits: {
-      title: "How CloudDigify Empowers Your Business",
-      items: [
-        {
-          icon: <FaLightbulb />,
-          title: "Predictive Analytics",
-          description: "CloudDigify helps you anticipate market trends and customer behavior through advanced ML algorithms, enabling proactive strategy development."
-        },
-        {
-          icon: <FaDatabase />,
-          title: "Data Integration",
-          description: "CloudDigify breaks down data silos by consolidating information from diverse sources, creating a unified view for comprehensive business analysis."
-        },
-        {
-          icon: <FaChartLine />,
-          title: "Real-time Analytics",
-          description: "CloudDigify enables instant decision-making with streaming analytics that process data as it's generated, giving you a competitive edge."
-        },
-        {
-          icon: <FaChartPie />,
-          title: "Descriptive Analytics",
-          description: "CloudDigify transforms historical data into clear visualizations and insights, helping you understand past performance to optimize future strategies."
-        }
-      ]
-    },
+    benefits: [
+      {
+        icon: <FaChartBar className="text-3xl text-blue-600" />,
+        title: "Empowering Decision-Making",
+        description: "CloudDigify equips your team with predictive analytics that turn data into actionable insights for confident decision-making."
+      },
+      {
+        icon: <FaLock className="text-3xl text-blue-600" />,
+        title: "Data Integration",
+        description: "CloudDigify seamlessly connects disparate data sources into a unified view, eliminating silos and enhancing data accessibility."
+      },
+      {
+        icon: <FaClock className="text-3xl text-blue-600" />,
+        title: "Real-Time Analytics",
+        description: "CloudDigify delivers instant insights through real-time dashboards that keep you ahead of market changes and opportunities."
+      },
+      {
+        icon: <FaUsers className="text-3xl text-blue-600" />,
+        title: "Descriptive Analytics",
+        description: "CloudDigify transforms complex data sets into clear, compelling visualizations that tell the story behind your metrics."
+      }
+    ],
     features: {
       title: "The CloudDigify Advantage",
       items: [
@@ -251,6 +248,50 @@ const DataAnalytics = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-gray-800">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              <span className="flex items-center justify-center">
+                <FaCheckCircle className="mr-2 text-blue-600" />
+                Key Benefits
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {pageInfo.overview.description}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+            {pageInfo.benefits.map((benefit, index) => (
+              <motion.div
+                key={benefit.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex"
+              >
+                <div className="mr-4 mt-1">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    {benefit.icon}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-800">{benefit.title}</h3>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>

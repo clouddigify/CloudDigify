@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaClock, FaRocket, FaChartLine, FaCogs, FaCode, FaCloud, FaCheckCircle } from 'react-icons/fa';
+import { FaClock, FaRocket, FaChartLine, FaCogs, FaCode, FaCloud, FaCheckCircle, FaTachometerAlt, FaShieldAlt, FaCoins, FaArrowsAlt, FaSearchPlus, FaDraftingCompass, FaWrench, FaVial, FaSync } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const DigitalRuntime = () => {
   const [showInquiryForm, setShowInquiryForm] = useState(false);
-  const [inquiryType, setInquiryType] = useState('Digital Runtime Services');
+  const [inquiryType, setInquiryType] = useState('Digital Runtime');
   
   const openInquiryForm = (serviceType) => {
     setInquiryType(`Digital Runtime - ${serviceType}`);
@@ -17,95 +17,61 @@ const DigitalRuntime = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
 
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  
-  const pageInfo = {
-    hero: {
-      title: "CloudDigify Digital Runtime",
-      description: "Accelerate business performance with our industry-leading runtime services that ensure optimal efficiency, reliability, and scalability",
-      icon: <FaClock className="text-5xl mb-4" />,
-      bgClass: "bg-gradient-to-r from-blue-600 to-cyan-500"
+  const services = [
+    {
+      icon: FaRocket,
+      title: "Performance Optimization",
+      description: "CloudDigify's intelligent runtime tuning dramatically improves application response times, ensuring your customers enjoy seamless digital experiences."
     },
-    overview: {
-      title: "Runtime Excellence For Your Business",
-      descriptions: [
-        "CloudDigify transforms your digital operations with purpose-built runtime services that eliminate performance bottlenecks and maximize system availability.",
-      ]
+    {
+      icon: FaChartLine,
+      title: "Scalability Management",
+      description: "CloudDigify implements dynamic scaling capabilities that automatically adjust to demand fluctuations, ensuring cost-efficiency without sacrificing performance."
     },
-    benefits: {
-      title: "How CloudDigify Powers Your Digital Success",
-      items: [
-        {
-          icon: <FaRocket />,
-          title: "Performance Optimization",
-          description: "CloudDigify's intelligent runtime tuning dramatically improves application response times, ensuring your customers enjoy seamless digital experiences."
-        },
-        {
-          icon: <FaChartLine />,
-          title: "Scalability Management",
-          description: "CloudDigify implements dynamic scaling capabilities that automatically adjust to demand fluctuations, ensuring cost-efficiency without sacrificing performance."
-        },
-        {
-          icon: <FaCogs />,
-          title: "Proactive Monitoring",
-          description: "CloudDigify's comprehensive monitoring system identifies and resolves potential issues before they impact your business operations."
-        },
-        {
-          icon: <FaCode />,
-          title: "Runtime Security",
-          description: "CloudDigify's multi-layered security approach protects your applications during execution, safeguarding sensitive data and maintaining compliance."
-        },
-        {
-          icon: <FaCloud />,
-          title: "Cloud Runtime Integration",
-          description: "CloudDigify seamlessly connects your runtime environment with leading cloud platforms, unlocking advanced capabilities while maintaining flexibility."
-        }
-      ]
+    {
+      icon: FaCogs,
+      title: "Proactive Monitoring",
+      description: "CloudDigify's comprehensive monitoring system identifies and resolves potential issues before they impact your business operations."
     },
-    features: {
-      title: "Why CloudDigify Is Your Ideal Partner",
-      items: [
-        {
-          icon: <FaCheckCircle className="text-green-500" />,
-          text: "Dedicated team of certified runtime specialists with experience across diverse industries"
-        },
-        {
-          icon: <FaCheckCircle className="text-green-500" />,
-          text: "Proven track record of reducing operational costs while improving application performance"
-        },
-        {
-          icon: <FaCheckCircle className="text-green-500" />,
-          text: "Customized solutions designed around your specific business objectives and technical requirements"
-        },
-        {
-          icon: <FaCheckCircle className="text-green-500" />,
-          text: "24/7 monitoring and support services with guaranteed response times"
-        },
-        {
-          icon: <FaCheckCircle className="text-green-500" />,
-          text: "Transparent reporting with detailed performance metrics and actionable recommendations"
-        }
-      ]
+    {
+      icon: FaCode,
+      title: "Runtime Security",
+      description: "CloudDigify's multi-layered security approach protects your applications during execution, safeguarding sensitive data and maintaining compliance."
     },
-    approach: {
-      title: "CloudDigify's Proven Approach",
-      points: [
-        "Comprehensive assessment of your current runtime environment and identification of optimization opportunities",
-        "Implementation of customized performance strategies and advanced monitoring tools",
-        "Continuous improvement through data-driven performance analysis and proactive tuning",
-        "Integration of industry-leading security practices and compliance frameworks",
-        "Knowledge transfer and training to empower your team for long-term success"
-      ]
+    {
+      icon: FaCloud,
+      title: "Cloud Runtime Integration",
+      description: "CloudDigify seamlessly connects your runtime environment with leading cloud platforms, unlocking advanced capabilities while maintaining flexibility."
     },
-    callToAction: {
-      title: "Ready to Transform Your Runtime Environment?",
-      description: "Partner with CloudDigify to achieve unprecedented levels of performance, reliability, and scalability for your critical applications.",
-      buttonText: "Start Your Transformation"
+    {
+      icon: FaClock,
+      title: "Optimization Services",
+      description: "CloudDigify provides continuous optimization services that ensure your runtime environment evolves to meet changing business requirements."
     }
-  };
+  ];
+
+  const benefits = [
+    {
+      icon: FaTachometerAlt,
+      title: "Improved Performance",
+      description: "CloudDigify helps you eliminate performance bottlenecks, reducing response times and enhancing user satisfaction with your digital applications."
+    },
+    {
+      icon: FaShieldAlt,
+      title: "Enhanced Reliability",
+      description: "CloudDigify's runtime solutions dramatically increase system uptime and stability, minimizing disruptions to your business operations."
+    },
+    {
+      icon: FaCoins,
+      title: "Cost Optimization",
+      description: "CloudDigify optimizes your runtime resource utilization, reducing infrastructure costs while maintaining optimal performance levels."
+    },
+    {
+      icon: FaArrowsAlt,
+      title: "Future-Ready Architecture",
+      description: "CloudDigify ensures your runtime environment can easily adapt to emerging technologies and changing business requirements."
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -166,7 +132,7 @@ const DigitalRuntime = () => {
               />
             ))}
           </svg>
-        </div>
+          </div>
         <div className="relative z-10 text-center text-white px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -174,7 +140,7 @@ const DigitalRuntime = () => {
             transition={{ duration: 0.5 }}
             className="text-6xl font-bold mb-4"
           >
-            {pageInfo.hero.title}
+            CloudDigify Digital Runtime
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -182,7 +148,7 @@ const DigitalRuntime = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl mb-8 max-w-2xl mx-auto"
           >
-            {pageInfo.hero.description}
+            Accelerate business performance with our industry-leading runtime services that ensure optimal efficiency, reliability, and scalability
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -199,88 +165,131 @@ const DigitalRuntime = () => {
       </section>
 
       {/* Overview Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center text-blue-600">{pageInfo.overview.title}</h2>
-          <div className="space-y-4">
-            {pageInfo.overview.descriptions.map((desc, index) => (
-              <p key={index} className="text-lg text-gray-600 text-center">{desc}</p>
-            ))}
+      <section className="py-16 px-6">
+        <div className="container mx-auto">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">How CloudDigify Transforms Your Runtime Environment</h2>
+            <p className="text-lg text-gray-600">
+              CloudDigify partners with you to implement and optimize runtime services that dramatically improve application performance, reliability, and scalability. Our experts combine deep technical knowledge with industry experience to deliver runtime solutions that eliminate bottlenecks, enhance user experiences, and reduce operational costs.
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* Benefits Grid */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-blue-600">{pageInfo.benefits.title}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {pageInfo.benefits.items.map((benefit, index) => (
+          
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {services.map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
-                onClick={() => openInquiryForm(benefit.title)}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                onClick={() => openInquiryForm(service.title)}
               >
-                <div className="text-3xl text-blue-500 mb-4">{benefit.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <service.icon className="text-2xl text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center text-blue-600">{pageInfo.features.title}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            {pageInfo.features.items.map((feature, index) => (
-              <div key={index} className="flex items-center space-x-3 p-4">
-                <div className="text-xl">{feature.icon}</div>
-                <p className="text-gray-700">{feature.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Approach Section */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center text-blue-600">{pageInfo.approach.title}</h2>
-          <div className="space-y-4">
-            {pageInfo.approach.points.map((point, index) => (
+      {/* Benefits Section */}
+      <section className="py-16 px-6 bg-gray-50">
+        <div className="container mx-auto">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Why Choose CloudDigify for Digital Runtime</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center space-x-4"
-              >
-                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center">
-                  {index + 1}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white p-6 rounded-lg shadow-md"
+                >
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                    <benefit.icon className="text-2xl text-blue-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800">{benefit.title}</h3>
+                  <p className="text-gray-700">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="mt-12">
+              <h3 className="text-2xl font-semibold text-center mb-6">
+                <FaClock className="inline-block mr-2 text-blue-600" />
+                CloudDigify's Runtime Implementation Process
+              </h3>
+              <div className="space-y-4">
+                {[
+                  {
+                    step: "Assessment & Discovery",
+                    description: "CloudDigify conducts a comprehensive assessment of your current runtime environment to identify optimization opportunities."
+                  },
+                  {
+                    step: "Architecture Design",
+                    description: "CloudDigify designs a customized runtime architecture optimized for your specific application requirements and business goals."
+                  },
+                  {
+                    step: "Implementation",
+                    description: "CloudDigify's experts implement performance enhancements, monitoring tools, and security measures to optimize your runtime environment."
+                  },
+                  {
+                    step: "Performance Testing",
+                    description: "CloudDigify performs rigorous testing to ensure your applications meet performance, scalability, and reliability targets."
+                  },
+                  {
+                    step: "Continuous Optimization",
+                    description: "CloudDigify provides ongoing monitoring, analysis, and optimization to ensure your runtime environment evolves with your business."
+                  }
+                ].map((item, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="flex items-start p-4 bg-white rounded-lg shadow-sm"
+                  >
+                    <div className="flex-shrink-0 mr-4">
+                      <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">
+                        {index === 0 && <FaSearchPlus className="text-sm" />}
+                        {index === 1 && <FaDraftingCompass className="text-sm" />}
+                        {index === 2 && <FaWrench className="text-sm" />}
+                        {index === 3 && <FaVial className="text-sm" />}
+                        {index === 4 && <FaSync className="text-sm" />}
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-800">{item.step}</h4>
+                      <p className="text-gray-600">{item.description}</p>
                 </div>
-                <p className="text-lg text-gray-700">{point}</p>
               </motion.div>
             ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* CTA Section */}
       <section className="py-16 px-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">{pageInfo.callToAction.title}</h2>
-          <p className="text-xl mb-8">{pageInfo.callToAction.description}</p>
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Runtime Environment?</h2>
+          <p className="text-xl mb-8">
+            Partner with CloudDigify to achieve unprecedented levels of performance, reliability, and scalability for your critical applications.
+          </p>
           <button 
-            onClick={() => openInquiryForm('Digital Runtime Services')}
+            onClick={() => openInquiryForm('Digital Runtime Implementation')}
             className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
-            {pageInfo.callToAction.buttonText}
+            Start Your Transformation
           </button>
         </div>
       </section>

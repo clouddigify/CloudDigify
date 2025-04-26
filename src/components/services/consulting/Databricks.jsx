@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaBolt, FaDatabase, FaCloud, FaRocket, FaChartLine, FaCogs, FaCode, FaServer, FaCloudUploadAlt, FaShieldAlt, FaUsersCog } from 'react-icons/fa';
+import { FaBolt, FaDatabase, FaCloud, FaRocket, FaChartLine, FaCogs, FaCode, FaServer, FaCloudUploadAlt, FaShieldAlt, FaUsersCog, FaLayerGroup, FaLaptopCode, FaShieldVirus, FaCoins, FaSearchDollar, FaClipboardCheck, FaNetworkWired, FaProjectDiagram, FaFileImport, FaGraduationCap } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
@@ -52,18 +52,22 @@ const Databricks = () => {
 
   const benefits = [
     {
+      icon: FaLayerGroup,
       title: "Unified Data Platform",
       description: "CloudDigify helps you consolidate data engineering, analytics, and machine learning on a single collaborative platform, eliminating silos and improving productivity."
     },
     {
+      icon: FaRocket,
       title: "Accelerated Innovation",
       description: "CloudDigify's Databricks implementations reduce time-to-insight by 5-10x, allowing your data teams to experiment faster and deliver more value to the business."
     },
     {
+      icon: FaShieldVirus,
       title: "Enterprise-Grade Reliability",
       description: "CloudDigify ensures your Databricks environment is production-ready with robust monitoring, security, and performance optimization."
     },
     {
+      icon: FaCoins,
       title: "Cost Optimization",
       description: "CloudDigify implements best practices for Databricks usage optimization, reducing cloud costs while maximizing performance and capabilities."
     }
@@ -235,7 +239,7 @@ const Databricks = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">How CloudDigify Transforms Your Data with Databricks</h2>
             <p className="text-lg text-gray-600">
-              CloudDigify partners with you to implement and optimize Databricks solutions that turn your data lakes into powerful engines for analytics and AI. Our experts combine deep Databricks platform knowledge with industry experience to deliver implementations that accelerate innovation, reduce costs, and generate measurable business outcomes.
+              CloudDigify partners with you to implement and optimize Databricks solutions that turn your data lakes into powerful engines for analytics and AI.
             </p>
           </div>
           
@@ -275,14 +279,20 @@ const Databricks = () => {
                   viewport={{ once: true }}
                   className="bg-white p-6 rounded-lg shadow-md"
                 >
-                  <h3 className="text-xl font-semibold mb-3 text-purple-600">{benefit.title}</h3>
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                    <benefit.icon className="text-2xl text-purple-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800">{benefit.title}</h3>
                   <p className="text-gray-700">{benefit.description}</p>
                 </motion.div>
               ))}
             </div>
             
             <div className="mt-12">
-              <h3 className="text-2xl font-semibold text-center mb-6">CloudDigify's Databricks Implementation Process</h3>
+              <h3 className="text-2xl font-semibold text-center mb-6">
+                <FaDatabase className="inline-block mr-2 text-purple-600" />
+                CloudDigify's Databricks Implementation Process
+              </h3>
               <div className="space-y-4">
                 {[
                   {
@@ -316,7 +326,11 @@ const Databricks = () => {
                   >
                     <div className="flex-shrink-0 mr-4">
                       <div className="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold">
-                        {index + 1}
+                        {index === 0 && <FaSearchDollar className="text-sm" />}
+                        {index === 1 && <FaProjectDiagram className="text-sm" />}
+                        {index === 2 && <FaCloudUploadAlt className="text-sm" />}
+                        {index === 3 && <FaFileImport className="text-sm" />}
+                        {index === 4 && <FaGraduationCap className="text-sm" />}
                       </div>
                     </div>
                     <div>

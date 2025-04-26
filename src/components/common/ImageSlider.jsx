@@ -44,12 +44,12 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
           className="absolute inset-0"
         >
           {images[currentIndex].url ? (
-            <img
-              src={images[currentIndex].url}
-              alt={images[currentIndex].alt}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
+          <img
+            src={images[currentIndex].url}
+            alt={images[currentIndex].alt}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
           ) : (
             <div className={`w-full h-full ${images[currentIndex].gradient}`} />
           )}
@@ -61,7 +61,7 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
               </>
             ) : (
               images[currentIndex].title
-            )}
+          )}
           </div>
         </motion.div>
       </AnimatePresence>
