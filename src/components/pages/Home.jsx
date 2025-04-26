@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck } from 'react-icons/fa';
-import WhyChooseUs from '../sections/WhyChooseUs';
-import Testimonials from '../sections/Testimonials';
-import Partners from '../sections/Partners';
-import QuickContact from '../sections/QuickContact';
+import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
+import CloudPartners from '../CloudPartners';
 
 const Home = () => {
   // Animation variants
@@ -46,60 +43,83 @@ const Home = () => {
   const services = [
     { 
       icon: <FaCloud className="text-4xl" />, 
-      title: "Cloud Services", 
-      description: "Modernize your infrastructure with scalable cloud solutions",
+      title: "Cloud Migration & Modernization", 
+      description: "Transform your legacy systems into modern, cloud-native applications with zero downtime",
       gradient: "from-blue-500 to-cyan-500",
       path: "/services/cloud"
     },
     { 
       icon: <FaCogs className="text-4xl" />, 
-      title: "DevOps", 
-      description: "Streamline development with automated workflows",
+      title: "DevOps Excellence", 
+      description: "Accelerate delivery with automated CI/CD pipelines and infrastructure as code",
       gradient: "from-purple-500 to-pink-500",
       path: "/services/devops"
     },
     { 
       icon: <FaShieldAlt className="text-4xl" />, 
-      title: "Security", 
-      description: "Protect your assets with enterprise-grade security",
+      title: "Cloud Security & Compliance", 
+      description: "Enterprise-grade security with real-time threat detection and compliance automation",
       gradient: "from-green-500 to-emerald-500",
       path: "/services/security"
     },
     { 
       icon: <FaDatabase className="text-4xl" />, 
-      title: "Data Analytics", 
-      description: "Transform data into actionable insights",
+      title: "Data Analytics & AI", 
+      description: "Turn your data into actionable insights with advanced analytics and AI/ML solutions",
       gradient: "from-orange-500 to-red-500",
       path: "/services/analytics"
     },
     { 
       icon: <FaMobileAlt className="text-4xl" />, 
-      title: "Digital Experience", 
-      description: "Create seamless digital experiences",
+      title: "Cloud-Native Development", 
+      description: "Build scalable, resilient applications using microservices and containers",
       gradient: "from-indigo-500 to-purple-500",
       path: "/services/digital"
     },
     { 
       icon: <FaBrain className="text-4xl" />, 
-      title: "AI & Automation", 
-      description: "Leverage AI for intelligent automation",
+      title: "Intelligent Automation", 
+      description: "Streamline operations with AI-powered automation and workflow optimization",
       gradient: "from-rose-500 to-pink-500",
       path: "/services/ai"
     }
   ];
 
   const highlights = [
-    "24/7 Expert Support",
-    "99.9% Uptime Guarantee",
-    "Enterprise-Grade Security",
-    "Scalable Solutions"
+    "Multi-Cloud Expertise",
+    "100% Project Success Rate",
+    "24/7 Managed Services",
+    "Rapid Implementation"
   ];
 
   const stats = [
-    { number: "500+", label: "Clients Worldwide" },
-    { number: "98%", label: "Client Satisfaction" },
-    { number: "15+", label: "Years Experience" },
-    { number: "24/7", label: "Support Available" }
+    { number: "200+", label: "Cloud Projects Delivered" },
+    { number: "99.99%", label: "Uptime Guarantee" },
+    { number: "60%", label: "Cost Optimization" },
+    { number: "24/7", label: "Expert Support" }
+  ];
+
+  const partners = [
+    {
+      name: "AWS",
+      logo: "/assets/partners/aws-logo.png",
+      services: ["EC2", "Lambda", "S3", "RDS", "EKS"]
+    },
+    {
+      name: "Microsoft Azure",
+      logo: "/assets/partners/azure-logo.png",
+      services: ["Azure VMs", "Azure Functions", "CosmosDB", "AKS"]
+    },
+    {
+      name: "Google Cloud",
+      logo: "/assets/partners/gcp-logo.png",
+      services: ["Compute Engine", "Cloud Functions", "BigQuery", "GKE"]
+    },
+    {
+      name: "Oracle Cloud",
+      logo: "/assets/partners/oracle-logo.png",
+      services: ["OCI", "Oracle DB", "Container Engine"]
+    }
   ];
 
   return (
@@ -150,20 +170,20 @@ const Home = () => {
             <div className="w-full md:w-1/2 mb-12 md:mb-0">
               <motion.div variants={itemVariants}>
                 <span className="inline-block py-1 px-3 mb-4 bg-blue-100 text-blue-700 font-medium rounded-full text-sm">
-                  Cloud Solutions That Scale
+                  Your Trusted Cloud Partner
                 </span>
               </motion.div>
               <motion.h1
                 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 text-transparent bg-clip-text"
                 variants={itemVariants}
               >
-                Transform Your Business With Cloud Technology
+                Accelerate Your Digital Future with Cloud Excellence
               </motion.h1>
               <motion.p
                 className="text-lg text-gray-600 mb-8 max-w-xl"
                 variants={itemVariants}
               >
-                Accelerate innovation and achieve remarkable business outcomes with our comprehensive cloud services and solutions.
+                We don't just migrate to the cloud - we transform your business with cutting-edge solutions that drive innovation, efficiency, and growth. Experience the power of true digital transformation.
               </motion.p>
               <motion.div 
                 className="flex flex-wrap gap-4"
@@ -175,7 +195,7 @@ const Home = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Explore Services
+                    Explore Solutions
                   </motion.button>
                 </Link>
                 <Link to="/contact">
@@ -184,7 +204,7 @@ const Home = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Contact Us
+                    Schedule Consultation
                   </motion.button>
                 </Link>
               </motion.div>
@@ -252,9 +272,9 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Enterprise Cloud Solutions</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Comprehensive solutions for your digital transformation journey
+              End-to-end cloud services that transform your business operations and drive innovation
             </p>
           </motion.div>
 
@@ -318,71 +338,36 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Get Started Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-800 text-white">
+      {/* Cloud Partners Section */}
+      <CloudPartners />
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
         <div className="container mx-auto px-4">
           <motion.div
-            className="text-center max-w-3xl mx-auto"
+            className="text-center text-white"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Start your digital transformation journey today with our expert team and comprehensive solutions
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Transform Your Business?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Let's discuss how our cloud solutions can help you achieve your business goals
             </p>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Link to="/services/consulting/overview">
-                <motion.div
-                  className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
-                  whileHover={{ y: -5 }}
-                >
-                  <FaRocket className="text-4xl mb-4 mx-auto" />
-                  <h3 className="text-xl font-semibold mb-2">Schedule Consultation</h3>
-                  <p className="text-blue-100">Get expert advice on your digital transformation</p>
-                </motion.div>
-              </Link>
-              <Link to="/solutions/data-transformation">
-                <motion.div
-                  className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
-                  whileHover={{ y: -5 }}
-                >
-                  <FaDatabase className="text-4xl mb-4 mx-auto" />
-                  <h3 className="text-xl font-semibold mb-2">Explore Solutions</h3>
-                  <p className="text-blue-100">Discover our data and cloud solutions</p>
-                </motion.div>
-              </Link>
-              <Link to="/contact">
-                <motion.div
-                  className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
-                  whileHover={{ y: -5 }}
-                >
-                  <FaChartLine className="text-4xl mb-4 mx-auto" />
-                  <h3 className="text-xl font-semibold mb-2">Talk to Sales</h3>
-                  <p className="text-blue-100">Get pricing and implementation details</p>
-                </motion.div>
-              </Link>
-            </div>
-            <div className="mt-12">
-              <Link to="/contact">
-                <motion.button
-                  className="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg shadow-lg hover:bg-blue-50 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get Started Now
-                </motion.button>
-              </Link>
-            </div>
+            <Link to="/contact">
+              <motion.button
+                className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Started Today
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </section>
-
-      {/* Include other sections */}
-      <WhyChooseUs />
-      <Testimonials />
-      <Partners />
-      <QuickContact />
     </div>
   );
 };
