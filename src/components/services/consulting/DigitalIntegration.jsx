@@ -180,32 +180,32 @@ const DigitalIntegration = () => {
               {
                 icon: FaPlug,
                 title: "API Integration",
-                description: "Connect applications through robust API solutions"
+                description: "CloudDigify connects applications through robust and scalable API solutions"
               },
               {
                 icon: FaExchangeAlt,
                 title: "Data Integration",
-                description: "Seamless data flow between systems"
+                description: "CloudDigify enables seamless data flow between diverse business systems"
               },
               {
                 icon: FaCloud,
                 title: "Cloud Integration",
-                description: "Connect cloud and on-premise systems"
+                description: "CloudDigify seamlessly connects cloud and on-premise systems for hybrid operations"
               },
               {
                 icon: FaDatabase,
                 title: "Database Integration",
-                description: "Unified data access across platforms"
+                description: "CloudDigify provides unified data access across multiple platforms and databases"
               },
               {
                 icon: FaNetworkWired,
                 title: "Enterprise Integration",
-                description: "Connect legacy and modern systems"
+                description: "CloudDigify connects legacy and modern systems for complete business solutions"
               },
               {
                 icon: FaShieldAlt,
                 title: "Secure Integration",
-                description: "Protected data exchange protocols"
+                description: "CloudDigify implements protected data exchange protocols with enterprise security"
               }
             ].map((service, index) => (
               <motion.div
@@ -244,7 +244,7 @@ const DigitalIntegration = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Let's build seamless connections for your business
+            Partner with CloudDigify to create seamless integrations that drive efficiency, accuracy, and business growth.
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}

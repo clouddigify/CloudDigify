@@ -158,32 +158,32 @@ const DataWarehousing = () => {
               {
                 icon: FaWarehouse,
                 title: "Warehouse Design",
-                description: "Customized data warehouse architecture tailored to your business needs"
+                description: "CloudDigify customized data warehouse architecture tailored to your specific business requirements"
               },
               {
                 icon: FaCloud,
                 title: "Cloud Data Warehouse",
-                description: "Implement modern cloud-based data warehouse solutions"
+                description: "CloudDigify implements modern cloud-based data warehouse solutions with scalable performance"
               },
               {
                 icon: FaServer,
                 title: "On-Premise Solutions",
-                description: "Traditional data warehouse implementations with modern approaches"
+                description: "CloudDigify traditional data warehouse implementations enhanced with modern cloud approaches"
               },
               {
                 icon: FaSearch,
                 title: "Data Integration",
-                description: "Connect and unify data from multiple sources in your warehouse"
+                description: "CloudDigify connects and unifies data from multiple sources seamlessly in your warehouse"
               },
               {
                 icon: FaLock,
                 title: "Security & Governance",
-                description: "Implement robust security and data governance frameworks"
+                description: "CloudDigify implements robust security protocols and comprehensive data governance frameworks"
               },
               {
                 icon: FaChartBar,
                 title: "Analytics Integration",
-                description: "Connect your warehouse to analytics and reporting tools"
+                description: "CloudDigify connects your warehouse to powerful analytics and interactive reporting tools"
               }
             ].map((service, index) => (
               <motion.div
@@ -222,7 +222,7 @@ const DataWarehousing = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Let's build a data warehouse that scales with your business
+            Partner with CloudDigify to build a data warehouse that becomes the foundation of your data-driven organization.
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}

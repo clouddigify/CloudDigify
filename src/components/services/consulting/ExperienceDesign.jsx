@@ -180,32 +180,32 @@ const ExperienceDesign = () => {
               {
                 icon: FaRegLightbulb,
                 title: "UX Strategy",
-                description: "Strategic planning for optimal user experiences"
+                description: "CloudDigify develops strategic planning for optimal user experiences and digital touchpoints"
               },
               {
                 icon: FaUsers,
                 title: "User Research",
-                description: "In-depth analysis of user needs and behaviors"
+                description: "CloudDigify conducts in-depth analysis of user needs and behaviors to inform design decisions"
               },
               {
                 icon: FaPencilRuler,
                 title: "UI Design",
-                description: "Beautiful and intuitive interface design"
+                description: "CloudDigify creates beautiful and intuitive interface designs that elevate your brand"
               },
               {
                 icon: FaMobile,
                 title: "Responsive Design",
-                description: "Seamless experiences across all devices"
+                description: "CloudDigify ensures seamless experiences across all devices and screen sizes"
               },
               {
                 icon: FaMagic,
                 title: "Interaction Design",
-                description: "Engaging and meaningful user interactions"
+                description: "CloudDigify crafts engaging and meaningful user interactions that delight customers"
               },
               {
                 icon: FaRegCompass,
                 title: "Design Systems",
-                description: "Scalable and consistent design frameworks"
+                description: "CloudDigify builds scalable and consistent design frameworks for enterprise applications"
               }
             ].map((service, index) => (
               <motion.div
@@ -244,7 +244,7 @@ const ExperienceDesign = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Let's create something amazing together
+            Partner with CloudDigify to design digital experiences that delight your users and drive your business forward.
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}

@@ -111,7 +111,7 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl mb-8 max-w-2xl mx-auto"
           >
-            Transform data into actionable insights to drive business decisions
+            Transform your organization's data into powerful insights that drive growth, efficiency, and competitive advantage
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -143,32 +143,32 @@ const BusinessIntelligence = () => {
               {
                 icon: FaChartBar,
                 title: "Reporting Solutions",
-                description: "Create comprehensive, interactive reports for your business"
+                description: "CloudDigify creates comprehensive, interactive reports tailored to your business needs"
               },
               {
                 icon: FaChartPie,
                 title: "Dashboard Development",
-                description: "Custom dashboards that visualize your critical KPIs"
+                description: "CloudDigify custom dashboards that visualize your critical KPIs in real-time"
               },
               {
                 icon: FaLayerGroup,
                 title: "Data Modeling",
-                description: "Structure your data for optimal analysis and reporting"
+                description: "CloudDigify structures your data for optimal cloud-based analysis and reporting"
               },
               {
                 icon: FaSearchDollar,
                 title: "Financial Analytics",
-                description: "Specialized BI solutions for financial insights"
+                description: "CloudDigify specialized BI solutions for actionable financial insights"
               },
               {
                 icon: FaLightbulb,
                 title: "Predictive Analytics",
-                description: "Forecasting tools to anticipate future trends"
+                description: "CloudDigify forecasting tools to anticipate future trends and opportunities"
               },
               {
                 icon: FaDesktop,
                 title: "Self-Service BI",
-                description: "Empower users with tools to create their own insights"
+                description: "CloudDigify empowers users with intuitive tools to create their own insights"
               }
             ].map((service, index) => (
               <motion.div
@@ -207,7 +207,7 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Let's create BI solutions that drive your business forward
+            Partner with CloudDigify to create a business intelligence ecosystem that drives growth, innovation, and competitive advantage.
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}

@@ -25,86 +25,85 @@ const DigitalRuntime = () => {
   const pageInfo = {
     hero: {
       title: "CloudDigify Digital Runtime",
-      description: "Optimize your digital operations with our comprehensive runtime services and solutions",
+      description: "Accelerate business performance with our industry-leading runtime services that ensure optimal efficiency, reliability, and scalability",
       icon: <FaClock className="text-5xl mb-4" />,
       bgClass: "bg-gradient-to-r from-blue-600 to-cyan-500"
     },
     overview: {
-      title: "Runtime Excellence",
+      title: "Runtime Excellence For Your Business",
       descriptions: [
-        "Transform your digital operations with CloudDigify's runtime services that ensure optimal performance, reliability, and scalability.",
-        "We provide end-to-end runtime management solutions that help organizations maintain peak operational efficiency."
+        "CloudDigify transforms your digital operations with purpose-built runtime services that eliminate performance bottlenecks and maximize system availability.",
       ]
     },
     benefits: {
-      title: "Key Benefits",
+      title: "How CloudDigify Powers Your Digital Success",
       items: [
         {
           icon: <FaRocket />,
           title: "Performance Optimization",
-          description: "CloudDigify enhances application performance and response times through advanced runtime optimization techniques."
+          description: "CloudDigify's intelligent runtime tuning dramatically improves application response times, ensuring your customers enjoy seamless digital experiences."
         },
         {
           icon: <FaChartLine />,
           title: "Scalability Management",
-          description: "CloudDigify ensures your applications can handle growing workloads with dynamic scaling capabilities."
+          description: "CloudDigify implements dynamic scaling capabilities that automatically adjust to demand fluctuations, ensuring cost-efficiency without sacrificing performance."
         },
         {
           icon: <FaCogs />,
-          title: "Runtime Monitoring",
-          description: "CloudDigify provides comprehensive monitoring and alerting systems for proactive issue resolution."
+          title: "Proactive Monitoring",
+          description: "CloudDigify's comprehensive monitoring system identifies and resolves potential issues before they impact your business operations."
         },
         {
           icon: <FaCode />,
           title: "Runtime Security",
-          description: "CloudDigify implements robust security measures to protect your applications during execution."
+          description: "CloudDigify's multi-layered security approach protects your applications during execution, safeguarding sensitive data and maintaining compliance."
         },
         {
           icon: <FaCloud />,
           title: "Cloud Runtime Integration",
-          description: "CloudDigify enables seamless integration with cloud platforms for enhanced runtime capabilities."
+          description: "CloudDigify seamlessly connects your runtime environment with leading cloud platforms, unlocking advanced capabilities while maintaining flexibility."
         }
       ]
     },
     features: {
-      title: "Why Choose CloudDigify",
+      title: "Why CloudDigify Is Your Ideal Partner",
       items: [
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Experienced team of runtime optimization specialists"
+          text: "Dedicated team of certified runtime specialists with experience across diverse industries"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Proven track record of improving application performance"
+          text: "Proven track record of reducing operational costs while improving application performance"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Customized solutions tailored to your specific needs"
+          text: "Customized solutions designed around your specific business objectives and technical requirements"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "24/7 monitoring and support services"
+          text: "24/7 monitoring and support services with guaranteed response times"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Transparent reporting and performance metrics"
+          text: "Transparent reporting with detailed performance metrics and actionable recommendations"
         }
       ]
     },
     approach: {
-      title: "Our Approach",
+      title: "CloudDigify's Proven Approach",
       points: [
-        "Assessment of current runtime environment and performance metrics",
-        "Implementation of optimization strategies and monitoring tools",
-        "Continuous improvement through performance analysis and tuning",
-        "Integration of security best practices in runtime operations",
-        "Regular maintenance and updates to ensure optimal performance"
+        "Comprehensive assessment of your current runtime environment and identification of optimization opportunities",
+        "Implementation of customized performance strategies and advanced monitoring tools",
+        "Continuous improvement through data-driven performance analysis and proactive tuning",
+        "Integration of industry-leading security practices and compliance frameworks",
+        "Knowledge transfer and training to empower your team for long-term success"
       ]
     },
     callToAction: {
-      title: "Ready to Optimize Your Runtime Environment?",
-      description: "Contact CloudDigify to learn how our Digital Runtime services can enhance your operational efficiency.",
-      buttonText: "Get Started"
+      title: "Ready to Transform Your Runtime Environment?",
+      description: "Partner with CloudDigify to achieve unprecedented levels of performance, reliability, and scalability for your critical applications.",
+      buttonText: "Start Your Transformation"
     }
   };
 
@@ -194,7 +193,7 @@ const DigitalRuntime = () => {
             onClick={() => openInquiryForm('General Inquiry')}
             className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
           >
-            Schedule Consultation
+            Schedule Your Consultation
           </motion.button>
         </div>
       </section>
