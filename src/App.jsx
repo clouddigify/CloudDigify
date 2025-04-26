@@ -8,9 +8,6 @@ import ScrollToTop from './components/common/ScrollToTop';
 
 // Page Components
 import Home from './components/pages/Home';
-import Services from './components/pages/Services';
-import Industries from './components/pages/Industries';
-import TrainingServices from './components/pages/TrainingServices';
 import Contact from './components/pages/Contact';
 import About from './components/pages/About';
 import OurTeam from './components/pages/OurTeam';
@@ -130,9 +127,6 @@ const AnimatedRoutes = () => {
         {/* Public Routes */}
         <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
         <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} />
-        <Route path="/training" element={<TrainingServices />} />
         <Route path="/contact" element={<Contact />} />
         
         {/* New Routes */}

@@ -109,9 +109,9 @@ const Footer = () => {
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="flex flex-col lg:flex-row gap-12">
           {/* Company Info */}
-          <div className="lg:col-span-2">
+          <div className="lg:w-2/5 lg:pr-12 border-b lg:border-b-0 lg:border-r border-gray-700 pb-8 lg:pb-0">
             <Link to="/" className="inline-block">
               <h2 className="text-2xl font-bold">{companyInfo.name}</h2>
               <p className="text-gray-400 mt-2">{companyInfo.tagline}</p>
@@ -137,45 +137,34 @@ const Footer = () => {
           </div>
 
           {/* Links Sections */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:col-span-3 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Company</h3>
-              <ul className="space-y-3">
-                {footerLinks.company.map((link, index) => (
-                  <li key={index}>
-                    <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                      {link.icon}
-                      <span>{link.title}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Services</h3>
-              <ul className="space-y-3">
-                {footerLinks.services.map((link, index) => (
-                  <li key={index}>
-                    <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                      {link.icon}
-                      <span>{link.title}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Resources</h3>
-              <ul className="space-y-3">
-                {footerLinks.resources.map((link, index) => (
-                  <li key={index}>
-                    <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                      {link.icon}
-                      <span>{link.title}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-xl mx-auto">
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Company</h3>
+                <ul className="space-y-3">
+                  {footerLinks.company.map((link, index) => (
+                    <li key={index}>
+                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.icon}
+                        <span>{link.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Resources</h3>
+                <ul className="space-y-3">
+                  {footerLinks.resources.map((link, index) => (
+                    <li key={index}>
+                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.icon}
+                        <span>{link.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>

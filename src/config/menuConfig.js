@@ -135,13 +135,7 @@ export const menuConfig = {
     { 
       title: 'About Us', 
       path: '/about', 
-      icon: 'fa-info',
-      hasSubmenu: true,
-      submenu: [
-        { title: 'Our Team', path: '/team', icon: 'fa-users' },
-        { title: 'Our Culture', path: '/culture', icon: 'fa-culture' },
-        { title: 'Career', path: '/career', icon: 'fa-briefcase' }
-      ]
+      icon: 'fa-info'
     },
     { 
       title: 'Services', 
@@ -491,9 +485,9 @@ export const menuConfig = {
       { title: 'Contact', path: '/contact', icon: 'fa-envelope' }
     ],
     services: [
-      { title: 'Services', path: '/services', icon: 'fa-cogs' },
-      { title: 'Industries', path: '/industries', icon: 'fa-industry' },
-      { title: 'Training', path: '/training', icon: 'fa-graduation-cap' }
+      // Removed: { title: 'Services', path: '/services', icon: 'fa-cogs' },
+      // Removed: { title: 'Industries', path: '/industries', icon: 'fa-industry' },
+      // Removed: { title: 'Training', path: '/training', icon: 'fa-graduation-cap' }
     ],
     legal: [
       { title: 'Terms & Conditions', path: '/terms', icon: 'fa-file-contract' },
