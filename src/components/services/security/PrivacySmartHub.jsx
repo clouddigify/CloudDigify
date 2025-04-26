@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaUserShield, FaLock, FaFileAlt, FaSearch, FaClipboardCheck, FaExchangeAlt, FaFingerprint, FaCogs, FaUserLock, FaGlobe, FaHandshake, FaChartLine, FaBriefcase } from 'react-icons/fa';
+import { FaUserShield, FaLock, FaFileAlt, FaSearch, FaClipboardCheck, FaExchangeAlt, FaFingerprint, FaCogs, FaUserLock, FaGlobe, FaHandshake, FaChartLine, FaBriefcase, FaArrowRight } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
@@ -81,22 +81,78 @@ const PrivacySmartHub = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600">
+          {/* Animated background particles */}
+          {[...Array(10)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute bg-white bg-opacity-20 rounded-full"
+              style={{
+                width: Math.random() * 20 + 10,
+                height: Math.random() * 20 + 10,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, Math.random() * 100 - 50],
+                x: [0, Math.random() * 100 - 50],
+                opacity: [0.2, 0.6, 0.2],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            />
+          ))}
+        </div>
         
         <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="text-white">
-            <div className="text-4xl mb-4 flex justify-center">
-              <FaUserShield className="text-white" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-              Enterprise Privacy Management Solutions
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-200 mb-6 max-w-3xl mx-auto">
-              Transform privacy compliance from a business challenge into a strategic advantage.
-            </p>
+          <motion.div 
+            className="text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <motion.div 
+              className="text-4xl mb-6 mx-auto"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1, rotate: [0, 15, 0] }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <FaUserShield className="text-white text-6xl inline-block" />
+            </motion.div>
             
-            <PrivacyVisual />
-          </div>
+            <motion.h1 
+              className="text-4xl sm:text-5xl font-bold mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              Enterprise Privacy Management Solutions
+            </motion.h1>
+            
+            <motion.p 
+              className="text-lg sm:text-xl text-gray-200 mb-10 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              Transform privacy compliance from a business challenge into a strategic advantage.
+            </motion.p>
+            
+            <motion.button
+              onClick={() => openInquiryForm('Privacy Solutions')}
+              className="px-8 py-4 bg-white text-indigo-600 rounded-full font-semibold hover:bg-opacity-90 transition-colors shadow-lg flex items-center mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Get Started <FaArrowRight className="ml-2" />
+            </motion.button>
+          </motion.div>
         </div>
         
         {/* Wave SVG at bottom */}
@@ -149,13 +205,7 @@ const PrivacySmartHub = () => {
               >
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-                <button 
-                  onClick={() => openInquiryForm(`Consultation - ${feature.title}`)}
-                  className="bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center"
-                >
-                  Discuss with us <span className="ml-1">→</span>
-                </button>
+                <p className="text-gray-600 mb-4">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -218,12 +268,6 @@ const PrivacySmartHub = () => {
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600 mb-4">{feature.description}</p>
-                <button 
-                  onClick={() => openInquiryForm(feature.title)}
-                  className="text-indigo-600 hover:text-indigo-800 font-medium text-sm inline-flex items-center mt-2"
-                >
-                  Learn more <span className="ml-1">→</span>
-                </button>
               </motion.div>
             ))}
           </div>
