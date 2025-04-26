@@ -1,33 +1,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaShieldAlt, FaLock, FaEye, FaUserSecret, FaServer, FaExclamationTriangle, FaClipboardCheck, FaNetworkWired, FaDatabase, FaChartLine, FaLaptop, FaUserLock, FaUserTie, FaAward, FaCertificate } from 'react-icons/fa';
+import { FaVial, FaCheck, FaCogs, FaBug, FaRobot, FaUserFriends, FaTachometerAlt, FaClipboardCheck, FaChartLine, FaShieldAlt, FaBolt, FaRegLightbulb, FaMobileAlt, FaDesktop, FaDatabase } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 
-const CyberDefence = () => {
+const QualityEngineering = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  // Simple Static Security Visual
-  const SecurityVisual = () => {
+  // Simple Static Visual Component
+  const QualityVisual = () => {
     return (
       <div className="p-8 bg-white bg-opacity-10 rounded-lg shadow-lg mx-auto max-w-2xl mt-8">
         <div className="flex flex-col items-center">
-          {/* Security Shield */}
+          {/* Central Icon */}
           <div className="mb-6">
-            <FaShieldAlt className="text-6xl text-blue-400" />
+            <FaVial className="text-6xl text-blue-400" />
           </div>
           
-          {/* Defense Layers */}
+          {/* Quality Elements */}
           <div className="w-full grid grid-cols-3 gap-4">
             {[
-              { name: 'Network Security', icon: FaNetworkWired, color: '#3B82F6' },
-              { name: 'Endpoint Security', icon: FaLaptop, color: '#10B981' },
-              { name: 'Data Security', icon: FaDatabase, color: '#F59E0B' },
-              { name: 'Identity Access', icon: FaUserLock, color: '#EC4899' },
-              { name: 'Threat Detection', icon: FaExclamationTriangle, color: '#8B5CF6' },
-              { name: 'Security Monitoring', icon: FaChartLine, color: '#2563EB' },
+              { name: 'Test Automation', icon: FaRobot, color: '#3B82F6' },
+              { name: 'Performance', icon: FaTachometerAlt, color: '#10B981' },
+              { name: 'Security Testing', icon: FaShieldAlt, color: '#F59E0B' },
+              { name: 'UAT', icon: FaUserFriends, color: '#EC4899' },
+              { name: 'Monitoring', icon: FaChartLine, color: '#8B5CF6' },
+              { name: 'Continuous Testing', icon: FaCogs, color: '#2563EB' },
             ].map((layer, index) => (
               <div 
                 key={index}
@@ -42,7 +42,7 @@ const CyberDefence = () => {
           
           {/* Central Element */}
           <div className="mt-8 bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 rounded-full shadow-md text-white">
-            <span className="font-semibold">Complete Defense in Depth Strategy</span>
+            <span className="font-semibold">Comprehensive Quality Assurance</span>
           </div>
         </div>
       </div>
@@ -58,16 +58,16 @@ const CyberDefence = () => {
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="text-white">
             <div className="text-5xl mb-6 flex justify-center">
-              <FaShieldAlt className="text-white" />
+              <FaVial className="text-white" />
             </div>
             <h1 className="text-5xl font-bold mb-6">
-              Enterprise Cyber Defence Solutions
+              Quality Engineering Excellence
             </h1>
             <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
-              Your trusted partner for comprehensive cybersecurity. We protect your business with our proven multi-layered defense strategies, reducing your risk while you focus on growth.
+              Deliver flawless digital experiences with our comprehensive quality engineering solutions. We help you build, test, and deploy with confidence.
             </p>
             
-            <SecurityVisual />
+            <QualityVisual />
           </div>
         </div>
         
@@ -91,25 +91,25 @@ const CyberDefence = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl font-bold text-gray-900 text-center mb-12"
           >
-            Why Choose Our Cyber Defence Services
+            Why Choose Our Quality Engineering Services
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: FaUserTie,
-                title: "Industry Expertise",
-                description: "Our certified security professionals have 15+ years of experience protecting Fortune 500 companies from sophisticated cyber threats."
+                icon: FaRegLightbulb,
+                title: "Shift-Left Approach",
+                description: "Our quality engineering experts integrate testing early in the development lifecycle, identifying issues before they become expensive problems."
               },
               {
-                icon: FaAward,
-                title: "Proven Track Record",
-                description: "We've successfully prevented over 1,000 potential breaches and reduced security incidents by 85% for our clients."
+                icon: FaBolt,
+                title: "Automation Expertise",
+                description: "We've automated over 10,000 test cases for clients, reducing testing time by 70% while increasing coverage and reliability."
               },
               {
-                icon: FaCertificate,
-                title: "Tailored Solutions",
-                description: "We customize our cybersecurity approach to your specific industry regulations, business needs, and existing infrastructure."
+                icon: FaClipboardCheck,
+                title: "Industry-Leading Methodologies",
+                description: "Our proprietary testing frameworks and methodologies have been refined across hundreds of enterprise projects in diverse industries."
               }
             ].map((feature, index) => (
               <motion.div
@@ -144,34 +144,34 @@ const CyberDefence = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: FaLock,
-                title: "Advanced Threat Protection",
-                description: "We implement cutting-edge security solutions to detect and neutralize sophisticated attacks before they impact your business."
+                icon: FaRobot,
+                title: "Test Automation",
+                description: "We design and implement robust test automation frameworks that enable continuous testing and faster release cycles with higher confidence."
               },
               {
-                icon: FaEye,
-                title: "24/7 Security Monitoring",
-                description: "Our security operations center provides round-the-clock monitoring with real-time alerts and rapid incident response."
+                icon: FaTachometerAlt,
+                title: "Performance Engineering",
+                description: "Our performance specialists identify bottlenecks and optimize your applications to handle peak loads and deliver exceptional user experiences."
               },
               {
-                icon: FaUserSecret,
-                title: "Penetration Testing",
-                description: "Our ethical hackers identify vulnerabilities in your systems using the same techniques as malicious actors, before they can be exploited."
+                icon: FaBug,
+                title: "Functional Testing",
+                description: "We ensure your applications meet all functional requirements through comprehensive manual and automated testing strategies."
               },
               {
-                icon: FaServer,
-                title: "Infrastructure Security",
-                description: "We secure your entire IT ecosystem from endpoints to cloud, ensuring comprehensive protection at every layer."
+                icon: FaShieldAlt,
+                title: "Security Testing",
+                description: "Our security testing experts identify vulnerabilities and ensure your applications are protected against the latest threats and exploits."
               },
               {
-                icon: FaExclamationTriangle,
-                title: "Incident Response",
-                description: "Our rapid response team contains, mitigates, and remediates security breaches to minimize damage and recovery time."
+                icon: FaMobileAlt,
+                title: "Mobile & Cross-Platform Testing",
+                description: "We validate your applications across devices, browsers, and operating systems to ensure consistent quality everywhere."
               },
               {
-                icon: FaClipboardCheck,
-                title: "Security Compliance",
-                description: "We ensure your organization meets all industry regulations and standards including GDPR, HIPAA, PCI DSS, and more."
+                icon: FaDatabase,
+                title: "Data Quality Management",
+                description: "We implement data validation processes that ensure the integrity, accuracy, and reliability of your critical business information."
               }
             ].map((feature, index) => (
               <motion.div
@@ -204,24 +204,24 @@ const CyberDefence = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "Risk Reduction",
-                value: "85%",
-                description: "Our clients experience significant reduction in security incidents and breaches"
+                title: "Defect Reduction",
+                value: "92%",
+                description: "Fewer production defects through our comprehensive testing methodologies"
               },
               {
-                title: "Detection Speed",
-                value: "98%",
-                description: "Faster threat detection through our AI-powered continuous monitoring systems"
+                title: "Time-to-Market",
+                value: "70%",
+                description: "Faster delivery through automated testing and continuous quality processes"
               },
               {
-                title: "Recovery Time",
-                value: "75%",
-                description: "Faster recovery from security incidents with our proven response protocols"
+                title: "Test Coverage",
+                value: "95%",
+                description: "Comprehensive coverage of functionality, ensuring reliable applications"
               },
               {
-                title: "Compliance",
-                value: "100%",
-                description: "Our clients achieve full compliance with relevant regulatory requirements"
+                title: "Cost Savings",
+                value: "65%",
+                description: "Reduction in overall quality assurance costs through automation and efficiency"
               }
             ].map((benefit, index) => (
               <motion.div
@@ -240,15 +240,60 @@ const CyberDefence = () => {
         </div>
       </section>
 
+      {/* Case Study Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <motion.h2
+            initial={{ y: 20, opacity: 0 }}
+            animate={inView ? { y: 0, opacity: 1 } : {}}
+            className="text-4xl font-bold text-gray-900 text-center mb-12"
+          >
+            Success Story
+          </motion.h2>
+          
+          <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
+            <div className="p-8">
+              <h3 className="text-2xl font-bold text-indigo-600 mb-4">Financial Services Quality Transformation</h3>
+              <p className="text-gray-700 mb-6">
+                A leading financial institution needed to accelerate their release cycles while maintaining strict quality and compliance standards.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="border-l-4 border-indigo-500 pl-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Challenge</h4>
+                  <p className="text-gray-600 text-sm">Manual testing processes causing 4-week release cycles and frequent production issues</p>
+                </div>
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
+                  <p className="text-gray-600 text-sm">Implemented CI/CD pipeline with automated testing, performance monitoring, and security validation</p>
+                </div>
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Results</h4>
+                  <p className="text-gray-600 text-sm">Release cycles reduced to 1 week with 85% reduction in production defects</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-center mt-8">
+                <FaChartLine className="text-5xl text-indigo-500 mr-4" />
+                <div>
+                  <div className="text-3xl font-bold text-gray-900">98%</div>
+                  <div className="text-gray-600">Test Automation Coverage</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action Section */}
       <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-8">Ready to Secure Your Business?</h2>
+          <h2 className="text-4xl font-bold mb-8">Ready to Transform Your Quality Engineering?</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto">
-            Partner with us to protect your critical assets and gain peace of mind with our industry-leading cybersecurity solutions.
+            Partner with us to implement quality engineering practices that accelerate delivery while ensuring exceptional user experiences.
           </p>
           <button className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
-            Schedule a Security Consultation
+            Request a Quality Assessment
           </button>
         </div>
       </section>
@@ -256,4 +301,4 @@ const CyberDefence = () => {
   );
 };
 
-export default CyberDefence; 
+export default QualityEngineering; 

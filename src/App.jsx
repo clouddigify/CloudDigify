@@ -38,6 +38,11 @@ import OracleCloud from './components/services/cloud/OracleCloud';
 import AlibabaCloud from './components/services/cloud/AlibabaCloud';
 import InfrastructureServices from './components/services/infrastructure/InfrastructureServices';
 
+// New Service Pages - Using the existing component files
+import DigitalEngineering from './components/services/DigitalEngineering';
+import PlatformOperation from './components/services/PlatformOperation';
+import QualityEngineering from './components/services/QualityEngineering';
+
 // DevOps Service Pages
 import CICD from './components/services/devops/CICD';
 import InfrastructureAsCode from './components/services/devops/InfrastructureAsCode';
@@ -50,10 +55,15 @@ import CyberDefence from './components/services/security/CyberDefence';
 import PrivacySmartHub from './components/services/security/PrivacySmartHub';
 
 // Training Pages
-import AwsTraining from './components/pages/training/AwsTraining';
+import AWSTraining from './components/pages/training/AWSTraining';
 import AzureTraining from './components/pages/training/AzureTraining';
-import DevOpsTraining from './components/pages/training/DevOpsTraining';
-import KubernetesTraining from './components/pages/training/KubernetesTraining';
+import GoogleCloudTraining from './components/pages/training/GoogleCloudTraining';
+import AlibabaCloudTraining from './components/pages/training/AlibabaCloudTraining';
+import OracleCloudTraining from './components/pages/training/OracleCloudTraining';
+import AIMLTraining from './components/pages/training/AIMLTraining';
+import AutomationTraining from './components/pages/training/AutomationTraining';
+import CorporateTraining from './components/pages/training/CorporateTraining';
+import CampusTraining from './components/pages/training/CampusTraining';
 
 // Use Cases Pages
 import EnterpriseUseCases from './components/pages/use-cases/EnterpriseUseCases';
@@ -156,6 +166,11 @@ const AnimatedRoutes = () => {
         <Route path="/services/cloud/alibabacloud" element={<AlibabaCloud />} />
         <Route path="/services/infrastructure" element={<InfrastructureServices />} />
         
+        {/* Digital Engineering, Platform Operation, and Quality Engineering Routes */}
+        <Route path="/services/digital-engineering" element={<DigitalEngineering />} />
+        <Route path="/services/platform-operation" element={<PlatformOperation />} />
+        <Route path="/services/quality-engineering" element={<QualityEngineering />} />
+        
         {/* DevOps Service Routes */}
         <Route path="/services/devops/cicd" element={<CICD />} />
         <Route path="/services/devops/iac" element={<InfrastructureAsCode />} />
@@ -175,10 +190,16 @@ const AnimatedRoutes = () => {
         <Route path="/services/ai/rpa" element={<RPA />} />
         
         {/* Training Routes */}
-        <Route path="/training-services/aws" element={<AwsTraining />} />
-        <Route path="/training-services/azure" element={<AzureTraining />} />
-        <Route path="/training-services/devops" element={<DevOpsTraining />} />
-        <Route path="/training-services/kubernetes" element={<KubernetesTraining />} />
+        <Route path="/training" element={<TrainingServices />} />
+        <Route path="/training/aws" element={<AWSTraining />} />
+        <Route path="/training/azure" element={<AzureTraining />} />
+        <Route path="/training/googlecloud" element={<GoogleCloudTraining />} />
+        <Route path="/training/alibabacloud" element={<AlibabaCloudTraining />} />
+        <Route path="/training/oracle" element={<OracleCloudTraining />} />
+        <Route path="/training/ai-ml" element={<AIMLTraining />} />
+        <Route path="/training/automation" element={<AutomationTraining />} />
+        <Route path="/training/corporate" element={<CorporateTraining />} />
+        <Route path="/training/campus" element={<CampusTraining />} />
         
         {/* Use Cases Routes */}
         <Route path="/use-cases/enterprise" element={<EnterpriseUseCases />} />
@@ -213,7 +234,7 @@ const AnimatedRoutes = () => {
 const App = () => {
   console.log('App rendering');
   return (
-    <Router>
+    <Router basename="/">
       <ErrorBoundary>
         <ScrollToTop />
         <div className="flex flex-col min-h-screen">

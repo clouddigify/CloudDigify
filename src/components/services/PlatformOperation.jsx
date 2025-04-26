@@ -1,67 +1,48 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaUserShield, FaLock, FaFileAlt, FaSearch, FaClipboardCheck, FaExchangeAlt, FaFingerprint, FaCogs, FaUserLock, FaGlobe, FaHandshake, FaChartLine, FaBriefcase } from 'react-icons/fa';
+import { FaServer, FaNetworkWired, FaCloud, FaExchangeAlt, FaShieldAlt, FaTachometerAlt, FaSyncAlt, FaClipboardCheck, FaUsers, FaTools, FaLightbulb, FaHeartbeat, FaDatabase, FaChartLine, FaSatelliteDish } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 
-const PrivacySmartHub = () => {
+const PlatformOperation = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  // Simple Static Privacy Visual
-  const PrivacyVisual = () => {
+  // Simple Static Visual Component
+  const PlatformVisual = () => {
     return (
       <div className="p-8 bg-white bg-opacity-10 rounded-lg shadow-lg mx-auto max-w-2xl mt-8">
         <div className="flex flex-col items-center">
-          {/* Central Privacy Shield */}
+          {/* Central Icon */}
           <div className="mb-6">
-            <FaUserShield className="text-6xl text-blue-400" />
+            <FaServer className="text-6xl text-blue-400" />
           </div>
           
-          {/* Privacy Framework Elements */}
-          <div className="grid grid-cols-2 gap-4 w-full">
+          {/* Platform Components */}
+          <div className="w-full grid grid-cols-3 gap-4">
             {[
-              { 
-                title: 'Data Inventory', 
-                icon: FaSearch, 
-                description: 'Discover & classify sensitive data',
-                color: '#3B82F6' 
-              },
-              { 
-                title: 'Data Subject Rights', 
-                icon: FaUserLock, 
-                description: 'Manage consent & requests',
-                color: '#10B981' 
-              },
-              { 
-                title: 'Data Protection', 
-                icon: FaLock, 
-                description: 'Encryption & access controls',
-                color: '#F59E0B' 
-              },
-              { 
-                title: 'Compliance', 
-                icon: FaClipboardCheck, 
-                description: 'GDPR, CCPA, HIPAA, etc.',
-                color: '#8B5CF6' 
-              }
-            ].map((element, index) => (
+              { name: 'Infrastructure', icon: FaNetworkWired, color: '#3B82F6' },
+              { name: 'Cloud Services', icon: FaCloud, color: '#10B981' },
+              { name: 'Monitoring', icon: FaTachometerAlt, color: '#F59E0B' },
+              { name: 'Security', icon: FaShieldAlt, color: '#EC4899' },
+              { name: 'Automation', icon: FaSyncAlt, color: '#8B5CF6' },
+              { name: 'Integration', icon: FaExchangeAlt, color: '#2563EB' },
+            ].map((layer, index) => (
               <div 
                 key={index}
                 className="bg-white bg-opacity-5 p-4 rounded-lg border flex flex-col items-center text-center"
-                style={{ borderColor: element.color }}
+                style={{ borderColor: layer.color }}
               >
-                <element.icon className="text-2xl mb-2" style={{ color: element.color }} />
-                <div className="text-white text-sm font-medium mb-1">{element.title}</div>
-                <div className="text-gray-300 text-xs">{element.description}</div>
+                <layer.icon className="text-2xl mb-2" style={{ color: layer.color }} />
+                <div className="text-white text-xs font-medium">{layer.name}</div>
               </div>
             ))}
           </div>
           
-          {/* Central Message */}
+          {/* Central Element */}
           <div className="mt-8 bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 rounded-full shadow-md text-white">
-            <span className="font-semibold">Comprehensive Privacy Management</span>
+            <span className="font-semibold">Seamless Platform Operations</span>
           </div>
         </div>
       </div>
@@ -77,16 +58,16 @@ const PrivacySmartHub = () => {
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="text-white">
             <div className="text-5xl mb-6 flex justify-center">
-              <FaUserShield className="text-white" />
+              <FaServer className="text-white" />
             </div>
             <h1 className="text-5xl font-bold mb-6">
-              Enterprise Privacy Management Solutions
+              Enterprise Platform Operations
             </h1>
             <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
-              Transform privacy compliance from a business challenge into a strategic advantage. Our solutions help you build customer trust while meeting global regulatory requirements.
+              Maximize reliability, security, and performance with our expert platform operations services. We manage your infrastructure so you can focus on your core business.
             </p>
             
-            <PrivacyVisual />
+            <PlatformVisual />
           </div>
         </div>
         
@@ -110,25 +91,25 @@ const PrivacySmartHub = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl font-bold text-gray-900 text-center mb-12"
           >
-            Why Choose Our Privacy Management Services
+            Why Choose Our Platform Operations Services
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: FaBriefcase,
-                title: "Privacy Expertise",
-                description: "Our privacy specialists have implemented compliance programs for over 200 global enterprises across healthcare, finance, and technology sectors."
+                icon: FaHeartbeat,
+                title: "24/7 Expert Support",
+                description: "Our certified platform specialists provide round-the-clock monitoring and support, ensuring 99.99% uptime for your critical systems."
               },
               {
-                icon: FaGlobe,
-                title: "Global Compliance",
-                description: "We've helped clients successfully navigate GDPR, CCPA, HIPAA, LGPD and other privacy regulations across 30+ countries worldwide."
+                icon: FaTools,
+                title: "Automation Excellence",
+                description: "We've implemented over 5,000 automation workflows for clients, reducing manual operations by 75% and virtually eliminating human error."
               },
               {
-                icon: FaHandshake,
-                title: "Partner Approach",
-                description: "We don't just implement solutions and leave. We become your long-term privacy partner, adapting as regulations and your business evolve."
+                icon: FaLightbulb,
+                title: "Proactive Optimization",
+                description: "Our proactive approach to platform management has saved clients an average of 35% on infrastructure costs while improving performance."
               }
             ].map((feature, index) => (
               <motion.div
@@ -163,34 +144,34 @@ const PrivacySmartHub = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: FaFileAlt,
-                title: "Privacy Policy Management",
-                description: "We develop and maintain tailored privacy policies and consent frameworks that build trust with your customers while meeting regulatory requirements."
-              },
-              {
-                icon: FaSearch,
-                title: "Data Discovery & Mapping",
-                description: "Our automated tools locate and classify sensitive data across your enterprise, creating comprehensive data maps that simplify compliance."
-              },
-              {
-                icon: FaUserLock,
-                title: "Consent Management",
-                description: "We implement user-friendly consent systems that enhance customer experience while documenting preferences for compliance purposes."
-              },
-              {
-                icon: FaExchangeAlt,
-                title: "Data Subject Requests",
-                description: "Our streamlined process handles access, deletion, and portability requests efficiently, reducing your operational burden while ensuring compliance."
+                icon: FaNetworkWired,
+                title: "Infrastructure Management",
+                description: "We design, deploy, and manage scalable infrastructure solutions across on-premises, cloud, and hybrid environments to meet your specific business needs."
               },
               {
                 icon: FaClipboardCheck,
-                title: "Compliance Reporting",
-                description: "We provide customized reports for GDPR, CCPA, HIPAA and other regulations, giving you evidence of compliance for regulators and stakeholders."
+                title: "Platform Monitoring",
+                description: "Our advanced monitoring systems track performance, availability, and security metrics in real-time, providing actionable insights and early problem detection."
               },
               {
-                icon: FaFingerprint,
-                title: "Privacy Impact Assessment",
-                description: "Our structured methodology identifies and mitigates privacy risks in your processes, products, and services before they become liabilities."
+                icon: FaSyncAlt,
+                title: "Automation & Orchestration",
+                description: "We implement comprehensive automation solutions that streamline operations, reduce manual tasks, and enable consistent, error-free deployments."
+              },
+              {
+                icon: FaShieldAlt,
+                title: "Security Operations",
+                description: "Our platform security specialists implement robust protection measures, conduct regular vulnerability assessments, and ensure compliance with industry standards."
+              },
+              {
+                icon: FaDatabase,
+                title: "Database Operations",
+                description: "We manage and optimize your database environments for maximum performance, reliability, and data integrity across all major database technologies."
+              },
+              {
+                icon: FaCloud,
+                title: "Cloud Operations",
+                description: "Our cloud experts optimize your cloud infrastructure for cost-efficiency, performance, and scalability while ensuring seamless integration with existing systems."
               }
             ].map((feature, index) => (
               <motion.div
@@ -223,24 +204,24 @@ const PrivacySmartHub = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "Regulatory Compliance",
-                value: "100%",
-                description: "Our clients achieve full compliance with global privacy regulations, avoiding costly penalties and reputation damage"
+                title: "System Uptime",
+                value: "99.99%",
+                description: "Our platform operations ensure near-perfect availability for your critical systems"
               },
               {
-                title: "Risk Reduction",
-                value: "90%",
-                description: "Significant reduction in privacy-related incidents through our proactive management approach"
+                title: "Cost Reduction",
+                value: "35%",
+                description: "Average infrastructure cost savings through optimization and automation"
               },
               {
-                title: "Customer Trust",
-                value: "85%",
-                description: "Measured increase in customer trust and loyalty through transparent privacy practices"
+                title: "Incident Resolution",
+                value: "83%",
+                description: "Faster incident resolution compared to industry average response times"
               },
               {
                 title: "Operational Efficiency",
-                value: "70%",
-                description: "Improved efficiency through our automated privacy management tools and streamlined processes"
+                value: "75%",
+                description: "Reduction in manual operations through our automation solutions"
               }
             ].map((benefit, index) => (
               <motion.div
@@ -267,36 +248,36 @@ const PrivacySmartHub = () => {
             animate={inView ? { y: 0, opacity: 1 } : {}}
             className="text-4xl font-bold text-gray-900 text-center mb-12"
           >
-            Client Success Story
+            Success Story
           </motion.h2>
           
           <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
             <div className="p-8">
-              <h3 className="text-2xl font-bold text-indigo-600 mb-4">Global Financial Services Provider</h3>
+              <h3 className="text-2xl font-bold text-indigo-600 mb-4">Healthcare Provider Transformation</h3>
               <p className="text-gray-700 mb-6">
-                A leading financial institution with operations in 15 countries needed to unify their privacy compliance approach across multiple jurisdictions.
+                A leading healthcare provider needed to modernize their aging IT infrastructure to improve reliability and support rapid business growth.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <div className="border-l-4 border-indigo-500 pl-4">
                   <h4 className="font-bold text-gray-900 mb-2">Challenge</h4>
-                  <p className="text-gray-600 text-sm">Fragmented privacy practices across regions causing compliance gaps and inefficiencies</p>
+                  <p className="text-gray-600 text-sm">Frequent outages and poor performance impacting critical patient care systems and staff productivity</p>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-4">
                   <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                  <p className="text-gray-600 text-sm">Implemented our integrated PrivacySmartHub platform with regional customizations</p>
+                  <p className="text-gray-600 text-sm">Implemented hybrid cloud platform with automated operations, comprehensive monitoring, and disaster recovery</p>
                 </div>
                 <div className="border-l-4 border-blue-500 pl-4">
                   <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                  <p className="text-gray-600 text-sm">95% reduction in compliance costs and zero privacy violations in 24 months</p>
+                  <p className="text-gray-600 text-sm">Zero unplanned downtime in 18 months and 40% reduction in IT operational costs</p>
                 </div>
               </div>
               
               <div className="flex items-center justify-center mt-8">
                 <FaChartLine className="text-5xl text-indigo-500 mr-4" />
                 <div>
-                  <div className="text-3xl font-bold text-gray-900">$2.3M</div>
-                  <div className="text-gray-600">Annual Cost Savings</div>
+                  <div className="text-3xl font-bold text-gray-900">15 Minutes</div>
+                  <div className="text-gray-600">Average Incident Response Time</div>
                 </div>
               </div>
             </div>
@@ -307,12 +288,12 @@ const PrivacySmartHub = () => {
       {/* Call to Action Section */}
       <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-8">Transform Your Privacy Compliance Today</h2>
+          <h2 className="text-4xl font-bold mb-8">Ready to Optimize Your Platform Operations?</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto">
-            Partner with us to turn privacy compliance into a competitive advantage for your business.
+            Partner with us for reliable, secure, and efficient platform operations that power your business growth.
           </p>
           <button className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
-            Request a Privacy Assessment
+            Schedule a Platform Assessment
           </button>
         </div>
       </section>
@@ -320,4 +301,4 @@ const PrivacySmartHub = () => {
   );
 };
 
-export default PrivacySmartHub; 
+export default PlatformOperation; 
