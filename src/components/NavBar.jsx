@@ -62,6 +62,27 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
   const [nestedActiveIndex, setNestedActiveIndex] = useState(-1);
   const [wasClicked, setWasClicked] = useState(false);
   const { setPreventClose } = useContext(MenuContext);
+  const [shouldAlignLeft, setShouldAlignLeft] = useState(false);
+
+  useEffect(() => {
+    if (menuRef.current && parentRef.current) {
+      const rect = menuRef.current.getBoundingClientRect();
+      const parentRect = parentRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      
+      // For first level dropdown, check if it goes beyond right edge
+      if (depth === 0) {
+        if (parentRect.left + rect.width > viewportWidth) {
+          setShouldAlignLeft(true);
+        }
+      } else {
+        // For nested dropdowns, check if showing to the right would go off screen
+        if (parentRect.right + rect.width > viewportWidth) {
+          setShouldAlignLeft(true);
+        }
+      }
+    }
+  }, [depth]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -135,10 +156,15 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
     <div 
       ref={menuRef}
       className={`absolute ${
-        depth === 0 ? 'top-full left-0 mt-2' : 'left-full top-0 ml-0.5'
+        depth === 0 
+          ? shouldAlignLeft 
+            ? 'top-full right-0 mt-2' 
+            : 'top-full left-0 mt-2'
+          : shouldAlignLeft
+            ? 'right-full top-0 mr-0.5'
+            : 'left-full top-0 ml-0.5'
       } w-[280px] rounded-xl shadow-lg bg-white/95 backdrop-blur-sm ring-1 ring-black/5 border border-gray-100 z-50`}
       onMouseEnter={() => {
-        // Clear any timeout when entering the menu
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
           timeoutRef.current = null;
@@ -630,19 +656,18 @@ const NavBar = () => {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
-            {/* Left section: Logo + Navigation */}
-            <div className="flex items-center flex-1">
-              {/* Logo */}
-              <Link to="/" className="flex-shrink-0">
-                <LogoWrapper>
-                  <Logo />
-                  <BrandTitle />
-                </LogoWrapper>
-              </Link>
+            {/* Logo */}
+            <Link to="/" className="flex-shrink-0">
+              <LogoWrapper>
+                <Logo />
+                <BrandTitle />
+              </LogoWrapper>
+            </Link>
 
-              {/* Main Navigation */}
-              <nav className="hidden lg:flex items-justify ml-8">
-               <ul className="flex items-center space-x-6">
+            {/* Center Navigation */}
+            <div className="flex-1 flex justify-center">
+              <nav className="hidden lg:flex items-center">
+                <ul className="flex items-center space-x-8">
                   {menuConfig.mainNav.map((item, index) => (
                     <li key={index}>
                       <NavItem item={item} index={index} />
