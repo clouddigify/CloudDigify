@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaPlug, FaCode, FaExchangeAlt, FaCloud, FaCogs, FaShieldAlt, FaDatabase, FaNetworkWired } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const DigitalIntegration = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Digital Integration');
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Digital Integration - ${serviceType}`);
+    setIsFormOpen(true);
+  };
+
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
@@ -147,6 +156,7 @@ const DigitalIntegration = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openInquiryForm('General Inquiry')}
             className="px-8 py-3 bg-white text-green-600 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
           >
             Explore Integration Solutions
@@ -203,7 +213,8 @@ const DigitalIntegration = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                onClick={() => openInquiryForm(service.title)}
               >
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                   <service.icon className="text-2xl text-green-600" />
@@ -241,12 +252,22 @@ const DigitalIntegration = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openInquiryForm('General Inquiry')}
             className="px-8 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
           >
             Start Integration
           </motion.button>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {isFormOpen && (
+        <ServiceInquiryForm
+          isOpen={isFormOpen}
+          onClose={() => setIsFormOpen(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaChartBar, FaDatabase, FaChartLine, FaChartPie, FaBrain, FaRocket, FaSearch, FaCogs, FaLightbulb } from 'react-icons/fa';
+import { FaChartBar, FaDatabase, FaChartLine, FaChartPie, FaBrain, FaRocket, FaSearch, FaCogs, FaLightbulb, FaCheckCircle } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const DataAnalytics = () => {
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Data Analytics');
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Data Analytics - ${serviceType}`);
+    setShowInquiryForm(true);
+  };
+
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
@@ -12,6 +21,87 @@ const DataAnalytics = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const pageInfo = {
+    hero: {
+      title: "CloudDigify Data Analytics",
+      description: "Transform raw data into actionable insights with our comprehensive data analytics services",
+      icon: <FaChartBar className="text-5xl mb-4" />,
+      bgClass: "bg-gradient-to-r from-purple-600 to-indigo-500"
+    },
+    overview: {
+      title: "Data-Driven Decision Making",
+      descriptions: [
+        "CloudDigify helps organizations harness the power of their data through advanced analytics techniques and tools.",
+        "Our team of data scientists and analysts work with you to extract valuable insights that drive business growth and innovation."
+      ]
+    },
+    benefits: {
+      title: "Key Benefits",
+      items: [
+        {
+          icon: <FaLightbulb />,
+          title: "Predictive Analytics",
+          description: "CloudDigify utilizes machine learning algorithms to forecast trends and outcomes for proactive decision-making."
+        },
+        {
+          icon: <FaDatabase />,
+          title: "Data Integration",
+          description: "CloudDigify consolidates data from multiple sources into a unified view for comprehensive analysis."
+        },
+        {
+          icon: <FaChartLine />,
+          title: "Real-time Analytics",
+          description: "CloudDigify delivers instant insights through streaming analytics for time-sensitive decisions."
+        },
+        {
+          icon: <FaChartPie />,
+          title: "Descriptive Analytics",
+          description: "CloudDigify transforms historical data into meaningful patterns and relationships to understand past performance."
+        }
+      ]
+    },
+    features: {
+      title: "Why Choose CloudDigify",
+      items: [
+        {
+          icon: <FaCheckCircle className="text-green-500" />,
+          text: "Expert team of data scientists and analysts"
+        },
+        {
+          icon: <FaCheckCircle className="text-green-500" />,
+          text: "Customized analytics solutions for your specific needs"
+        },
+        {
+          icon: <FaCheckCircle className="text-green-500" />,
+          text: "Cutting-edge tools and methodologies"
+        },
+        {
+          icon: <FaCheckCircle className="text-green-500" />,
+          text: "Focus on actionable insights that deliver business value"
+        },
+        {
+          icon: <FaCheckCircle className="text-green-500" />,
+          text: "Seamless integration with existing data systems"
+        }
+      ]
+    },
+    approach: {
+      title: "Our Approach",
+      points: [
+        "Data assessment and requirements gathering",
+        "Data cleansing and preparation",
+        "Advanced analytics and model development",
+        "Insight generation and visualization",
+        "Implementation of actionable recommendations"
+      ]
+    },
+    callToAction: {
+      title: "Ready to Unlock the Power of Your Data?",
+      description: "Contact CloudDigify today to discover how our Data Analytics services can transform your business.",
+      buttonText: "Get Started"
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -96,6 +186,7 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openInquiryForm('General Inquiry')}
             className="px-8 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
           >
             Discover Insights
@@ -152,7 +243,8 @@ const DataAnalytics = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                onClick={() => openInquiryForm(service.title)}
               >
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                   <service.icon className="text-2xl text-blue-600" />
@@ -237,12 +329,22 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openInquiryForm('Consultation')}
             className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             Schedule a Consultation
           </motion.button>
         </div>
       </section>
+
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };

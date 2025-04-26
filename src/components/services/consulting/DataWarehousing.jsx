@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaDatabase, FaServer, FaNetworkWired, FaShieldAlt, FaChartLine, FaCogs } from 'react-icons/fa';
+import { FaDatabase, FaWarehouse, FaServer, FaCloud, FaChartBar, FaSearch, FaLock, FaChartLine } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const DataWarehousing = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Data Warehousing');
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Data Warehousing - ${serviceType}`);
+    setIsFormOpen(true);
+  };
+
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
@@ -125,7 +134,8 @@ const DataWarehousing = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-white text-blue-700 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
+            onClick={() => openInquiryForm('General Inquiry')}
+            className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
           >
             Explore Solutions
           </motion.button>
@@ -146,34 +156,34 @@ const DataWarehousing = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
-                icon: FaDatabase,
-                title: "Data Architecture",
-                description: "Design scalable data warehouse architectures"
+                icon: FaWarehouse,
+                title: "Warehouse Design",
+                description: "Customized data warehouse architecture tailored to your business needs"
+              },
+              {
+                icon: FaCloud,
+                title: "Cloud Data Warehouse",
+                description: "Implement modern cloud-based data warehouse solutions"
               },
               {
                 icon: FaServer,
-                title: "Cloud Integration",
-                description: "Seamless cloud data warehouse implementation"
+                title: "On-Premise Solutions",
+                description: "Traditional data warehouse implementations with modern approaches"
               },
               {
-                icon: FaNetworkWired,
-                title: "ETL Solutions",
-                description: "Robust data extraction and transformation"
+                icon: FaSearch,
+                title: "Data Integration",
+                description: "Connect and unify data from multiple sources in your warehouse"
               },
               {
-                icon: FaShieldAlt,
-                title: "Data Governance",
-                description: "Implement data quality and security measures"
+                icon: FaLock,
+                title: "Security & Governance",
+                description: "Implement robust security and data governance frameworks"
               },
               {
-                icon: FaChartLine,
-                title: "Performance Optimization",
-                description: "Optimize query performance and storage"
-              },
-              {
-                icon: FaCogs,
-                title: "Automation",
-                description: "Automate data loading and processing"
+                icon: FaChartBar,
+                title: "Analytics Integration",
+                description: "Connect your warehouse to analytics and reporting tools"
               }
             ].map((service, index) => (
               <motion.div
@@ -181,7 +191,8 @@ const DataWarehousing = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                onClick={() => openInquiryForm(service.title)}
               >
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                   <service.icon className="text-2xl text-blue-600" />
@@ -195,7 +206,7 @@ const DataWarehousing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-cyan-50">
+      <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
         <div className="container mx-auto px-4 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -203,7 +214,7 @@ const DataWarehousing = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold text-gray-800 mb-4"
           >
-            Ready to Modernize Your Data Warehouse?
+            Ready to Transform Your Data Management?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -211,7 +222,7 @@ const DataWarehousing = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Let's build a scalable data foundation together
+            Let's build a data warehouse that scales with your business
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -219,12 +230,22 @@ const DataWarehousing = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openInquiryForm('Implementation')}
             className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             Get Started
           </motion.button>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {isFormOpen && (
+        <ServiceInquiryForm
+          isOpen={isFormOpen}
+          onClose={() => setIsFormOpen(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };

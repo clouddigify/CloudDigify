@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaLightbulb, FaChartLine, FaUsers, FaRocket, FaDownload, FaPlay, FaHandshake, FaBrain, FaChartBar, FaCogs, FaGlobe, FaIndustry, FaClipboardCheck, FaSearchDollar } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const ConsultingOverview = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Consulting Services');
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Consulting - ${serviceType}`);
+    setIsFormOpen(true);
+  };
+
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
@@ -87,7 +96,7 @@ const ConsultingOverview = () => {
             transition={{ duration: 0.5 }}
             className="text-6xl font-bold mb-4"
           >
-            Business Consulting
+            CloudDigify Consulting
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -95,7 +104,7 @@ const ConsultingOverview = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl mb-8 max-w-2xl mx-auto"
           >
-            Accelerate growth with expert guidance and proven methodologies
+            Accelerate your organization's growth with CloudDigify's expert guidance and proven methodologies tailored to your unique business needs
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -103,6 +112,7 @@ const ConsultingOverview = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openInquiryForm('General Inquiry')}
             className="px-8 py-3 bg-white text-blue-700 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
           >
             Schedule Consultation
@@ -120,7 +130,7 @@ const ConsultingOverview = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold mb-6"
             >
-              Comprehensive Consulting Services
+              CloudDigify Consulting Solutions
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -128,7 +138,7 @@ const ConsultingOverview = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-xl text-gray-600"
             >
-              Partner with us to transform your business through strategic insights and actionable solutions
+              Partner with CloudDigify to transform your business through strategic insights and actionable solutions that deliver measurable results and sustainable growth
             </motion.p>
           </div>
 
@@ -138,32 +148,32 @@ const ConsultingOverview = () => {
               {
                 icon: FaIndustry,
                 title: "Industry Analysis",
-                description: "Deep market insights and competitive positioning"
+                description: "CloudDigify provides deep market insights and competitive positioning to help you navigate complex industry landscapes with confidence"
               },
               {
                 icon: FaSearchDollar,
                 title: "Revenue Optimization",
-                description: "Maximize profitability and market share"
+                description: "Our experts help maximize your profitability and market share through data-driven strategies and optimization techniques"
               },
               {
                 icon: FaGlobe,
                 title: "Global Expansion",
-                description: "Strategic market entry and growth plans"
+                description: "CloudDigify develops strategic market entry and growth plans tailored to your business goals and target markets"
               },
               {
                 icon: FaClipboardCheck,
                 title: "Operational Excellence",
-                description: "Streamline processes and enhance efficiency"
+                description: "We streamline your processes and enhance efficiency to reduce costs and improve overall business performance"
               },
               {
                 icon: FaUsers,
                 title: "Organizational Design",
-                description: "Optimize structure and talent management"
+                description: "CloudDigify helps optimize your organizational structure and talent management to drive innovation and results"
               },
               {
                 icon: FaChartLine,
                 title: "Growth Strategy",
-                description: "Data-driven roadmap for sustainable growth"
+                description: "Our team creates data-driven roadmaps for sustainable growth that align with your vision and market opportunities"
               }
             ].map((service, index) => (
               <motion.div
@@ -172,8 +182,9 @@ const ConsultingOverview = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group"
+                onClick={() => openInquiryForm(service.title)}
               >
-                <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 transform group-hover:rotate-6 transition-transform">
                     <service.icon className="text-3xl text-white" />
                   </div>
@@ -195,14 +206,14 @@ const ConsultingOverview = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold text-center mb-16"
           >
-            Client Success Metrics
+            CloudDigify Client Success Metrics
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {[
-              { title: "Revenue Growth", value: "45%", icon: FaChartLine },
-              { title: "Cost Reduction", value: "30%", icon: FaSearchDollar },
-              { title: "Efficiency Gain", value: "60%", icon: FaCogs },
-              { title: "ROI Achieved", value: "250%", icon: FaChartBar }
+              { title: "Revenue Growth", value: "45%", icon: FaChartLine, description: "Average increase achieved by CloudDigify clients" },
+              { title: "Cost Reduction", value: "30%", icon: FaSearchDollar, description: "Typical savings through CloudDigify optimization" },
+              { title: "Efficiency Gain", value: "60%", icon: FaCogs, description: "Operational improvements with CloudDigify solutions" },
+              { title: "ROI Achieved", value: "250%", icon: FaChartBar, description: "Average return on investment with CloudDigify" }
             ].map((metric, index) => (
               <motion.div
                 key={metric.title}
@@ -222,7 +233,8 @@ const ConsultingOverview = () => {
                 >
                   {metric.value}
                 </motion.div>
-                <p className="text-blue-100">{metric.title}</p>
+                <p className="text-blue-100 mb-2">{metric.title}</p>
+                <p className="text-blue-200 text-sm">{metric.description}</p>
               </motion.div>
             ))}
           </div>
@@ -239,14 +251,15 @@ const ConsultingOverview = () => {
             className="max-w-4xl mx-auto bg-gradient-to-r from-blue-700 to-emerald-600 rounded-2xl p-12 text-white"
           >
             <h2 className="text-4xl font-bold mb-4">
-              Ready to Transform Your Business?
+              Ready to Transform Your Business with CloudDigify?
             </h2>
             <p className="text-xl mb-8">
-              Book a strategy session with our expert consultants
+              Book a strategy session with our expert consultants to explore how CloudDigify can help you achieve your business goals
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => openInquiryForm('Strategy Session')}
               className="px-8 py-3 bg-white text-blue-700 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
             >
               Book Strategy Session
@@ -254,6 +267,13 @@ const ConsultingOverview = () => {
           </motion.div>
         </div>
       </section>
+      
+      {/* Service Inquiry Form */}
+      <ServiceInquiryForm 
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        serviceName={inquiryType}
+      />
     </div>
   );
 };

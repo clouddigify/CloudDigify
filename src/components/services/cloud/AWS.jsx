@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -25,8 +25,19 @@ import {
   FaUsersCog
 } from 'react-icons/fa';
 import { SiAmazonaws } from 'react-icons/si';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const AWS = () => {
+  // State for form visibility
+  const [showForm, setShowForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('AWS Services');
+
+  // Function to open form with specific service type
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`AWS - ${serviceType}`);
+    setShowForm(true);
+  };
+
   // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -308,17 +319,17 @@ const AWS = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <Link
-                  to="/contact"
+                <button
+                  onClick={() => openInquiryForm('General Inquiry')}
                   className="group inline-flex items-center bg-white text-orange-600 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-orange-50 transition-all duration-300"
                 >
                   <span className="mr-2">Get Started with AWS</span>
                   <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
-                </Link>
+                </button>
               </motion.div>
             </div>
           </motion.div>
-          </div>
+        </div>
       </section>
 
       {/* AWS Services Grid Section */}
@@ -451,18 +462,21 @@ const AWS = () => {
                     <li key={i} className="flex items-center text-gray-700">
                       <FaCheckCircle className="text-orange-500 mr-2 flex-shrink-0" />
                       <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                        </li>
+                      ))}
+                    </ul>
                 <div className="mt-auto">
-                  <button className="w-full py-3 px-6 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors duration-300">
+                  <button 
+                    className="w-full py-3 px-6 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors duration-300"
+                    onClick={() => openInquiryForm(model.title)}
+                  >
                     {model.ctaText}
                   </button>
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Delivery Timeline - Modified to display all items in a single row */}
@@ -498,11 +512,18 @@ const AWS = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
+
+      {/* Service Inquiry Form */}
+      <ServiceInquiryForm 
+        isOpen={showForm} 
+        onClose={() => setShowForm(false)} 
+        serviceName={inquiryType} 
+      />
     </div>
   );
 };
