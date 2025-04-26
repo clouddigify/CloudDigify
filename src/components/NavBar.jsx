@@ -656,13 +656,13 @@ const NavBar = () => {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
-              <LogoWrapper>
-                <Logo />
-                <BrandTitle />
-              </LogoWrapper>
-            </Link>
+              {/* Logo */}
+              <Link to="/" className="flex-shrink-0">
+                <LogoWrapper>
+                  <Logo />
+                  <BrandTitle />
+                </LogoWrapper>
+              </Link>
 
             {/* Center Navigation */}
             <div className="flex-1 flex justify-center">

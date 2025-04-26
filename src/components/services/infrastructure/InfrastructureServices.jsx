@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  FaServer, 
+  FaServer,
   FaCloud, 
   FaDatabase, 
-  FaNetworkWired, 
+  FaNetworkWired,
   FaLock, 
-  FaSearch, 
+  FaSearch,
   FaTools, 
   FaExchangeAlt, 
-  FaChartLine, 
+  FaChartLine,
   FaCheck, 
   FaShieldAlt,
   FaRocket,
@@ -397,10 +397,10 @@ export default function InfrastructureServices() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         
         <div className="relative py-24 px-6">
-          <motion.div 
+            <motion.div
             className="max-w-7xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             <div className="max-w-3xl backdrop-blur-sm bg-white/10 p-8 rounded-2xl">
@@ -408,7 +408,7 @@ export default function InfrastructureServices() {
                 <FaServer className="text-5xl text-white" />
                 <h1 className="text-5xl md:text-6xl font-bold text-white">
                   {pageInfo.title}
-                </h1>
+              </h1>
               </div>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
                 {pageInfo.description}
@@ -424,13 +424,13 @@ export default function InfrastructureServices() {
                 >
                   <span className="mr-2">Get Started with Infrastructure Solutions</span>
                   <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
-                </button>
-              </motion.div>
-            </div>
+              </button>
+            </motion.div>
+          </div>
           </motion.div>
         </div>
       </section>
-      
+
       {/* Infrastructure Services Grid Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -454,7 +454,7 @@ export default function InfrastructureServices() {
                 className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
               >
                 <div className={`bg-gradient-to-r ${item.color} text-white p-3 rounded-lg w-16 h-16 flex items-center justify-center mb-6`}>
-                  {item.icon}
+                    {item.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-900">{item.title}</h3>
                 <p className="text-gray-600 mb-6">{item.description}</p>
@@ -500,7 +500,7 @@ export default function InfrastructureServices() {
                     <div className="flex items-baseline">
                       <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
                       <span className="text-xl ml-1 text-gray-600">{metric.unit}</span>
-                    </div>
+                  </div>
                     <h3 className="text-lg font-semibold text-gray-900 mt-2">{metric.label}</h3>
                     <p className="text-gray-600 mt-1">{metric.description}</p>
                     <div className="mt-4 pt-4 border-t border-gray-100">
@@ -528,8 +528,8 @@ export default function InfrastructureServices() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {pricingModels && pricingModels.map((model, index) => (
-                <motion.div
-                  key={index}
+              <motion.div
+                key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -618,7 +618,7 @@ export default function InfrastructureServices() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our infrastructure solutions meet the highest industry standards and compliance requirements
             </p>
-          </div>
+      </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {complianceCerts && complianceCerts.map((cert, index) => (
@@ -648,7 +648,7 @@ export default function InfrastructureServices() {
             onClick={() => openInquiryForm('General Inquiry')}
             className="bg-white text-blue-800 hover:bg-blue-100 transition-colors px-8 py-3 rounded-full font-medium shadow-lg text-lg">
             Schedule a Consultation
-          </button>
+            </button>
         </div>
       </section>
 

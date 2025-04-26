@@ -355,7 +355,7 @@ const OracleCloud = () => {
               </motion.div>
             </div>
           </motion.div>
-        </div>
+          </div>
       </section>
 
       {/* Oracle Cloud Services Grid Section */}
@@ -388,7 +388,7 @@ const OracleCloud = () => {
                 key={index}
                 variants={fadeInUp}
                 className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
-              >
+                  >
                 <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
                 <div className="flex flex-col items-start h-full">
                   <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
@@ -402,9 +402,9 @@ const OracleCloud = () => {
                   </p>
                 </div>
               </motion.div>
-            ))}
+              ))}
           </motion.div>
-        </div>
+          </div>
       </section>
 
       {/* Stats Grid */}
@@ -550,7 +550,7 @@ const OracleCloud = () => {
         onClose={() => setShowForm(false)} 
         serviceName={inquiryType} 
       />
-    </div>
+      </div>
   );
 };
 

@@ -329,7 +329,7 @@ const AWS = () => {
               </motion.div>
             </div>
           </motion.div>
-        </div>
+          </div>
       </section>
 
       {/* AWS Services Grid Section */}
@@ -362,7 +362,7 @@ const AWS = () => {
                 key={index}
                 variants={fadeInUp}
                 className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
-              >
+                  >
                 <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
                 <div className="flex flex-col items-start h-full">
                   <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
@@ -376,9 +376,9 @@ const AWS = () => {
                   </p>
                 </div>
               </motion.div>
-            ))}
+              ))}
           </motion.div>
-        </div>
+          </div>
       </section>
 
       {/* Stats Grid */}
@@ -524,7 +524,7 @@ const AWS = () => {
         onClose={() => setShowForm(false)} 
         serviceName={inquiryType} 
       />
-    </div>
+      </div>
   );
 };
 

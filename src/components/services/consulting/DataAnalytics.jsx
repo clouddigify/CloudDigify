@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaChartBar, FaDatabase, FaChartLine, FaChartPie, FaBrain, FaRocket, FaSearch, FaCogs, FaLightbulb, FaCheckCircle } from 'react-icons/fa';
+import { FaChartBar, FaDatabase, FaChartLine, FaChartPie, FaBrain, FaRocket, FaSearch, FaCogs, FaLightbulb, FaCheckCircle, FaLock, FaClock, FaUsers } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
@@ -25,81 +25,78 @@ const DataAnalytics = () => {
   const pageInfo = {
     hero: {
       title: "CloudDigify Data Analytics",
-      description: "Transform raw data into actionable insights with our comprehensive data analytics services",
+      description: "Empower your organization with data-driven insights to make smarter business decisions and drive innovation",
       icon: <FaChartBar className="text-5xl mb-4" />,
       bgClass: "bg-gradient-to-r from-purple-600 to-indigo-500"
     },
     overview: {
-      title: "Data-Driven Decision Making",
+      title: "Transformative Data-Driven Solutions",
       descriptions: [
-        "CloudDigify helps organizations harness the power of their data through advanced analytics techniques and tools.",
-        "Our team of data scientists and analysts work with you to extract valuable insights that drive business growth and innovation."
+        "CloudDigify partners with you to transform raw data into strategic assets that fuel business growth and competitive advantage.",
+        "Our expert team combines industry knowledge with cutting-edge analytics techniques to deliver actionable insights tailored to your specific business challenges."
       ]
     },
-    benefits: {
-      title: "Key Benefits",
-      items: [
-        {
-          icon: <FaLightbulb />,
-          title: "Predictive Analytics",
-          description: "CloudDigify utilizes machine learning algorithms to forecast trends and outcomes for proactive decision-making."
-        },
-        {
-          icon: <FaDatabase />,
-          title: "Data Integration",
-          description: "CloudDigify consolidates data from multiple sources into a unified view for comprehensive analysis."
-        },
-        {
-          icon: <FaChartLine />,
-          title: "Real-time Analytics",
-          description: "CloudDigify delivers instant insights through streaming analytics for time-sensitive decisions."
-        },
-        {
-          icon: <FaChartPie />,
-          title: "Descriptive Analytics",
-          description: "CloudDigify transforms historical data into meaningful patterns and relationships to understand past performance."
-        }
-      ]
-    },
+    benefits: [
+      {
+        icon: <FaChartBar className="text-3xl text-blue-600" />,
+        title: "Empowering Decision-Making",
+        description: "CloudDigify equips your team with predictive analytics that turn data into actionable insights for confident decision-making."
+      },
+      {
+        icon: <FaLock className="text-3xl text-blue-600" />,
+        title: "Data Integration",
+        description: "CloudDigify seamlessly connects disparate data sources into a unified view, eliminating silos and enhancing data accessibility."
+      },
+      {
+        icon: <FaClock className="text-3xl text-blue-600" />,
+        title: "Real-Time Analytics",
+        description: "CloudDigify delivers instant insights through real-time dashboards that keep you ahead of market changes and opportunities."
+      },
+      {
+        icon: <FaUsers className="text-3xl text-blue-600" />,
+        title: "Descriptive Analytics",
+        description: "CloudDigify transforms complex data sets into clear, compelling visualizations that tell the story behind your metrics."
+      }
+    ],
     features: {
-      title: "Why Choose CloudDigify",
+      title: "The CloudDigify Advantage",
       items: [
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Expert team of data scientists and analysts"
+          text: "Dedicated team of data scientists and industry specialists focused on your business goals"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Customized analytics solutions for your specific needs"
+          text: "Tailored analytics solutions designed for your specific industry challenges"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Cutting-edge tools and methodologies"
+          text: "Proven ROI with measurable outcomes tied to your business objectives"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Focus on actionable insights that deliver business value"
+          text: "End-to-end implementation from strategy to execution and ongoing optimization"
         },
         {
           icon: <FaCheckCircle className="text-green-500" />,
-          text: "Seamless integration with existing data systems"
+          text: "Seamless integration with your existing systems and cloud infrastructure"
         }
       ]
     },
     approach: {
-      title: "Our Approach",
+      title: "Our Collaborative Approach",
       points: [
-        "Data assessment and requirements gathering",
-        "Data cleansing and preparation",
-        "Advanced analytics and model development",
-        "Insight generation and visualization",
-        "Implementation of actionable recommendations"
+        "Discovery phase to understand your unique business goals and data landscape",
+        "Custom data pipeline creation and quality enhancement",
+        "Implementation of tailored analytics solutions and AI/ML models",
+        "Interactive dashboard development for clear visualization and insight sharing",
+        "Continuous optimization and knowledge transfer to empower your team"
       ]
     },
     callToAction: {
-      title: "Ready to Unlock the Power of Your Data?",
-      description: "Contact CloudDigify today to discover how our Data Analytics services can transform your business.",
-      buttonText: "Get Started"
+      title: "Ready to Transform Data into Strategic Value?",
+      description: "Partner with CloudDigify to unlock the full potential of your data and gain the competitive advantage your business needs to thrive.",
+      buttonText: "Start Your Data Journey"
     }
   };
 
@@ -170,7 +167,7 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5 }}
             className="text-6xl font-bold mb-4"
           >
-            Data Analytics Services
+            {pageInfo.hero.title}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -178,7 +175,7 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl mb-8 max-w-2xl mx-auto"
           >
-            Transform your data into actionable insights with advanced analytics solutions
+            {pageInfo.hero.description}
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -189,7 +186,7 @@ const DataAnalytics = () => {
             onClick={() => openInquiryForm('General Inquiry')}
             className="px-8 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
           >
-            Discover Insights
+            Discover How We Can Help
           </motion.button>
         </div>
       </section>
@@ -203,39 +200,39 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold text-center mb-16 text-gray-800"
           >
-            Our Analytics Services
+            CloudDigify Analytics Solutions
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
                 icon: FaChartBar,
                 title: "Predictive Analytics",
-                description: "Forecast trends and outcomes using advanced statistical models"
+                description: "CloudDigify helps you forecast trends and outcomes using advanced ML models customized for your industry"
               },
               {
                 icon: FaDatabase,
                 title: "Data Mining",
-                description: "Discover patterns and relationships in large datasets"
+                description: "CloudDigify uncovers hidden patterns in your data to reveal opportunities for growth and optimization"
               },
               {
                 icon: FaChartLine,
                 title: "Real-time Analytics",
-                description: "Monitor and analyze data streams in real-time"
+                description: "CloudDigify enables immediate insights through streaming data analysis for time-critical decisions"
               },
               {
                 icon: FaBrain,
                 title: "Machine Learning",
-                description: "Implement AI-driven analytics solutions"
+                description: "CloudDigify implements AI-driven solutions that learn and improve over time to solve complex business problems"
               },
               {
                 icon: FaChartPie,
                 title: "Business Analytics",
-                description: "Transform data into actionable business insights"
+                description: "CloudDigify transforms your raw data into actionable business insights aligned with your strategic goals"
               },
               {
                 icon: FaSearch,
                 title: "Data Discovery",
-                description: "Explore and visualize data patterns effectively"
+                description: "CloudDigify helps you explore and visualize your data through intuitive interfaces for better understanding"
               }
             ].map((service, index) => (
               <motion.div
@@ -257,6 +254,50 @@ const DataAnalytics = () => {
         </div>
       </section>
 
+      {/* Benefits Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              <span className="flex items-center justify-center">
+                <FaCheckCircle className="mr-2 text-blue-600" />
+                Key Benefits
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {pageInfo.overview.description}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+            {pageInfo.benefits.map((benefit, index) => (
+              <motion.div
+                key={benefit.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex"
+              >
+                <div className="mr-4 mt-1">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    {benefit.icon}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-800">{benefit.title}</h3>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Process Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -266,24 +307,24 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold text-center mb-16 text-gray-800"
           >
-            Our Analytics Process
+            How CloudDigify Delivers Results
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
                 icon: FaLightbulb,
-                title: "Discovery",
-                description: "Understanding your data landscape and business objectives"
+                title: "Discovery & Strategy",
+                description: "CloudDigify works closely with your team to understand your unique business needs and data ecosystem"
               },
               {
                 icon: FaCogs,
-                title: "Implementation",
-                description: "Deploying analytics solutions and data pipelines"
+                title: "Implementation & Integration",
+                description: "CloudDigify deploys custom analytics solutions fully integrated with your existing systems and workflows"
               },
               {
                 icon: FaRocket,
-                title: "Optimization",
-                description: "Continuous improvement and refinement of analytics models"
+                title: "Optimization & Growth",
+                description: "CloudDigify continuously refines your analytics capabilities to drive ongoing improvement and business value"
               }
             ].map((step, index) => (
               <motion.div
@@ -313,7 +354,7 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold text-gray-800 mb-4"
           >
-            Ready to Transform Your Data?
+            {pageInfo.callToAction.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -321,7 +362,7 @@ const DataAnalytics = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Let's unlock the power of your data together
+            {pageInfo.callToAction.description}
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -332,7 +373,7 @@ const DataAnalytics = () => {
             onClick={() => openInquiryForm('Consultation')}
             className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
-            Schedule a Consultation
+            Partner with CloudDigify
           </motion.button>
         </div>
       </section>

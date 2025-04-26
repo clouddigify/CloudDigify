@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaRobot, FaCogs, FaChartLine, FaIndustry, FaDesktop, FaBrain, FaCode, FaDatabase } from 'react-icons/fa';
+import { FaRobot, FaCogs, FaChartLine, FaIndustry, FaDesktop, FaBrain, FaCode, FaDatabase, FaArrowRight,
+         FaSearchPlus, FaClipboardCheck, FaTools, FaRocket, FaUserCog, FaChartBar } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const RPA = () => {
   const { scrollYProgress } = useScroll();
@@ -13,6 +15,19 @@ const RPA = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('RPA');
+  
+  // Scroll to top when page loads/refreshes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`RPA - ${serviceType}`);
+    setShowInquiryForm(true);
+  };
 
   const springProps = useSpring({
     from: { opacity: 0, transform: 'translateY(20px)' },
@@ -76,7 +91,7 @@ const RPA = () => {
             transition={{ duration: 0.5 }}
             className="text-6xl font-bold mb-4"
           >
-            RPA Automation Solutions
+            CloudDigify RPA Solutions
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -84,7 +99,7 @@ const RPA = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl mb-8 max-w-2xl mx-auto"
           >
-            Transform your business operations with intelligent automation
+            Transform your business operations with intelligent automation tailored to your specific needs
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -92,9 +107,10 @@ const RPA = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+            onClick={() => openInquiryForm('General Inquiry')}
+            className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center mx-auto"
           >
-            Explore RPA Solutions
+            Explore RPA Solutions <FaArrowRight className="ml-2" />
           </motion.button>
         </div>
         <div className="absolute bottom-0 left-0 right-0">
@@ -117,7 +133,7 @@ const RPA = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold mb-6"
             >
-              Comprehensive RPA Framework
+              CloudDigify RPA Framework
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -125,7 +141,7 @@ const RPA = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-xl text-gray-600"
             >
-              Our end-to-end RPA solutions combine intelligent automation with advanced AI capabilities
+              Our end-to-end RPA solutions combine intelligent automation with advanced AI capabilities to drive business growth
             </motion.p>
           </div>
 
@@ -135,32 +151,32 @@ const RPA = () => {
               {
                 icon: FaRobot,
                 title: "Process Automation",
-                description: "Automate repetitive tasks and workflows with intelligent bots"
+                description: "Automate repetitive tasks and workflows with intelligent bots that enhance productivity"
               },
               {
                 icon: FaBrain,
                 title: "Cognitive Automation",
-                description: "Leverage AI for intelligent decision-making in automation"
+                description: "Leverage AI for intelligent decision-making in automation processes to handle complex scenarios"
               },
               {
                 icon: FaDesktop,
                 title: "Desktop Automation",
-                description: "Streamline desktop-based processes and applications"
+                description: "Streamline desktop-based processes and applications for improved efficiency and reduced errors"
               },
               {
                 icon: FaDatabase,
                 title: "Data Processing",
-                description: "Automate data entry, extraction, and processing tasks"
+                description: "Automate data entry, extraction, and processing tasks to accelerate operations and ensure accuracy"
               },
               {
                 icon: FaCode,
                 title: "Custom Bot Development",
-                description: "Build tailored automation solutions for unique processes"
+                description: "Build tailored automation solutions for unique processes specific to your business requirements"
               },
               {
                 icon: FaIndustry,
                 title: "Enterprise Integration",
-                description: "Seamlessly integrate RPA with existing systems"
+                description: "Seamlessly integrate RPA with existing systems to create a unified automation ecosystem"
               }
             ].map((item, index) => (
               <motion.div
@@ -168,7 +184,8 @@ const RPA = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative transform hover:scale-105 transition-transform"
+                className="relative transform hover:scale-105 transition-transform cursor-pointer"
+                onClick={() => openInquiryForm(item.title)}
               >
                 <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-xl shadow-lg">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-6">
@@ -184,40 +201,86 @@ const RPA = () => {
           </div>
         </div>
       </section>
-
-      {/* Metrics Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-900 to-cyan-900 text-white">
+      
+      {/* Implementation Process Section */}
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl font-bold text-center mb-16"
+            className="max-w-4xl mx-auto text-center mb-16"
           >
-            RPA Impact Metrics
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold mb-6">
+              CloudDigify RPA Implementation Process
+            </h2>
+            <p className="text-xl text-gray-600">
+              Our structured approach ensures successful automation implementation with measurable ROI
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { title: "Process Efficiency", value: "80%", icon: FaChartLine },
-              { title: "Error Reduction", value: "99%", icon: FaCogs },
-              { title: "Cost Savings", value: "60%", icon: FaDatabase },
-              { title: "ROI", value: "300%", icon: FaIndustry }
-            ].map((metric, index) => (
+              {
+                icon: FaSearchPlus,
+                title: "Process Discovery",
+                description: "We identify and prioritize automation opportunities based on complexity, ROI, and strategic value."
+              },
+              {
+                icon: FaClipboardCheck,
+                title: "Requirements Definition",
+                description: "Our experts work with your team to document process details and define automation requirements."
+              },
+              {
+                icon: FaTools,
+                title: "Solution Design",
+                description: "We design a robust automation solution tailored to your specific business processes and systems."
+              },
+              {
+                icon: FaCode,
+                title: "Bot Development",
+                description: "Our developers build and test custom bots that automate your processes with precision and reliability."
+              },
+              {
+                icon: FaRocket,
+                title: "Deployment & Integration",
+                description: "We deploy your automation solution and integrate it seamlessly with your existing IT infrastructure."
+              },
+              {
+                icon: FaUserCog,
+                title: "Support & Optimization",
+                description: "Ongoing support, monitoring, and refinement ensure your automation solution delivers sustainable value."
+              }
+            ].map((item, index) => (
               <motion.div
-                key={metric.title}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
+                className="relative p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                onClick={() => openInquiryForm('RPA Implementation')}
               >
-                <metric.icon className="text-5xl mb-4 mx-auto text-blue-300" />
-                <div className="text-4xl font-bold mb-2">{metric.value}</div>
-                <div className="text-lg text-blue-200">{metric.title}</div>
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4 bg-gradient-to-r from-blue-100 to-cyan-100 p-4 rounded-full">
+                    <item.icon className="text-3xl text-blue-600" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };

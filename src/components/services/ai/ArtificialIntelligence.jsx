@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaBrain, FaChartLine, FaCode, FaDatabase, FaRobot, FaCloud, FaSearch, FaMicrochip } from 'react-icons/fa';
+import { FaBrain, FaChartLine, FaCode, FaDatabase, FaRobot, FaCloud, FaSearch, FaMicrochip, FaArrowRight, 
+         FaLightbulb, FaRoad, FaServer, FaCogs, FaRocket, FaChartBar } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const ArtificialIntelligence = () => {
   const { scrollYProgress } = useScroll();
@@ -13,6 +15,19 @@ const ArtificialIntelligence = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Artificial Intelligence');
+  
+  // Scroll to top when page loads/refreshes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Artificial Intelligence - ${serviceType}`);
+    setShowInquiryForm(true);
+  };
 
   const springProps = useSpring({
     from: { opacity: 0, transform: 'translateY(20px)' },
@@ -81,7 +96,7 @@ const ArtificialIntelligence = () => {
             transition={{ duration: 0.5 }}
             className="text-6xl font-bold mb-4"
           >
-            Artificial Intelligence Solutions
+            CloudDigify AI Solutions
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -89,7 +104,7 @@ const ArtificialIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl mb-8 max-w-2xl mx-auto"
           >
-            Transforming businesses with cutting-edge AI technologies
+            Transforming businesses with cutting-edge AI technologies tailored to your needs
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -97,9 +112,10 @@ const ArtificialIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-colors"
+            onClick={() => openInquiryForm('General Inquiry')}
+            className="px-8 py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-colors flex items-center mx-auto"
           >
-            Explore AI Solutions
+            Explore AI Solutions <FaArrowRight className="ml-2" />
           </motion.button>
         </div>
         <div className="absolute bottom-0 left-0 right-0">
@@ -122,7 +138,7 @@ const ArtificialIntelligence = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold mb-6"
             >
-              AI Capabilities
+              CloudDigify AI Capabilities
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -130,7 +146,7 @@ const ArtificialIntelligence = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-xl text-gray-600"
             >
-              Leverage our comprehensive suite of AI solutions to drive innovation and growth
+              Leverage our comprehensive suite of AI solutions to drive innovation and business growth
             </motion.p>
           </div>
 
@@ -140,32 +156,32 @@ const ArtificialIntelligence = () => {
               {
                 icon: FaBrain,
                 title: "Deep Learning",
-                description: "Advanced neural networks for complex pattern recognition"
+                description: "Advanced neural networks for complex pattern recognition and business insights"
               },
               {
                 icon: FaSearch,
                 title: "Natural Language Processing",
-                description: "Understanding and processing human language naturally"
+                description: "Understanding and processing human language naturally for improved customer engagement"
               },
               {
                 icon: FaRobot,
                 title: "Machine Learning",
-                description: "Automated learning and prediction systems"
+                description: "Automated learning and prediction systems for data-driven business decisions"
               },
               {
                 icon: FaMicrochip,
                 title: "Computer Vision",
-                description: "Visual understanding and image processing"
+                description: "Visual understanding and image processing for enhanced operations and quality control"
               },
               {
                 icon: FaCloud,
                 title: "AI Cloud Solutions",
-                description: "Scalable AI infrastructure and deployment"
+                description: "Scalable AI infrastructure and deployment for enterprise-grade applications"
               },
               {
                 icon: FaDatabase,
                 title: "Predictive Analytics",
-                description: "Data-driven insights and forecasting"
+                description: "Data-driven insights and forecasting to anticipate market trends and customer needs"
               }
             ].map((item, index) => (
               <motion.div
@@ -174,8 +190,9 @@ const ArtificialIntelligence = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative transform hover:scale-105 transition-transform"
+                onClick={() => openInquiryForm(item.title)}
               >
-                <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-8 rounded-xl shadow-lg">
+                <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-8 rounded-xl shadow-lg cursor-pointer">
                   <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center mb-6">
                     <item.icon className="text-3xl text-white" />
                   </div>
@@ -190,39 +207,85 @@ const ArtificialIntelligence = () => {
         </div>
       </section>
 
-      {/* AI Impact Metrics */}
-      <section className="py-20 bg-gradient-to-r from-purple-900 to-indigo-900 text-white">
+      {/* Implementation Process Section */}
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl font-bold text-center mb-16"
+            className="max-w-4xl mx-auto text-center mb-16"
           >
-            AI Impact Metrics
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold mb-6">
+              CloudDigify AI Implementation Process
+            </h2>
+            <p className="text-xl text-gray-600">
+              Our proven methodology ensures successful AI adoption and measurable business impact
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { title: "Accuracy Rate", value: "99.9%", icon: FaChartLine },
-              { title: "Processing Speed", value: "100x", icon: FaMicrochip },
-              { title: "Cost Reduction", value: "70%", icon: FaDatabase },
-              { title: "Business Growth", value: "200%", icon: FaChartLine }
-            ].map((metric, index) => (
+              {
+                icon: FaLightbulb,
+                title: "Discovery & Assessment",
+                description: "We analyze your business challenges and identify high-value AI opportunities aligned with your strategic objectives."
+              },
+              {
+                icon: FaRoad,
+                title: "AI Strategy Development",
+                description: "Our experts create a customized AI roadmap with clear milestones, resource requirements, and expected outcomes."
+              },
+              {
+                icon: FaDatabase,
+                title: "Data Preparation",
+                description: "We establish data governance practices and prepare high-quality datasets for training your AI models."
+              },
+              {
+                icon: FaCode,
+                title: "Solution Development",
+                description: "Our team builds and trains custom AI models using the latest technologies and best practices."
+              },
+              {
+                icon: FaServer,
+                title: "Enterprise Deployment",
+                description: "We implement secure, scalable AI solutions integrated with your existing systems and processes."
+              },
+              {
+                icon: FaChartBar,
+                title: "Continuous Optimization",
+                description: "Ongoing monitoring and refinement ensure your AI solutions evolve with your business needs."
+              }
+            ].map((item, index) => (
               <motion.div
-                key={metric.title}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
+                className="relative p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                onClick={() => openInquiryForm('AI Implementation')}
               >
-                <metric.icon className="text-5xl mb-4 mx-auto text-purple-300" />
-                <div className="text-4xl font-bold mb-2">{metric.value}</div>
-                <div className="text-lg text-purple-200">{metric.title}</div>
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4 bg-gradient-to-r from-purple-100 to-indigo-100 p-4 rounded-full">
+                    <item.icon className="text-3xl text-purple-600" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };
