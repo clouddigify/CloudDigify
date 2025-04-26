@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaCogs, FaCode, FaServer, FaChartLine, FaCloud, FaRocket, FaShieldAlt, FaDatabase, FaArrowRight, FaClock, FaRobot, FaUsersCog, FaCoins } from 'react-icons/fa';
+import { FaCogs, FaCode, FaServer, FaChartLine, FaCloud, FaRocket, FaShieldAlt, FaDatabase, FaArrowRight, FaClock, FaRobot, FaUsersCog, FaCoins, FaLightbulb, FaSitemap, FaStream, FaNetworkWired, FaChartBar, FaGraduationCap } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
@@ -380,6 +380,86 @@ const MLOps = () => {
           </div>
         </div>
       </section>
+
+      {/* Implementation Process Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-6">
+              CloudDigify MLOps Implementation Process
+            </h2>
+            <p className="text-xl text-gray-600">
+              Our structured approach ensures successful MLOps adoption and long-term value
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                icon: FaLightbulb,
+                title: "Assessment & Strategy",
+                description: "We evaluate your current ML infrastructure, processes, and team capabilities to develop a tailored MLOps roadmap."
+              },
+              {
+                icon: FaSitemap,
+                title: "MLOps Architecture",
+                description: "Our team designs a scalable MLOps architecture aligned with your business goals and technology stack."
+              },
+              {
+                icon: FaStream,
+                title: "Pipeline Development",
+                description: "We build automated CI/CD pipelines for data preparation, model training, testing, and deployment."
+              },
+              {
+                icon: FaNetworkWired,
+                title: "Systems Integration",
+                description: "Seamless integration of your MLOps platform with existing data sources, business applications, and analytics tools."
+              },
+              {
+                icon: FaChartBar,
+                title: "Monitoring & Alerting",
+                description: "Implementation of comprehensive monitoring for model performance, data drift, and infrastructure health."
+              },
+              {
+                icon: FaGraduationCap,
+                title: "Team Enablement",
+                description: "We provide training and knowledge transfer to ensure your team can effectively operate and evolve the MLOps platform."
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all"
+                onClick={() => openInquiryForm('MLOps Implementation')}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4 bg-gradient-to-r from-orange-100 to-red-100 p-4 rounded-full">
+                    <item.icon className="text-3xl text-orange-600" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };

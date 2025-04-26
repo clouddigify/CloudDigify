@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { FaRobot, FaNetworkWired, FaBrain, FaUserCog, FaExchangeAlt, FaLightbulb, FaDatabase, FaCogs, FaChartLine, FaArrowRight } from 'react-icons/fa';
+import { FaRobot, FaNetworkWired, FaBrain, FaUserCog, FaExchangeAlt, FaLightbulb, FaDatabase, FaCogs, FaChartLine, FaArrowRight,
+         FaSearchPlus, FaChartBar, FaCode, FaServer, FaSyncAlt, FaClipboardCheck } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
@@ -270,16 +271,6 @@ const AgenticAI = () => {
         }
       ]
     },
-    approach: {
-      title: "Our Approach",
-      points: [
-        "Assessment of agent implementation opportunities",
-        "Agent architecture design and development",
-        "Multi-agent system integration",
-        "Performance monitoring and optimization",
-        "Continuous learning and adaptation"
-      ]
-    },
     callToAction: {
       title: "Ready to Deploy Autonomous AI Agents?",
       description: "Contact us to discover how our agentic AI solutions can revolutionize your operations.",
@@ -374,23 +365,71 @@ const AgenticAI = () => {
         </div>
       </section>
 
-      {/* Approach Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">{pageInfo.approach.title}</h2>
-          <div className="space-y-4">
-            {pageInfo.approach.points.map((point, index) => (
+      {/* Implementation Process Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-6">
+              CloudDigify Agentic AI Implementation Process
+            </h2>
+            <p className="text-xl text-gray-600">
+              Our structured methodology ensures successful deployment of autonomous AI agent systems
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                icon: FaSearchPlus,
+                title: "Use Case Discovery",
+                description: "We analyze your business processes to identify opportunities where autonomous AI agents can deliver substantial value."
+              },
+              {
+                icon: FaClipboardCheck,
+                title: "Agent Design & Planning",
+                description: "Our experts design the agent architecture, capabilities, and integration points tailored to your specific requirements."
+              },
+              {
+                icon: FaNetworkWired,
+                title: "Agent Ecosystem Development",
+                description: "We develop the multi-agent system with sophisticated coordination and communication mechanisms."
+              },
+              {
+                icon: FaCode,
+                title: "Integration & Testing",
+                description: "Our team rigorously tests agent interactions and integrates the system with your existing infrastructure."
+              },
+              {
+                icon: FaServer,
+                title: "Deployment & Training",
+                description: "We deploy the agent system in your environment and train your teams on effective management and oversight."
+              },
+              {
+                icon: FaSyncAlt,
+                title: "Monitoring & Refinement",
+                description: "Continuous monitoring and learning ensure your agent system evolves and improves over time."
+              }
+            ].map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center space-x-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                onClick={() => openInquiryForm('Agentic AI Implementation')}
               >
-                <div className="w-8 h-8 bg-violet-600 text-white rounded-full flex items-center justify-center">
-                  {index + 1}
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4 bg-gradient-to-r from-indigo-100 to-purple-100 p-4 rounded-full">
+                    <item.icon className="text-3xl text-indigo-600" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
                 </div>
-                <p className="text-lg text-gray-700">{point}</p>
               </motion.div>
             ))}
           </div>
