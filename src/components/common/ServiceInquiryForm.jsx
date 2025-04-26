@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaCheck, FaPaperPlane, FaUser, FaEnvelope, FaBuilding, FaPhone, FaCommentAlt } from 'react-icons/fa';
 
 const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
+  const modalRef = useRef(null);
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,6 +19,25 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
     error: false,
     message: ''
   });
+
+  // Handle clicks outside the form
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    // Add event listener when the form is open
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Cleanup event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose]);
 
   // Update service name when prop changes
   useEffect(() => {
@@ -106,9 +127,12 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 30 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
-            onClick={e => e.stopPropagation()}
           >
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative overflow-hidden border border-gray-100">
+            <div 
+              ref={modalRef}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative overflow-hidden border border-gray-100"
+              onClick={(e) => e.stopPropagation()}
+            >
               {/* Close Button */}
               <button
                 onClick={onClose}
