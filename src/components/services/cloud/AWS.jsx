@@ -18,7 +18,11 @@ import {
   FaTools,
   FaDatabase,
   FaNetworkWired,
-  FaArrowRight
+  FaArrowRight,
+  FaAws,
+  FaMicrochip,
+  FaRobot,
+  FaUsersCog
 } from 'react-icons/fa';
 import { SiAmazonaws } from 'react-icons/si';
 import ImageSlider from '../../common/ImageSlider';
@@ -245,6 +249,57 @@ const AWS = () => {
     }
   ];
 
+  const awsServices = [
+    {
+      icon: <FaCloud className="text-4xl text-orange-500" />,
+      title: 'AWS Cloud Infrastructure',
+      description: 'Scalable and reliable cloud computing infrastructure',
+      color: 'from-orange-500 to-orange-600'
+    },
+    {
+      icon: <FaShieldAlt className="text-4xl text-indigo-500" />,
+      title: 'AWS Security',
+      description: 'Advanced security and compliance solutions',
+      color: 'from-indigo-500 to-indigo-600'
+    },
+    {
+      icon: <FaDatabase className="text-4xl text-emerald-500" />,
+      title: 'AWS Database',
+      description: 'Managed database services for all applications',
+      color: 'from-emerald-500 to-emerald-600'
+    },
+    {
+      icon: <FaChartLine className="text-4xl text-purple-500" />,
+      title: 'AWS Analytics',
+      description: 'Big data analytics and visualization tools',
+      color: 'from-purple-500 to-purple-600'
+    },
+    {
+      icon: <FaMicrochip className="text-4xl text-rose-500" />,
+      title: 'AWS Machine Learning',
+      description: 'AI and ML services for intelligent applications',
+      color: 'from-rose-500 to-rose-600'
+    },
+    {
+      icon: <FaNetworkWired className="text-4xl text-blue-500" />,
+      title: 'AWS Networking',
+      description: 'Global network infrastructure and CDN services',
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      icon: <FaUsersCog className="text-4xl text-amber-500" />,
+      title: 'AWS Management',
+      description: 'Cloud resource monitoring and management',
+      color: 'from-amber-500 to-amber-600'
+    },
+    {
+      icon: <FaRobot className="text-4xl text-teal-500" />,
+      title: 'AWS Serverless',
+      description: 'Event-driven serverless computing platform',
+      color: 'from-teal-500 to-teal-600'
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
@@ -289,27 +344,60 @@ const AWS = () => {
               </motion.div>
             </div>
           </motion.div>
-        </div>
+          </div>
       </section>
 
-      {/* Image Slider Section */}
-      {sliderImages && sliderImages.length > 0 && (
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-6">
-            <motion.h2 
-              className="text-3xl font-bold text-center mb-16 text-gray-900"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
+      {/* AWS Services Grid Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               AWS Cloud Solutions
-            </motion.h2>
-            <div className="relative w-full h-[500px]">
-              <ImageSlider images={sliderImages} />
-            </div>
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Comprehensive cloud services and solutions to build, deploy, and manage applications
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {awsServices.map((service, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+              >
+                <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
+                <div className="flex flex-col items-start h-full">
+                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    {service.description}
+                  </p>
+                  <div className="mt-auto flex items-center text-sm font-medium text-orange-600 group-hover:text-orange-700">
+                    Learn more
+                    <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
           </div>
-        </section>
-      )}
+      </section>
 
       {/* Stats Grid */}
       <motion.section 
@@ -368,10 +456,10 @@ const AWS = () => {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {pricingModels.map((model, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
@@ -382,7 +470,7 @@ const AWS = () => {
                     <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                       Most Popular
                     </span>
-                  </div>
+                    </div>
                 )}
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
                 <p className="text-2xl font-bold text-orange-600 mb-2">${model.description}</p>
@@ -392,18 +480,18 @@ const AWS = () => {
                     <li key={i} className="flex items-center text-gray-700">
                       <FaCheckCircle className="text-orange-500 mr-2 flex-shrink-0" />
                       <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                        </li>
+                      ))}
+                    </ul>
                 <div className="mt-auto">
                   <button className="w-full py-3 px-6 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors duration-300">
                     {model.ctaText}
                   </button>
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Delivery Timeline */}
@@ -419,10 +507,10 @@ const AWS = () => {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {deliveryTimeline.map((phase, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
@@ -439,12 +527,12 @@ const AWS = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
-    </div>
+      </div>
   );
 };
 

@@ -284,7 +284,7 @@ const GoogleCloud = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <ImageSlider images={sliderImages} />
-        </div>
+          </div>
       </section>
 
       {/* Stats Grid */}
@@ -344,14 +344,14 @@ const GoogleCloud = () => {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {pricingModels.map((model, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300`}
-              >
+                >
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
                 <p className="text-2xl font-bold text-green-600 mb-2">${model.description}</p>
                 <p className="text-gray-600 mb-6">{model.subtitle}</p>
@@ -360,16 +360,16 @@ const GoogleCloud = () => {
                     <li key={i} className="flex items-center text-gray-700">
                       <FaCheckCircle className="text-green-500 mr-2" />
                       {feature}
-                    </li>
-                  ))}
-                </ul>
+                        </li>
+                      ))}
+                    </ul>
                 <button className="w-full py-3 px-6 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors duration-300">
                   {model.ctaText}
                 </button>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Delivery Timeline */}
@@ -385,14 +385,14 @@ const GoogleCloud = () => {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {deliveryTimeline.map((phase, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
-              >
+                >
                 <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
                 <div className="mb-4">{phase.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{phase.phase}</h3>
@@ -405,12 +405,12 @@ const GoogleCloud = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
-    </div>
+      </div>
   );
 };
 
