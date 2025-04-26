@@ -453,26 +453,6 @@ export const menuConfig = {
         }
       ]
     },
-    { 
-      title: 'Customer Solutions', 
-      path: '/solutions', 
-      hasSubmenu: true,
-      icon: 'fa-clipboard-list',
-      submenu: [
-        { 
-          title: 'Data Solutions',
-          path: '/solutions/data-transformation',
-          icon: 'fa-database',
-          description: 'Data Integration, Analytics & Cloud Migration'
-        },
-        { 
-          title: 'Cloud Solutions',
-          path: '/solutions/cloud-driven',
-          icon: 'fa-cloud',
-          description: 'Infrastructure, Security & Performance'
-        }
-      ]
-    },
   ]
 }; 
 

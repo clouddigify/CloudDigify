@@ -87,10 +87,6 @@ import InfrastructureServices from './components/services/infrastructure/Infrast
 import Blockchain from './components/services/blockchain/Blockchain';
 import Strategy from './components/services/strategy/Strategy';
 
-// Solution Pages
-import DataTransformation from './components/solutions/DataTransformation';
-import CloudDriven from './components/solutions/CloudDriven';
-
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -203,12 +199,7 @@ const AnimatedRoutes = () => {
         {/* Infrastructure, Blockchain, and Strategy Routes */}
         <Route path="/services/infrastructure" element={<InfrastructureServices />} />
         <Route path="/services/blockchain" element={<Blockchain />} />
-        <Route path="/services/strategy" element={<Strategy />} />
-
-        {/* Solution Routes */}
-        <Route path="/solutions/data-transformation" element={<DataTransformation />} />
-        <Route path="/solutions/cloud-driven" element={<CloudDriven />} />
-        
+        <Route path="/services/strategy" element={<Strategy />} />        
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
