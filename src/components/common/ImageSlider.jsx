@@ -30,7 +30,7 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
 
   return (
     <div
-      className="relative w-full h-[500px] overflow-hidden rounded-lg"
+      className="relative w-full h-screen overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -43,44 +43,52 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
           transition={{ duration: 0.5 }}
           className="absolute inset-0"
         >
-          <img
-            src={images[currentIndex].url}
-            alt={images[currentIndex].alt}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-          {images[currentIndex].overlay && (
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white p-4">
-              <h2 className="text-4xl font-bold mb-4">{images[currentIndex].title}</h2>
-              <p className="text-xl text-center max-w-2xl">{images[currentIndex].description}</p>
-            </div>
+          {images[currentIndex].url ? (
+            <img
+              src={images[currentIndex].url}
+              alt={images[currentIndex].alt}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div className={`w-full h-full ${images[currentIndex].gradient}`} />
           )}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+            {typeof images[currentIndex].title === 'string' ? (
+              <>
+                <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-center max-w-6xl mx-auto leading-tight">{images[currentIndex].title}</h2>
+                <p className="text-lg md:text-xl lg:text-2xl text-center max-w-3xl mx-auto mb-10 text-gray-100">{images[currentIndex].description}</p>
+              </>
+            ) : (
+              images[currentIndex].title
+            )}
+          </div>
         </motion.div>
       </AnimatePresence>
 
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full transition-all duration-200"
+        className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-200 backdrop-blur-sm"
         aria-label="Previous slide"
       >
-        <IoChevronBackOutline size={24} />
+        <IoChevronBackOutline size={28} />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full transition-all duration-200"
+        className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-200 backdrop-blur-sm"
         aria-label="Next slide"
       >
-        <IoChevronForwardOutline size={24} />
+        <IoChevronForwardOutline size={28} />
       </button>
 
       {/* Dots Navigation */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-3">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
               index === currentIndex ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/70'
             }`}
             aria-label={`Go to slide ${index + 1}`}

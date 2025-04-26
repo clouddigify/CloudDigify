@@ -3,8 +3,42 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
 import CloudPartners from '../CloudPartners';
+import ImageSlider from '../common/ImageSlider';
 
 const Home = () => {
+  const heroSlides = [
+    {
+      gradient: 'bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900',
+      alt: 'Digital Transformation',
+      title: 'Transform Your Enterprise with Cloud Excellence',
+      description: 'Accelerate innovation and growth with our comprehensive cloud solutions and digital transformation expertise.',
+      cta: { 
+        label: 'Explore Solutions',
+        link: '/services'
+      }
+    },
+    {
+      gradient: 'bg-gradient-to-br from-indigo-900 via-blue-800 to-blue-900',
+      alt: 'AI & Innovation',
+      title: 'Innovate with AI & Automation',
+      description: 'Leverage cutting-edge AI and automation solutions to streamline operations and drive business value.',
+      cta: {
+        label: 'Discover AI Solutions',
+        link: '/services/ai'
+      }
+    },
+    {
+      gradient: 'bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-900',
+      alt: 'Cloud Security',
+      title: 'Enterprise-Grade Cloud Security',
+      description: 'Protect your digital assets with our comprehensive cloud security and compliance solutions.',
+      cta: {
+        label: 'Learn About Security',
+        link: '/services/security'
+      }
+    }
+  ];
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -124,143 +158,50 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-blue-100 z-0" />
-        <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-100 to-transparent z-0" />
-        
-        {/* Animated Shapes */}
-        <motion.div 
-          className="absolute top-20 left-10 w-64 h-64 rounded-full bg-blue-200 opacity-20 z-0"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            x: [0, 30, 0],
-            y: [0, 20, 0]
-          }}
-          transition={{ 
-            duration: 20, 
-            repeat: Infinity,
-            repeatType: "reverse"
-          }}
-        />
-        <motion.div 
-          className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-indigo-200 opacity-20 z-0"
-          animate={{ 
-            scale: [1, 1.1, 1],
-            x: [0, -20, 0],
-            y: [0, -30, 0]
-          }}
-          transition={{ 
-            duration: 15, 
-            repeat: Infinity,
-            repeatType: "reverse"
-          }}
-        />
-        
-        {/* Content Container */}
-        <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
-          <motion.div
-            className="flex flex-col md:flex-row items-center"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Left Content */}
-            <div className="w-full md:w-1/2 mb-12 md:mb-0">
-              <motion.div variants={itemVariants}>
-                <span className="inline-block py-1 px-3 mb-4 bg-blue-100 text-blue-700 font-medium rounded-full text-sm">
-                  Your Trusted Cloud Partner
-                </span>
-              </motion.div>
-              <motion.h1
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 text-transparent bg-clip-text"
-                variants={itemVariants}
-              >
-                Accelerate Your Digital Future with Cloud Excellence
-              </motion.h1>
-              <motion.p
-                className="text-lg text-gray-600 mb-8 max-w-xl"
-                variants={itemVariants}
-              >
-                We don't just migrate to the cloud - we transform your business with cutting-edge solutions that drive innovation, efficiency, and growth. Experience the power of true digital transformation.
-              </motion.p>
-              <motion.div 
-                className="flex flex-wrap gap-4"
-                variants={itemVariants}
-              >
-                <Link to="/services">
-                  <motion.button 
-                    className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Explore Solutions
-                  </motion.button>
-                </Link>
-                <Link to="/contact">
-                  <motion.button 
-                    className="px-6 py-3 bg-white text-blue-600 border border-blue-200 font-medium rounded-lg shadow-sm hover:shadow-md hover:bg-blue-50 transition duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Schedule Consultation
-                  </motion.button>
-                </Link>
-              </motion.div>
-            </div>
-            
-            {/* Right Content - Stats Grid */}
-            <div className="w-full md:w-1/2">
-              <motion.div
-                className="grid grid-cols-2 gap-4"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              >
-                {stats.map((stat, index) => (
+      {/* Hero Section - Carousel */}
+      <section className="relative w-full">
+        <ImageSlider
+          images={heroSlides.map(slide => ({
+            gradient: slide.gradient,
+            alt: slide.alt,
+            title: (
+              <div className="flex flex-col items-center justify-center h-full px-4">
+                <motion.span 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="block text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-white drop-shadow-lg text-center max-w-6xl"
+                >
+                  {slide.title}
+                </motion.span>
+                <motion.span 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="block text-lg md:text-xl lg:text-2xl font-normal mb-10 text-gray-200 max-w-3xl mx-auto text-center"
+                >
+                  {slide.description}
+                </motion.span>
+                {slide.cta && (
                   <motion.div
-                    key={index}
-                    className="bg-white/80 backdrop-blur-lg rounded-xl p-6 shadow-lg border border-blue-100"
-                    whileHover={{ y: -5, boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.1)" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
                   >
-                    <motion.div 
-                      className="text-3xl font-bold text-blue-600 mb-2"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + (index * 0.1) }}
-                    >
-                      {stat.number}
-                    </motion.div>
-                    <motion.div 
-                      className="text-gray-600"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.7 + (index * 0.1) }}
-                    >
-                      {stat.label}
-                    </motion.div>
+                    <Link to={slide.cta.link}>
+                      <button className="px-8 py-4 bg-white hover:bg-opacity-90 text-blue-600 font-semibold rounded-lg shadow-lg transition-all duration-300">
+                        {slide.cta.label}
+                      </button>
+                    </Link>
                   </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-        
-        {/* Wave SVG Divider */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 1200 120" 
-            preserveAspectRatio="none"
-            className="w-full h-24 md:h-32"
-          >
-            <path 
-              d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C0,0,0,0,0,0V0z" 
-              className="fill-white"
-            ></path>
-          </svg>
-        </div>
+                )}
+              </div>
+            ),
+            description: '',
+          }))}
+          interval={6000}
+          autoPlay={true}
+        />
       </section>
 
       {/* Services Section */}
