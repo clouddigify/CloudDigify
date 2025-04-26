@@ -37,80 +37,66 @@ const ServerlessArchitecture = () => {
 
     return (
       <div className="w-full flex justify-center mt-8">
-        <div className="relative w-full max-w-4xl">
-          <div className="flex flex-col items-center">
-            {/* Serverless flow */}
-            <div className="flex justify-between items-center w-full mb-2">
-              {serverlessStages.map((stage, index) => (
-                <motion.div
-                  key={stage.id}
-                  className="flex flex-col items-center relative"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 + index * 0.15 }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+        <div className="w-full max-w-4xl">
+          {/* Serverless flow */}
+          <div className="flex flex-wrap justify-center md:justify-between items-center w-full gap-4 md:gap-2">
+            {serverlessStages.map((stage, index) => (
+              <motion.div
+                key={stage.id}
+                className="flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <motion.div 
+                  className="rounded-lg p-3 mb-3 shadow-md w-[60px] md:w-[70px] flex justify-center"
+                  style={{ backgroundColor: `${stage.color}22`, border: `2px solid ${stage.color}` }}
+                  whileHover={{ scale: 1.1, backgroundColor: `${stage.color}33` }}
+                  animate={{ 
+                    boxShadow: [
+                      "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                      "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                      "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                    ]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
                 >
-                  <motion.div 
-                    className="rounded-lg p-4 mb-2 z-10 shadow-lg w-[80px] flex justify-center"
-                    style={{ backgroundColor: `${stage.color}22`, border: `2px solid ${stage.color}` }}
-                    animate={{
-                      boxShadow: [
-                        "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                        "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-                        "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
-                      ]
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      rotate: [0, 5, 0, -5, 0]
                     }}
                     transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      delay: index * 0.2
-                    }}
-                  >
-                    <motion.div
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 5, 0, -5, 0]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        delay: index * 0.2
-                      }}
-                    >
-                      <stage.icon 
-                        className="text-2xl" 
-                        style={{ color: stage.color }} 
-                      />
-                    </motion.div>
-                  </motion.div>
-                  <motion.span 
-                    className="text-sm text-white font-medium"
-                    animate={{
-                      opacity: [0.7, 1, 0.7]
-                    }}
-                    transition={{
-                      duration: 2,
+                      duration: 3,
                       repeat: Infinity,
                       delay: index * 0.2
                     }}
                   >
-                    {stage.label}
-                  </motion.span>
-                  
-                  {/* Don't render arrow after the last item */}
-                  {index < serverlessStages.length - 1 && (
-                    <motion.div 
-                      className="absolute left-[95px] top-1/2 transform -translate-y-1/2 h-0.5 bg-blue-300"
-                      style={{ width: 'calc((100% - 100px) / 2)' }}
-                      initial={{ scaleX: 0, originX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+                    <stage.icon 
+                      className="text-xl md:text-2xl" 
+                      style={{ color: stage.color }} 
                     />
-                  )}
+                  </motion.div>
                 </motion.div>
-              ))}
-            </div>
+                <motion.span 
+                  className="text-xs md:text-sm text-white font-medium"
+                  animate={{
+                    opacity: [0.7, 1, 0.7]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: index * 0.2
+                  }}
+                >
+                  {stage.label}
+                </motion.span>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
@@ -124,8 +110,8 @@ const ServerlessArchitecture = () => {
       exit={{ opacity: 0 }}
       className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100"
     >
-      {/* Hero Section */}
-      <section className="relative h-[650px] overflow-hidden flex items-center justify-center">
+      {/* Hero Section with fixed height */}
+      <section className="relative h-screen max-h-[750px] overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600" />
         
         <div className="relative z-10 container mx-auto px-4 text-center">
@@ -135,69 +121,6 @@ const ServerlessArchitecture = () => {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <motion.div
-              className="mb-6 flex justify-center"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="relative w-28 h-28 flex items-center justify-center">
-                {/* Animated circles behind the icon */}
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute inset-0 rounded-full"
-                    style={{ 
-                      backgroundColor: i === 0 ? '#3B82F680' : i === 1 ? '#6366F180' : '#4F46E580',
-                      zIndex: 10 - i
-                    }}
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 180, 360]
-                    }}
-                    transition={{
-                      duration: 6 - i,
-                      repeat: Infinity,
-                      delay: i * 0.5,
-                      ease: "easeInOut"
-                    }}
-                  />
-                ))}
-                
-                {/* Main icon container */}
-                <motion.div
-                  className="relative z-20 bg-white rounded-full w-16 h-16 flex items-center justify-center shadow-xl"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  animate={{
-                    boxShadow: [
-                      "0 0 0 rgba(37, 99, 235, 0.3)",
-                      "0 0 20px rgba(37, 99, 235, 0.7)",
-                      "0 0 0 rgba(37, 99, 235, 0.3)"
-                    ]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                >
-                  <motion.div
-                    animate={{ 
-                      rotate: [0, 10, 0, -10, 0],
-                      scale: [1, 1.1, 1, 1.1, 1]
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <FaCloudUploadAlt className="text-4xl text-blue-600" />
-                  </motion.div>
-                </motion.div>
-              </div>
-            </motion.div>
             <motion.h1
               className="text-5xl font-bold mb-6"
               initial={{ y: 20, opacity: 0 }}
@@ -222,7 +145,7 @@ const ServerlessArchitecture = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => openInquiryForm('Serverless Assessment')}
-              className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center mx-auto mb-12"
+              className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center mx-auto"
             >
               Explore Serverless Options <FaArrowRight className="ml-2" />
             </motion.button>

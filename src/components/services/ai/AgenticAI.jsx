@@ -292,7 +292,7 @@ const AgenticAI = () => {
         </div>
         
         <div className="relative z-10 container mx-auto text-center max-w-4xl">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
@@ -300,7 +300,7 @@ const AgenticAI = () => {
           >
             CloudDigify Agentic AI Solutions
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
@@ -320,7 +320,7 @@ const AgenticAI = () => {
             Explore Agentic AI <FaArrowRight className="ml-2" />
           </motion.button>
         </div>
-        
+
         <div className="absolute bottom-0 left-0 right-0">
           <svg className="w-full h-24" viewBox="0 0 1440 100" preserveAspectRatio="none">
             <path

@@ -34,7 +34,7 @@ const AgileTransformation = () => {
       { id: 'review', label: 'Review', icon: FaChartLine, color: '#F59E0B' },
       { id: 'iterate', label: 'Iterate', icon: FaSyncAlt, color: '#3B82F6' }
     ];
-
+    
     return (
       <div className="w-full flex justify-center mt-8">
         <div className="w-full max-w-4xl">
@@ -47,7 +47,7 @@ const AgileTransformation = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
+            >
                 <motion.div 
                   className="rounded-lg p-4 mb-3 shadow-md w-[80px] flex justify-center"
                   style={{ backgroundColor: `${step.color}22`, border: `2px solid ${step.color}` }}
@@ -400,7 +400,7 @@ const AgileTransformation = () => {
           >
             Get Started <FaArrowRight className="ml-2" />
           </motion.button>
-        </div>
+    </div>
       </section>
 
       {/* Service Inquiry Form Modal */}

@@ -229,11 +229,11 @@ const DigitalIntegration = () => {
               CloudDigify partners with you to seamlessly connect your applications, data sources, and business processes. Our integration experts combine technical expertise with business understanding to implement solutions that eliminate silos, automate workflows, and provide a unified view of your data.
             </p>
           </div>
-          
-          {/* Services Grid */}
+
+      {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {services.map((service, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
