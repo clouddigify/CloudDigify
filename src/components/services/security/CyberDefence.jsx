@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaShieldAlt, FaLock, FaEye, FaUserSecret, FaServer, FaExclamationTriangle, FaClipboardCheck, FaNetworkWired, FaDatabase, FaChartLine, FaLaptop, FaUserLock, FaUserTie, FaAward, FaCertificate } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const CyberDefence = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+  
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Cyber Defence');
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Cyber Defence - ${serviceType}`);
+    setShowInquiryForm(true);
+  };
 
   // Simple Static Security Visual
   const SecurityVisual = () => {
     return (
-      <div className="p-8 bg-white bg-opacity-10 rounded-lg shadow-lg mx-auto max-w-2xl mt-8">
+      <div className="p-6 bg-white bg-opacity-10 rounded-lg shadow-lg mx-auto max-w-xl mt-4">
         <div className="flex flex-col items-center">
           {/* Security Shield */}
-          <div className="mb-6">
-            <FaShieldAlt className="text-6xl text-blue-400" />
+          <div className="mb-4">
+            <FaShieldAlt className="text-5xl text-blue-400" />
           </div>
           
           {/* Defense Layers */}
-          <div className="w-full grid grid-cols-3 gap-4">
+          <div className="w-full grid grid-cols-3 gap-3">
             {[
               { name: 'Network Security', icon: FaNetworkWired, color: '#3B82F6' },
               { name: 'Endpoint Security', icon: FaLaptop, color: '#10B981' },
@@ -31,18 +40,18 @@ const CyberDefence = () => {
             ].map((layer, index) => (
               <div 
                 key={index}
-                className="bg-white bg-opacity-5 p-4 rounded-lg border flex flex-col items-center text-center"
+                className="bg-white bg-opacity-5 p-3 rounded-lg border flex flex-col items-center text-center"
                 style={{ borderColor: layer.color }}
               >
-                <layer.icon className="text-2xl mb-2" style={{ color: layer.color }} />
+                <layer.icon className="text-xl mb-1" style={{ color: layer.color }} />
                 <div className="text-white text-xs font-medium">{layer.name}</div>
               </div>
             ))}
           </div>
           
           {/* Central Element */}
-          <div className="mt-8 bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 rounded-full shadow-md text-white">
-            <span className="font-semibold">Complete Defense in Depth Strategy</span>
+          <div className="mt-4 bg-gradient-to-r from-indigo-500 to-purple-500 px-3 py-1 rounded-full shadow-md text-white">
+            <span className="font-semibold text-sm">Complete Defense in Depth Strategy</span>
           </div>
         </div>
       </div>
@@ -52,19 +61,19 @@ const CyberDefence = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <section className="relative h-[650px] overflow-hidden flex items-center justify-center">
+      <section className="relative h-screen overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
         
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="text-white">
-            <div className="text-5xl mb-6 flex justify-center">
+            <div className="text-4xl mb-4 flex justify-center">
               <FaShieldAlt className="text-white" />
             </div>
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
               Enterprise Cyber Defence Solutions
             </h1>
-            <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
-              Your trusted partner for comprehensive cybersecurity. We protect your business with our proven multi-layered defense strategies, reducing your risk while you focus on growth.
+            <p className="text-lg sm:text-xl text-gray-200 mb-6 max-w-3xl mx-auto">
+              Your trusted partner for comprehensive cybersecurity.
             </p>
             
             <SecurityVisual />
@@ -122,6 +131,12 @@ const CyberDefence = () => {
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
+                <button 
+                  onClick={() => openInquiryForm(`Consultation - ${feature.title}`)}
+                  className="bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center"
+                >
+                  Discuss with us <span className="ml-1">→</span>
+                </button>
               </motion.div>
             ))}
           </div>
@@ -184,6 +199,12 @@ const CyberDefence = () => {
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
+                <button 
+                  onClick={() => openInquiryForm(feature.title)}
+                  className="text-indigo-600 hover:text-indigo-800 font-medium text-sm inline-flex items-center mt-2"
+                >
+                  Learn more <span className="ml-1">→</span>
+                </button>
               </motion.div>
             ))}
           </div>
@@ -247,11 +268,23 @@ const CyberDefence = () => {
           <p className="text-xl mb-10 max-w-3xl mx-auto">
             Partner with us to protect your critical assets and gain peace of mind with our industry-leading cybersecurity solutions.
           </p>
-          <button className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
+          <button 
+            className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+            onClick={() => openInquiryForm('Security Consultation')}
+          >
             Schedule a Security Consultation
           </button>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };

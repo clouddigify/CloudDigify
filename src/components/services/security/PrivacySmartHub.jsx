@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUserShield, FaLock, FaFileAlt, FaSearch, FaClipboardCheck, FaExchangeAlt, FaFingerprint, FaCogs, FaUserLock, FaGlobe, FaHandshake, FaChartLine, FaBriefcase } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const PrivacySmartHub = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+  
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Privacy Management');
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Privacy Management - ${serviceType}`);
+    setShowInquiryForm(true);
+  };
 
   // Simple Static Privacy Visual
   const PrivacyVisual = () => {
     return (
-      <div className="p-8 bg-white bg-opacity-10 rounded-lg shadow-lg mx-auto max-w-2xl mt-8">
+      <div className="p-6 bg-white bg-opacity-10 rounded-lg shadow-lg mx-auto max-w-xl mt-4">
         <div className="flex flex-col items-center">
           {/* Central Privacy Shield */}
-          <div className="mb-6">
-            <FaUserShield className="text-6xl text-blue-400" />
+          <div className="mb-4">
+            <FaUserShield className="text-5xl text-blue-400" />
           </div>
           
           {/* Privacy Framework Elements */}
-          <div className="grid grid-cols-2 gap-4 w-full">
+          <div className="grid grid-cols-2 gap-3 w-full">
             {[
               { 
                 title: 'Data Inventory', 
@@ -49,19 +58,19 @@ const PrivacySmartHub = () => {
             ].map((element, index) => (
               <div 
                 key={index}
-                className="bg-white bg-opacity-5 p-4 rounded-lg border flex flex-col items-center text-center"
+                className="bg-white bg-opacity-5 p-3 rounded-lg border flex flex-col items-center text-center"
                 style={{ borderColor: element.color }}
               >
-                <element.icon className="text-2xl mb-2" style={{ color: element.color }} />
-                <div className="text-white text-sm font-medium mb-1">{element.title}</div>
+                <element.icon className="text-xl mb-1" style={{ color: element.color }} />
+                <div className="text-white text-xs font-medium mb-1">{element.title}</div>
                 <div className="text-gray-300 text-xs">{element.description}</div>
               </div>
             ))}
           </div>
           
           {/* Central Message */}
-          <div className="mt-8 bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 rounded-full shadow-md text-white">
-            <span className="font-semibold">Comprehensive Privacy Management</span>
+          <div className="mt-4 bg-gradient-to-r from-indigo-500 to-purple-500 px-3 py-1 rounded-full shadow-md text-white">
+            <span className="font-semibold text-sm">Comprehensive Privacy Management</span>
           </div>
         </div>
       </div>
@@ -71,19 +80,19 @@ const PrivacySmartHub = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <section className="relative h-[650px] overflow-hidden flex items-center justify-center">
+      <section className="relative h-screen overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
         
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="text-white">
-            <div className="text-5xl mb-6 flex justify-center">
+            <div className="text-4xl mb-4 flex justify-center">
               <FaUserShield className="text-white" />
             </div>
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
               Enterprise Privacy Management Solutions
             </h1>
-            <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
-              Transform privacy compliance from a business challenge into a strategic advantage. Our solutions help you build customer trust while meeting global regulatory requirements.
+            <p className="text-lg sm:text-xl text-gray-200 mb-6 max-w-3xl mx-auto">
+              Transform privacy compliance from a business challenge into a strategic advantage.
             </p>
             
             <PrivacyVisual />
@@ -141,6 +150,12 @@ const PrivacySmartHub = () => {
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
+                <button 
+                  onClick={() => openInquiryForm(`Consultation - ${feature.title}`)}
+                  className="bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center"
+                >
+                  Discuss with us <span className="ml-1">→</span>
+                </button>
               </motion.div>
             ))}
           </div>
@@ -202,7 +217,13 @@ const PrivacySmartHub = () => {
               >
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-gray-600 mb-4">{feature.description}</p>
+                <button 
+                  onClick={() => openInquiryForm(feature.title)}
+                  className="text-indigo-600 hover:text-indigo-800 font-medium text-sm inline-flex items-center mt-2"
+                >
+                  Learn more <span className="ml-1">→</span>
+                </button>
               </motion.div>
             ))}
           </div>
@@ -311,11 +332,23 @@ const PrivacySmartHub = () => {
           <p className="text-xl mb-10 max-w-3xl mx-auto">
             Partner with us to turn privacy compliance into a competitive advantage for your business.
           </p>
-          <button className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
+          <button 
+            className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+            onClick={() => openInquiryForm('Privacy Assessment')}
+          >
             Request a Privacy Assessment
           </button>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };
