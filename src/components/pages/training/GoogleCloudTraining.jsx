@@ -1,64 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaAws, FaServer, FaDatabase, FaCloud, FaShieldAlt, FaCode } from 'react-icons/fa';
+import { FaGoogle, FaCloud, FaDatabase, FaCode, FaNetworkWired, FaLock } from 'react-icons/fa';
 
-const AWSTraining = () => {
+const GoogleCloudTraining = () => {
   const certifications = [
     {
-      title: 'AWS Solutions Architect',
-      levels: ['Associate', 'Professional'],
+      title: 'Cloud Architect',
+      levels: ['Professional'],
       icon: <FaCloud className="text-3xl" />,
-      description: 'Design and deploy scalable, highly available systems on AWS',
+      description: 'Design and plan cloud solution architecture on Google Cloud',
       duration: '12 weeks',
       popular: true,
     },
     {
-      title: 'AWS Developer',
-      levels: ['Associate'],
+      title: 'Cloud Developer',
+      levels: ['Professional'],
       icon: <FaCode className="text-3xl" />,
-      description: 'Develop and maintain AWS-based applications',
+      description: 'Build scalable and highly available applications',
       duration: '10 weeks',
+      popular: true,
     },
     {
-      title: 'AWS SysOps Administrator',
-      levels: ['Associate'],
-      icon: <FaServer className="text-3xl" />,
-      description: 'Deploy, manage, and operate scalable systems on AWS',
-      duration: '10 weeks',
-    },
-    {
-      title: 'AWS Database Specialty',
-      levels: ['Specialty'],
+      title: 'Data Engineer',
+      levels: ['Professional'],
       icon: <FaDatabase className="text-3xl" />,
-      description: 'Design and maintain AWS database solutions',
+      description: 'Design and build data processing systems',
+      duration: '10 weeks',
+    },
+    {
+      title: 'Network Engineer',
+      levels: ['Professional'],
+      icon: <FaNetworkWired className="text-3xl" />,
+      description: 'Implement Google Cloud networking solutions',
       duration: '8 weeks',
     },
     {
-      title: 'AWS Security Specialty',
-      levels: ['Specialty'],
-      icon: <FaShieldAlt className="text-3xl" />,
-      description: 'Implement security controls and compliance requirements',
+      title: 'Security Engineer',
+      levels: ['Professional'],
+      icon: <FaLock className="text-3xl" />,
+      description: 'Design and implement GCP security solutions',
       duration: '8 weeks',
     },
   ];
 
   const features = [
     {
-      title: 'Hands-on Labs',
-      description: 'Practice with real AWS services in our cloud lab environment',
+      title: 'Google Cloud Console Access',
+      description: 'Hands-on experience with real GCP environment',
     },
     {
-      title: 'Expert Instruction',
-      description: 'Learn from AWS-certified professionals with industry experience',
+      title: 'Official Google Curriculum',
+      description: 'Training material aligned with Google Cloud standards',
     },
     {
-      title: 'Exam Preparation',
-      description: 'Comprehensive prep materials and practice tests included',
+      title: 'Certification Preparation',
+      description: 'Practice exams and certification vouchers included',
     },
     {
-      title: 'Project-Based Learning',
-      description: 'Build real-world projects for your portfolio',
+      title: 'Real-world Projects',
+      description: 'Build portfolio with actual cloud solutions',
     },
   ];
 
@@ -70,7 +71,7 @@ const AWSTraining = () => {
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white"
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+      <div className="bg-gradient-to-r from-green-600 to-green-700 text-white">
         <div className="container mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
@@ -79,23 +80,23 @@ const AWSTraining = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaAws className="text-6xl mb-6" />
+                <FaGoogle className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  AWS Certification Training
+                  Google Cloud Training
                 </h1>
                 <p className="text-xl mb-8">
-                  Become an AWS certified professional and advance your cloud career
+                  Master Google Cloud Platform and advance your cloud career
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
                     to="/contact"
-                    className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition duration-300"
+                    className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition duration-300"
                   >
                     Get Started
                   </Link>
                   <button
                     onClick={() => document.getElementById('courses').scrollIntoView({ behavior: 'smooth' })}
-                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition duration-300"
+                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition duration-300"
                   >
                     View Courses
                   </button>
@@ -126,7 +127,7 @@ const AWSTraining = () => {
 
       {/* Certification Tracks */}
       <div id="courses" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">AWS Certification Tracks</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Google Cloud Certification Tracks</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {certifications.map((cert, index) => (
             <motion.div
@@ -139,9 +140,9 @@ const AWSTraining = () => {
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="text-orange-500">{cert.icon}</div>
+                  <div className="text-green-600">{cert.icon}</div>
                   {cert.popular && (
-                    <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">
+                    <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
                       Popular
                     </span>
                   )}
@@ -162,7 +163,7 @@ const AWSTraining = () => {
                   <span className="text-sm text-gray-500">Duration: {cert.duration}</span>
                   <Link
                     to="/contact"
-                    className="text-orange-600 hover:text-orange-700 font-medium"
+                    className="text-green-600 hover:text-green-700 font-medium"
                   >
                     Learn More →
                   </Link>
@@ -176,13 +177,13 @@ const AWSTraining = () => {
       {/* CTA Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Begin Your AWS Journey?</h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Excel with Google Cloud?</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who have accelerated their careers with our AWS certification training programs
+            Join our comprehensive Google Cloud training program and become a certified cloud expert
           </p>
           <Link
             to="/contact"
-            className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition duration-300"
+            className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300"
           >
             Schedule a Consultation
           </Link>
@@ -192,4 +193,4 @@ const AWSTraining = () => {
   );
 };
 
-export default AWSTraining; 
+export default GoogleCloudTraining; 

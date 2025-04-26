@@ -1,64 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaAws, FaServer, FaDatabase, FaCloud, FaShieldAlt, FaCode } from 'react-icons/fa';
+import { FaRobot, FaBrain, FaChartLine, FaCode, FaDatabase, FaMicrochip } from 'react-icons/fa';
 
-const AWSTraining = () => {
-  const certifications = [
+const AIMLTraining = () => {
+  const courses = [
     {
-      title: 'AWS Solutions Architect',
-      levels: ['Associate', 'Professional'],
-      icon: <FaCloud className="text-3xl" />,
-      description: 'Design and deploy scalable, highly available systems on AWS',
+      title: 'Machine Learning Engineering',
+      levels: ['Advanced'],
+      icon: <FaBrain className="text-3xl" />,
+      description: 'Build and deploy machine learning models at scale',
+      duration: '16 weeks',
+      popular: true,
+    },
+    {
+      title: 'Deep Learning Specialization',
+      levels: ['Advanced'],
+      icon: <FaMicrochip className="text-3xl" />,
+      description: 'Master neural networks and deep learning architectures',
       duration: '12 weeks',
       popular: true,
     },
     {
-      title: 'AWS Developer',
-      levels: ['Associate'],
+      title: 'Natural Language Processing',
+      levels: ['Intermediate'],
+      icon: <FaRobot className="text-3xl" />,
+      description: 'Build applications that understand and generate human language',
+      duration: '10 weeks',
+    },
+    {
+      title: 'Data Science for AI',
+      levels: ['Intermediate'],
+      icon: <FaChartLine className="text-3xl" />,
+      description: 'Data preparation and analysis for AI applications',
+      duration: '8 weeks',
+    },
+    {
+      title: 'MLOps & AI Infrastructure',
+      levels: ['Advanced'],
       icon: <FaCode className="text-3xl" />,
-      description: 'Develop and maintain AWS-based applications',
+      description: 'Build and manage AI infrastructure and pipelines',
       duration: '10 weeks',
-    },
-    {
-      title: 'AWS SysOps Administrator',
-      levels: ['Associate'],
-      icon: <FaServer className="text-3xl" />,
-      description: 'Deploy, manage, and operate scalable systems on AWS',
-      duration: '10 weeks',
-    },
-    {
-      title: 'AWS Database Specialty',
-      levels: ['Specialty'],
-      icon: <FaDatabase className="text-3xl" />,
-      description: 'Design and maintain AWS database solutions',
-      duration: '8 weeks',
-    },
-    {
-      title: 'AWS Security Specialty',
-      levels: ['Specialty'],
-      icon: <FaShieldAlt className="text-3xl" />,
-      description: 'Implement security controls and compliance requirements',
-      duration: '8 weeks',
     },
   ];
 
   const features = [
     {
-      title: 'Hands-on Labs',
-      description: 'Practice with real AWS services in our cloud lab environment',
+      title: 'Hands-on Projects',
+      description: 'Build real AI applications with industry datasets',
     },
     {
-      title: 'Expert Instruction',
-      description: 'Learn from AWS-certified professionals with industry experience',
+      title: 'GPU-powered Labs',
+      description: 'Access to high-performance computing resources',
     },
     {
-      title: 'Exam Preparation',
-      description: 'Comprehensive prep materials and practice tests included',
+      title: 'Industry Expertise',
+      description: 'Learn from experienced AI practitioners',
     },
     {
-      title: 'Project-Based Learning',
-      description: 'Build real-world projects for your portfolio',
+      title: 'Career Support',
+      description: 'Job placement assistance and interview preparation',
     },
   ];
 
@@ -70,7 +71,7 @@ const AWSTraining = () => {
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white"
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
         <div className="container mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
@@ -79,23 +80,23 @@ const AWSTraining = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaAws className="text-6xl mb-6" />
+                <FaRobot className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  AWS Certification Training
+                  AI & Machine Learning Training
                 </h1>
                 <p className="text-xl mb-8">
-                  Become an AWS certified professional and advance your cloud career
+                  Master the technologies shaping the future of computing
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
                     to="/contact"
-                    className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition duration-300"
+                    className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-purple-50 transition duration-300"
                   >
                     Get Started
                   </Link>
                   <button
                     onClick={() => document.getElementById('courses').scrollIntoView({ behavior: 'smooth' })}
-                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition duration-300"
+                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition duration-300"
                   >
                     View Courses
                   </button>
@@ -124,11 +125,11 @@ const AWSTraining = () => {
         </div>
       </div>
 
-      {/* Certification Tracks */}
+      {/* Course Tracks */}
       <div id="courses" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">AWS Certification Tracks</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">AI & ML Course Tracks</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certifications.map((cert, index) => (
+          {courses.map((course, index) => (
             <motion.div
               key={index}
               initial={{ y: 50, opacity: 0 }}
@@ -139,16 +140,16 @@ const AWSTraining = () => {
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="text-orange-500">{cert.icon}</div>
-                  {cert.popular && (
-                    <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">
+                  <div className="text-purple-600">{course.icon}</div>
+                  {course.popular && (
+                    <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">
                       Popular
                     </span>
                   )}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{cert.title}</h3>
+                <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {cert.levels.map((level, idx) => (
+                  {course.levels.map((level, idx) => (
                     <span
                       key={idx}
                       className="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded"
@@ -157,12 +158,12 @@ const AWSTraining = () => {
                     </span>
                   ))}
                 </div>
-                <p className="text-gray-600 mb-4">{cert.description}</p>
+                <p className="text-gray-600 mb-4">{course.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">Duration: {cert.duration}</span>
+                  <span className="text-sm text-gray-500">Duration: {course.duration}</span>
                   <Link
                     to="/contact"
-                    className="text-orange-600 hover:text-orange-700 font-medium"
+                    className="text-purple-600 hover:text-purple-700 font-medium"
                   >
                     Learn More →
                   </Link>
@@ -176,13 +177,13 @@ const AWSTraining = () => {
       {/* CTA Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Begin Your AWS Journey?</h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Start Your AI Journey?</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who have accelerated their careers with our AWS certification training programs
+            Join our comprehensive AI & ML training program and become a skilled artificial intelligence professional
           </p>
           <Link
             to="/contact"
-            className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition duration-300"
+            className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition duration-300"
           >
             Schedule a Consultation
           </Link>
@@ -192,4 +193,4 @@ const AWSTraining = () => {
   );
 };
 
-export default AWSTraining; 
+export default AIMLTraining; 

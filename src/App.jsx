@@ -64,6 +64,8 @@ import AIMLTraining from './components/pages/training/AIMLTraining';
 import AutomationTraining from './components/pages/training/AutomationTraining';
 import CorporateTraining from './components/pages/training/CorporateTraining';
 import CampusTraining from './components/pages/training/CampusTraining';
+import DevOpsTraining from './components/pages/training/DevOpsTraining';
+import KubernetesTraining from './components/pages/training/KubernetesTraining';
 
 // Use Cases Pages
 import EnterpriseUseCases from './components/pages/use-cases/EnterpriseUseCases';
@@ -200,6 +202,8 @@ const AnimatedRoutes = () => {
         <Route path="/training/automation" element={<AutomationTraining />} />
         <Route path="/training/corporate" element={<CorporateTraining />} />
         <Route path="/training/campus" element={<CampusTraining />} />
+        <Route path="/training/devops" element={<DevOpsTraining />} />
+        <Route path="/training/kubernetes" element={<KubernetesTraining />} />
         
         {/* Use Cases Routes */}
         <Route path="/use-cases/enterprise" element={<EnterpriseUseCases />} />

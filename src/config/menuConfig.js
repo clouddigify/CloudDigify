@@ -318,56 +318,95 @@ export const menuConfig = {
         }
       ]
     },
-    { 
-      title: 'Training', 
-      path: '/training', 
+    {
+      title: 'Training',
+      path: '/training',
       hasSubmenu: true,
       icon: 'fa-graduation-cap',
       submenu: [
-        { 
-          title: 'Amazon Web Services',
-          path: '/training/aws',
-          icon: 'fa-aws'
+        {
+          title: 'Cloud Training',
+          icon: 'fa-cloud',
+          submenu: [
+            {
+              title: 'AWS Training',
+              path: '/training/aws',
+              icon: 'fa-aws',
+              description: 'AWS certification and expertise'
+            },
+            {
+              title: 'Azure Training',
+              path: '/training/azure',
+              icon: 'fa-microsoft',
+              description: 'Microsoft Azure mastery'
+            },
+            {
+              title: 'Google Cloud Training',
+              path: '/training/googlecloud',
+              icon: 'fa-google',
+              description: 'Google Cloud Platform skills'
+            },
+            {
+              title: 'Oracle Cloud Training',
+              path: '/training/oracle',
+              icon: 'fa-oracle',
+              description: 'Oracle Cloud Infrastructure expertise'
+            },
+            {
+              title: 'Alibaba Cloud Training',
+              path: '/training/alibabacloud',
+              icon: 'fa-alibaba',
+              description: 'Alibaba Cloud certification'
+            }
+          ]
         },
-        { 
-          title: 'Microsoft Azure',
-          path: '/training/azure',
-          icon: 'fa-microsoft'
+        {
+          title: 'Technology Training',
+          icon: 'fa-laptop-code',
+          submenu: [
+            {
+              title: 'AI & ML Training',
+              path: '/training/ai-ml',
+              icon: 'fa-brain',
+              description: 'Artificial Intelligence and Machine Learning'
+            },
+            {
+              title: 'Automation Training',
+              path: '/training/automation',
+              icon: 'fa-cogs',
+              description: 'DevOps and Automation tools'
+            },
+            {
+              title: 'DevOps Training',
+              path: '/training/devops',
+              icon: 'fa-code-branch',
+              description: 'DevOps practices and tools'
+            },
+            {
+              title: 'Kubernetes Training',
+              path: '/training/kubernetes',
+              icon: 'fa-cube',
+              description: 'Container orchestration with Kubernetes'
+            }
+          ]
         },
-        { 
-          title: 'Google Cloud',
-          path: '/training/googlecloud',
-          icon: 'fa-google'
-        },
-        { 
-          title: 'Alibaba Cloud',
-          path: '/training/alibabacloud',
-          icon: 'fa-alibabacloud'
-        },
-        { 
-          title: 'Oracle Cloud',
-          path: '/training/oracle',
-          icon: 'fa-oracle'
-        },
-        { 
-          title: 'AI & ML',
-          path: '/training/ai-ml',
-          icon: 'fa-robot'
-        },
-        { 
-          title: 'Automation Tools',
-          path: '/training/automation',
-          icon: 'fa-tools'
-        },
-        { 
-          title: 'Corporate Training',
-          path: '/training/corporate',
-          icon: 'fa-building'
-        },
-        { 
-          title: 'On Campus Training',
-          path: '/training/campus',
-          icon: 'fa-graduation-cap'
+        {
+          title: 'Enterprise Programs',
+          icon: 'fa-building',
+          submenu: [
+            {
+              title: 'Corporate Training',
+              path: '/training/corporate',
+              icon: 'fa-building',
+              description: 'Customized enterprise training solutions'
+            },
+            {
+              title: 'Campus Training',
+              path: '/training/campus',
+              icon: 'fa-university',
+              description: 'Academic and institutional programs'
+            }
+          ]
         }
       ]
     },
