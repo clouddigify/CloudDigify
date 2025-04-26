@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaChartLine, FaLightbulb, FaDatabase, FaSearchDollar, FaChartBar, FaCogs } from 'react-icons/fa';
+import { FaChartLine, FaChartBar, FaChartPie, FaLayerGroup, FaSearchDollar, FaLightbulb, FaDatabase, FaDesktop } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const BusinessIntelligence = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Business Intelligence');
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Business Intelligence - ${serviceType}`);
+    setIsFormOpen(true);
+  };
+
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
@@ -14,7 +23,7 @@ const BusinessIntelligence = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ opacity, scale }}
-          className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600"
+          className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600"
         />
         <div className="absolute inset-0">
           {/* Animated Dashboard Elements */}
@@ -94,7 +103,7 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5 }}
             className="text-6xl font-bold mb-4"
           >
-            Business Intelligence Solutions
+            Business Intelligence
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -102,7 +111,7 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl mb-8 max-w-2xl mx-auto"
           >
-            Transform raw data into actionable business insights
+            Transform data into actionable insights to drive business decisions
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -110,9 +119,10 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
+            onClick={() => openInquiryForm('General Inquiry')}
+            className="px-8 py-3 bg-white text-green-600 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
           >
-            Explore Solutions
+            Explore BI Solutions
           </motion.button>
         </div>
       </section>
@@ -132,33 +142,33 @@ const BusinessIntelligence = () => {
             {[
               {
                 icon: FaChartBar,
-                title: "Data Visualization",
-                description: "Create interactive dashboards and reports"
+                title: "Reporting Solutions",
+                description: "Create comprehensive, interactive reports for your business"
               },
               {
-                icon: FaDatabase,
-                title: "Data Integration",
-                description: "Connect and unify your data sources"
+                icon: FaChartPie,
+                title: "Dashboard Development",
+                description: "Custom dashboards that visualize your critical KPIs"
+              },
+              {
+                icon: FaLayerGroup,
+                title: "Data Modeling",
+                description: "Structure your data for optimal analysis and reporting"
               },
               {
                 icon: FaSearchDollar,
                 title: "Financial Analytics",
-                description: "Drive financial decision-making with data"
-              },
-              {
-                icon: FaChartLine,
-                title: "Performance Metrics",
-                description: "Track and optimize KPIs"
+                description: "Specialized BI solutions for financial insights"
               },
               {
                 icon: FaLightbulb,
-                title: "Predictive Insights",
-                description: "Forecast trends and opportunities"
+                title: "Predictive Analytics",
+                description: "Forecasting tools to anticipate future trends"
               },
               {
-                icon: FaCogs,
-                title: "BI Architecture",
-                description: "Build scalable BI infrastructure"
+                icon: FaDesktop,
+                title: "Self-Service BI",
+                description: "Empower users with tools to create their own insights"
               }
             ].map((service, index) => (
               <motion.div
@@ -166,10 +176,11 @@ const BusinessIntelligence = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                onClick={() => openInquiryForm(service.title)}
               >
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <service.icon className="text-2xl text-purple-600" />
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <service.icon className="text-2xl text-green-600" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-gray-800">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
@@ -180,7 +191,7 @@ const BusinessIntelligence = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-50 to-indigo-50">
+      <section className="py-20 bg-gradient-to-r from-green-50 to-emerald-50">
         <div className="container mx-auto px-4 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -188,7 +199,7 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold text-gray-800 mb-4"
           >
-            Ready to Transform Your Business Intelligence?
+            Ready to Unlock the Power of Your Data?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -196,7 +207,7 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Let's unlock the power of your data together
+            Let's create BI solutions that drive your business forward
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -204,12 +215,22 @@ const BusinessIntelligence = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+            onClick={() => openInquiryForm('BI Implementation')}
+            className="px-8 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
           >
-            Schedule a Demo
+            Start Your BI Journey
           </motion.button>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {isFormOpen && (
+        <ServiceInquiryForm
+          isOpen={isFormOpen}
+          onClose={() => setIsFormOpen(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };
