@@ -165,12 +165,12 @@ const Home = () => {
             gradient: slide.gradient,
             alt: slide.alt,
             title: (
-              <div className="flex flex-col items-center justify-center h-full px-4">
+              <div className="flex flex-col items-center justify-center h-full px-4 py-12 md:py-20">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="block text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-white drop-shadow-lg text-center max-w-6xl"
+                  className="block text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 text-white drop-shadow-lg text-center max-w-6xl"
                 >
                   {slide.title}
                 </motion.span>
@@ -178,7 +178,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="block text-lg md:text-xl lg:text-2xl font-normal mb-10 text-gray-200 max-w-3xl mx-auto text-center"
+                  className="block text-base sm:text-lg md:text-xl lg:text-2xl font-normal mb-8 sm:mb-10 text-gray-200 max-w-3xl mx-auto text-center px-4"
                 >
                   {slide.description}
                 </motion.span>
@@ -189,7 +189,7 @@ const Home = () => {
                     transition={{ duration: 0.6, delay: 0.4 }}
                   >
                     <Link to={slide.cta.link}>
-                      <button className="px-8 py-4 bg-white hover:bg-opacity-90 text-blue-600 font-semibold rounded-lg shadow-lg transition-all duration-300">
+                      <button className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-opacity-90 text-blue-600 font-semibold rounded-lg shadow-lg transition-all duration-300 text-sm sm:text-base">
                         {slide.cta.label}
                       </button>
                     </Link>
@@ -205,21 +205,21 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Enterprise Cloud Solutions</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Enterprise Cloud Solutions</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
               End-to-end cloud services that transform your business operations and drive innovation
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -231,15 +231,15 @@ const Home = () => {
                 viewport={{ once: true }}
                 custom={index}
               >
-                <div className={`p-6 bg-gradient-to-br ${service.gradient}`}>
+                <div className={`p-4 sm:p-6 bg-gradient-to-br ${service.gradient}`}>
                   <div className="text-white">{service.icon}</div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
-                  <p className="text-gray-600 mb-4">{service.description}</p>
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4">{service.description}</p>
                   <Link 
                     to={service.path}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm sm:text-base"
                   >
                     Learn more
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

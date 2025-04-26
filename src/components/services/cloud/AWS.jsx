@@ -1,5 +1,6 @@
 import React from 'react';
-import { SiAmazonaws } from 'react-icons/si';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   FaServer, 
   FaGlobe, 
@@ -10,34 +11,56 @@ import {
   FaChartLine,
   FaShieldAlt,
   FaCode,
-  FaCloudUploadAlt
+  FaCloudUploadAlt,
+  FaCheckCircle,
+  FaCloud,
+  FaLock,
+  FaTools,
+  FaDatabase,
+  FaNetworkWired,
+  FaArrowRight
 } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import PageTemplate from '../../templates/PageTemplate';
+import { SiAmazonaws } from 'react-icons/si';
 import ImageSlider from '../../common/ImageSlider';
 
 const AWS = () => {
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  // Content data
   const sliderImages = [
     {
-      url: '/images/aws/cloud-dashboard.jpg',
-      alt: 'AWS Cloud Dashboard Interface',
+      url: '/images/aws/cloud-platform.jpg',
+      alt: 'AWS Cloud Platform',
       overlay: true,
-      title: 'AWS Cloud Solutions',
-      description: 'Comprehensive cloud services and infrastructure management on AWS'
+      title: 'AWS Cloud Platform',
+      description: 'Enterprise-grade cloud computing solutions powered by Amazon Web Services'
     },
     {
       url: '/images/aws/cloud-security.jpg',
-      alt: 'AWS Security and Compliance',
+      alt: 'AWS Security',
       overlay: true,
-      title: 'Enterprise-Grade Security',
-      description: 'Advanced security protocols and compliance measures for AWS environments'
+      title: 'Advanced Security',
+      description: 'Industry-leading security features and compliance standards'
     },
     {
       url: '/images/aws/cloud-analytics.jpg',
-      alt: 'AWS Data Analytics Dashboard',
+      alt: 'AWS Analytics',
       overlay: true,
-      title: 'Cloud Analytics & Insights',
-      description: 'Real-time monitoring and analytics for optimal cloud performance'
+      title: 'Data Analytics',
+      description: 'Powerful analytics and machine learning capabilities'
     }
   ];
 
@@ -48,8 +71,8 @@ const AWS = () => {
       unit: '%',
       label: 'Uptime Guarantee',
       description: 'Enterprise-grade reliability',
-      color: 'from-blue-500 to-blue-600',
-      metric: 'Average across all deployments',
+      color: 'from-orange-500 to-orange-600',
+      metric: 'Average across all services',
       achievement: '5-star reliability rating'
     },
     {
@@ -106,7 +129,7 @@ const AWS = () => {
 
   const pricingModels = [
     {
-      title: 'Managed Hourly Service',
+      title: 'Hourly Services',
       description: '75/hour',
       subtitle: 'Perfect for small projects',
       ctaText: 'Start Now',
@@ -119,7 +142,7 @@ const AWS = () => {
       ]
     },
     {
-      title: 'Weekly Engagements',
+      title: 'Weekly Plan',
       description: '2,800/week',
       subtitle: 'Ideal for ongoing projects',
       ctaText: 'Schedule Call',
@@ -145,7 +168,7 @@ const AWS = () => {
       ]
     },
     {
-      title: 'Custom Enterprise',
+      title: 'Enterprise',
       description: 'Custom Quote',
       subtitle: 'Tailored to your needs',
       ctaText: 'Request Quote',
@@ -222,233 +245,206 @@ const AWS = () => {
     }
   ];
 
-  const pageInfo = {
-    icon: <SiAmazonaws className="text-[#FF9900] text-6xl mb-6" />,
-    title: 'Amazon Web Services (AWS)',
-    description: 'Transform your business with AWS cloud solutions. We help you leverage the full power of AWS to build, deploy, and scale applications with confidence.',
-    heroBackground: 'from-blue-600 to-blue-800',
-    overviewTitle: 'AWS Cloud Solutions',
-    overviewDescription1: 'Amazon Web Services (AWS) is the world\'s most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services from data centers globally.',
-    overviewDescription2: 'As an AWS partner, we help organizations accelerate their cloud journey with expert guidance, proven methodologies, and cutting-edge solutions tailored to their unique needs.',
-    benefits: [
-      'Scalable Infrastructure - Easily scale your applications up or down based on demand',
-      'Cost Optimization - Pay only for what you use with our efficient resource management',
-      'Enhanced Security - Protect your data with AWS\'s comprehensive security features',
-      '24/7 Support - Round-the-clock expert support for your AWS infrastructure'
-    ],
-    approachPoints: [
-      'Assessment of your current infrastructure',
-      'Custom migration strategy development',
-      'Seamless implementation and testing',
-      'Continuous monitoring and optimization',
-      'Regular security audits and updates'
-    ],
-    ctaText: 'Book Free Consultation',
-    ctaLink: '/contact',
-    showBenefits: true,
-    showSidebar: true,
-    showCta: true,
-    showFeatures: true,
-    featuresTitle: 'Our Pricing Models',
-    featuresDescription: 'Choose the perfect plan that fits your business needs',
-    featuresContainerClassName: 'container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl',
-    featuresWrapperClassName: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center',
-    features: pricingModels.map((model, index) => ({
-      className: `relative bg-white rounded-xl transition-all duration-300 ease-in-out
-        ${index === 2 
-          ? 'border-2 border-emerald-400' 
-          : 'border border-blue-100'} 
-        shadow-sm hover:shadow-xl
-        p-4
-        flex flex-col
-        h-full w-full
-        min-h-[380px] max-w-[280px]
-        ${index === 2 ? 'lg:-translate-y-2' : ''}
-      `,
-      content: (
-        <div className="flex flex-col h-full">
-          {index === 2 && (
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-emerald-400 text-white px-3 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
-                Most Popular
-              </span>
-            </div>
-          )}
-          
-          <div className="text-center mb-4">
-            <h3 className={`text-base font-semibold ${
-              index === 2 ? 'text-emerald-500' : 'text-blue-500'
-            }`}>
-              {model.title}
-            </h3>
-
-            <div className="mt-2">
-              <div className="flex items-baseline justify-center">
-                {!model.description.includes('Custom') && (
-                  <span className="text-lg font-semibold text-gray-900">$</span>
-                )}
-                <span className={`text-2xl font-bold text-gray-900 ${!model.description.includes('Custom') ? 'ml-0.5' : ''}`}>
-                  {model.description.includes('Custom') ? 'Custom Quote' : model.description.split('/')[0].trim()}
-                </span>
-                {!model.description.includes('Custom') && (
-                  <span className="text-gray-500 ml-1.5 text-sm">
-                    /{model.description.split('/')[1]}
-                  </span>
-                )}
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-400 opacity-90"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5 }}
+        />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        
+        <div className="relative py-24 px-6">
+          <motion.div 
+            className="max-w-7xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="max-w-3xl backdrop-blur-sm bg-white/10 p-8 rounded-2xl">
+              <div className="flex items-center gap-4 mb-6">
+                <SiAmazonaws className="text-5xl text-white" />
+                <h1 className="text-5xl md:text-6xl font-bold text-white">
+                  AWS Cloud
+                </h1>
               </div>
-              <p className="text-gray-500 mt-1 text-xs">
-                {model.description.includes('Custom') ? 'Contact us for custom pricing' : 'Billed per period'}
+              <p className="text-xl text-white/90 mb-8 leading-relaxed">
+                Transform your business with Amazon Web Services - the world's most comprehensive and broadly adopted cloud platform.
               </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center bg-white text-orange-600 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-orange-50 transition-all duration-300"
+                >
+                  <span className="mr-2">Get Started with AWS</span>
+                  <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Image Slider Section */}
+      {sliderImages && sliderImages.length > 0 && (
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <motion.h2 
+              className="text-3xl font-bold text-center mb-16 text-gray-900"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              AWS Cloud Solutions
+            </motion.h2>
+            <div className="relative w-full h-[500px]">
+              <ImageSlider images={sliderImages} />
             </div>
           </div>
+        </section>
+      )}
 
-          <div className="flex-grow">
-            <ul className="space-y-2">
-              {model.features.map((feature, idx) => (
-                <li key={idx} className="flex items-start">
-                  <svg 
-                    className={`h-3.5 w-3.5 mr-2 mt-0.5 flex-shrink-0 ${
-                      index === 2 ? 'text-emerald-400' : 'text-blue-400'
-                    }`}
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-600 text-xs leading-relaxed">
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="mt-4">
-            <button className={`w-full py-2 px-3 rounded-lg text-xs font-medium text-white transition-all duration-300
-              ${index === 2 
-                ? 'bg-emerald-400 hover:bg-emerald-500' 
-                : 'bg-blue-500 hover:bg-blue-600'
-              }
-              hover:shadow-lg active:scale-[0.98]
-            `}>
-              Get Started
-            </button>
+      {/* Stats Grid */}
+      <motion.section 
+        className="py-20 px-6 bg-gradient-to-b from-white to-gray-50"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            variants={fadeInUp}
+          >
+            AWS Performance Metrics
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
+              >
+                <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${stat.color}`} />
+                <div className="flex items-start">
+                  <div className="mr-4">{stat.icon}</div>
+                  <div>
+                    <div className="flex items-baseline">
+                      <span className="text-4xl font-bold text-gray-900">{stat.value}</span>
+                      <span className="text-xl ml-1 text-gray-600">{stat.unit}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mt-2">{stat.label}</h3>
+                    <p className="text-gray-600 mt-1">{stat.description}</p>
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <p className="text-sm text-gray-500">{stat.metric}</p>
+                      <p className="text-sm font-medium text-orange-600 mt-1">{stat.achievement}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      )
-    })),
-    additionalSections: [
-      {
-        content: (
-          <div className="space-y-12">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-12">
-              Delivery Timeline
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-              {deliveryTimeline.map((phase, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${phase.color} rounded-t-xl`} />
-                  <div className="p-6">
-                    <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-gray-50 group-hover:scale-110 transition-transform duration-300">
-                      {phase.icon}
-                    </div>
-                    <div className="text-xl font-bold text-gray-800 mb-2">{phase.phase}</div>
-                    <div className="text-sm text-blue-600 font-medium mb-4 flex items-center">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {phase.duration}
-                    </div>
-                    <ul className="space-y-2">
-                      {phase.activities.map((activity, idx) => (
-                        <li key={idx} className="flex items-start text-sm">
-                          <svg 
-                            className="w-4 h-4 mr-2 mt-0.5 text-green-500 flex-shrink-0"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path 
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                          <span className="text-gray-600 group-hover:text-gray-800 transition-colors">
-                            {activity}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )
-      },
-      {
-        content: (
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-8">
-              Our Track Record
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${stat.color}`} />
-                  <div className="p-4">
-                    <div className="flex flex-col items-center">
-                      <div className={`flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${stat.color} text-white transform group-hover:scale-110 transition-transform duration-300 mb-3`}>
-                        {React.cloneElement(stat.icon, { className: "text-2xl" })}
-                      </div>
-                      <div className="text-center">
-                        <div className="flex items-baseline justify-center">
-                          <span className="text-2xl font-bold text-gray-800">{stat.value}</span>
-                          <span className="text-lg font-semibold text-gray-600 ml-0.5">{stat.unit}</span>
-                        </div>
-                        <h3 className="text-sm font-medium text-gray-800 mb-2">{stat.label}</h3>
-                        <div className="text-xs text-gray-500">{stat.description}</div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    ]
-  };
+      </motion.section>
 
-  return (
-    <>
-      <div className="relative w-full h-screen">
-        <ImageSlider images={sliderImages} />
-      </div>
-      <div className="relative bg-white">
-        <PageTemplate pageInfo={pageInfo} pageType="service" />
-      </div>
-    </>
+      {/* Pricing Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Flexible Pricing Models
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {pricingModels.map((model, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
+                  ${index === 2 ? 'border-2 border-orange-500 scale-105' : 'border border-transparent hover:border-orange-200'}`}
+              >
+                {index === 2 && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
+                <p className="text-2xl font-bold text-orange-600 mb-2">${model.description}</p>
+                <p className="text-gray-600 mb-6">{model.subtitle}</p>
+                <ul className="space-y-3 mb-8 flex-grow">
+                  {model.features.map((feature, i) => (
+                    <li key={i} className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-orange-500 mr-2 flex-shrink-0" />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto">
+                  <button className="w-full py-3 px-6 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors duration-300">
+                    {model.ctaText}
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Delivery Timeline */}
+      <section className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-12 text-gray-900"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Implementation Timeline
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+            {deliveryTimeline.map((phase, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
+              >
+                <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
+                <div className="mb-3">{phase.icon}</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
+                <p className="text-orange-600 font-semibold mb-3 text-sm">{phase.duration}</p>
+                <ul className="space-y-2 text-sm">
+                  {phase.activities.map((activity, i) => (
+                    <li key={i} className="flex items-start text-gray-700">
+                      <FaCheckCircle className="text-orange-500 mr-2 mt-1 flex-shrink-0" />
+                      <span>{activity}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
