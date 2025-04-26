@@ -1,5 +1,6 @@
 import React from 'react';
-import { SiAlibabacloud } from 'react-icons/si';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   FaServer, 
   FaGlobe, 
@@ -19,32 +20,47 @@ import {
   FaNetworkWired,
   FaArrowRight
 } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import PageTemplate from '../../templates/PageTemplate';
+import { SiAlibabadotcom } from 'react-icons/si';
 import ImageSlider from '../../common/ImageSlider';
 
 const AlibabaCloud = () => {
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  // Content data
   const sliderImages = [
     {
-      url: '/images/alibaba/cloud-infrastructure.jpg',
-      alt: 'Alibaba Cloud Infrastructure',
+      url: '/images/alibaba/cloud-platform.jpg',
+      alt: 'Alibaba Cloud Platform',
       overlay: true,
-      title: 'Global Cloud Infrastructure',
-      description: 'Leverage Alibaba Cloud\'s extensive network of data centers worldwide'
+      title: 'Alibaba Cloud Platform',
+      description: 'Enterprise-grade cloud computing solutions powered by Alibaba Cloud'
     },
     {
       url: '/images/alibaba/cloud-analytics.jpg',
       alt: 'Alibaba Cloud Analytics',
       overlay: true,
-      title: 'Data Intelligence',
-      description: 'Advanced analytics and AI capabilities powered by Alibaba Cloud'
+      title: 'Data Analytics',
+      description: 'Advanced analytics and big data solutions'
     },
     {
       url: '/images/alibaba/cloud-security.jpg',
       alt: 'Alibaba Cloud Security',
       overlay: true,
-      title: 'Enterprise Security',
-      description: 'Comprehensive security solutions for your cloud infrastructure'
+      title: 'Security Solutions',
+      description: 'Comprehensive security and compliance features'
     }
   ];
 
@@ -229,303 +245,184 @@ const AlibabaCloud = () => {
     }
   ];
 
-  const whyChooseUs = [
-    {
-      icon: <FaCheckCircle className="text-4xl text-[#FF6A00]" />,
-      title: 'Certified Alibaba Cloud Experts',
-      description: 'Our team consists of certified Alibaba Cloud professionals with extensive experience in Asian and global markets.'
-    },
-    {
-      icon: <FaCloud className="text-4xl text-[#FF6A00]" />,
-      title: 'End-to-End Solutions',
-      description: 'From migration planning to ongoing maintenance, we provide comprehensive Alibaba Cloud services.'
-    },
-    {
-      icon: <FaLock className="text-4xl text-[#FF6A00]" />,
-      title: 'Security First Approach',
-      description: 'We implement robust security practices aligned with Alibaba Cloud\'s security framework.'
-    },
-    {
-      icon: <FaTools className="text-4xl text-[#FF6A00]" />,
-      title: 'Optimization Experts',
-      description: 'Our team ensures your Alibaba Cloud resources are optimized for performance and cost.'
-    }
-  ];
-
-  const ourServices = [
-    {
-      icon: <FaCloud className="text-4xl text-[#FF6A00]" />,
-      title: 'Alibaba Cloud Migration',
-      description: 'Seamless migration of your applications and infrastructure to Alibaba Cloud.',
-      features: [
-        'Assessment and planning',
-        'Workload migration',
-        'Data transfer',
-        'Post-migration support'
-      ]
-    },
-    {
-      icon: <FaDatabase className="text-4xl text-[#FF6A00]" />,
-      title: 'Database Services',
-      description: 'Expert management of ApsaraDB and other database services.',
-      features: [
-        'Database migration',
-        'Performance tuning',
-        'High availability setup',
-        'Backup and recovery'
-      ]
-    },
-    {
-      icon: <FaNetworkWired className="text-4xl text-[#FF6A00]" />,
-      title: 'Infrastructure Management',
-      description: 'Complete management of your Alibaba Cloud infrastructure.',
-      features: [
-        'Infrastructure as Code',
-        'Resource optimization',
-        'Monitoring and alerts',
-        'Cost management'
-      ]
-    },
-    {
-      icon: <FaShieldAlt className="text-4xl text-[#FF6A00]" />,
-      title: 'Security Services',
-      description: 'Comprehensive security solutions for your Alibaba Cloud environment.',
-      features: [
-        'Security assessment',
-        'Compliance management',
-        'Identity and access control',
-        'Threat protection'
-      ]
-    }
-  ];
-
-  const pageInfo = {
-    icon: <SiAlibabacloud className="text-[#FF6A00] text-6xl mb-6" />,
-    title: 'Alibaba Cloud',
-    description: 'Transform your business with Alibaba Cloud solutions. We help you leverage the full power of Alibaba Cloud to build, deploy, and scale applications with confidence.',
-    heroBackground: 'from-[#FF6A00] to-[#FF8533]',
-    overviewTitle: 'Alibaba Cloud Solutions',
-    overviewDescription1: 'Alibaba Cloud provides a comprehensive suite of cloud computing services to power both enterprise and startup businesses with industry-leading infrastructure.',
-    overviewDescription2: 'As an Alibaba Cloud partner, we help organizations accelerate their cloud journey with expert guidance, proven methodologies, and cutting-edge solutions tailored to their unique needs.',
-    benefits: [
-      'Global Scale - Access to Alibaba\'s extensive network of data centers',
-      'Cost Optimization - Smart pricing and predictable cost management',
-      'Advanced Security - Built-in security with comprehensive controls',
-      'Innovation Platform - Access to cutting-edge AI and ML services'
-    ],
-    approachPoints: [
-      'Assessment of your current infrastructure',
-      'Custom migration strategy development',
-      'Seamless implementation and testing',
-      'Continuous monitoring and optimization',
-      'Regular security audits and updates'
-    ],
-    ctaText: 'Book Free Consultation',
-    ctaLink: '/contact',
-    showBenefits: true,
-    showSidebar: true,
-    showCta: true,
-    showFeatures: true,
-    featuresTitle: 'Our Pricing Models',
-    featuresDescription: 'Choose the perfect plan that fits your business needs',
-    featuresContainerClassName: 'container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl',
-    featuresWrapperClassName: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center',
-    features: pricingModels.map((model, index) => ({
-      className: `relative bg-white rounded-xl transition-all duration-300 ease-in-out
-        ${index === 2 
-          ? 'border-2 border-[#FF6A00]' 
-          : 'border border-orange-100'} 
-        shadow-sm hover:shadow-xl
-        p-4
-        flex flex-col
-        h-full w-full
-        min-h-[380px] max-w-[280px]
-        ${index === 2 ? 'lg:-translate-y-2' : ''}
-      `,
-      content: (
-        <div className="flex flex-col h-full">
-          {index === 2 && (
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-[#FF6A00] text-white px-3 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
-                Most Popular
-              </span>
-            </div>
-          )}
-          
-          <div className="text-center mb-4">
-            <h3 className={`text-base font-semibold ${
-              index === 2 ? 'text-[#FF6A00]' : 'text-orange-500'
-            }`}>
-              {model.title}
-            </h3>
-
-            <div className="mt-2">
-              <div className="flex items-baseline justify-center">
-                {!model.description.includes('Custom') && (
-                  <span className="text-lg font-semibold text-gray-900">$</span>
-                )}
-                <span className={`text-2xl font-bold text-gray-900 ${!model.description.includes('Custom') ? 'ml-0.5' : ''}`}>
-                  {model.description.includes('Custom') ? 'Custom Quote' : model.description.split('/')[0].trim()}
-                </span>
-                {!model.description.includes('Custom') && (
-                  <span className="text-gray-500 ml-1.5 text-sm">
-                    /{model.description.split('/')[1]}
-                  </span>
-                )}
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-400 opacity-90"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5 }}
+        />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        
+        <div className="relative py-24 px-6">
+          <motion.div 
+            className="max-w-7xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="max-w-3xl backdrop-blur-sm bg-white/10 p-8 rounded-2xl">
+              <div className="flex items-center gap-4 mb-6">
+                <SiAlibabadotcom className="text-5xl text-white" />
+                <h1 className="text-5xl md:text-6xl font-bold text-white">
+                  Alibaba Cloud
+                </h1>
               </div>
-              <p className="text-gray-500 mt-1 text-xs">
-                {model.description.includes('Custom') ? 'Contact us for custom pricing' : 'Billed per period'}
+              <p className="text-xl text-white/90 mb-8 leading-relaxed">
+                Transform your business with Alibaba Cloud - Asia Pacific's leading cloud provider with global reach.
               </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center bg-white text-orange-600 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-orange-50 transition-all duration-300"
+                >
+                  <span className="mr-2">Get Started with Alibaba Cloud</span>
+                  <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
+        </div>
+      </section>
 
-          <div className="flex-grow">
-            <ul className="space-y-2">
-              {model.features.map((feature, idx) => (
-                <li key={idx} className="flex items-start">
-                  <svg 
-                    className={`h-3.5 w-3.5 mr-2 mt-0.5 flex-shrink-0 ${
-                      index === 2 ? 'text-[#FF6A00]' : 'text-orange-400'
-                    }`}
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-600 text-xs leading-relaxed">
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* Image Slider Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <ImageSlider images={sliderImages} />
+        </div>
+      </section>
 
-          <div className="mt-4">
-            <button className={`w-full py-2 px-3 rounded-lg text-xs font-medium text-white transition-all duration-300
-              ${index === 2 
-                ? 'bg-[#FF6A00] hover:bg-[#FF8533]' 
-                : 'bg-orange-500 hover:bg-orange-600'
-              }
-              hover:shadow-lg active:scale-[0.98]
-            `}>
-              Get Started
-            </button>
+      {/* Stats Grid */}
+      <motion.section 
+        className="py-20 px-6 bg-gradient-to-b from-white to-gray-50"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            variants={fadeInUp}
+          >
+            Alibaba Cloud Performance Metrics
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
+              >
+                <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${stat.color}`} />
+                <div className="flex items-start">
+                  <div className="mr-4">{stat.icon}</div>
+                  <div>
+                    <div className="flex items-baseline">
+                      <span className="text-4xl font-bold text-gray-900">{stat.value}</span>
+                      <span className="text-xl ml-1 text-gray-600">{stat.unit}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mt-2">{stat.label}</h3>
+                    <p className="text-gray-600 mt-1">{stat.description}</p>
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <p className="text-sm text-gray-500">{stat.metric}</p>
+                      <p className="text-sm font-medium text-orange-600 mt-1">{stat.achievement}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      )
-    })),
-    additionalSections: [
-      {
-        content: (
-          <div className="space-y-12">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#FF6A00] to-[#FF8533] bg-clip-text text-transparent mb-12">
-              Delivery Timeline
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-              {deliveryTimeline.map((phase, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${phase.color} rounded-t-xl`} />
-                  <div className="p-6">
-                    <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-gray-50 group-hover:scale-110 transition-transform duration-300">
-                      {phase.icon}
-                    </div>
-                    <div className="text-xl font-bold text-gray-800 mb-2">{phase.phase}</div>
-                    <div className="text-sm text-[#FF6A00] font-medium mb-4 flex items-center">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {phase.duration}
-                    </div>
-                    <ul className="space-y-2">
-                      {phase.activities.map((activity, idx) => (
-                        <li key={idx} className="flex items-start text-sm">
-                          <svg 
-                            className="w-4 h-4 mr-2 mt-0.5 text-[#FF6A00] flex-shrink-0"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path 
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                          <span className="text-gray-600 group-hover:text-gray-800 transition-colors">
-                            {activity}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )
-      },
-      {
-        content: (
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#FF6A00] to-[#FF8533] bg-clip-text text-transparent mb-8">
-              Our Track Record
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${stat.color}`} />
-                  <div className="p-4">
-                    <div className="flex flex-col items-center">
-                      <div className={`flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${stat.color} text-white transform group-hover:scale-110 transition-transform duration-300 mb-3`}>
-                        {React.cloneElement(stat.icon, { className: "text-2xl" })}
-                      </div>
-                      <div className="text-center">
-                        <div className="flex items-baseline justify-center">
-                          <span className="text-2xl font-bold text-gray-800">{stat.value}</span>
-                          <span className="text-lg font-semibold text-gray-600 ml-0.5">{stat.unit}</span>
-                        </div>
-                        <h3 className="text-sm font-medium text-gray-800 mb-2">{stat.label}</h3>
-                        <div className="text-xs text-gray-500">{stat.description}</div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    ]
-  };
+      </motion.section>
 
-  return (
-    <>
-      <div className="relative w-full h-screen">
-        <ImageSlider images={sliderImages} />
-      </div>
-      <div className="relative bg-white">
-        <PageTemplate pageInfo={pageInfo} pageType="service" />
-      </div>
-    </>
+      {/* Pricing Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Flexible Pricing Models
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {pricingModels.map((model, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300`}
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
+                <p className="text-2xl font-bold text-orange-600 mb-2">${model.description}</p>
+                <p className="text-gray-600 mb-6">{model.subtitle}</p>
+                <ul className="space-y-3 mb-8">
+                  {model.features.map((feature, i) => (
+                    <li key={i} className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-orange-500 mr-2" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <button className="w-full py-3 px-6 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors duration-300">
+                  {model.ctaText}
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Delivery Timeline */}
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Implementation Timeline
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {deliveryTimeline.map((phase, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
+              >
+                <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
+                <div className="mb-4">{phase.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{phase.phase}</h3>
+                <p className="text-orange-600 font-semibold mb-4">{phase.duration}</p>
+                <ul className="space-y-3">
+                  {phase.activities.map((activity, i) => (
+                    <li key={i} className="flex items-start text-gray-700">
+                      <FaCheckCircle className="text-orange-500 mr-2 mt-1 flex-shrink-0" />
+                      <span>{activity}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 

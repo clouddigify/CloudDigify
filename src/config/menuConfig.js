@@ -165,20 +165,17 @@ export const menuConfig = {
             { 
               title: 'Oracle Cloud',
               path: '/services/cloud/oraclecloud',
-              icon: 'fa-oracle',
-              description: 'Enterprise-grade cloud solutions'
+              icon: 'fa-oracle'
             },
             { 
               title: 'Alibaba Cloud',
               path: '/services/cloud/alibabacloud',
-              icon: 'fa-alibaba',
-              description: "Asia's largest cloud provider"
+              icon: 'fa-alibaba'
             },
             {
               title: 'Infrastructure Services',
               path: '/services/infrastructure',
-              icon: 'fa-network-wired',
-              description: 'Enterprise infrastructure solutions'
+              icon: 'fa-network-wired'
             }
           ]
         },
@@ -352,32 +349,27 @@ export const menuConfig = {
             {
               title: 'AWS Training',
               path: '/training/aws',
-              icon: 'fa-aws',
-              description: 'AWS certification and expertise'
+              icon: 'fa-aws'
             },
             {
               title: 'Azure Training',
               path: '/training/azure',
-              icon: 'fa-microsoft',
-              description: 'Microsoft Azure mastery'
+              icon: 'fa-microsoft'
             },
             {
               title: 'Google Cloud Training',
               path: '/training/googlecloud',
-              icon: 'fa-google',
-              description: 'Google Cloud Platform skills'
+              icon: 'fa-google'
             },
             {
               title: 'Oracle Cloud Training',
               path: '/training/oracle',
-              icon: 'fa-oracle',
-              description: 'Oracle Cloud Infrastructure expertise'
+              icon: 'fa-oracle'
             },
             {
               title: 'Alibaba Cloud Training',
               path: '/training/alibabacloud',
-              icon: 'fa-alibaba',
-              description: 'Alibaba Cloud certification'
+              icon: 'fa-alibaba'
             }
           ]
         },
@@ -388,26 +380,22 @@ export const menuConfig = {
             {
               title: 'AI & ML Training',
               path: '/training/ai-ml',
-              icon: 'fa-brain',
-              description: 'Artificial Intelligence and Machine Learning'
+              icon: 'fa-brain'
             },
             {
               title: 'Automation Training',
               path: '/training/automation',
-              icon: 'fa-cogs',
-              description: 'DevOps and Automation tools'
+              icon: 'fa-cogs'
             },
             {
               title: 'DevOps Training',
               path: '/training/devops',
-              icon: 'fa-code-branch',
-              description: 'DevOps practices and tools'
+              icon: 'fa-code-branch'
             },
             {
               title: 'Kubernetes Training',
               path: '/training/kubernetes',
-              icon: 'fa-cube',
-              description: 'Container orchestration with Kubernetes'
+              icon: 'fa-cube'
             }
           ]
         },
@@ -418,14 +406,12 @@ export const menuConfig = {
             {
               title: 'Corporate Training',
               path: '/training/corporate',
-              icon: 'fa-building',
-              description: 'Customized enterprise training solutions'
+              icon: 'fa-building'
             },
             {
               title: 'Campus Training',
               path: '/training/campus',
-              icon: 'fa-university',
-              description: 'Academic and institutional programs'
+              icon: 'fa-university'
             }
           ]
         }

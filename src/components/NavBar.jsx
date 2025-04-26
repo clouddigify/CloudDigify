@@ -66,16 +66,23 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
 
   useEffect(() => {
     if (menuRef.current && parentRef.current) {
-      const rect = parentRef.current.getBoundingClientRect();
-      const menuWidth = menuRef.current.offsetWidth;
+      const rect = menuRef.current.getBoundingClientRect();
+      const parentRect = parentRef.current.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
       
-      // If submenu would extend beyond viewport, align it to the left
-      if (rect.right + menuWidth > viewportWidth) {
-        setShouldAlignLeft(true);
+      // For first level dropdown, check if it goes beyond right edge
+      if (depth === 0) {
+        if (parentRect.left + rect.width > viewportWidth) {
+          setShouldAlignLeft(true);
+        }
+      } else {
+        // For nested dropdowns, check if showing to the right would go off screen
+        if (parentRect.right + rect.width > viewportWidth) {
+          setShouldAlignLeft(true);
+        }
       }
     }
-  }, []);
+  }, [depth]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -177,6 +184,7 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
                 <div 
                   className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer h-10 w-full"
                   onMouseEnter={() => {
+                    // When hovering on the submenu title itself, set it as active immediately
                     setActiveItemIndex(index);
                   }}
                   onClick={handleItemClick(index, true)}
@@ -194,7 +202,7 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
                       )}
                     </div>
                   </div>
-                  <FaChevronRight className={`ml-2 text-gray-400 flex-shrink-0 w-4 h-4 ${shouldAlignLeft ? 'rotate-180' : ''}`} />
+                  <FaChevronRight className="ml-2 text-gray-400 flex-shrink-0 w-4 h-4" />
                 </div>
                 {activeItemIndex === index && item.submenu && (
                   <SubMenu
@@ -648,19 +656,18 @@ const NavBar = () => {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
-            {/* Left section: Logo + Navigation */}
-            <div className="flex items-center flex-1">
-              {/* Logo */}
-              <Link to="/" className="flex-shrink-0">
-                <LogoWrapper>
-                  <Logo />
-                  <BrandTitle />
-                </LogoWrapper>
-              </Link>
+            {/* Logo */}
+            <Link to="/" className="flex-shrink-0">
+              <LogoWrapper>
+                <Logo />
+                <BrandTitle />
+              </LogoWrapper>
+            </Link>
 
-              {/* Main Navigation */}
-              <nav className="hidden lg:flex items-center ml-auto mr-8">
-               <ul className="flex items-center space-x-6">
+            {/* Center Navigation */}
+            <div className="flex-1 flex justify-center">
+              <nav className="hidden lg:flex items-center">
+                <ul className="flex items-center space-x-8">
                   {menuConfig.mainNav.map((item, index) => (
                     <li key={index}>
                       <NavItem item={item} index={index} />
