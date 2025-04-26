@@ -460,18 +460,19 @@ export const menuConfig = {
       icon: 'fa-clipboard-list',
       submenu: [
         { 
-          title: 'Transforming Data, Empowering Growth',
+          title: 'Data Solutions',
           path: '/solutions/data-transformation',
-          icon: 'fa-chart-bar'
+          icon: 'fa-database',
+          description: 'Data Integration, Analytics & Cloud Migration'
         },
         { 
-          title: 'Secure, Efficient, and Cloud-Driven',
+          title: 'Cloud Solutions',
           path: '/solutions/cloud-driven',
-          icon: 'fa-cloud-shield'
+          icon: 'fa-cloud',
+          description: 'Infrastructure, Security & Performance'
         }
       ]
     },
-    { title: 'Icons Demo', path: '/icons-demo', icon: 'fa-palette' }
   ]
 }; 
 

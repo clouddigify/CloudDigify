@@ -47,6 +47,50 @@ import DigitalEngineering from './components/services/DigitalEngineering';
 import PlatformOperation from './components/services/PlatformOperation';
 import QualityEngineering from './components/services/QualityEngineering';
 
+// Cloud Service Pages
+import AWS from './components/services/cloud/AWS';
+import Azure from './components/services/cloud/Azure';
+import GoogleCloud from './components/services/cloud/GoogleCloud';
+import OracleCloud from './components/services/cloud/OracleCloud';
+import AlibabaCloud from './components/services/cloud/AlibabaCloud';
+
+// DevOps Service Pages
+import CICD from './components/services/devops/CICD';
+import InfrastructureAsCode from './components/services/devops/InfrastructureAsCode';
+import Containerization from './components/services/devops/Containerization';
+import ServerlessArchitecture from './components/services/devops/ServerlessArchitecture';
+import AgileTransformation from './components/services/devops/AgileTransformation';
+
+// Security Service Pages
+import CyberDefence from './components/services/security/CyberDefence';
+import PrivacySmartHub from './components/services/security/PrivacySmartHub';
+
+// AI Service Pages
+import ArtificialIntelligence from './components/services/ai/ArtificialIntelligence';
+import CognitiveServices from './components/services/ai/CognitiveServices';
+import AgenticAI from './components/services/ai/AgenticAI';
+import MLOps from './components/services/ai/MLOps';
+import RPA from './components/services/ai/RPA';
+
+// Consulting Service Pages
+import DigitalIntegration from './components/services/consulting/DigitalIntegration';
+import ConsultingOverview from './components/services/consulting/ConsultingOverview';
+import ExperienceDesign from './components/services/consulting/ExperienceDesign';
+import Databricks from './components/services/consulting/Databricks';
+import DataWarehousing from './components/services/consulting/DataWarehousing';
+import BusinessIntelligence from './components/services/consulting/BusinessIntelligence';
+import DataAnalytics from './components/services/consulting/DataAnalytics';
+import DigitalRuntime from './components/services/consulting/DigitalRuntime';
+
+// Infrastructure, Blockchain, and Strategy Service Pages
+import InfrastructureServices from './components/services/infrastructure/InfrastructureServices';
+import Blockchain from './components/services/blockchain/Blockchain';
+import Strategy from './components/services/strategy/Strategy';
+
+// Solution Pages
+import DataTransformation from './components/solutions/DataTransformation';
+import CloudDriven from './components/solutions/CloudDriven';
+
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -120,6 +164,50 @@ const AnimatedRoutes = () => {
         <Route path="/services/digital-engineering" element={<DigitalEngineering />} />
         <Route path="/services/platform-operation" element={<PlatformOperation />} />
         <Route path="/services/quality-engineering" element={<QualityEngineering />} />
+        
+        {/* Cloud Service Routes */}
+        <Route path="/services/cloud/aws" element={<AWS />} />
+        <Route path="/services/cloud/azure" element={<Azure />} />
+        <Route path="/services/cloud/googlecloud" element={<GoogleCloud />} />
+        <Route path="/services/cloud/oraclecloud" element={<OracleCloud />} />
+        <Route path="/services/cloud/alibabacloud" element={<AlibabaCloud />} />
+        
+        {/* DevOps Service Routes */}
+        <Route path="/services/devops/cicd" element={<CICD />} />
+        <Route path="/services/devops/iac" element={<InfrastructureAsCode />} />
+        <Route path="/services/devops/containerization" element={<Containerization />} />
+        <Route path="/services/devops/serverless" element={<ServerlessArchitecture />} />
+        <Route path="/services/devops/agile" element={<AgileTransformation />} />
+        
+        {/* Security Service Routes */}
+        <Route path="/services/security/cyber-defence" element={<CyberDefence />} />
+        <Route path="/services/security/privacy-smarthub" element={<PrivacySmartHub />} />
+        
+        {/* AI Service Routes */}
+        <Route path="/services/ai/artificial-intelligence" element={<ArtificialIntelligence />} />
+        <Route path="/services/ai/cognitive-services" element={<CognitiveServices />} />
+        <Route path="/services/ai/agentic-ai" element={<AgenticAI />} />
+        <Route path="/services/ai/mlops" element={<MLOps />} />
+        <Route path="/services/ai/rpa" element={<RPA />} />
+        
+        {/* Consulting Service Routes */}
+        <Route path="/services/consulting/digital-integration" element={<DigitalIntegration />} />
+        <Route path="/services/consulting/overview" element={<ConsultingOverview />} />
+        <Route path="/services/consulting/experience-design" element={<ExperienceDesign />} />
+        <Route path="/services/consulting/databricks" element={<Databricks />} />
+        <Route path="/services/consulting/data-warehousing" element={<DataWarehousing />} />
+        <Route path="/services/consulting/business-intelligence" element={<BusinessIntelligence />} />
+        <Route path="/services/consulting/data-analytics" element={<DataAnalytics />} />
+        <Route path="/services/consulting/digital-runtime" element={<DigitalRuntime />} />
+
+        {/* Infrastructure, Blockchain, and Strategy Routes */}
+        <Route path="/services/infrastructure" element={<InfrastructureServices />} />
+        <Route path="/services/blockchain" element={<Blockchain />} />
+        <Route path="/services/strategy" element={<Strategy />} />
+
+        {/* Solution Routes */}
+        <Route path="/solutions/data-transformation" element={<DataTransformation />} />
+        <Route path="/solutions/cloud-driven" element={<CloudDriven />} />
         
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
