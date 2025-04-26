@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaServer, FaNetworkWired, FaCloud, FaExchangeAlt, FaShieldAlt, FaTachometerAlt, FaSyncAlt, FaClipboardCheck, FaUsers, FaTools, FaLightbulb, FaHeartbeat, FaDatabase, FaChartLine, FaSatelliteDish } from 'react-icons/fa';
+import { FaServer, FaNetworkWired, FaCloud, FaExchangeAlt, FaShieldAlt, FaTachometerAlt, FaSyncAlt, FaClipboardCheck, FaUsers, FaTools, FaLightbulb, FaHeartbeat, FaDatabase, FaChartLine, FaSatelliteDish, FaRocket, FaSearchDollar, FaProjectDiagram, FaCloudUploadAlt, FaFileImport, FaGraduationCap, FaCog, FaUserCog, FaLaptopCode, FaHandshake, FaMicrochip, FaBolt, FaArrowRight } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../common/ServiceInquiryForm';
 
 const PlatformOperation = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Platform Operations');
+  
+  // Scroll to top when page loads/refreshes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Platform Operations - ${serviceType}`);
+    setShowInquiryForm(true);
+  };
 
   // Simple Static Visual Component
   const PlatformVisual = () => {
@@ -52,23 +66,102 @@ const PlatformOperation = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <section className="relative h-[650px] overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
+      <section className="relative h-screen overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600">
+          {/* Reduced number of animated background elements */}
+          {[...Array(4)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute flex items-center justify-center"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, Math.random() * 40 - 20],
+                opacity: [0.1, 0.2, 0.1],
+              }}
+              transition={{
+                duration: Math.random() * 8 + 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
+              <FaServer className="text-white opacity-20" style={{ fontSize: `${Math.random() * 20 + 20}px` }} />
+            </motion.div>
+          ))}
+          
+          {/* Reduced number of platform engineering themed floating icons with simplified animations */}
+          {[FaNetworkWired, FaCloud, FaDatabase, FaShieldAlt].map((Icon, i) => (
+            <motion.div
+              key={`icon-${i}`}
+              className="absolute text-white opacity-10"
+              style={{
+                fontSize: `${Math.random() * 20 + 20}px`,
+                left: `${(i * 20) + Math.random() * 10}%`,
+                top: `${Math.random() * 80}%`,
+              }}
+              animate={{
+                y: [0, Math.random() * 30 - 15],
+              }}
+              transition={{
+                duration: 6 + Math.random() * 4,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
+            >
+              <Icon />
+            </motion.div>
+          ))}
+        </div>
         
         <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="text-white">
-            <div className="text-5xl mb-6 flex justify-center">
-              <FaServer className="text-white" />
-            </div>
-            <h1 className="text-5xl font-bold mb-6">
-              Enterprise Platform Operations
-            </h1>
-            <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
-              Maximize reliability, security, and performance with our expert platform operations services. We manage your infrastructure so you can focus on your core business.
-            </p>
+          <motion.div 
+            className="text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div 
+              className="text-4xl mb-6 mx-auto"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <FaServer className="text-white text-6xl inline-block" />
+            </motion.div>
             
-            <PlatformVisual />
-          </div>
+            <motion.h1 
+              className="text-4xl sm:text-5xl font-bold mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              CloudDigify Platform Operations
+            </motion.h1>
+            
+            <motion.p 
+              className="text-lg sm:text-xl text-gray-200 mb-10 max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+            >
+              Maximize reliability, security, and performance with our expert platform operations services. We manage your infrastructure so you can focus on your core business.
+            </motion.p>
+            
+            <motion.button
+              onClick={() => openInquiryForm('General Inquiry')}
+              className="px-8 py-4 bg-white text-indigo-600 rounded-full font-semibold hover:bg-opacity-90 transition-colors shadow-lg flex items-center mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Get Started <FaArrowRight className="ml-2" />
+            </motion.button>
+          </motion.div>
         </div>
         
         {/* Wave SVG at bottom */}
@@ -86,9 +179,10 @@ const PlatformOperation = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.h2
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
             className="text-4xl font-bold text-gray-900 text-center mb-12"
           >
             Why Choose Our Platform Operations Services
@@ -114,9 +208,10 @@ const PlatformOperation = () => {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ y: 20, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
               >
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
@@ -133,9 +228,10 @@ const PlatformOperation = () => {
         <div className="container mx-auto px-4">
           <motion.h2
             ref={ref}
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
             className="text-4xl font-bold text-gray-900 text-center mb-16"
           >
             Our Comprehensive Services
@@ -176,9 +272,10 @@ const PlatformOperation = () => {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ y: 20, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
                 className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
               >
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
@@ -194,8 +291,10 @@ const PlatformOperation = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.h2
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
             className="text-4xl font-bold text-gray-900 text-center mb-16"
           >
             Business Benefits
@@ -204,21 +303,25 @@ const PlatformOperation = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
+                icon: FaTachometerAlt,
                 title: "System Uptime",
                 value: "99.99%",
                 description: "Our platform operations ensure near-perfect availability for your critical systems"
               },
               {
+                icon: FaRocket,
                 title: "Cost Reduction",
                 value: "35%",
                 description: "Average infrastructure cost savings through optimization and automation"
               },
               {
+                icon: FaBolt,
                 title: "Incident Resolution",
                 value: "83%",
                 description: "Faster incident resolution compared to industry average response times"
               },
               {
+                icon: FaCog,
                 title: "Operational Efficiency",
                 value: "75%",
                 description: "Reduction in manual operations through our automation solutions"
@@ -226,16 +329,83 @@ const PlatformOperation = () => {
             ].map((benefit, index) => (
               <motion.div
                 key={index}
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={inView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.3, delay: Math.min(index * 0.1, 0.3) }}
                 className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg p-8 shadow-lg"
               >
-                <h3 className="text-2xl font-bold text-white mb-2">{benefit.title}</h3>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
+                    <benefit.icon className="text-2xl text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white">{benefit.title}</h3>
+                </div>
                 <div className="text-4xl font-bold text-white mb-2">{benefit.value}</div>
                 <p className="text-indigo-100">{benefit.description}</p>
               </motion.div>
             ))}
+          </div>
+          
+          <div className="mt-16 max-w-4xl mx-auto">
+            <motion.h3 
+              className="text-2xl font-semibold text-center mb-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
+            >
+              <FaServer className="inline-block mr-2 text-indigo-600" />
+              CloudDigify's Platform Implementation Process
+            </motion.h3>
+            <div className="space-y-4">
+              {[
+                {
+                  step: "Assessment & Planning",
+                  description: "CloudDigify evaluates your current infrastructure and business requirements to create a tailored platform strategy that aligns with your goals.",
+                  icon: FaSearchDollar
+                },
+                {
+                  step: "Architecture Design",
+                  description: "CloudDigify's architects design a scalable, secure platform architecture optimized for your specific operational needs and growth projections.",
+                  icon: FaProjectDiagram
+                },
+                {
+                  step: "Implementation & Migration",
+                  description: "CloudDigify implements the new platform architecture and manages seamless migration of your existing systems with minimal disruption.",
+                  icon: FaCloudUploadAlt
+                },
+                {
+                  step: "Integration & Automation",
+                  description: "CloudDigify connects your platform with all necessary systems and implements automation to streamline operations and reduce manual tasks.",
+                  icon: FaExchangeAlt
+                },
+                {
+                  step: "Optimization & Support",
+                  description: "CloudDigify continuously monitors and optimizes your platform performance while providing comprehensive support and maintenance.",
+                  icon: FaUserCog
+                }
+              ].map((item, index) => (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-10px" }}
+                  transition={{ duration: 0.2, delay: Math.min(index * 0.05, 0.2) }}
+                  className="flex items-start p-4 bg-white rounded-lg shadow-sm"
+                >
+                  <div className="flex-shrink-0 mr-4">
+                    <div className="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-semibold">
+                      <item.icon className="text-sm" />
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-800">{item.step}</h4>
+                    <p className="text-gray-600">{item.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -244,14 +414,22 @@ const PlatformOperation = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.h2
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
             className="text-4xl font-bold text-gray-900 text-center mb-12"
           >
             Success Story
           </motion.h2>
           
-          <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto"
+          >
             <div className="p-8">
               <h3 className="text-2xl font-bold text-indigo-600 mb-4">Healthcare Provider Transformation</h3>
               <p className="text-gray-700 mb-6">
@@ -281,7 +459,7 @@ const PlatformOperation = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -290,13 +468,25 @@ const PlatformOperation = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-8">Ready to Optimize Your Platform Operations?</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto">
-            Partner with us for reliable, secure, and efficient platform operations that power your business growth.
+            Partner with CloudDigify for reliable, secure, and efficient platform operations that power your business growth.
           </p>
-          <button className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
+          <button 
+            className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+            onClick={() => openInquiryForm('Platform Assessment')}
+          >
             Schedule a Platform Assessment
           </button>
         </div>
       </section>
+      
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </div>
   );
 };

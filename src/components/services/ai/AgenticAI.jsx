@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { FaRobot, FaNetworkWired, FaBrain, FaUserCog, FaExchangeAlt, FaLightbulb, FaDatabase, FaCogs, FaChartLine } from 'react-icons/fa';
+import { FaRobot, FaNetworkWired, FaBrain, FaUserCog, FaExchangeAlt, FaLightbulb, FaDatabase, FaCogs, FaChartLine, FaArrowRight } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 
 const AgenticAI = () => {
   const [activeAgent, setActiveAgent] = useState(null);
@@ -14,6 +15,19 @@ const AgenticAI = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [inquiryType, setInquiryType] = useState('Agentic AI');
+  
+  // Scroll to top when page loads/refreshes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
+  const openInquiryForm = (serviceType) => {
+    setInquiryType(`Agentic AI - ${serviceType}`);
+    setShowInquiryForm(true);
+  };
 
   // Dynamic agent positions
   const [agentPositions, setAgentPositions] = useState([]);
@@ -281,68 +295,50 @@ const AgenticAI = () => {
       className="min-h-screen"
     >
       {/* Enhanced Hero Section */}
-      <div className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-r from-blue-900 via-violet-900 to-purple-900 text-white">
-        <motion.div
-          style={{ opacity, scale }}
-          className="absolute inset-0"
-        >
+      <section className="relative min-h-screen bg-gradient-to-r from-indigo-800 to-purple-900 text-white flex flex-col items-center justify-center px-4 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
           <AgentNetworkAnimation />
-        </motion.div>
+        </div>
         
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 text-center px-4 max-w-4xl"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-6xl mb-6"
+        <div className="relative z-10 container mx-auto text-center max-w-4xl">
+          <motion.h1 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-5xl sm:text-6xl font-bold mb-6 leading-tight"
           >
-            <FaRobot />
-          </motion.div>
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-5xl font-bold mb-6"
-          >
-            {pageInfo.hero.title}
+            CloudDigify Agentic AI Solutions
           </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-xl mb-8"
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-xl sm:text-2xl text-indigo-100 mb-8"
           >
-            {pageInfo.hero.description}
+            Transforming business processes with intelligent, autonomous AI systems that work together to solve complex problems
           </motion.p>
           <motion.button
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ delay: 0.7 }}
-            className="bg-white text-violet-900 px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90"
+            onClick={() => openInquiryForm('General Inquiry')}
+            className="px-8 py-4 bg-white text-indigo-800 rounded-lg font-semibold hover:bg-indigo-50 shadow-lg transition-all inline-flex items-center"
           >
-            Explore Agentic AI
+            Explore Agentic AI <FaArrowRight className="ml-2" />
           </motion.button>
-        </motion.div>
-
-        {/* Animated wave separator */}
+        </div>
+        
         <div className="absolute bottom-0 left-0 right-0">
           <svg className="w-full h-24" viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <motion.path
-              initial={{ d: "M0,100 C240,100 480,100 720,100 C960,100 1200,100 1440,100 L1440,100 L0,100 Z" }}
-              animate={{ d: "M0,100 C240,0 480,0 720,0 C960,0 1200,0 1440,0 L1440,100 L0,100 Z" }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
+            <path
+              d="M0,100 C240,0 480,0 720,0 C960,0 1200,0 1440,0 L1440,100 L0,100 Z"
               fill="white"
             />
           </svg>
         </div>
-      </div>
+      </section>
 
       {/* Overview Section */}
       <section className="py-16 px-4 bg-white">
@@ -411,6 +407,15 @@ const AgenticAI = () => {
           </button>
         </div>
       </section>
+
+      {/* Service Inquiry Form Modal */}
+      {showInquiryForm && (
+        <ServiceInquiryForm
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={inquiryType}
+        />
+      )}
     </motion.div>
   );
 };
