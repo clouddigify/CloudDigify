@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   FaShieldAlt, FaUserCircle, FaGlobeAmericas, FaLock, 
   FaUserCog, FaChild, FaHistory, FaEnvelope, FaDatabase, FaExchangeAlt,
-  FaRegEye, FaUserShield, FaQuestionCircle
+  FaRegEye, FaUserShield, FaQuestionCircle, FaChevronDown
 } from 'react-icons/fa';
 
 const PrivacyPolicy = () => {

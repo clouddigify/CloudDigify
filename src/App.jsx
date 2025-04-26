@@ -13,10 +13,15 @@ import Industries from './components/pages/Industries';
 import TrainingServices from './components/pages/TrainingServices';
 import Contact from './components/pages/Contact';
 import About from './components/pages/About';
+import OurTeam from './components/pages/OurTeam';
+import Career from './components/pages/Career';
+import Culture from './components/pages/Culture';
 
 // Legal Pages
 import TermsAndConditions from './components/pages/legal/TermsAndConditions';
 import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
+import CookiePolicy from './components/pages/legal/CookiePolicy';
+import Security from './components/pages/legal/Security';
 
 // Industry Pages
 import FinancialServices from './components/pages/industries/FinancialServices';
@@ -129,8 +134,17 @@ const AnimatedRoutes = () => {
         <Route path="/industries" element={<Industries />} />
         <Route path="/training" element={<TrainingServices />} />
         <Route path="/contact" element={<Contact />} />
+        
+        {/* New Routes */}
+        <Route path="/team" element={<OurTeam />} />
+        <Route path="/career" element={<Career />} />
+        <Route path="/culture" element={<Culture />} />
+        
+        {/* Legal Routes */}
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/cookies" element={<CookiePolicy />} />
+        <Route path="/security" element={<Security />} />
         
         {/* Industry Routes */}
         <Route path="/industries/financial-services" element={<FinancialServices />} />

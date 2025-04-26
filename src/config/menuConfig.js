@@ -45,7 +45,15 @@ import {
   FaClock,
   FaPaintBrush,
   FaPalette,
-  FaCube
+  FaCube,
+  FaInfoCircle,
+  FaEnvelope,
+  FaUsers,
+  FaBriefcase,
+  FaFileContract,
+  FaCookie,
+  FaHandshake,
+  FaUserTie
 } from 'react-icons/fa';
 
 import { 
@@ -109,13 +117,32 @@ const Icons = {
   'fa-clipboard-list': FaClipboardList,
   'fa-code': FaCode,
   'fa-cube': FaCube,
-  'DataBricks': SiDatabricks
+  'DataBricks': SiDatabricks,
+  'fa-info-circle': FaInfoCircle,
+  'fa-envelope': FaEnvelope,
+  'fa-users': FaUsers,
+  'fa-briefcase': FaBriefcase,
+  'fa-culture': FaHandshake,
+  'fa-file-contract': FaFileContract,
+  'fa-cookie': FaCookie,
+  'fa-shield': FaShieldAlt,
+  'fa-user-tie': FaUserTie
 };
 
 export const menuConfig = {
   mainNav: [
     { title: 'Home', path: '/', icon: 'fa-home' },
-    { title: 'About Us', path: '/about', icon: 'fa-info' },
+    { 
+      title: 'About Us', 
+      path: '/about', 
+      icon: 'fa-info',
+      hasSubmenu: true,
+      submenu: [
+        { title: 'Our Team', path: '/team', icon: 'fa-users' },
+        { title: 'Our Culture', path: '/culture', icon: 'fa-culture' },
+        { title: 'Career', path: '/career', icon: 'fa-briefcase' }
+      ]
+    },
     { 
       title: 'Services', 
       path: '/services', 
@@ -453,7 +480,28 @@ export const menuConfig = {
         }
       ]
     },
-  ]
+    { title: 'Contact', path: '/contact', icon: 'fa-envelope' }
+  ],
+  footerNav: {
+    company: [
+      { title: 'About Us', path: '/about', icon: 'fa-info-circle' },
+      { title: 'Our Team', path: '/team', icon: 'fa-users' },
+      { title: 'Our Culture', path: '/culture', icon: 'fa-culture' },
+      { title: 'Career', path: '/career', icon: 'fa-briefcase' },
+      { title: 'Contact', path: '/contact', icon: 'fa-envelope' }
+    ],
+    services: [
+      { title: 'Services', path: '/services', icon: 'fa-cogs' },
+      { title: 'Industries', path: '/industries', icon: 'fa-industry' },
+      { title: 'Training', path: '/training', icon: 'fa-graduation-cap' }
+    ],
+    legal: [
+      { title: 'Terms & Conditions', path: '/terms', icon: 'fa-file-contract' },
+      { title: 'Privacy Policy', path: '/privacy', icon: 'fa-user-shield' },
+      { title: 'Cookie Policy', path: '/cookies', icon: 'fa-cookie' },
+      { title: 'Security', path: '/security', icon: 'fa-shield' }
+    ]
+  }
 }; 
 
 export { Icons }; 

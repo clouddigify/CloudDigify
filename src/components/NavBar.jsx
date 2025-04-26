@@ -381,11 +381,15 @@ const NavItem = ({ item, index }) => {
         onMouseLeave={handleMouseLeave}
       >
         <button 
-          className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 rounded-full hover:bg-gray-50 transition-colors h-9 max-w-[180px]"
+          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 
+                   hover:text-blue-600 transition-colors duration-200"
           onClick={handleClick}
         >
-          <span className="truncate max-w-[140px]">{item.title}</span>
-          <FaChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} flex-shrink-0`} />
+          <span>{item.title}</span>
+          <FaChevronDown 
+            className={`ml-1.5 h-4 w-4 transition-transform duration-200 
+                     ${isOpen ? 'rotate-180' : ''}`} 
+          />
         </button>
         {isOpen && Array.isArray(item.submenu) && (
           <SubMenu 
@@ -404,14 +408,14 @@ const NavItem = ({ item, index }) => {
     <NavLink
       to={item.path}
       className={({ isActive }) =>
-        `inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors h-9 max-w-[180px] ${
-          isActive
-            ? 'text-white bg-blue-600 hover:bg-blue-700'
-            : 'text-gray-900 hover:bg-gray-50'
-        }`
+        `inline-flex items-center px-3 py-2 text-sm font-medium transition-colors duration-200
+         ${isActive 
+           ? 'text-blue-600' 
+           : 'text-gray-700 hover:text-blue-600'
+         }`
       }
     >
-      <span className="truncate max-w-[160px]">{item.title}</span>
+      {item.title}
     </NavLink>
   );
 };
@@ -611,7 +615,7 @@ const NavBar = () => {
       preventClose,
       setPreventClose
     }}>
-      <motion.nav
+      <motion.header
         ref={navRef}
         initial={false}
         animate={{
@@ -624,50 +628,64 @@ const NavBar = () => {
         onMouseLeave={handleNavMouseLeave}
         onMouseEnter={handleNavMouseEnter}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link to="/" className="flex-shrink-0 flex items-center">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between h-20">
+            {/* Left section: Logo + Navigation */}
+            <div className="flex items-center flex-1">
+              {/* Logo */}
+              <Link to="/" className="flex-shrink-0">
                 <LogoWrapper>
                   <Logo />
                   <BrandTitle />
                 </LogoWrapper>
               </Link>
-              <div className="hidden lg:ml-10 lg:flex lg:items-center lg:space-x-4">
-                {menuConfig.mainNav.map((item, index) => (
-                  <NavItem key={index} item={item} index={index} />
-                ))}
-              </div>
+
+              {/* Main Navigation */}
+              <nav className="hidden lg:flex items-center ml-8">
+               <ul className="flex items-center space-x-6">
+                  {menuConfig.mainNav.map((item, index) => (
+                    <li key={index}>
+                      <NavItem item={item} index={index} />
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             </div>
 
-            <div className="flex items-center space-x-4">
-              {/* Get Started CTA Button - Hidden on mobile */}
-              <div className="hidden lg:block">
-                <Link to="/contact">
-                  <motion.button
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-md"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Get Started
-                  </motion.button>
-                </Link>
-              </div>
-              <div className="lg:hidden">
+            {/* Right section: CTA Button + Mobile Menu */}
+            <div className="flex items-center pl-4">
+              <Link to="/contact" className="hidden lg:block">
                 <motion.button
+                  className="px-6 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg 
+                           transition-all duration-200 ease-in-out
+                           hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-2 
+                           focus:ring-blue-500 focus:ring-offset-2 shadow-md"
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-                  aria-expanded={isOpen}
-                  aria-label="Toggle navigation menu"
                 >
-                  {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
+                  Get Started
                 </motion.button>
-              </div>
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="ml-4 p-2 lg:hidden rounded-md text-gray-400 hover:text-gray-500 
+                         hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset 
+                         focus:ring-blue-500"
+                aria-expanded={isOpen}
+              >
+                <span className="sr-only">Open main menu</span>
+                {isOpen ? (
+                  <FaTimes className="h-6 w-6" />
+                ) : (
+                  <FaBars className="h-6 w-6" />
+                )}
+              </button>
             </div>
           </div>
         </div>
 
+        {/* Mobile Menu Panel */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -675,17 +693,18 @@ const NavBar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden bg-white border-t overflow-y-auto max-h-[80vh] sm:max-h-[70vh] overflow-x-hidden"
+              className="lg:hidden bg-white border-t"
             >
-              <div className="pt-2 pb-3 space-y-1 px-4 sm:px-6">
+              <div className="px-4 pt-2 pb-3 space-y-1">
                 {menuConfig.mainNav.map((item, index) => (
                   <MobileMenuItem key={index} item={item} />
                 ))}
-                {/* Mobile CTA Button */}
                 <div className="pt-4">
                   <Link to="/contact" className="block w-full">
                     <motion.button
-                      className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-md text-center"
+                      className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg 
+                               font-medium hover:bg-blue-700 transition-all duration-200 
+                               text-center shadow-md"
                       whileTap={{ scale: 0.95 }}
                     >
                       Get Started
@@ -696,7 +715,7 @@ const NavBar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </motion.header>
     </MenuContext.Provider>
   );
 };
