@@ -1,64 +1,66 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaAws, FaServer, FaDatabase, FaCloud, FaShieldAlt, FaCode } from 'react-icons/fa';
+import { FaCloud, FaDatabase, FaCode, FaNetworkWired, FaShieldAlt } from 'react-icons/fa';
+import { SiAlibabacloud } from 'react-icons/si';
 
-const AWSTraining = () => {
+const AlibabaCloudTraining = () => {
   const certifications = [
     {
-      title: 'AWS Solutions Architect',
-      levels: ['Associate', 'Professional'],
+      title: 'ACA Cloud Computing',
+      levels: ['Associate'],
       icon: <FaCloud className="text-3xl" />,
-      description: 'Design and deploy scalable, highly available systems on AWS',
+      description: 'Master fundamental Alibaba Cloud services and solutions',
+      duration: '8 weeks',
+      popular: true,
+    },
+    {
+      title: 'ACP Cloud Computing',
+      levels: ['Professional'],
+      icon: <FaCode className="text-3xl" />,
+      description: 'Advanced cloud architecture and implementation',
       duration: '12 weeks',
       popular: true,
     },
     {
-      title: 'AWS Developer',
+      title: 'ACA Security',
       levels: ['Associate'],
-      icon: <FaCode className="text-3xl" />,
-      description: 'Develop and maintain AWS-based applications',
-      duration: '10 weeks',
-    },
-    {
-      title: 'AWS SysOps Administrator',
-      levels: ['Associate'],
-      icon: <FaServer className="text-3xl" />,
-      description: 'Deploy, manage, and operate scalable systems on AWS',
-      duration: '10 weeks',
-    },
-    {
-      title: 'AWS Database Specialty',
-      levels: ['Specialty'],
-      icon: <FaDatabase className="text-3xl" />,
-      description: 'Design and maintain AWS database solutions',
+      icon: <FaShieldAlt className="text-3xl" />,
+      description: 'Cloud security best practices and implementation',
       duration: '8 weeks',
     },
     {
-      title: 'AWS Security Specialty',
-      levels: ['Specialty'],
-      icon: <FaShieldAlt className="text-3xl" />,
-      description: 'Implement security controls and compliance requirements',
+      title: 'ACA Big Data',
+      levels: ['Associate'],
+      icon: <FaDatabase className="text-3xl" />,
+      description: 'Big data solutions on Alibaba Cloud',
+      duration: '10 weeks',
+    },
+    {
+      title: 'ACA Networking',
+      levels: ['Associate'],
+      icon: <FaNetworkWired className="text-3xl" />,
+      description: 'Network architecture and solutions',
       duration: '8 weeks',
     },
   ];
 
   const features = [
     {
-      title: 'Hands-on Labs',
-      description: 'Practice with real AWS services in our cloud lab environment',
+      title: 'Hands-on Lab Access',
+      description: 'Practice with real Alibaba Cloud environment',
     },
     {
-      title: 'Expert Instruction',
-      description: 'Learn from AWS-certified professionals with industry experience',
+      title: 'Official Curriculum',
+      description: 'Training aligned with Alibaba Cloud standards',
     },
     {
-      title: 'Exam Preparation',
-      description: 'Comprehensive prep materials and practice tests included',
+      title: 'Certification Support',
+      description: 'Exam vouchers and practice tests included',
     },
     {
-      title: 'Project-Based Learning',
-      description: 'Build real-world projects for your portfolio',
+      title: 'Industry Projects',
+      description: 'Real-world project experience',
     },
   ];
 
@@ -70,7 +72,7 @@ const AWSTraining = () => {
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white"
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+      <div className="bg-gradient-to-r from-red-600 to-red-700 text-white">
         <div className="container mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
@@ -79,23 +81,23 @@ const AWSTraining = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaAws className="text-6xl mb-6" />
+                <SiAlibabacloud className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  AWS Certification Training
+                  Alibaba Cloud Training
                 </h1>
                 <p className="text-xl mb-8">
-                  Become an AWS certified professional and advance your cloud career
+                  Become an Alibaba Cloud expert and advance your career in cloud computing
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
                     to="/contact"
-                    className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition duration-300"
+                    className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition duration-300"
                   >
                     Get Started
                   </Link>
                   <button
                     onClick={() => document.getElementById('courses').scrollIntoView({ behavior: 'smooth' })}
-                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition duration-300"
+                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition duration-300"
                   >
                     View Courses
                   </button>
@@ -126,7 +128,7 @@ const AWSTraining = () => {
 
       {/* Certification Tracks */}
       <div id="courses" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">AWS Certification Tracks</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Alibaba Cloud Certification Tracks</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {certifications.map((cert, index) => (
             <motion.div
@@ -139,9 +141,9 @@ const AWSTraining = () => {
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="text-orange-500">{cert.icon}</div>
+                  <div className="text-red-600">{cert.icon}</div>
                   {cert.popular && (
-                    <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">
+                    <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">
                       Popular
                     </span>
                   )}
@@ -162,7 +164,7 @@ const AWSTraining = () => {
                   <span className="text-sm text-gray-500">Duration: {cert.duration}</span>
                   <Link
                     to="/contact"
-                    className="text-orange-600 hover:text-orange-700 font-medium"
+                    className="text-red-600 hover:text-red-700 font-medium"
                   >
                     Learn More →
                   </Link>
@@ -176,13 +178,13 @@ const AWSTraining = () => {
       {/* CTA Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Begin Your AWS Journey?</h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Master Alibaba Cloud?</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who have accelerated their careers with our AWS certification training programs
+            Join our comprehensive Alibaba Cloud training program and become a certified cloud expert
           </p>
           <Link
             to="/contact"
-            className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition duration-300"
+            className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition duration-300"
           >
             Schedule a Consultation
           </Link>
@@ -192,4 +194,4 @@ const AWSTraining = () => {
   );
 };
 
-export default AWSTraining; 
+export default AlibabaCloudTraining; 

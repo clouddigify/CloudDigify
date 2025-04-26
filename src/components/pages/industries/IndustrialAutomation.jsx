@@ -2,64 +2,63 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  FaUniversity,
-  FaShieldAlt,
+  FaIndustry,
+  FaMicrochip,
+  FaNetworkWired,
   FaBrain,
-  FaMobileAlt,
   FaChartLine,
-  FaUserShield,
-  FaExchangeAlt,
-  FaFingerprint
+  FaCogs,
+  FaTools
 } from 'react-icons/fa';
 
-const Banking = () => {
+const IndustrialAutomation = () => {
   const solutions = [
     {
-      title: 'Digital Banking Platform',
-      icon: <FaMobileAlt className="text-3xl" />,
-      description: 'Modern digital banking solutions with omnichannel experience',
-      expertise: 'Serving 10M+ users across digital banking platforms'
+      title: 'Industrial IoT Platform',
+      icon: <FaNetworkWired className="text-3xl" />,
+      description: 'Comprehensive IIoT solutions for smart manufacturing',
+      expertise: 'Connected 10,000+ industrial devices across 50+ facilities'
     },
     {
-      title: 'AI-Powered Risk Management',
-      icon: <FaBrain className="text-3xl" />,
-      description: 'Advanced fraud detection and risk assessment',
-      expertise: 'Prevented $100M+ in potential fraud losses'
+      title: 'Predictive Maintenance',
+      icon: <FaTools className="text-3xl" />,
+      description: 'AI-powered maintenance prediction and optimization',
+      expertise: 'Reduced downtime by 45% for manufacturing clients'
     },
     {
-      title: 'Payment Solutions',
-      icon: <FaExchangeAlt className="text-3xl" />,
-      description: 'Secure payment processing and settlement systems',
-      expertise: 'Processing $1B+ in daily transactions'
+      title: 'Process Automation',
+      icon: <FaMicrochip className="text-3xl" />,
+      description: 'End-to-end automation solutions for manufacturing',
+      expertise: 'Automated 1000+ industrial processes with 99.9% reliability'
     },
     {
-      title: 'Banking Analytics',
+      title: 'Real-time Analytics',
       icon: <FaChartLine className="text-3xl" />,
-      description: 'Customer insights and operational analytics',
-      expertise: 'Enhanced customer engagement by 60%'
+      description: 'Live monitoring and performance analytics',
+      expertise: 'Processing 1M+ sensor data points per second'
     },
   ];
 
   const features = [
     {
-      title: 'Secure Access',
-      description: 'Multi-factor authentication',
-      icon: <FaFingerprint className="text-2xl text-blue-600" />
+      title: 'IoT Integration',
+      description: 'Connected systems',
+      icon: <FaNetworkWired className="text-2xl text-blue-600" />
     },
     {
-      title: 'Data Protection',
-      description: 'Bank-grade encryption',
-      icon: <FaShieldAlt className="text-2xl text-blue-600" />
+      title: 'Smart Sensors',
+      description: 'Advanced monitoring',
+      icon: <FaMicrochip className="text-2xl text-blue-600" />
     },
     {
-      title: 'Compliance',
-      description: 'Regulatory compliance',
-      icon: <FaUserShield className="text-2xl text-blue-600" />
+      title: 'AI Analytics',
+      description: 'Intelligent insights',
+      icon: <FaBrain className="text-2xl text-blue-600" />
     },
     {
-      title: 'Real-time Processing',
-      description: 'Instant transactions',
-      icon: <FaExchangeAlt className="text-2xl text-blue-600" />
+      title: 'Automation',
+      description: 'Process automation',
+      icon: <FaCogs className="text-2xl text-blue-600" />
     },
   ];
 
@@ -80,12 +79,12 @@ const Banking = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaUniversity className="text-6xl mb-6" />
+                <FaIndustry className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Modern Banking Solutions
+                  Industrial Automation Excellence
                 </h1>
                 <p className="text-xl mb-8">
-                  Secure, innovative banking solutions powered by AI and advanced analytics
+                  Advanced industrial solutions combining IoT, AI, and automation for smart manufacturing
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
@@ -110,7 +109,7 @@ const Banking = () => {
                 transition={{ delay: 0.4 }}
                 className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
               >
-                <h2 className="text-2xl font-semibold mb-4">Our Banking Expertise</h2>
+                <h2 className="text-2xl font-semibold mb-4">Our Industrial Expertise</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {features.map((feature, index) => (
                     <div key={index} className="bg-white/10 rounded-lg p-4">
@@ -130,7 +129,7 @@ const Banking = () => {
 
       {/* Solutions Section */}
       <div id="solutions" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">Banking Technology Solutions</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Industrial Technology Solutions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {solutions.map((solution, index) => (
             <motion.div
@@ -159,22 +158,22 @@ const Banking = () => {
       {/* Why Choose Us Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Banking</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Industrial Automation</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-6">
-              <FaShieldAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Bank-Grade Security</h3>
-              <p className="text-gray-600">Enterprise security with advanced encryption and compliance</p>
+              <FaIndustry className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Industry Experience</h3>
+              <p className="text-gray-600">Deep expertise in manufacturing and industrial processes</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6">
+              <FaNetworkWired className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">IoT Leadership</h3>
+              <p className="text-gray-600">Cutting-edge IIoT solutions for smart manufacturing</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
               <FaBrain className="text-4xl text-blue-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">AI Innovation</h3>
-              <p className="text-gray-600">Advanced AI solutions for risk management and automation</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6">
-              <FaMobileAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Digital Excellence</h3>
-              <p className="text-gray-600">Modern digital banking platforms and solutions</p>
+              <p className="text-gray-600">Advanced analytics and machine learning capabilities</p>
             </div>
           </div>
         </div>
@@ -183,9 +182,9 @@ const Banking = () => {
       {/* CTA Section */}
       <div className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Transform Your Banking Services</h2>
+          <h2 className="text-3xl font-bold mb-6">Transform Your Industrial Operations</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Partner with us to modernize your banking operations with secure, AI-powered solutions
+            Partner with us to modernize your manufacturing with IoT, AI, and advanced automation solutions
           </p>
           <Link
             to="/contact"
@@ -199,4 +198,4 @@ const Banking = () => {
   );
 };
 
-export default Banking; 
+export default IndustrialAutomation; 

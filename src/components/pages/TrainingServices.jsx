@@ -1,7 +1,8 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaCloud, FaCode, FaShieldAlt, FaGraduationCap, FaRocket, FaCogs, FaUsers, FaChartLine } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaAws, FaMicrosoft, FaGoogle, FaRobot, FaTools, FaBuilding, FaGraduationCap } from 'react-icons/fa';
+import { SiAlibabacloud, SiOracle } from 'react-icons/si';
 import PageTemplate from '../templates/PageTemplate';
 
 const TrainingServices = () => {
@@ -28,75 +29,80 @@ const TrainingServices = () => {
 
   const trainingCategories = [
     {
-      icon: <FaCloud className="text-5xl text-blue-600" />,
-      title: 'Cloud & DevOps',
-      description: 'Master cloud platforms and DevOps practices',
+      title: 'Cloud Platform Training',
+      description: 'Master the leading cloud platforms with our comprehensive certification programs',
       courses: [
-        'AWS Certification Training',
-        'Azure Cloud Training',
-        'DevOps Tools & Practices',
-        'Kubernetes & Container Training'
+        {
+          name: 'AWS Training',
+          icon: <FaAws className="text-4xl" />,
+          path: '/training/aws',
+          description: 'From AWS Solutions Architect to DevOps Engineer certifications',
+          popular: true,
+        },
+        {
+          name: 'Azure Training',
+          icon: <FaMicrosoft className="text-4xl" />,
+          path: '/training/azure',
+          description: 'Azure Administrator, Developer, and Solutions Architect paths',
+          popular: true,
+        },
+        {
+          name: 'Google Cloud',
+          icon: <FaGoogle className="text-4xl" />,
+          path: '/training/googlecloud',
+          description: 'GCP Professional certifications and specializations',
+        },
+        {
+          name: 'Alibaba Cloud',
+          icon: <SiAlibabacloud className="text-4xl" />,
+          path: '/training/alibabacloud',
+          description: 'ACA, ACP, and ACE certification training',
+        },
+        {
+          name: 'Oracle Cloud',
+          icon: <SiOracle className="text-4xl" />,
+          path: '/training/oracle',
+          description: 'OCI certifications and specialized tracks',
+        },
       ],
-      path: '/training-services/cloud-devops',
-      gradient: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: <FaRocket className="text-5xl text-indigo-600" />,
-      title: 'Digital Transformation',
-      description: 'Lead digital initiatives with confidence',
+      title: 'Technology & Innovation',
+      description: 'Stay ahead with cutting-edge technology training',
       courses: [
-        'Agile & Scrum',
-        'Digital Leadership',
-        'Innovation Workshops',
-        'Change Management'
+        {
+          name: 'AI & Machine Learning',
+          icon: <FaRobot className="text-4xl" />,
+          path: '/training/ai-ml',
+          description: 'Deep Learning, NLP, and AI Engineering courses',
+          popular: true,
+        },
+        {
+          name: 'Automation Tools',
+          icon: <FaTools className="text-4xl" />,
+          path: '/training/automation',
+          description: 'RPA, CI/CD, and DevOps automation training',
+        },
       ],
-      path: '/training-services/digital-transformation',
-      gradient: 'from-indigo-500 to-purple-500'
     },
     {
-      icon: <FaCogs className="text-5xl text-green-600" />,
-      title: 'Enterprise Solutions',
-      description: 'Build and maintain enterprise systems',
+      title: 'Enterprise Programs',
+      description: 'Customized training solutions for organizations and institutions',
       courses: [
-        'Enterprise Architecture',
-        'Microservices',
-        'API Design & Development',
-        'System Integration'
+        {
+          name: 'Corporate Training',
+          icon: <FaBuilding className="text-4xl" />,
+          path: '/training/corporate',
+          description: 'Tailored programs for enterprise workforce development',
+        },
+        {
+          name: 'Campus Training',
+          icon: <FaGraduationCap className="text-4xl" />,
+          path: '/training/campus',
+          description: 'Academic partnerships and student development programs',
+        },
       ],
-      path: '/training-services/enterprise-solutions',
-      gradient: 'from-green-500 to-emerald-500'
     },
-    {
-      icon: <FaShieldAlt className="text-5xl text-rose-600" />,
-      title: 'Security & Compliance',
-      description: 'Protect assets and ensure compliance',
-      courses: [
-        'Cybersecurity Training',
-        'Compliance Workshops',
-        'Security Best Practices',
-        'Risk Management'
-      ],
-      path: '/training-services/security-compliance',
-      gradient: 'from-rose-500 to-pink-500'
-    }
-  ];
-
-  const features = [
-    {
-      icon: <FaGraduationCap className="text-4xl text-blue-600" />,
-      title: 'Expert Instructors',
-      description: 'Learn from industry veterans with real-world experience'
-    },
-    {
-      icon: <FaUsers className="text-4xl text-indigo-600" />,
-      title: 'Interactive Learning',
-      description: 'Engage in hands-on exercises and group discussions'
-    },
-    {
-      icon: <FaChartLine className="text-4xl text-green-600" />,
-      title: 'Career Growth',
-      description: 'Acquire skills that accelerate your career progression'
-    }
   ];
 
   return (
@@ -126,33 +132,34 @@ const TrainingServices = () => {
                 className="group relative bg-white rounded-2xl shadow-lg overflow-hidden"
               >
                 {/* Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-10 group-hover:opacity-20 transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 opacity-10 group-hover:opacity-20 transition-opacity duration-300`} />
                 
                 <div className="relative p-8">
                   <div className="flex flex-col items-center text-center mb-6">
-                    {category.icon}
                     <h3 className="text-2xl font-semibold text-gray-900 mt-4 mb-2">{category.title}</h3>
                     <p className="text-gray-600">{category.description}</p>
                   </div>
                   
                   <ul className="space-y-3 mb-6">
-                    {category.courses.map((course, idx) => (
-                      <li key={idx} className="flex items-center text-gray-600">
-                        <span className="w-2 h-2 bg-blue-600 rounded-full mr-3" />
-                        {course}
+                    {category.courses.map((course, courseIndex) => (
+                      <li key={courseIndex} className="flex items-center text-gray-600">
+                        <div className={`text-${course.popular ? 'blue' : 'gray'}-600 mr-3`}>
+                          {course.icon}
+                        </div>
+                        <Link
+                          to={course.path}
+                          className="text-blue-600 hover:text-blue-700 transition duration-300"
+                        >
+                          {course.name}
+                        </Link>
+                        {course.popular && (
+                          <span className="ml-auto bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                            Popular
+                          </span>
+                        )}
                       </li>
                     ))}
                   </ul>
-                  
-                  <Link
-                    to={category.path}
-                    className="inline-flex items-center justify-center w-full px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 group"
-                  >
-                    Learn More
-                    <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -160,7 +167,7 @@ const TrainingServices = () => {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Benefits Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -174,20 +181,18 @@ const TrainingServices = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
-            ))}
+            <div className="bg-white p-6 rounded-xl shadow">
+              <h3 className="text-xl font-semibold mb-4">Expert Instructors</h3>
+              <p className="text-gray-600">Learn from industry professionals with real-world experience</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow">
+              <h3 className="text-xl font-semibold mb-4">Hands-on Labs</h3>
+              <p className="text-gray-600">Practice with real-world scenarios in our state-of-the-art labs</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow">
+              <h3 className="text-xl font-semibold mb-4">Flexible Learning</h3>
+              <p className="text-gray-600">Choose from online, in-person, or hybrid training options</p>
+            </div>
           </div>
         </div>
       </section>

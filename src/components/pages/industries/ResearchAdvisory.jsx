@@ -2,64 +2,64 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  FaUniversity,
-  FaShieldAlt,
+  FaChartBar,
   FaBrain,
-  FaMobileAlt,
-  FaChartLine,
-  FaUserShield,
-  FaExchangeAlt,
-  FaFingerprint
+  FaSearchPlus,
+  FaChartPie,
+  FaLightbulb,
+  FaProjectDiagram,
+  FaDatabase,
+  FaRegChartBar
 } from 'react-icons/fa';
 
-const Banking = () => {
+const ResearchAdvisory = () => {
   const solutions = [
     {
-      title: 'Digital Banking Platform',
-      icon: <FaMobileAlt className="text-3xl" />,
-      description: 'Modern digital banking solutions with omnichannel experience',
-      expertise: 'Serving 10M+ users across digital banking platforms'
-    },
-    {
-      title: 'AI-Powered Risk Management',
+      title: 'AI-Powered Research',
       icon: <FaBrain className="text-3xl" />,
-      description: 'Advanced fraud detection and risk assessment',
-      expertise: 'Prevented $100M+ in potential fraud losses'
+      description: 'Advanced AI solutions for research automation and insights',
+      expertise: 'Processed and analyzed 100TB+ of research data for insights'
     },
     {
-      title: 'Payment Solutions',
-      icon: <FaExchangeAlt className="text-3xl" />,
-      description: 'Secure payment processing and settlement systems',
-      expertise: 'Processing $1B+ in daily transactions'
+      title: 'Market Intelligence',
+      icon: <FaChartPie className="text-3xl" />,
+      description: 'Real-time market analysis and trend prediction',
+      expertise: 'Provided market insights for 500+ strategic decisions'
     },
     {
-      title: 'Banking Analytics',
-      icon: <FaChartLine className="text-3xl" />,
-      description: 'Customer insights and operational analytics',
-      expertise: 'Enhanced customer engagement by 60%'
+      title: 'Predictive Analytics',
+      icon: <FaRegChartBar className="text-3xl" />,
+      description: 'Advanced forecasting and trend analysis',
+      expertise: 'Achieved 90%+ accuracy in market trend predictions'
+    },
+    {
+      title: 'Data Visualization',
+      icon: <FaChartBar className="text-3xl" />,
+      description: 'Interactive dashboards and visual analytics',
+      expertise: 'Created 1000+ custom analytics dashboards'
     },
   ];
 
   const features = [
     {
-      title: 'Secure Access',
-      description: 'Multi-factor authentication',
-      icon: <FaFingerprint className="text-2xl text-blue-600" />
+      title: 'Deep Analysis',
+      description: 'Comprehensive research tools',
+      icon: <FaSearchPlus className="text-2xl text-blue-600" />
     },
     {
-      title: 'Data Protection',
-      description: 'Bank-grade encryption',
-      icon: <FaShieldAlt className="text-2xl text-blue-600" />
+      title: 'Data Integration',
+      description: 'Multi-source data analysis',
+      icon: <FaDatabase className="text-2xl text-blue-600" />
     },
     {
-      title: 'Compliance',
-      description: 'Regulatory compliance',
-      icon: <FaUserShield className="text-2xl text-blue-600" />
+      title: 'Smart Insights',
+      description: 'AI-driven recommendations',
+      icon: <FaLightbulb className="text-2xl text-blue-600" />
     },
     {
-      title: 'Real-time Processing',
-      description: 'Instant transactions',
-      icon: <FaExchangeAlt className="text-2xl text-blue-600" />
+      title: 'Network Analysis',
+      description: 'Advanced relationship mapping',
+      icon: <FaProjectDiagram className="text-2xl text-blue-600" />
     },
   ];
 
@@ -80,12 +80,12 @@ const Banking = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaUniversity className="text-6xl mb-6" />
+                <FaChartBar className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Modern Banking Solutions
+                  Research & Advisory Excellence
                 </h1>
                 <p className="text-xl mb-8">
-                  Secure, innovative banking solutions powered by AI and advanced analytics
+                  Data-driven insights and strategic advisory powered by advanced analytics and AI
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
@@ -110,7 +110,7 @@ const Banking = () => {
                 transition={{ delay: 0.4 }}
                 className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
               >
-                <h2 className="text-2xl font-semibold mb-4">Our Banking Expertise</h2>
+                <h2 className="text-2xl font-semibold mb-4">Our Research Expertise</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {features.map((feature, index) => (
                     <div key={index} className="bg-white/10 rounded-lg p-4">
@@ -130,7 +130,7 @@ const Banking = () => {
 
       {/* Solutions Section */}
       <div id="solutions" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">Banking Technology Solutions</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Research & Analytics Solutions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {solutions.map((solution, index) => (
             <motion.div
@@ -159,22 +159,22 @@ const Banking = () => {
       {/* Why Choose Us Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Banking</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Research & Advisory</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-6">
-              <FaShieldAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Bank-Grade Security</h3>
-              <p className="text-gray-600">Enterprise security with advanced encryption and compliance</p>
+              <FaSearchPlus className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Deep Research</h3>
+              <p className="text-gray-600">Comprehensive research methodology with advanced tools</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
               <FaBrain className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">AI Innovation</h3>
-              <p className="text-gray-600">Advanced AI solutions for risk management and automation</p>
+              <h3 className="text-xl font-semibold mb-2">AI-Powered Insights</h3>
+              <p className="text-gray-600">Advanced analytics and machine learning capabilities</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
-              <FaMobileAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Digital Excellence</h3>
-              <p className="text-gray-600">Modern digital banking platforms and solutions</p>
+              <FaLightbulb className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Strategic Advisory</h3>
+              <p className="text-gray-600">Data-backed recommendations for informed decisions</p>
             </div>
           </div>
         </div>
@@ -183,9 +183,9 @@ const Banking = () => {
       {/* CTA Section */}
       <div className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Transform Your Banking Services</h2>
+          <h2 className="text-3xl font-bold mb-6">Transform Your Research & Advisory</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Partner with us to modernize your banking operations with secure, AI-powered solutions
+            Partner with us to leverage AI-powered research and analytics for better decision making
           </p>
           <Link
             to="/contact"
@@ -199,4 +199,4 @@ const Banking = () => {
   );
 };
 
-export default Banking; 
+export default ResearchAdvisory; 

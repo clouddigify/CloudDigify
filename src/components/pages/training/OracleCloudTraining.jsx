@@ -1,64 +1,66 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaAws, FaServer, FaDatabase, FaCloud, FaShieldAlt, FaCode } from 'react-icons/fa';
+import { FaCloud, FaDatabase, FaCode, FaNetworkWired, FaShieldAlt } from 'react-icons/fa';
+import { SiOracle } from 'react-icons/si';
 
-const AWSTraining = () => {
+const OracleCloudTraining = () => {
   const certifications = [
     {
-      title: 'AWS Solutions Architect',
+      title: 'OCI Architect',
       levels: ['Associate', 'Professional'],
       icon: <FaCloud className="text-3xl" />,
-      description: 'Design and deploy scalable, highly available systems on AWS',
+      description: 'Design and implement Oracle Cloud Infrastructure solutions',
       duration: '12 weeks',
       popular: true,
     },
     {
-      title: 'AWS Developer',
+      title: 'OCI Developer',
       levels: ['Associate'],
       icon: <FaCode className="text-3xl" />,
-      description: 'Develop and maintain AWS-based applications',
+      description: 'Build and deploy applications on Oracle Cloud',
       duration: '10 weeks',
+      popular: true,
     },
     {
-      title: 'AWS SysOps Administrator',
+      title: 'OCI Operations',
       levels: ['Associate'],
-      icon: <FaServer className="text-3xl" />,
-      description: 'Deploy, manage, and operate scalable systems on AWS',
-      duration: '10 weeks',
-    },
-    {
-      title: 'AWS Database Specialty',
-      levels: ['Specialty'],
-      icon: <FaDatabase className="text-3xl" />,
-      description: 'Design and maintain AWS database solutions',
+      icon: <FaNetworkWired className="text-3xl" />,
+      description: 'Manage and monitor Oracle Cloud Infrastructure',
       duration: '8 weeks',
     },
     {
-      title: 'AWS Security Specialty',
-      levels: ['Specialty'],
+      title: 'OCI Database',
+      levels: ['Professional'],
+      icon: <FaDatabase className="text-3xl" />,
+      description: 'Manage Oracle Cloud databases and data platforms',
+      duration: '10 weeks',
+    },
+    {
+      title: 'OCI Security',
+      levels: ['Associate'],
       icon: <FaShieldAlt className="text-3xl" />,
-      description: 'Implement security controls and compliance requirements',
+      description: 'Implement security in Oracle Cloud Infrastructure',
       duration: '8 weeks',
     },
   ];
 
   const features = [
     {
-      title: 'Hands-on Labs',
-      description: 'Practice with real AWS services in our cloud lab environment',
+      title: 'Oracle Cloud Access',
+      description: 'Hands-on experience with OCI environment',
     },
     {
-      title: 'Expert Instruction',
-      description: 'Learn from AWS-certified professionals with industry experience',
+      title: 'Oracle Certified Content',
+      description: 'Training aligned with Oracle certification standards',
     },
     {
       title: 'Exam Preparation',
-      description: 'Comprehensive prep materials and practice tests included',
+      description: 'Certification vouchers and practice tests included',
     },
     {
-      title: 'Project-Based Learning',
-      description: 'Build real-world projects for your portfolio',
+      title: 'Enterprise Projects',
+      description: 'Real-world enterprise implementation experience',
     },
   ];
 
@@ -70,7 +72,7 @@ const AWSTraining = () => {
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white"
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+      <div className="bg-gradient-to-r from-red-800 to-red-900 text-white">
         <div className="container mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
@@ -79,23 +81,23 @@ const AWSTraining = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaAws className="text-6xl mb-6" />
+                <SiOracle className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  AWS Certification Training
+                  Oracle Cloud Training
                 </h1>
                 <p className="text-xl mb-8">
-                  Become an AWS certified professional and advance your cloud career
+                  Master Oracle Cloud Infrastructure and advance your enterprise cloud career
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
                     to="/contact"
-                    className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition duration-300"
+                    className="bg-white text-red-800 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition duration-300"
                   >
                     Get Started
                   </Link>
                   <button
                     onClick={() => document.getElementById('courses').scrollIntoView({ behavior: 'smooth' })}
-                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition duration-300"
+                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-800 transition duration-300"
                   >
                     View Courses
                   </button>
@@ -126,7 +128,7 @@ const AWSTraining = () => {
 
       {/* Certification Tracks */}
       <div id="courses" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">AWS Certification Tracks</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Oracle Cloud Certification Tracks</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {certifications.map((cert, index) => (
             <motion.div
@@ -139,9 +141,9 @@ const AWSTraining = () => {
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="text-orange-500">{cert.icon}</div>
+                  <div className="text-red-800">{cert.icon}</div>
                   {cert.popular && (
-                    <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">
+                    <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">
                       Popular
                     </span>
                   )}
@@ -162,7 +164,7 @@ const AWSTraining = () => {
                   <span className="text-sm text-gray-500">Duration: {cert.duration}</span>
                   <Link
                     to="/contact"
-                    className="text-orange-600 hover:text-orange-700 font-medium"
+                    className="text-red-800 hover:text-red-900 font-medium"
                   >
                     Learn More →
                   </Link>
@@ -176,13 +178,13 @@ const AWSTraining = () => {
       {/* CTA Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Begin Your AWS Journey?</h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Excel with Oracle Cloud?</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who have accelerated their careers with our AWS certification training programs
+            Join our comprehensive Oracle Cloud training program and become a certified enterprise cloud expert
           </p>
           <Link
             to="/contact"
-            className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition duration-300"
+            className="bg-red-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-900 transition duration-300"
           >
             Schedule a Consultation
           </Link>
@@ -192,4 +194,4 @@ const AWSTraining = () => {
   );
 };
 
-export default AWSTraining; 
+export default OracleCloudTraining; 

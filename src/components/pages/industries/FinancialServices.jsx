@@ -1,172 +1,202 @@
 import React from 'react';
-import { FaDatabase, FaLock, FaChartLine, FaRobot, FaShieldAlt } from 'react-icons/fa';
-import PageTemplate from '../../templates/PageTemplate';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { 
+  FaChartLine, 
+  FaShieldAlt, 
+  FaBrain, 
+  FaDatabase,
+  FaLock,
+  FaHandshake,
+  FaRegChartBar,
+  FaCubes
+} from 'react-icons/fa';
 
 const FinancialServices = () => {
-  // Define the industry info object
-  const pageInfo = {
-    title: "Financial Services",
-    description: "Secure, compliant, and innovative cloud solutions for banking, insurance, and capital markets",
-    icon: <FaDatabase size={36} className="mb-4 text-blue-600" />,
-    heroBackground: "from-blue-800 to-indigo-900",
-    
-    overviewTitle: "Transforming Financial Services with Cloud Technology",
-    overviewDescription1: "The financial services industry is undergoing rapid digital transformation, driven by changing customer expectations, increasing regulatory requirements, and the need for operational efficiency. CloudDigify helps financial institutions navigate this complex landscape with secure and innovative cloud solutions.",
-    overviewDescription2: "Our deep understanding of the financial services industry, combined with our cloud expertise, enables us to deliver solutions that enhance customer experiences, improve operational efficiency, and ensure regulatory compliance.",
-    
-    challenges: [
-      "Legacy system modernization without disruption",
-      "Regulatory compliance (GDPR, PSD2, etc.)",
-      "Cybersecurity and fraud prevention",
-      "Digital customer experience enhancement",
-      "Data analytics and business intelligence",
-      "Cost reduction and operational efficiency"
-    ],
-    
-    sidebarTitle: "Key Financial Services Sectors",
-    approachPoints: [
-      "Banking & Payment Services",
-      "Insurance & Risk Management",
-      "Capital Markets & Investments",
-      "Fintech & Digital Finance"
-    ],
-    secondaryCta: "Schedule a Consultation",
-    
-    sidebarContent: {
-      title: "Industry Expertise",
-      description: "Our team includes former banking and financial services professionals who understand your industry's unique challenges and regulatory requirements."
+  const solutions = [
+    {
+      title: 'AI-Powered Risk Management',
+      icon: <FaBrain className="text-3xl" />,
+      description: 'Advanced risk assessment and fraud detection using artificial intelligence',
+      expertise: 'Implemented ML models for fraud detection with 99.9% accuracy'
     },
-    
-    additionalSections: [
-      {
-        content: (
-          <>
-            <div className="mb-12">
-              <h3 className="text-2xl font-bold mb-8 text-center">Financial Services Sectors We Serve</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="text-blue-600 mb-3">
-                    <FaDatabase size={24} />
-                  </div>
-                  <h4 className="text-xl font-semibold mb-2">Banking</h4>
-                  <p className="text-gray-700 mb-3">Digital banking platforms, core banking modernization, payment processing, and fraud detection solutions.</p>
-                  <Link 
-                    to="/industries/banking" 
-                    className="text-blue-600 font-medium inline-flex items-center group"
+    {
+      title: 'Blockchain Solutions',
+      icon: <FaCubes className="text-3xl" />,
+      description: 'Secure, transparent financial transactions using blockchain technology',
+      expertise: 'Developed smart contracts for automated trading and settlements'
+    },
+    {
+      title: 'Data Analytics Platform',
+      icon: <FaRegChartBar className="text-3xl" />,
+      description: 'Real-time financial analytics and reporting solutions',
+      expertise: 'Built predictive analytics platforms for major financial institutions'
+    },
+    {
+      title: 'Regulatory Compliance',
+      icon: <FaLock className="text-3xl" />,
+      description: 'Automated compliance monitoring and reporting systems',
+      expertise: 'Implemented solutions compliant with SEC, FINRA, and international regulations'
+    },
+  ];
+
+  const features = [
+    {
+      title: 'Data Security',
+      description: 'Bank-grade encryption and security',
+      icon: <FaShieldAlt className="text-2xl text-blue-600" />
+    },
+    {
+      title: 'Real-time Processing',
+      description: 'High-speed transaction processing',
+      icon: <FaChartLine className="text-2xl text-blue-600" />
+    },
+    {
+      title: 'Data Integration',
+      description: 'Seamless financial data integration',
+      icon: <FaDatabase className="text-2xl text-blue-600" />
+    },
+    {
+      title: 'Partnership Network',
+      description: 'Global financial network access',
+      icon: <FaHandshake className="text-2xl text-blue-600" />
+    },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-white"
+    >
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+        <div className="container mx-auto px-4 py-20">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="md:w-1/2 mb-8 md:mb-0">
+              <motion.div
+                initial={{ x: -50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <FaChartLine className="text-6xl mb-6" />
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                  Financial Services Innovation
+                </h1>
+                <p className="text-xl mb-8">
+                  Advanced solutions for modern financial institutions combining AI, blockchain, and analytics
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Link
+                    to="/contact"
+                    className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300"
                   >
-                    Learn More 
-                    <svg className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
+                    Get Started
                   </Link>
+                  <button
+                    onClick={() => document.getElementById('solutions').scrollIntoView({ behavior: 'smooth' })}
+                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300"
+                  >
+                    View Solutions
+                  </button>
                 </div>
-                
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="text-blue-600 mb-3">
-                    <FaLock size={24} />
-                  </div>
-                  <h4 className="text-xl font-semibold mb-2">Insurance</h4>
-                  <p className="text-gray-700 mb-3">Policy administration, claims processing, underwriting automation, and customer engagement solutions.</p>
-                  <Link 
-                    to="/industries/insurance" 
-                    className="text-blue-600 font-medium inline-flex items-center group"
-                  >
-                    Learn More 
-                    <svg className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
+              </motion.div>
+            </div>
+            <div className="md:w-1/2">
+              <motion.div
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
+              >
+                <h2 className="text-2xl font-semibold mb-4">Our Financial Expertise</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {features.map((feature, index) => (
+                    <div key={index} className="bg-white/10 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        {feature.icon}
+                        <h3 className="font-semibold">{feature.title}</h3>
+                      </div>
+                      <p className="text-sm">{feature.description}</p>
+                    </div>
+                  ))}
                 </div>
-                
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="text-blue-600 mb-3">
-                    <FaChartLine size={24} />
-                  </div>
-                  <h4 className="text-xl font-semibold mb-2">Capital Markets</h4>
-                  <p className="text-gray-700 mb-3">Trading platforms, risk management, regulatory reporting, and analytics solutions.</p>
-                  <Link 
-                    to="/industries/capital-markets" 
-                    className="text-blue-600 font-medium inline-flex items-center group"
-                  >
-                    Learn More 
-                    <svg className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Solutions Section */}
+      <div id="solutions" className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold mb-12 text-center">Financial Technology Solutions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {solutions.map((solution, index) => (
+            <motion.div
+              key={index}
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden"
+            >
+              <div className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="text-blue-600">{solution.icon}</div>
                 </div>
-                
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="text-blue-600 mb-3">
-                    <FaRobot size={24} />
-                  </div>
-                  <h4 className="text-xl font-semibold mb-2">Fintech</h4>
-                  <p className="text-gray-700 mb-3">Digital lending, payment innovation, blockchain solutions, and AI-powered financial services.</p>
-                  <Link 
-                    to="/industries/fintech" 
-                    className="text-blue-600 font-medium inline-flex items-center group"
-                  >
-                    Learn More 
-                    <svg className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
+                <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
+                <p className="text-gray-600 mb-4">{solution.description}</p>
+                <div className="bg-blue-50 p-3 rounded-lg">
+                  <p className="text-sm text-blue-700">{solution.expertise}</p>
                 </div>
               </div>
-            </div>
-          </>
-        )
-      }
-    ],
-    
-    solutionsTitle: "Our Financial Services Solutions",
-    solutions: [
-      {
-        title: "Core System Modernization",
-        icon: <FaDatabase className="text-blue-600 text-3xl mb-3" />,
-        description: "We help financial institutions modernize their legacy core systems to improve agility, reduce costs, and enhance customer experiences.",
-        features: ["Gradual migration strategies to minimize risk", "API-first architecture for flexibility", "Cloud-native solutions for scalability", "Regulatory compliance by design"]
-      },
-      {
-        title: "Cybersecurity & Compliance",
-        icon: <FaShieldAlt className="text-blue-600 text-3xl mb-3" />,
-        description: "Our cybersecurity solutions help financial institutions protect sensitive data, prevent fraud, and comply with regulatory requirements.",
-        features: ["Multi-layered security architecture", "Real-time fraud detection", "Automated compliance monitoring", "Secure authentication solutions"]
-      },
-      {
-        title: "Data Analytics & AI",
-        icon: <FaChartLine className="text-blue-600 text-3xl mb-3" />,
-        description: "Unlock the value of your data with advanced analytics and AI solutions that drive better decision-making and customer insights.",
-        features: ["Customer behavior analytics", "Risk modeling and analysis", "Predictive maintenance", "AI-powered recommendations"]
-      },
-      {
-        title: "Digital Customer Experience",
-        icon: <FaRobot className="text-blue-600 text-3xl mb-3" />,
-        description: "Create seamless, omnichannel experiences that meet the expectations of today's digital-first financial services customers.",
-        features: ["Omnichannel customer journeys", "Personalization engines", "Digital onboarding processes", "Self-service capabilities"]
-      }
-    ],
-    
-    caseStudy: {
-      title: "Financial Services Transformation",
-      client: "Global Investment Firm",
-      challenge: "A global investment firm with over $50 billion in assets under management was struggling with legacy systems that limited their ability to scale and innovate. They needed to modernize their IT infrastructure while ensuring security, compliance, and business continuity for their clients worldwide.",
-      solution: "CloudDigify implemented a comprehensive cloud transformation strategy, establishing a secure AWS landing zone with proper security controls and governance. We migrated core applications to microservices architecture, implemented DevOps practices for continuous delivery, and deployed advanced data analytics solutions for real-time insights.",
-      results: [
-        "70% reduction in infrastructure costs through cloud optimization",
-        "85% faster application deployment with automated CI/CD pipelines",
-        "99.99% system availability with robust disaster recovery",
-        "Enhanced data security posture exceeding regulatory requirements"
-      ]
-    },
-    
-    ctaTitle: "Ready to Transform Your Financial Services Organization?",
-    ctaDescription: "Contact our team to discuss how our cloud solutions can help your financial institution innovate, reduce costs, and deliver exceptional customer experiences.",
-    finalCta: "Start Your Financial Transformation"
-  };
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-  return <PageTemplate pageInfo={pageInfo} pageType="industry" />;
+      {/* Why Choose Us Section */}
+      <div className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Financial Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center text-center p-6">
+              <FaShieldAlt className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Security First</h3>
+              <p className="text-gray-600">Enterprise-grade security with advanced encryption and compliance measures</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6">
+              <FaBrain className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">AI Innovation</h3>
+              <p className="text-gray-600">Cutting-edge AI solutions for risk management and fraud detection</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6">
+              <FaCubes className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Blockchain Expertise</h3>
+              <p className="text-gray-600">Advanced blockchain solutions for secure, transparent transactions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-6">Transform Your Financial Services</h2>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            Partner with us to modernize your financial operations with cutting-edge AI, blockchain, and analytics solutions
+          </p>
+          <Link
+            to="/contact"
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+          >
+            Schedule a Consultation
+          </Link>
+        </div>
+      </div>
+    </motion.div>
+  );
 };
 
 export default FinancialServices; 

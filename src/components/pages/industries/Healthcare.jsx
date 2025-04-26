@@ -2,64 +2,64 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  FaUniversity,
-  FaShieldAlt,
-  FaBrain,
-  FaMobileAlt,
+  FaHeartbeat, 
+  FaBrain, 
+  FaLock, 
+  FaDatabase,
+  FaUserMd,
+  FaHospital,
   FaChartLine,
-  FaUserShield,
-  FaExchangeAlt,
-  FaFingerprint
+  FaMicroscope
 } from 'react-icons/fa';
 
-const Banking = () => {
+const Healthcare = () => {
   const solutions = [
     {
-      title: 'Digital Banking Platform',
-      icon: <FaMobileAlt className="text-3xl" />,
-      description: 'Modern digital banking solutions with omnichannel experience',
-      expertise: 'Serving 10M+ users across digital banking platforms'
-    },
-    {
-      title: 'AI-Powered Risk Management',
+      title: 'AI Diagnostic Support',
       icon: <FaBrain className="text-3xl" />,
-      description: 'Advanced fraud detection and risk assessment',
-      expertise: 'Prevented $100M+ in potential fraud losses'
+      description: 'Advanced AI-powered diagnostic tools and medical imaging analysis',
+      expertise: 'Deployed ML models for early disease detection with 95% accuracy'
     },
     {
-      title: 'Payment Solutions',
-      icon: <FaExchangeAlt className="text-3xl" />,
-      description: 'Secure payment processing and settlement systems',
-      expertise: 'Processing $1B+ in daily transactions'
-    },
-    {
-      title: 'Banking Analytics',
+      title: 'Patient Data Analytics',
       icon: <FaChartLine className="text-3xl" />,
-      description: 'Customer insights and operational analytics',
-      expertise: 'Enhanced customer engagement by 60%'
+      description: 'Comprehensive patient data analysis and predictive healthcare',
+      expertise: 'Implemented predictive analytics for 100+ healthcare providers'
+    },
+    {
+      title: 'Clinical Research Platform',
+      icon: <FaMicroscope className="text-3xl" />,
+      description: 'Advanced platforms for clinical trials and research data management',
+      expertise: 'Supported 200+ clinical trials with data management solutions'
+    },
+    {
+      title: 'Healthcare Security',
+      icon: <FaLock className="text-3xl" />,
+      description: 'HIPAA-compliant security solutions for healthcare data',
+      expertise: 'Protected 10M+ patient records with zero breaches'
     },
   ];
 
   const features = [
     {
-      title: 'Secure Access',
-      description: 'Multi-factor authentication',
-      icon: <FaFingerprint className="text-2xl text-blue-600" />
+      title: 'HIPAA Compliance',
+      description: 'Complete regulatory compliance',
+      icon: <FaLock className="text-2xl text-blue-600" />
     },
     {
-      title: 'Data Protection',
-      description: 'Bank-grade encryption',
-      icon: <FaShieldAlt className="text-2xl text-blue-600" />
+      title: 'EMR Integration',
+      description: 'Seamless medical records integration',
+      icon: <FaDatabase className="text-2xl text-blue-600" />
     },
     {
-      title: 'Compliance',
-      description: 'Regulatory compliance',
-      icon: <FaUserShield className="text-2xl text-blue-600" />
+      title: 'Telemedicine Support',
+      description: 'Advanced telehealth solutions',
+      icon: <FaUserMd className="text-2xl text-blue-600" />
     },
     {
-      title: 'Real-time Processing',
-      description: 'Instant transactions',
-      icon: <FaExchangeAlt className="text-2xl text-blue-600" />
+      title: 'Hospital Management',
+      description: 'Comprehensive hospital systems',
+      icon: <FaHospital className="text-2xl text-blue-600" />
     },
   ];
 
@@ -80,12 +80,12 @@ const Banking = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaUniversity className="text-6xl mb-6" />
+                <FaHeartbeat className="text-6xl mb-6" />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Modern Banking Solutions
+                  Healthcare Innovation
                 </h1>
                 <p className="text-xl mb-8">
-                  Secure, innovative banking solutions powered by AI and advanced analytics
+                  Advanced healthcare solutions combining AI diagnostics, secure data management, and patient care analytics
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link
@@ -110,7 +110,7 @@ const Banking = () => {
                 transition={{ delay: 0.4 }}
                 className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
               >
-                <h2 className="text-2xl font-semibold mb-4">Our Banking Expertise</h2>
+                <h2 className="text-2xl font-semibold mb-4">Our Healthcare Expertise</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {features.map((feature, index) => (
                     <div key={index} className="bg-white/10 rounded-lg p-4">
@@ -130,7 +130,7 @@ const Banking = () => {
 
       {/* Solutions Section */}
       <div id="solutions" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-12 text-center">Banking Technology Solutions</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center">Healthcare Technology Solutions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {solutions.map((solution, index) => (
             <motion.div
@@ -159,22 +159,22 @@ const Banking = () => {
       {/* Why Choose Us Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Banking</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Healthcare</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-6">
-              <FaShieldAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Bank-Grade Security</h3>
-              <p className="text-gray-600">Enterprise security with advanced encryption and compliance</p>
+              <FaUserMd className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Medical Expertise</h3>
+              <p className="text-gray-600">Deep understanding of healthcare workflows and clinical processes</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
               <FaBrain className="text-4xl text-blue-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">AI Innovation</h3>
-              <p className="text-gray-600">Advanced AI solutions for risk management and automation</p>
+              <p className="text-gray-600">Cutting-edge AI solutions for diagnosis and patient care</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
-              <FaMobileAlt className="text-4xl text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Digital Excellence</h3>
-              <p className="text-gray-600">Modern digital banking platforms and solutions</p>
+              <FaLock className="text-4xl text-blue-600 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Data Security</h3>
+              <p className="text-gray-600">HIPAA-compliant solutions with robust security measures</p>
             </div>
           </div>
         </div>
@@ -183,9 +183,9 @@ const Banking = () => {
       {/* CTA Section */}
       <div className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Transform Your Banking Services</h2>
+          <h2 className="text-3xl font-bold mb-6">Transform Your Healthcare Services</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Partner with us to modernize your banking operations with secure, AI-powered solutions
+            Partner with us to modernize your healthcare operations with AI-powered diagnostics and secure patient care solutions
           </p>
           <Link
             to="/contact"
@@ -199,4 +199,4 @@ const Banking = () => {
   );
 };
 
-export default Banking; 
+export default Healthcare; 

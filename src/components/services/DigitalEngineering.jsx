@@ -1,33 +1,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaShieldAlt, FaLock, FaEye, FaUserSecret, FaServer, FaExclamationTriangle, FaClipboardCheck, FaNetworkWired, FaDatabase, FaChartLine, FaLaptop, FaUserLock, FaUserTie, FaAward, FaCertificate } from 'react-icons/fa';
+import { FaLaptopCode, FaMobile, FaCode, FaDatabase, FaCogs, FaCloud, FaDesktop, FaUserFriends, FaTools, FaCubes, FaRocket, FaChartLine, FaGlobe, FaTrophy, FaHandshake } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 
-const CyberDefence = () => {
+const DigitalEngineering = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  // Simple Static Security Visual
-  const SecurityVisual = () => {
+  // Simple Static Visual Component
+  const EngineeringVisual = () => {
     return (
       <div className="p-8 bg-white bg-opacity-10 rounded-lg shadow-lg mx-auto max-w-2xl mt-8">
         <div className="flex flex-col items-center">
-          {/* Security Shield */}
+          {/* Central Icon */}
           <div className="mb-6">
-            <FaShieldAlt className="text-6xl text-blue-400" />
+            <FaLaptopCode className="text-6xl text-blue-400" />
           </div>
           
-          {/* Defense Layers */}
+          {/* Engineering Disciplines */}
           <div className="w-full grid grid-cols-3 gap-4">
             {[
-              { name: 'Network Security', icon: FaNetworkWired, color: '#3B82F6' },
-              { name: 'Endpoint Security', icon: FaLaptop, color: '#10B981' },
-              { name: 'Data Security', icon: FaDatabase, color: '#F59E0B' },
-              { name: 'Identity Access', icon: FaUserLock, color: '#EC4899' },
-              { name: 'Threat Detection', icon: FaExclamationTriangle, color: '#8B5CF6' },
-              { name: 'Security Monitoring', icon: FaChartLine, color: '#2563EB' },
+              { name: 'Frontend', icon: FaDesktop, color: '#3B82F6' },
+              { name: 'Backend', icon: FaDatabase, color: '#10B981' },
+              { name: 'Mobile', icon: FaMobile, color: '#F59E0B' },
+              { name: 'API Services', icon: FaCogs, color: '#EC4899' },
+              { name: 'Cloud Native', icon: FaCloud, color: '#8B5CF6' },
+              { name: 'Integration', icon: FaCubes, color: '#2563EB' },
             ].map((layer, index) => (
               <div 
                 key={index}
@@ -42,7 +42,7 @@ const CyberDefence = () => {
           
           {/* Central Element */}
           <div className="mt-8 bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 rounded-full shadow-md text-white">
-            <span className="font-semibold">Complete Defense in Depth Strategy</span>
+            <span className="font-semibold">End-to-End Digital Solutions</span>
           </div>
         </div>
       </div>
@@ -58,16 +58,16 @@ const CyberDefence = () => {
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="text-white">
             <div className="text-5xl mb-6 flex justify-center">
-              <FaShieldAlt className="text-white" />
+              <FaLaptopCode className="text-white" />
             </div>
             <h1 className="text-5xl font-bold mb-6">
-              Enterprise Cyber Defence Solutions
+              Digital Engineering Excellence
             </h1>
             <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
-              Your trusted partner for comprehensive cybersecurity. We protect your business with our proven multi-layered defense strategies, reducing your risk while you focus on growth.
+              Transform your business with our cutting-edge digital engineering services. We deliver scalable, secure, and future-ready solutions that drive innovation and growth.
             </p>
             
-            <SecurityVisual />
+            <EngineeringVisual />
           </div>
         </div>
         
@@ -91,25 +91,25 @@ const CyberDefence = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl font-bold text-gray-900 text-center mb-12"
           >
-            Why Choose Our Cyber Defence Services
+            Why Choose Our Digital Engineering Services
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: FaUserTie,
-                title: "Industry Expertise",
-                description: "Our certified security professionals have 15+ years of experience protecting Fortune 500 companies from sophisticated cyber threats."
+                icon: FaRocket,
+                title: "Technical Excellence",
+                description: "Our team of 200+ engineers have developed over 500 successful applications using the latest technologies and best practices in software development."
               },
               {
-                icon: FaAward,
-                title: "Proven Track Record",
-                description: "We've successfully prevented over 1,000 potential breaches and reduced security incidents by 85% for our clients."
+                icon: FaUserFriends,
+                title: "Collaborative Approach",
+                description: "We work as an extension of your team, adapting to your processes while bringing our expertise to enhance your development capabilities."
               },
               {
-                icon: FaCertificate,
-                title: "Tailored Solutions",
-                description: "We customize our cybersecurity approach to your specific industry regulations, business needs, and existing infrastructure."
+                icon: FaTools,
+                title: "Full-Stack Expertise",
+                description: "From frontend to backend, mobile to cloud infrastructure - we deliver end-to-end solutions with specialized expertise in every layer of the technology stack."
               }
             ].map((feature, index) => (
               <motion.div
@@ -144,34 +144,34 @@ const CyberDefence = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: FaLock,
-                title: "Advanced Threat Protection",
-                description: "We implement cutting-edge security solutions to detect and neutralize sophisticated attacks before they impact your business."
+                icon: FaDesktop,
+                title: "Custom Application Development",
+                description: "We design and build bespoke applications tailored to your unique business requirements, using cutting-edge technologies and agile methodologies."
               },
               {
-                icon: FaEye,
-                title: "24/7 Security Monitoring",
-                description: "Our security operations center provides round-the-clock monitoring with real-time alerts and rapid incident response."
+                icon: FaMobile,
+                title: "Mobile Development",
+                description: "Our experts create powerful, user-friendly mobile applications for iOS and Android platforms that engage users and drive business growth."
               },
               {
-                icon: FaUserSecret,
-                title: "Penetration Testing",
-                description: "Our ethical hackers identify vulnerabilities in your systems using the same techniques as malicious actors, before they can be exploited."
+                icon: FaCloud,
+                title: "Cloud-Native Development",
+                description: "We architect and develop applications specifically for cloud environments, maximizing scalability, reliability, and cost-efficiency."
               },
               {
-                icon: FaServer,
-                title: "Infrastructure Security",
-                description: "We secure your entire IT ecosystem from endpoints to cloud, ensuring comprehensive protection at every layer."
+                icon: FaCode,
+                title: "API Development & Integration",
+                description: "We build robust APIs that connect your systems and allow for seamless data exchange between applications, partners, and services."
               },
               {
-                icon: FaExclamationTriangle,
-                title: "Incident Response",
-                description: "Our rapid response team contains, mitigates, and remediates security breaches to minimize damage and recovery time."
+                icon: FaDatabase,
+                title: "Database Engineering",
+                description: "Our database specialists design and implement high-performance, scalable data solutions that ensure data integrity and availability."
               },
               {
-                icon: FaClipboardCheck,
-                title: "Security Compliance",
-                description: "We ensure your organization meets all industry regulations and standards including GDPR, HIPAA, PCI DSS, and more."
+                icon: FaCogs,
+                title: "DevOps & Automation",
+                description: "We implement CI/CD pipelines and automate processes to increase deployment frequency, reduce time-to-market, and improve software quality."
               }
             ].map((feature, index) => (
               <motion.div
@@ -204,24 +204,24 @@ const CyberDefence = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "Risk Reduction",
-                value: "85%",
-                description: "Our clients experience significant reduction in security incidents and breaches"
+                title: "Time-to-Market",
+                value: "60%",
+                description: "Faster product delivery through our agile development practices and specialized expertise"
               },
               {
-                title: "Detection Speed",
-                value: "98%",
-                description: "Faster threat detection through our AI-powered continuous monitoring systems"
+                title: "Cost Efficiency",
+                value: "40%",
+                description: "Reduction in development costs compared to traditional approaches"
               },
               {
-                title: "Recovery Time",
-                value: "75%",
-                description: "Faster recovery from security incidents with our proven response protocols"
+                title: "Performance",
+                value: "95%",
+                description: "Improvement in application performance and user experience metrics"
               },
               {
-                title: "Compliance",
+                title: "Scalability",
                 value: "100%",
-                description: "Our clients achieve full compliance with relevant regulatory requirements"
+                description: "Our solutions are built to scale seamlessly with your business growth"
               }
             ].map((benefit, index) => (
               <motion.div
@@ -240,15 +240,60 @@ const CyberDefence = () => {
         </div>
       </section>
 
+      {/* Case Study Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <motion.h2
+            initial={{ y: 20, opacity: 0 }}
+            animate={inView ? { y: 0, opacity: 1 } : {}}
+            className="text-4xl font-bold text-gray-900 text-center mb-12"
+          >
+            Success Story
+          </motion.h2>
+          
+          <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
+            <div className="p-8">
+              <h3 className="text-2xl font-bold text-indigo-600 mb-4">Global E-Commerce Transformation</h3>
+              <p className="text-gray-700 mb-6">
+                A leading retail company needed to modernize their legacy e-commerce platform to support global expansion and improve user experience.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="border-l-4 border-indigo-500 pl-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Challenge</h4>
+                  <p className="text-gray-600 text-sm">Outdated technology stack with poor performance and limited scalability for seasonal traffic spikes</p>
+                </div>
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
+                  <p className="text-gray-600 text-sm">Cloud-native microservices architecture with serverless components and global CDN implementation</p>
+                </div>
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Results</h4>
+                  <p className="text-gray-600 text-sm">300% improvement in page load times and 45% increase in conversion rates within 3 months</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-center mt-8">
+                <FaGlobe className="text-5xl text-indigo-500 mr-4" />
+                <div>
+                  <div className="text-3xl font-bold text-gray-900">12 Countries</div>
+                  <div className="text-gray-600">Successful Global Deployment</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action Section */}
       <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-8">Ready to Secure Your Business?</h2>
+          <h2 className="text-4xl font-bold mb-8">Ready to Transform Your Digital Capabilities?</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto">
-            Partner with us to protect your critical assets and gain peace of mind with our industry-leading cybersecurity solutions.
+            Partner with us to build innovative, scalable, and high-performance digital solutions that drive your business forward.
           </p>
           <button className="bg-white text-indigo-600 py-3 px-8 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
-            Schedule a Security Consultation
+            Request a Consultation
           </button>
         </div>
       </section>
@@ -256,4 +301,4 @@ const CyberDefence = () => {
   );
 };
 
-export default CyberDefence; 
+export default DigitalEngineering; 
