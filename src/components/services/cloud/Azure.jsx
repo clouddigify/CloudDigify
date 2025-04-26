@@ -460,28 +460,28 @@ const Azure = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
-                    ${index === 2 ? 'border-2 border-green-500 scale-105' : 'border border-transparent hover:border-green-200'}`}
+                    ${index === 2 ? 'border-2 border-[#0078D4] scale-105' : 'border border-transparent hover:border-blue-200'}`}
                 >
                   {index === 2 && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-[#0078D4] text-white px-4 py-1 rounded-full text-sm font-medium">
                         Most Popular
                       </span>
                     </div>
                   )}
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
-                <p className="text-2xl font-bold text-green-600 mb-2">${model.description}</p>
+                <p className="text-2xl font-bold text-[#0078D4] mb-2">${model.description}</p>
                 <p className="text-gray-600 mb-6">{model.subtitle}</p>
                 <ul className="space-y-3 mb-8 flex-grow">
                   {model.features.map((feature, i) => (
                     <li key={i} className="flex items-center text-gray-700">
-                      <FaCheckCircle className="text-green-500 mr-2 flex-shrink-0" />
+                      <FaCheckCircle className="text-[#0078D4] mr-2 flex-shrink-0" />
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="mt-auto">
-                  <button className="w-full py-3 px-6 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors duration-300">
+                  <button className="w-full py-3 px-6 rounded-full bg-[#0078D4] text-white hover:bg-blue-700 transition-colors duration-300">
                     {model.ctaText}
                   </button>
                 </div>
@@ -515,11 +515,11 @@ const Azure = () => {
                 <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
                 <div className="mb-3">{phase.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
-                <p className="text-green-600 font-semibold mb-3 text-sm">{phase.duration}</p>
+                <p className="text-[#0078D4] font-semibold mb-3 text-sm">{phase.duration}</p>
                 <ul className="space-y-2 text-sm">
                   {phase.activities.map((activity, i) => (
                     <li key={i} className="flex items-start text-gray-700">
-                      <FaCheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" />
+                      <FaCheckCircle className="text-[#0078D4] mr-2 mt-1 flex-shrink-0" />
                       <span>{activity}</span>
                     </li>
                   ))}

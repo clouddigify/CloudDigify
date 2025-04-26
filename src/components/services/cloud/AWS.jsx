@@ -25,7 +25,6 @@ import {
   FaUsersCog
 } from 'react-icons/fa';
 import { SiAmazonaws } from 'react-icons/si';
-import ImageSlider from '../../common/ImageSlider';
 
 const AWS = () => {
   // Animation variants
@@ -42,31 +41,6 @@ const AWS = () => {
       }
     }
   };
-
-  // Content data
-  const sliderImages = [
-    {
-      url: '/images/aws/cloud-platform.jpg',
-      alt: 'AWS Cloud Platform',
-      overlay: true,
-      title: 'AWS Cloud Platform',
-      description: 'Enterprise-grade cloud computing solutions powered by Amazon Web Services'
-    },
-    {
-      url: '/images/aws/cloud-security.jpg',
-      alt: 'AWS Security',
-      overlay: true,
-      title: 'Advanced Security',
-      description: 'Industry-leading security features and compliance standards'
-    },
-    {
-      url: '/images/aws/cloud-analytics.jpg',
-      alt: 'AWS Analytics',
-      overlay: true,
-      title: 'Data Analytics',
-      description: 'Powerful analytics and machine learning capabilities'
-    }
-  ];
 
   const stats = [
     {
@@ -252,51 +226,51 @@ const AWS = () => {
   const awsServices = [
     {
       icon: <FaCloud className="text-4xl text-orange-500" />,
-      title: 'AWS Cloud Infrastructure',
-      description: 'Scalable and reliable cloud computing infrastructure',
+      title: 'AWS Infrastructure',
+      description: 'CloudDigify architects highly available AWS infrastructure solutions',
       color: 'from-orange-500 to-orange-600'
     },
     {
-      icon: <FaShieldAlt className="text-4xl text-indigo-500" />,
+      icon: <FaShieldAlt className="text-4xl text-red-500" />,
       title: 'AWS Security',
-      description: 'Advanced security and compliance solutions',
-      color: 'from-indigo-500 to-indigo-600'
+      description: 'We implement advanced security controls to protect your data',
+      color: 'from-red-500 to-red-600'
     },
     {
-      icon: <FaDatabase className="text-4xl text-emerald-500" />,
+      icon: <FaDatabase className="text-4xl text-blue-500" />,
       title: 'AWS Database',
-      description: 'Managed database services for all applications',
-      color: 'from-emerald-500 to-emerald-600'
-    },
-    {
-      icon: <FaChartLine className="text-4xl text-purple-500" />,
-      title: 'AWS Analytics',
-      description: 'Big data analytics and visualization tools',
-      color: 'from-purple-500 to-purple-600'
-    },
-    {
-      icon: <FaMicrochip className="text-4xl text-rose-500" />,
-      title: 'AWS Machine Learning',
-      description: 'AI and ML services for intelligent applications',
-      color: 'from-rose-500 to-rose-600'
-    },
-    {
-      icon: <FaNetworkWired className="text-4xl text-blue-500" />,
-      title: 'AWS Networking',
-      description: 'Global network infrastructure and CDN services',
+      description: 'Our team optimizes and manages your database services for maximum performance',
       color: 'from-blue-500 to-blue-600'
     },
     {
-      icon: <FaUsersCog className="text-4xl text-amber-500" />,
-      title: 'AWS Management',
-      description: 'Cloud resource monitoring and management',
-      color: 'from-amber-500 to-amber-600'
+      icon: <FaLock className="text-4xl text-green-500" />,
+      title: 'AWS Encryption',
+      description: 'CloudDigify implements end-to-end encryption for your sensitive data',
+      color: 'from-green-500 to-green-600'
     },
     {
-      icon: <FaRobot className="text-4xl text-teal-500" />,
-      title: 'AWS Serverless',
-      description: 'Event-driven serverless computing platform',
-      color: 'from-teal-500 to-teal-600'
+      icon: <FaTools className="text-4xl text-purple-500" />,
+      title: 'AWS DevOps',
+      description: 'We streamline your development workflow with AWS DevOps services',
+      color: 'from-purple-500 to-purple-600'
+    },
+    {
+      icon: <FaNetworkWired className="text-4xl text-yellow-500" />,
+      title: 'AWS Networking',
+      description: 'CloudDigify architects secure and efficient networking solutions',
+      color: 'from-yellow-500 to-yellow-600'
+    },
+    {
+      icon: <FaCloud className="text-4xl text-indigo-500" />,
+      title: 'AWS Lambda',
+      description: 'We implement serverless computing solutions for cost-effective scaling',
+      color: 'from-indigo-500 to-indigo-600'
+    },
+    {
+      icon: <FaDatabase className="text-4xl text-amber-500" />,
+      title: 'AWS Analytics',
+      description: 'CloudDigify harnesses the power of data analytics for business insights',
+      color: 'from-amber-500 to-amber-600'
     }
   ];
 
@@ -357,10 +331,11 @@ const AWS = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              AWS Cloud Solutions
+              AWS Solutions By CloudDigify
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Comprehensive cloud services and solutions to build, deploy, and manage applications
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              CloudDigify delivers comprehensive AWS services to build, deploy, and manage 
+              applications that help our customers achieve their business goals with confidence
             </p>
           </motion.div>
           
@@ -375,7 +350,7 @@ const AWS = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+                className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
                 <div className="flex flex-col items-start h-full">
@@ -385,18 +360,14 @@ const AWS = () => {
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-gray-600 text-sm">
                     {service.description}
                   </p>
-                  <div className="mt-auto flex items-center text-sm font-medium text-orange-600 group-hover:text-orange-700">
-                    Learn more
-                    <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
-                  </div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
-          </div>
+        </div>
       </section>
 
       {/* Stats Grid */}
@@ -443,7 +414,7 @@ const AWS = () => {
         </div>
       </motion.section>
 
-      {/* Pricing Section */}
+      {/* Pricing Section - Modified for hover effects and consistent buttons */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
@@ -460,18 +431,18 @@ const AWS = () => {
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
-                  ${index === 2 ? 'border-2 border-orange-500 scale-105' : 'border border-transparent hover:border-orange-200'}`}
-              >
-                {index === 2 && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </span>
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
+                    ${index === 2 ? 'border-2 border-orange-500 scale-105' : 'border border-transparent hover:border-orange-200'}`}
+                >
+                  {index === 2 && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Most Popular
+                      </span>
                     </div>
-                )}
+                  )}
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
                 <p className="text-2xl font-bold text-orange-600 mb-2">${model.description}</p>
                 <p className="text-gray-600 mb-6">{model.subtitle}</p>
@@ -480,21 +451,21 @@ const AWS = () => {
                     <li key={i} className="flex items-center text-gray-700">
                       <FaCheckCircle className="text-orange-500 mr-2 flex-shrink-0" />
                       <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    </li>
+                  ))}
+                </ul>
                 <div className="mt-auto">
                   <button className="w-full py-3 px-6 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors duration-300">
                     {model.ctaText}
                   </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
       </section>
 
-      {/* Delivery Timeline */}
+      {/* Delivery Timeline - Modified to display all items in a single row */}
       <section className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
@@ -511,10 +482,10 @@ const AWS = () => {
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
-              >
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
+                >
                 <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
                 <div className="mb-3">{phase.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
@@ -527,12 +498,12 @@ const AWS = () => {
                     </li>
                   ))}
                 </ul>
-                </motion.div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
       </section>
-      </div>
+    </div>
   );
 };
 
