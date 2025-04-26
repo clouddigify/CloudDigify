@@ -318,6 +318,66 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Get Started Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-800 text-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Start your digital transformation journey today with our expert team and comprehensive solutions
+            </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              <Link to="/services/consulting/overview">
+                <motion.div
+                  className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
+                  whileHover={{ y: -5 }}
+                >
+                  <FaRocket className="text-4xl mb-4 mx-auto" />
+                  <h3 className="text-xl font-semibold mb-2">Schedule Consultation</h3>
+                  <p className="text-blue-100">Get expert advice on your digital transformation</p>
+                </motion.div>
+              </Link>
+              <Link to="/solutions/data-transformation">
+                <motion.div
+                  className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
+                  whileHover={{ y: -5 }}
+                >
+                  <FaDatabase className="text-4xl mb-4 mx-auto" />
+                  <h3 className="text-xl font-semibold mb-2">Explore Solutions</h3>
+                  <p className="text-blue-100">Discover our data and cloud solutions</p>
+                </motion.div>
+              </Link>
+              <Link to="/contact">
+                <motion.div
+                  className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
+                  whileHover={{ y: -5 }}
+                >
+                  <FaChartLine className="text-4xl mb-4 mx-auto" />
+                  <h3 className="text-xl font-semibold mb-2">Talk to Sales</h3>
+                  <p className="text-blue-100">Get pricing and implementation details</p>
+                </motion.div>
+              </Link>
+            </div>
+            <div className="mt-12">
+              <Link to="/contact">
+                <motion.button
+                  className="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg shadow-lg hover:bg-blue-50 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Get Started Now
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Include other sections */}
       <WhyChooseUs />
       <Testimonials />

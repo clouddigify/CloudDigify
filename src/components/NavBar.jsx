@@ -641,6 +641,18 @@ const NavBar = () => {
             </div>
 
             <div className="flex items-center space-x-4">
+              {/* Get Started CTA Button - Hidden on mobile */}
+              <div className="hidden lg:block">
+                <Link to="/contact">
+                  <motion.button
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-md"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Get Started
+                  </motion.button>
+                </Link>
+              </div>
               <div className="lg:hidden">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
@@ -669,6 +681,17 @@ const NavBar = () => {
                 {menuConfig.mainNav.map((item, index) => (
                   <MobileMenuItem key={index} item={item} />
                 ))}
+                {/* Mobile CTA Button */}
+                <div className="pt-4">
+                  <Link to="/contact" className="block w-full">
+                    <motion.button
+                      className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-md text-center"
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Get Started
+                    </motion.button>
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}
