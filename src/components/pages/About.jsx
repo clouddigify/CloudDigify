@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FaCloudUploadAlt, FaUsers, FaAward, FaRocket, FaChartLine, FaGlobe, FaHandshake, FaUserTie, FaBuilding, FaChartBar } from 'react-icons/fa';
 import PageTemplate from '../templates/PageTemplate';
 
@@ -91,7 +92,7 @@ const About = () => (
     {/* Breadcrumb Navigation */}
     <nav className="max-w-7xl mx-auto px-4 pt-6 pb-2 text-sm text-gray-400 flex items-center" aria-label="Breadcrumb">
       <ol className="flex space-x-2">
-        <li><a href="/" className="hover:text-blue-600">Home</a></li>
+        <li><Link to="/" className="hover:text-blue-600">Home</Link></li>
         <li><span className="mx-2">&gt;</span></li>
         <li className="text-blue-700 font-semibold">About Us</li>
       </ol>
@@ -125,14 +126,11 @@ const About = () => (
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-4"
+          className="flex flex-wrap justify-center"
         >
-          <a href="#learn-more" className="px-8 py-3 bg-white text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300">
-            Learn More
-          </a>
-          <a href="/contact" className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-colors duration-300">
+          <Link to="/contact" className="px-8 py-3 bg-white text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300">
             Contact Us
-          </a>
+          </Link>
         </motion.div>
       </div>
       
@@ -171,9 +169,9 @@ const About = () => (
       <section className="py-12 bg-white border-y border-gray-100">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900">Key Features</h2>
-          <div className="flex flex-row flex-nowrap justify-center gap-8 overflow-x-auto md:overflow-visible">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
             {keyFeatures.map((feature, idx) => (
-              <div key={idx} className="flex flex-col items-center bg-white rounded-xl shadow p-6 min-w-[200px] max-w-[240px] flex-1">
+              <div key={idx} className="flex flex-col items-center bg-white rounded-xl shadow p-6 h-full">
                 {feature.icon}
                 <h4 className="text-lg font-semibold mb-2 text-gray-800">{feature.title}</h4>
                 <p className="text-gray-600 text-sm text-center">{feature.desc}</p>
