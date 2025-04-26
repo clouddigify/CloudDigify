@@ -86,6 +86,31 @@ const CyberDefence = () => {
               <FaShieldAlt className="text-white opacity-20" style={{ fontSize: `${Math.random() * 30 + 20}px` }} />
             </motion.div>
           ))}
+          
+          {/* Cybersecurity themed floating icons */}
+          {[FaNetworkWired, FaLock, FaEye, FaDatabase, FaExclamationTriangle, FaServer].map((Icon, i) => (
+            <motion.div
+              key={`icon-${i}`}
+              className="absolute text-white opacity-10"
+              style={{
+                fontSize: `${Math.random() * 30 + 25}px`,
+                left: `${(i * 15) + Math.random() * 10}%`,
+                top: `${Math.random() * 80}%`,
+              }}
+              animate={{
+                y: [0, Math.random() * 40 - 20],
+                rotate: [0, Math.random() * 20 - 10],
+              }}
+              transition={{
+                duration: 5 + Math.random() * 5,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
+            >
+              <Icon />
+            </motion.div>
+          ))}
         </div>
         
         <div className="relative z-10 container mx-auto px-4 text-center">
@@ -151,9 +176,10 @@ const CyberDefence = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.h2
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ y: 10, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.4 }}
             className="text-4xl font-bold text-gray-900 text-center mb-12"
           >
             Why Choose Our Cyber Defence Services
@@ -179,9 +205,10 @@ const CyberDefence = () => {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ y: 20, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
               >
                 <feature.icon className="text-4xl text-indigo-500 mb-4" />
