@@ -344,7 +344,7 @@ const Azure = () => {
               </motion.div>
             </div>
           </motion.div>
-        </div>
+          </div>
       </section>
 
       {/* Azure Services Grid Section */}
@@ -393,7 +393,7 @@ const Azure = () => {
               </motion.div>
             ))}
           </motion.div>
-        </div>
+          </div>
       </section>
 
       {/* Stats Grid */}
@@ -477,18 +477,18 @@ const Azure = () => {
                     <li key={i} className="flex items-center text-gray-700">
                       <FaCheckCircle className="text-[#0078D4] mr-2 flex-shrink-0" />
                       <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                        </li>
+                      ))}
+                    </ul>
                 <div className="mt-auto">
                   <button className="w-full py-3 px-6 rounded-full bg-[#0078D4] text-white hover:bg-blue-700 transition-colors duration-300">
                     {model.ctaText}
                   </button>
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Delivery Timeline - Modified to display all items in a single row */}
@@ -524,12 +524,12 @@ const Azure = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
-    </div>
+      </div>
   );
 };
 

@@ -393,7 +393,7 @@ const OracleCloud = () => {
               </motion.div>
             ))}
           </motion.div>
-        </div>
+          </div>
       </section>
 
       {/* Stats Grid */}
@@ -477,18 +477,18 @@ const OracleCloud = () => {
                     <li key={i} className="flex items-center text-gray-700">
                       <FaCheckCircle className="text-red-500 mr-2 flex-shrink-0" />
                       <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                        </li>
+                      ))}
+                    </ul>
                 <div className="mt-auto">
                   <button className="w-full py-3 px-6 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300">
                     {model.ctaText}
                   </button>
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Delivery Timeline */}
@@ -524,10 +524,10 @@ const OracleCloud = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
       </div>
   );
