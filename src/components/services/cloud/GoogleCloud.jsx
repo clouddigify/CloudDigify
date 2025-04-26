@@ -18,10 +18,14 @@ import {
   FaTools,
   FaDatabase,
   FaNetworkWired,
-  FaArrowRight
+  FaArrowRight,
+  FaMicrochip,
+  FaRobot,
+  FaUsersCog,
+  FaWrench,
+  FaChartBar
 } from 'react-icons/fa';
 import { SiGooglecloud } from 'react-icons/si';
-import ImageSlider from '../../common/ImageSlider';
 
 const GoogleCloud = () => {
   // Animation variants
@@ -38,6 +42,57 @@ const GoogleCloud = () => {
       }
     }
   };
+
+  const googleCloudServices = [
+    {
+      icon: <FaCloud className="text-4xl text-blue-500" />,
+      title: 'GCP Infrastructure',
+      description: 'CloudDigify architects highly available Google Cloud infrastructure solutions',
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      icon: <FaShieldAlt className="text-4xl text-red-500" />,
+      title: 'GCP Security',
+      description: 'We implement Google\'s advanced security controls to protect your data',
+      color: 'from-red-500 to-red-600'
+    },
+    {
+      icon: <FaDatabase className="text-4xl text-green-500" />,
+      title: 'GCP BigQuery',
+      description: 'Our team deploys and optimizes BigQuery for your enterprise analytics needs',
+      color: 'from-green-500 to-green-600'
+    },
+    {
+      icon: <FaCode className="text-4xl text-yellow-500" />,
+      title: 'GCP Cloud Run',
+      description: 'CloudDigify builds and deploys containerized applications on Cloud Run',
+      color: 'from-yellow-500 to-yellow-600'
+    },
+    {
+      icon: <FaChartBar className="text-4xl text-purple-500" />,
+      title: 'GCP Data Analytics',
+      description: 'We transform your business data into valuable insights using GCP tools',
+      color: 'from-purple-500 to-purple-600'
+    },
+    {
+      icon: <FaMicrochip className="text-4xl text-red-400" />,
+      title: 'GCP Machine Learning',
+      description: 'CloudDigify implements AI solutions with Google\'s ML technologies',
+      color: 'from-red-400 to-red-500'
+    },
+    {
+      icon: <FaNetworkWired className="text-4xl text-blue-400" />,
+      title: 'GCP Networking',
+      description: 'We design and implement global network architecture on Google Cloud',
+      color: 'from-blue-400 to-blue-500'
+    },
+    {
+      icon: <FaWrench className="text-4xl text-green-400" />,
+      title: 'GCP DevOps',
+      description: 'CloudDigify enables CI/CD automation using Google Cloud tools',
+      color: 'from-green-400 to-green-500'
+    }
+  ];
 
   // Content data
   const sliderImages = [
@@ -129,8 +184,11 @@ const GoogleCloud = () => {
 
   const pricingModels = [
     {
-      title: 'Managed Hourly Service',
-      price: '$75/hour',
+      title: 'Hourly Services',
+      description: '75/hour',
+      subtitle: 'Perfect for small projects',
+      ctaText: 'Start Now',
+      bgClass: 'bg-gradient-to-b from-gray-50 to-white',
       features: [
         'Pay as you go',
         'Flexible scheduling',
@@ -139,8 +197,11 @@ const GoogleCloud = () => {
       ]
     },
     {
-      title: 'Weekly Engagements',
-      price: '$2,800/week',
+      title: 'Weekly Plan',
+      description: '2,800/week',
+      subtitle: 'Ideal for ongoing projects',
+      ctaText: 'Schedule Call',
+      bgClass: 'bg-gradient-to-b from-blue-50 to-white',
       features: [
         'Dedicated GCP expert',
         'Weekly progress reports',
@@ -150,7 +211,10 @@ const GoogleCloud = () => {
     },
     {
       title: 'Monthly Retainer',
-      price: '$8,500/month',
+      description: '8,500/month',
+      subtitle: 'Best value for enterprises',
+      ctaText: 'Get Started',
+      bgClass: 'bg-gradient-to-b from-green-50 to-white',
       features: [
         'Full-time dedicated team',
         'Comprehensive management',
@@ -159,8 +223,11 @@ const GoogleCloud = () => {
       ]
     },
     {
-      title: 'Custom Enterprise',
-      price: 'Custom Quote',
+      title: 'Enterprise',
+      description: 'Custom Quote',
+      subtitle: 'Tailored to your needs',
+      ctaText: 'Request Quote',
+      bgClass: 'bg-gradient-to-b from-purple-50 to-white',
       features: [
         'Tailored solutions',
         'Multiple dedicated teams',
@@ -238,7 +305,7 @@ const GoogleCloud = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-400 opacity-90"
+          className="absolute inset-0 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 opacity-90"
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5 }}
@@ -260,7 +327,7 @@ const GoogleCloud = () => {
                 </h1>
               </div>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Transform your business with Google Cloud Platform - leveraging cutting-edge AI, ML, and data analytics capabilities.
+                Accelerate your digital transformation with Google Cloud Platform - cutting-edge technology for innovation and growth.
               </p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -269,7 +336,7 @@ const GoogleCloud = () => {
               >
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-green-50 transition-all duration-300"
+                  className="group inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all duration-300"
                 >
                   <span className="mr-2">Get Started with Google Cloud</span>
                   <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
@@ -277,14 +344,56 @@ const GoogleCloud = () => {
               </motion.div>
             </div>
           </motion.div>
-        </div>
+          </div>
       </section>
 
-      {/* Image Slider Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <ImageSlider images={sliderImages} />
-          </div>
+      {/* Google Cloud Services Grid Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Google Cloud Solutions By CloudDigify
+            </h2>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              CloudDigify delivers comprehensive Google Cloud services to build, deploy, and manage 
+              applications that help our customers achieve their business goals with confidence
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {googleCloudServices.map((service, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="group relative p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r ${service.color}`} />
+                <div className="flex flex-col items-start h-full">
+                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    {service.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </section>
 
       {/* Stats Grid */}
@@ -348,56 +457,66 @@ const GoogleCloud = () => {
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300`}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`${model.bgClass} rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 relative flex flex-col h-full
+                    ${index === 2 ? 'border-2 border-green-500 scale-105' : 'border border-transparent hover:border-green-200'}`}
                 >
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
+                  {index === 2 && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
                 <p className="text-2xl font-bold text-green-600 mb-2">${model.description}</p>
                 <p className="text-gray-600 mb-6">{model.subtitle}</p>
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-grow">
                   {model.features.map((feature, i) => (
                     <li key={i} className="flex items-center text-gray-700">
-                      <FaCheckCircle className="text-green-500 mr-2" />
-                      {feature}
-                        </li>
-                      ))}
-                    </ul>
-                <button className="w-full py-3 px-6 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors duration-300">
-                  {model.ctaText}
-                </button>
-                </motion.div>
-              ))}
-            </div>
+                      <FaCheckCircle className="text-green-500 mr-2 flex-shrink-0" />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto">
+                  <button className="w-full py-3 px-6 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors duration-300">
+                    {model.ctaText}
+                  </button>
+                </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
       </section>
 
       {/* Delivery Timeline */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
-            className="text-3xl font-bold text-center mb-16 text-gray-900"
+            className="text-3xl font-bold text-center mb-12 text-gray-900"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
             Implementation Timeline
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {deliveryTimeline.map((phase, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300"
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative p-6 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
                 >
                 <div className={`absolute top-0 left-0 w-full h-2 rounded-t-2xl bg-gradient-to-r ${phase.color}`} />
-                <div className="mb-4">{phase.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{phase.phase}</h3>
-                <p className="text-green-600 font-semibold mb-4">{phase.duration}</p>
-                <ul className="space-y-3">
+                <div className="mb-3">{phase.icon}</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
+                <p className="text-green-600 font-semibold mb-3 text-sm">{phase.duration}</p>
+                <ul className="space-y-2 text-sm">
                   {phase.activities.map((activity, i) => (
                     <li key={i} className="flex items-start text-gray-700">
                       <FaCheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" />
@@ -405,10 +524,10 @@ const GoogleCloud = () => {
                     </li>
                   ))}
                 </ul>
-                </motion.div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
       </section>
       </div>
   );
