@@ -266,7 +266,7 @@ export const menuConfig = {
               icon: 'fa-link'
             },
             {
-              title: 'Strategy, Experience and Applied Innovation',
+              title: 'Digital Strategy & Innovation',
               path: '/services/strategy',
               icon: 'fa-lightbulb'
             },
@@ -434,12 +434,12 @@ export const menuConfig = {
           icon: 'fa-university'
         },
         { 
-          title: 'Textile & Apparel Industries',
+          title: 'Smart Textile Solutions',
           path: '/industries/textile',
           icon: 'fa-tshirt'
         },
         { 
-          title: 'Industrial Automation & Control System',
+          title: 'Industrial Automation',
           path: '/industries/automation',
           icon: 'fa-industry'
         },
@@ -454,7 +454,7 @@ export const menuConfig = {
           icon: 'fa-search'
         },
         { 
-          title: 'Public Administration & Governance',
+          title: 'Public Sector Transformation',
           path: '/industries/governance',
           icon: 'fa-landmark'
         }

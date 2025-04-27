@@ -449,7 +449,7 @@ const NavItem = ({ item, index }) => {
 // Mobile submenu component specifically for mobile view
 const MobileSubMenu = ({ items }) => {
   return (
-    <div className="pl-4 mt-2 space-y-1">
+    <div className="pl-4 mt-2 space-y-1 max-h-[70vh] overflow-y-auto pr-1">
       {items.map((item, index) => (
         <div key={index} className="py-1">
           {item.submenu ? (
@@ -524,6 +524,7 @@ const MobileMenuItem = ({ item }) => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
+              className="overflow-hidden"
             >
               <MobileSubMenu items={item.submenu} />
             </motion.div>
@@ -718,13 +719,13 @@ const NavBar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden bg-white border-t"
+              className="lg:hidden bg-white border-t max-h-[90vh] overflow-hidden"
             >
-              <div className="px-4 pt-2 pb-3 space-y-1">
+              <div className="px-4 pt-2 pb-3 space-y-1 max-h-[calc(90vh-2rem)] overflow-y-auto">
                 {menuConfig.mainNav.map((item, index) => (
                   <MobileMenuItem key={index} item={item} />
                 ))}
-                <div className="pt-4">
+                <div className="pt-4 pb-2">
                   <Link to="/contact" className="block w-full">
                     <motion.button
                       className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg 
