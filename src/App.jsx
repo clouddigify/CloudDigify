@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
 import serviceRedirects from './utils/serviceRedirects';
+import CookieConsentBanner from './components/common/CookieConsentBanner';
 
 // Page Components
 import Home from './components/pages/Home';
@@ -236,6 +237,7 @@ const App = () => {
             <AnimatedRoutes />
           </main>
           <Footer />
+          <CookieConsentBanner />
         </div>
       </ErrorBoundary>
     </Router>
