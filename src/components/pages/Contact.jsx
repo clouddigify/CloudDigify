@@ -11,6 +11,7 @@ import {
   FaFacebook,
   FaWhatsapp
 } from 'react-icons/fa';
+import { submitContactForm } from '../../utils/contactService';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -39,8 +40,11 @@ const Contact = () => {
     e.preventDefault();
     setFormStatus({ submitting: true, submitted: false, error: null });
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Call our contact service which uses info@clouddigify.com behind the scenes
+      await submitContactForm(formData);
+      
+      // Reset form after successful submission
       setFormStatus({
         submitting: false,
         submitted: true,
@@ -53,7 +57,13 @@ const Contact = () => {
         subject: '',
         message: ''
       });
-    }, 1500);
+    } catch (error) {
+      setFormStatus({
+        submitting: false,
+        submitted: false,
+        error: error.message || 'There was an error submitting the form. Please try again.'
+      });
+    }
   };
 
   return (

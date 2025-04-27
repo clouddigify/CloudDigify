@@ -120,17 +120,17 @@ const Home = () => {
   ];
 
   const highlights = [
-    "Multi-Cloud Expertise",
-    "100% Project Success Rate",
-    "24/7 Managed Services",
-    "Rapid Implementation"
+    "Multi-Cloud Architecture Expertise",
+    "Digital Transformation Solutions",
+    "Industry-Specific Cloud Strategy",
+    "Continuous Innovation & Optimization"
   ];
 
   const stats = [
-    { number: "200+", label: "Cloud Projects Delivered" },
-    { number: "99.99%", label: "Uptime Guarantee" },
-    { number: "60%", label: "Cost Optimization" },
-    { number: "24/7", label: "Expert Support" }
+    { number: "300+", label: "Enterprise Transformations" },
+    { number: "99.99%", label: "Solution Reliability" },
+    { number: "40%", label: "Avg. Performance Gain" },
+    { number: "15+", label: "Industry Verticals Served" }
   ];
 
   const partners = [
@@ -213,9 +213,9 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Enterprise Cloud Solutions</h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-              End-to-end cloud services that transform your business operations and drive innovation
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Cloud Transformation Expertise</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              Accelerate your digital journey with our comprehensive cloud solutions that deliver measurable business outcomes and competitive advantage
             </p>
           </motion.div>
 
@@ -223,7 +223,7 @@ const Home = () => {
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -237,15 +237,17 @@ const Home = () => {
                 <div className="p-4 sm:p-6">
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
                   <p className="text-sm sm:text-base text-gray-600 mb-4">{service.description}</p>
-                  <Link 
-                    to={service.path}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm sm:text-base"
-                  >
-                    Learn more
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                  <div className="flex justify-between items-center">
+                    <Link 
+                      to={service.path}
+                      className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm sm:text-base font-medium"
+                    >
+                      Explore Solutions
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -292,20 +294,31 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Transform Your Business?
+              Accelerate Your Digital Transformation
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Let's discuss how our cloud solutions can help you achieve your business goals
+              Join the 300+ enterprises already achieving measurable business outcomes with our tailored cloud solutions
             </p>
-            <Link to="/contact">
-              <motion.button
-                className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get Started Today
-              </motion.button>
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Link to="/contact">
+                <motion.button
+                  className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Schedule a Consultation
+                </motion.button>
+              </Link>
+              <Link to="/services">
+                <motion.button
+                  className="px-8 py-4 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Explore All Solutions
+                </motion.button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
