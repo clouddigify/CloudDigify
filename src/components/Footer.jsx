@@ -31,7 +31,8 @@ import {
   FaTshirt,
   FaBolt,
   FaSearch,
-  FaLandmark
+  FaLandmark,
+  FaYoutube
 } from 'react-icons/fa';
 
 import { menuConfig } from '../config/menuConfig';
@@ -52,6 +53,7 @@ const socialLinks = [
   { icon: <FaTwitter className="w-5 h-5" />, url: "https://twitter.com/clouddigify", label: "Twitter" },
   { icon: <FaFacebook className="w-5 h-5" />, url: "https://facebook.com/clouddigify", label: "Facebook" },
   { icon: <FaInstagram className="w-5 h-5" />, url: "https://instagram.com/clouddigify", label: "Instagram" },
+  { icon: <FaYoutube className="w-5 h-5" />, url: "https://youtube.com/@clouddigify", label: "YouTube" },
   { icon: <FaGithub className="w-5 h-5" />, url: "https://github.com/clouddigify", label: "GitHub" }
 ];
 

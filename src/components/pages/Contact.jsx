@@ -9,7 +9,9 @@ import {
   FaLinkedin,
   FaTwitter,
   FaFacebook,
-  FaWhatsapp
+  FaWhatsapp,
+  FaYoutube,
+  FaInstagram
 } from 'react-icons/fa';
 import { submitContactForm } from '../../utils/contactService';
 
@@ -267,7 +269,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Business Hours</h4>
-                    <p className="text-sm sm:text-base text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM PST</p>
+                    <p className="text-sm sm:text-base text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM IST</p>
                     <p className="text-sm sm:text-base text-gray-600">Saturday - Sunday: Closed</p>
                   </div>
                 </div>
@@ -292,14 +294,20 @@ const Contact = () => {
             <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100">
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Connect With Us</h3>
               <div className="flex space-x-6">
-                <a href="#" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                <a href="https://linkedin.com/company/clouddigify" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
                   <FaLinkedin className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
                 </a>
-                <a href="#" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                <a href="https://twitter.com/clouddigify" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
                   <FaTwitter className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
                 </a>
-                <a href="#" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                <a href="https://facebook.com/clouddigify" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
                   <FaFacebook className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
+                </a>
+                <a href="https://instagram.com/clouddigify" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                  <FaInstagram className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
+                </a>
+                <a href="https://youtube.com/@clouddigify" className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                  <FaYoutube className="w-6 h-6 text-blue-600 group-hover:text-blue-700" />
                 </a>
               </div>
             </div>
