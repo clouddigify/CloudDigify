@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,6 +59,13 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
               <>
                 <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-center max-w-6xl mx-auto leading-tight">{images[currentIndex].title}</h2>
                 <p className="text-lg md:text-xl lg:text-2xl text-center max-w-3xl mx-auto mb-10 text-gray-100">{images[currentIndex].description}</p>
+                {images[currentIndex].cta && (
+                  <Link to={images[currentIndex].cta.link}>
+                    <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg">
+                      {images[currentIndex].cta.label}
+                    </button>
+                  </Link>
+                )}
               </>
             ) : (
               images[currentIndex].title
