@@ -310,6 +310,8 @@ const TermsAndConditions = () => {
                 <div className="prose max-w-none text-gray-600">
                   <p>If you have any questions or concerns about these Terms, you may contact us at:</p>
                   <p>CloudDigify LLP</p>
+                  <p>Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Ghaziabad, Uttar Pradesh 201309</p>
+                  <p>Phone: +91 7011112386</p>
                   <p>Email: info@clouddigify.com</p>
                 </div>
               </div>

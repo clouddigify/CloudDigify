@@ -67,11 +67,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white mt-16 sm:mt-0">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-indigo-700 overflow-hidden pt-16 sm:pt-8 md:pt-0">
+      <div className="relative bg-gradient-to-r from-blue-600 to-indigo-700 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24 mt-20 sm:mt-10 md:mt-0 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -93,13 +93,13 @@ const Contact = () => {
       <div className="bg-white shadow-lg transform -translate-y-8 sm:-translate-y-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 py-4 sm:py-6">
-            <a href="tel:+18005551234" className="flex items-center space-x-4 px-4 sm:px-6 py-3 sm:py-4 rounded-lg hover:bg-gray-50 transition-colors group">
+            <a href="tel:+917011112386" className="flex items-center space-x-4 px-4 sm:px-6 py-3 sm:py-4 rounded-lg hover:bg-gray-50 transition-colors group">
               <div className="p-2 sm:p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors">
                 <FaPhone className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               </div>
               <div>
                 <p className="text-xs sm:text-sm text-gray-500">Call Us</p>
-                <p className="text-sm sm:text-base font-semibold text-gray-900">+1 (800) 555-1234</p>
+                <p className="text-sm sm:text-base font-semibold text-gray-900">+91 7011112386</p>
               </div>
             </a>
             <a href="mailto:contact@clouddigify.com" className="flex items-center space-x-4 px-4 sm:px-6 py-3 sm:py-4 rounded-lg hover:bg-gray-50 transition-colors group">
@@ -111,7 +111,7 @@ const Contact = () => {
                 <p className="text-sm sm:text-base font-semibold text-gray-900 break-all">contact@clouddigify.com</p>
               </div>
             </a>
-            <a href="https://wa.me/18005551234" className="flex items-center space-x-4 px-4 sm:px-6 py-3 sm:py-4 rounded-lg hover:bg-gray-50 transition-colors group">
+            <a href="https://wa.me/917011112386" className="flex items-center space-x-4 px-4 sm:px-6 py-3 sm:py-4 rounded-lg hover:bg-gray-50 transition-colors group">
               <div className="p-2 sm:p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors">
                 <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               </div>
@@ -256,8 +256,8 @@ const Contact = () => {
                     <FaMapMarkerAlt className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">San Francisco HQ</h4>
-                    <p className="text-sm sm:text-base text-gray-600">123 Cloud Avenue, Suite 400</p>
+                    <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Greater Noida Office</h4>
+                    <p className="text-sm sm:text-base text-gray-600">Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Ghaziabad, Uttar Pradesh 201309</p>
                   </div>
                 </div>
 
@@ -277,7 +277,7 @@ const Contact = () => {
             {/* Map */}
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-[300px] border border-gray-100">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1039033942423!2d-122.39776548441904!3d37.78750921931642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807ded297e89%3A0xcfd1b8f860eb90f6!2s123%20Main%20St%2C%20San%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1653598279798!5m2!1sen!2sus"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.4866767159354!2d77.43986897464042!3d28.561193287933516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cefc8c7a0a167%3A0x8d3ac73fc1de5f59!2sSector%2016%2C%20Greater%20Noida%2C%20Uttar%20Pradesh%20201310!5e0!3m2!1sen!2sin!4v1714243301394!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0 }}

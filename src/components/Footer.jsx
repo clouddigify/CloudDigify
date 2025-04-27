@@ -40,10 +40,10 @@ import { menuConfig } from '../config/menuConfig';
 const companyInfo = {
   name: "CloudDigify",
   tagline: "Your trusted digital transformation partner",
-  address: "123 Cloud Avenue, Suite 400, San Francisco, CA 94105",
-  phone: "+1 (800) 555-1234",
+  address: "Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Ghaziabad, Uttar Pradesh 201309",
+  phone: "+91 7011112386",
   email: "contact@clouddigify.com",
-  hours: "Mon-Fri: 9:00 AM - 6:00 PM PST"
+  hours: "Mon-Fri: 9:00 AM - 6:00 PM IST"
 };
 
 // Social media links
