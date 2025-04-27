@@ -34,7 +34,7 @@ const PrivacyPolicy = () => {
   };
 
   return (
-    <div className="py-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div className="pt-24 pb-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div 
