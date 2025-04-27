@@ -242,7 +242,7 @@ const Security = () => {
           </p>
           <div className="bg-white rounded-lg p-4">
             <p className="text-gray-800">Email: security@clouddigify.com</p>
-            <p className="text-gray-800">Emergency Hotline: +1 (800) 555-9999</p>
+            <p className="text-gray-800">Emergency Hotline: +91 7011112386</p>
           </div>
         </motion.div>
 
