@@ -138,7 +138,7 @@ const Footer = () => {
 
           {/* Links Sections */}
           <div className="flex-1 flex flex-col items-center justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-xl mx-auto">
+            <div className="grid grid-cols-2 gap-8 w-full max-w-xl mx-auto">
               <div>
                 <h3 className="text-lg font-semibold mb-4">Company</h3>
                 <ul className="space-y-3">
