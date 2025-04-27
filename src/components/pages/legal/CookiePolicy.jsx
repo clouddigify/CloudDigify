@@ -8,12 +8,13 @@ import {
   FaUserCog,
   FaToggleOn,
   FaQuestionCircle,
-  FaExclamationTriangle
+  FaExclamationTriangle,
+  FaEnvelope,
+  FaHistory,
+  FaTable
 } from 'react-icons/fa';
 
 const CookiePolicy = () => {
-  const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -33,217 +34,262 @@ const CookiePolicy = () => {
     }
   };
 
-  const sections = [
-    {
-      id: 'what-are-cookies',
-      title: '1. What Are Cookies?',
-      icon: <FaCookie className="h-8 w-8 text-orange-600" />,
-      content: (
-        <>
-          <p className="mb-4">
-            Cookies are small text files that are placed on your device when you visit our website. 
-            They serve various purposes and help improve your browsing experience by:
-          </p>
-          <ul className="list-disc pl-6 mb-4 space-y-2">
-            <li>Remembering your preferences and settings</li>
-            <li>Keeping you signed in to secure areas</li>
-            <li>Understanding how you use our website</li>
-            <li>Improving website performance and functionality</li>
-          </ul>
-        </>
-      )
-    },
-    {
-      id: 'types-of-cookies',
-      title: '2. Types of Cookies We Use',
-      icon: <FaInfoCircle className="h-8 w-8 text-orange-600" />,
-      content: (
-        <>
-          <p className="mb-4">We use the following types of cookies:</p>
-          <div className="space-y-4">
-            <div className="bg-orange-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-orange-800 mb-2">Essential Cookies</h4>
-              <p className="text-gray-700">Required for the website to function properly. These cannot be disabled.</p>
-            </div>
-            <div className="bg-orange-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-orange-800 mb-2">Functional Cookies</h4>
-              <p className="text-gray-700">Remember your preferences and enhance your experience.</p>
-            </div>
-            <div className="bg-orange-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-orange-800 mb-2">Analytics Cookies</h4>
-              <p className="text-gray-700">Help us understand how visitors interact with our website.</p>
-            </div>
-            <div className="bg-orange-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-orange-800 mb-2">Marketing Cookies</h4>
-              <p className="text-gray-700">Track your activity across websites to deliver personalized advertising.</p>
-            </div>
-          </div>
-        </>
-      )
-    },
-    {
-      id: 'cookie-management',
-      title: '3. Managing Your Cookie Preferences',
-      icon: <FaCog className="h-8 w-8 text-orange-600" />,
-      content: (
-        <>
-          <p className="mb-4">
-            You can control and manage cookies in various ways:
-          </p>
-          <ul className="list-disc pl-6 mb-4 space-y-2">
-            <li>Through your browser settings</li>
-            <li>Using our cookie consent manager</li>
-            <li>Via third-party opt-out tools</li>
-          </ul>
-          <div className="bg-gray-100 p-4 rounded-lg mb-4">
-            <h4 className="font-semibold mb-2">Browser Settings</h4>
-            <p>
-              Most web browsers allow you to control cookies through their settings preferences. 
-              However, limiting cookies may impact your experience using our website.
-            </p>
-          </div>
-        </>
-      )
-    },
-    {
-      id: 'third-party-cookies',
-      title: '4. Third-Party Cookies',
-      icon: <FaUserCog className="h-8 w-8 text-orange-600" />,
-      content: (
-        <>
-          <p className="mb-4">
-            We use third-party services that may set cookies on your device. These include:
-          </p>
-          <ul className="list-disc pl-6 mb-4 space-y-2">
-            <li>Google Analytics for website analytics</li>
-            <li>Social media plugins for sharing content</li>
-            <li>Payment processors for secure transactions</li>
-            <li>Marketing tools for personalized content</li>
-          </ul>
-          <p>
-            These third parties have their own privacy and cookie policies which we encourage you to review.
-          </p>
-        </>
-      )
-    },
-    {
-      id: 'cookie-security',
-      title: '5. Cookie Security',
-      icon: <FaShieldAlt className="h-8 w-8 text-orange-600" />,
-      content: (
-        <p>
-          We implement appropriate security measures to protect the cookies we use from unauthorized access 
-          or misuse. However, please note that no method of transmission over the Internet or electronic 
-          storage is 100% secure.
-        </p>
-      )
-    },
-    {
-      id: 'cookie-consent',
-      title: '6. Your Consent',
-      icon: <FaToggleOn className="h-8 w-8 text-orange-600" />,
-      content: (
-        <>
-          <p className="mb-4">
-            When you first visit our website, we ask for your consent to use cookies. You can:
-          </p>
-          <ul className="list-disc pl-6 mb-4 space-y-2">
-            <li>Accept all cookies</li>
-            <li>Reject non-essential cookies</li>
-            <li>Customize your cookie preferences</li>
-          </ul>
-          <p>
-            You can change your preferences at any time through our cookie settings.
-          </p>
-        </>
-      )
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Cookie Policy
-            </h1>
-            <p className="text-xl text-orange-100 max-w-2xl mx-auto">
-              Understanding how and why we use cookies to improve your experience
-            </p>
-            <p className="mt-4 text-orange-200">
-              Last Updated: {currentDate}
-            </p>
-          </motion.div>
-        </div>
-      </div>
+    <div className="py-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-flex items-center justify-center p-3 bg-orange-100 rounded-full mb-4">
+            <FaCookie className="h-8 w-8 text-orange-600" />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Cookies Policy</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Last Updated: April 27, 2025
+          </p>
+        </motion.div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Introduction */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-12"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
         >
-          {sections.map((section) => (
-            <motion.div
-              key={section.id}
-              variants={itemVariants}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
-            >
-              <div className="p-6 sm:p-8">
-                <div className="flex items-center mb-6">
-                  {section.icon}
-                  <h2 className="text-2xl font-bold text-gray-900 ml-4">
-                    {section.title}
-                  </h2>
-                </div>
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaInfoCircle className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
                 <div className="prose max-w-none text-gray-600">
-                  {section.content}
+                  <p>This Cookies Policy explains how CloudDigify LLP ("CloudDigify", "we", "us", or "our") uses cookies and similar technologies to recognize you when you visit our website.</p>
+                  <p>It explains what these technologies are and why we use them, as well as your rights to control our use of them.</p>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Additional Information */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-12 bg-orange-50 rounded-xl p-6 sm:p-8"
-        >
-          <div className="flex items-center mb-4">
-            <FaQuestionCircle className="h-6 w-6 text-orange-600" />
-            <h3 className="text-xl font-semibold text-gray-900 ml-3">
-              Questions About Our Cookie Policy?
-            </h3>
-          </div>
-          <p className="text-gray-600 mb-6">
-            If you have any questions about our use of cookies or this Cookie Policy, please contact us at:
-          </p>
-          <div className="bg-white rounded-lg p-4">
-            <p className="text-gray-800">Email: privacy@clouddigify.com</p>
-            <p className="text-gray-800">Phone: +1 (800) 555-1234</p>
+            </div>
           </div>
         </motion.div>
 
-        {/* Warning Notice */}
+        {/* What Are Cookies */}
         <motion.div
-          variants={itemVariants}
-          className="mt-8 flex items-start p-4 bg-yellow-50 rounded-lg"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
         >
-          <FaExclamationTriangle className="h-6 w-6 text-yellow-600 mt-1" />
-          <p className="ml-3 text-sm text-yellow-700">
-            This Cookie Policy is part of our Privacy Policy. By using our website, you consent to the use of cookies 
-            as described in this policy. Please note that refusing certain cookies may impact your ability to use some 
-            features of our website.
-          </p>
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaQuestionCircle className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">What Are Cookies?</h2>
+                <div className="prose max-w-none text-gray-600">
+                  <p>Cookies are small text files stored on your device when you visit a website.</p>
+                  <p>They help websites recognize your device, store preferences, and enhance your browsing experience.</p>
+                  <p>Cookies can be:</p>
+                  <ul className="list-disc pl-5 mb-4">
+                    <li>Session Cookies: Deleted when you close your browser.</li>
+                    <li>Persistent Cookies: Remain stored until deleted manually or automatically.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* How We Use Cookies */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
+        >
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaCog className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">How We Use Cookies</h2>
+                <div className="prose max-w-none text-gray-600">
+                  <p>We use cookies to:</p>
+                  <ul className="list-disc pl-5 mb-4">
+                    <li>Improve website functionality and performance</li>
+                    <li>Remember your preferences and settings</li>
+                    <li>Analyze how visitors use our site (e.g., through Google Analytics)</li>
+                    <li>Enhance security and prevent fraud</li>
+                    <li>Provide relevant marketing and advertising (if applicable)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Types of Cookies We Use */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
+        >
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaTable className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Types of Cookies We Use</h2>
+                <div className="prose max-w-none text-gray-600">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white border border-gray-200 my-4">
+                      <thead>
+                        <tr>
+                          <th className="text-left py-3 px-4 border-b border-gray-200 bg-gray-50 font-semibold">Type of Cookie</th>
+                          <th className="text-left py-3 px-4 border-b border-gray-200 bg-gray-50 font-semibold">Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="py-3 px-4 border-b border-gray-200">Essential Cookies</td>
+                          <td className="py-3 px-4 border-b border-gray-200">Necessary for website functionality (e.g., form submissions, navigation).</td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 px-4 border-b border-gray-200">Analytics Cookies</td>
+                          <td className="py-3 px-4 border-b border-gray-200">Help us understand how users interact with the website to improve user experience.</td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 px-4 border-b border-gray-200">Performance Cookies</td>
+                          <td className="py-3 px-4 border-b border-gray-200">Enhance the speed and responsiveness of the site.</td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 px-4 border-b border-gray-200">Preference Cookies</td>
+                          <td className="py-3 px-4 border-b border-gray-200">Remember your settings (e.g., language, location preferences).</td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 px-4 border-b border-gray-200">Marketing Cookies (if used)</td>
+                          <td className="py-3 px-4 border-b border-gray-200">Deliver personalized ads based on your behavior (future planned use).</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Third-Party Cookies */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
+        >
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaUserCog className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Third-Party Cookies</h2>
+                <div className="prose max-w-none text-gray-600">
+                  <p>Some cookies may be set by third parties such as:</p>
+                  <ul className="list-disc pl-5 mb-4">
+                    <li>Google Analytics</li>
+                    <li>Future service providers (e.g., marketing or CRM tools)</li>
+                  </ul>
+                  <p>We do not control these cookies.</p>
+                  <p>You should review the respective third-party privacy policies for more information.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Managing Cookies */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
+        >
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaToggleOn className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Managing Cookies</h2>
+                <div className="prose max-w-none text-gray-600">
+                  <p>You have the right to accept or reject cookies.</p>
+                  <p>Most browsers automatically accept cookies, but you can usually modify your settings to decline cookies if you prefer.</p>
+                  <p>You can:</p>
+                  <ul className="list-disc pl-5 mb-4">
+                    <li>Manage your cookie preferences via your browser settings</li>
+                    <li>Delete existing cookies from your device</li>
+                    <li>Block future cookies from being placed</li>
+                  </ul>
+                  <p>Please note: disabling cookies may impact the functionality of our website.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Changes to This Cookies Policy */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
+        >
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaHistory className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Changes to This Cookies Policy</h2>
+                <div className="prose max-w-none text-gray-600">
+                  <p>We may update this Cookies Policy from time to time.</p>
+                  <p>Updates will be posted on this page with an updated "Last Updated" date.</p>
+                  <p>Last Updated: April 27, 2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Contact Us */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
+        >
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 bg-orange-100 p-2 rounded-full mr-4">
+                <FaEnvelope className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                <div className="prose max-w-none text-gray-600">
+                  <p>If you have questions or concerns regarding this Cookies Policy, please contact us:</p>
+                  <p>CloudDigify LLP</p>
+                  <p>Email: info@clouddigify.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </div>
