@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);

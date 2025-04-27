@@ -14,7 +14,7 @@ const Home = () => {
       description: 'Accelerate innovation and growth with our comprehensive cloud solutions and digital transformation expertise.',
       cta: { 
         label: 'Explore Solutions',
-        link: '/services'
+        link: '/services/digital-engineering'
       }
     },
     {
@@ -24,7 +24,7 @@ const Home = () => {
       description: 'Leverage cutting-edge AI and automation solutions to streamline operations and drive business value.',
       cta: {
         label: 'Discover AI Solutions',
-        link: '/services/ai'
+        link: '/services/ai/artificial-intelligence'
       }
     },
     {
@@ -34,7 +34,7 @@ const Home = () => {
       description: 'Protect your digital assets with our comprehensive cloud security and compliance solutions.',
       cta: {
         label: 'Learn About Security',
-        link: '/services/security'
+        link: '/services/security/cyber-defence'
       }
     }
   ];
@@ -80,42 +80,42 @@ const Home = () => {
       title: "Cloud Migration & Modernization", 
       description: "Transform your legacy systems into modern, cloud-native applications with zero downtime",
       gradient: "from-blue-500 to-cyan-500",
-      path: "/services/cloud"
+      path: "/services/cloud/aws"
     },
     { 
       icon: <FaCogs className="text-4xl" />, 
       title: "DevOps Excellence", 
       description: "Accelerate delivery with automated CI/CD pipelines and infrastructure as code",
       gradient: "from-purple-500 to-pink-500",
-      path: "/services/devops"
+      path: "/services/devops/cicd"
     },
     { 
       icon: <FaShieldAlt className="text-4xl" />, 
       title: "Cloud Security & Compliance", 
       description: "Enterprise-grade security with real-time threat detection and compliance automation",
       gradient: "from-green-500 to-emerald-500",
-      path: "/services/security"
+      path: "/services/security/cyber-defence"
     },
     { 
       icon: <FaDatabase className="text-4xl" />, 
       title: "Data Analytics & AI", 
       description: "Turn your data into actionable insights with advanced analytics and AI/ML solutions",
       gradient: "from-orange-500 to-red-500",
-      path: "/services/analytics"
+      path: "/services/consulting/data-analytics"
     },
     { 
       icon: <FaMobileAlt className="text-4xl" />, 
       title: "Cloud-Native Development", 
       description: "Build scalable, resilient applications using microservices and containers",
       gradient: "from-indigo-500 to-purple-500",
-      path: "/services/digital"
+      path: "/services/digital-engineering"
     },
     { 
       icon: <FaBrain className="text-4xl" />, 
       title: "Intelligent Automation", 
       description: "Streamline operations with AI-powered automation and workflow optimization",
       gradient: "from-rose-500 to-pink-500",
-      path: "/services/ai"
+      path: "/services/ai/artificial-intelligence"
     }
   ];
 
@@ -215,7 +215,7 @@ const Home = () => {
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Cloud Transformation Expertise</h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Accelerate your digital journey with our comprehensive cloud solutions that deliver measurable business outcomes and competitive advantage
+              Future-proof your business with strategic cloud adoption that drives innovation, efficiency, and sustainable growth across your organization
             </p>
           </motion.div>
 
