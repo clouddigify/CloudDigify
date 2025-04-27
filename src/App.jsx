@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
+import serviceRedirects from './utils/serviceRedirects';
 
 // Page Components
 import Home from './components/pages/Home';
@@ -208,6 +209,15 @@ const AnimatedRoutes = () => {
         <Route path="/services/infrastructure" element={<InfrastructureServices />} />
         <Route path="/services/blockchain" element={<Blockchain />} />
         <Route path="/services/strategy" element={<Strategy />} />        
+        
+        {/* Redirects for service paths from Home.jsx */}
+        <Route path="/services/cloud" element={<Navigate to="/services/cloud/aws" replace />} />
+        <Route path="/services/devops" element={<Navigate to="/services/devops/cicd" replace />} />
+        <Route path="/services/security" element={<Navigate to="/services/security/cyber-defence" replace />} />
+        <Route path="/services/analytics" element={<Navigate to="/services/consulting/data-analytics" replace />} />
+        <Route path="/services/digital" element={<Navigate to="/services/digital-engineering" replace />} />
+        <Route path="/services/ai" element={<Navigate to="/services/ai/artificial-intelligence" replace />} />
+        
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
