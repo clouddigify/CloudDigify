@@ -48,7 +48,7 @@ const CloudPartners = () => {
           Our Cloud Partners
         </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {partners.map((partner, index) => (
             <motion.div
               key={partner.name}
@@ -56,16 +56,16 @@ const CloudPartners = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
             >
               <LazyImage 
                 src={partner.logo} 
                 alt={partner.name} 
-                className="h-16 w-auto mb-4"
-                width={200}
+                className="max-h-12 w-auto mb-4 sm:max-h-14 md:max-h-16 lg:max-h-20 max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px]"
+                width={160}
                 height={64}
               />
-              <h3 className="text-xl font-semibold text-center">{partner.name}</h3>
+              <h3 className="text-base md:text-lg font-semibold text-center mt-2 md:mt-4">{partner.name}</h3>
             </motion.div>
           ))}
         </div>

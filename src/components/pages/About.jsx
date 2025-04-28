@@ -124,7 +124,7 @@ const About = () => (
         style={{ minHeight: 'calc(100vh - 80px)' }}
       >
         <AnimatedBackground />
-        <div className="relative max-w-7xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center z-10">
+        <div className="relative max-w-7xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center z-10 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
