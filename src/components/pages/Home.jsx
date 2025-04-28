@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
 import CloudPartners from '../CloudPartners';
 import ImageSlider from '../common/ImageSlider';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
   const heroSlides = [
@@ -158,6 +159,12 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>CloudDigify | Cloud Transformation & Digital Solutions</title>
+        <meta name="description" content="CloudDigify delivers enterprise-grade cloud transformation, AI, and digital solutions to accelerate innovation and growth for businesses worldwide." />
+        <meta name="keywords" content="cloud transformation, digital solutions, cloud migration, AI solutions, enterprise cloud, cloud security" />
+      </Helmet>
+      
       {/* Hero Section - Carousel */}
       <section className="relative w-full">
         <ImageSlider
