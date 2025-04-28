@@ -7,7 +7,7 @@ const partners = [
   {
     name: 'Amazon Web Services',
     icon: FaAws,
-    logo: '/assets/partners/aws-logo.png',
+    logo: '/images/aws-logo.png',
     services: ['EC2', 'S3', 'Lambda', 'RDS', 'CloudFront'],
     color: '#FF9900'
   },
@@ -21,14 +21,14 @@ const partners = [
   {
     name: 'Google Cloud',
     icon: FaGoogle,
-    logo: '/assets/partners/gcp-logo.png',
+    logo: '/images/gcp-logo.png',
     services: ['Compute Engine', 'Cloud Storage', 'Cloud Functions', 'Cloud SQL', 'Cloud CDN'],
     color: '#4285F4'
   },
   {
     name: 'Oracle Cloud',
     icon: SiOracle,
-    logo: '/assets/partners/oracle-logo.png',
+    logo: '/images/oracle-logo.png',
     services: ['Compute', 'Object Storage', 'Functions', 'Database', 'CDN'],
     color: '#F80000'
   }
