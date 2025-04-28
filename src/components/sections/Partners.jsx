@@ -14,7 +14,7 @@ const Partners = () => {
     {
       id: 2,
       name: 'Microsoft Azure',
-      logo: 'https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Logo-700x394.png',
+      logo: '/images/azure-logo.svg',
       alt: 'Microsoft Azure Logo'
     },
     {

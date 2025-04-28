@@ -7,28 +7,28 @@ const partners = [
   {
     name: 'Amazon Web Services',
     icon: FaAws,
-    logo: '/assets/partners/aws-logo.png',
+    logo: '/images/aws-logo.png',
     services: ['EC2', 'S3', 'Lambda', 'RDS', 'CloudFront'],
     color: '#FF9900'
   },
   {
     name: 'Microsoft Azure',
     icon: FaMicrosoft,
-    logo: '/assets/partners/azure-logo.png',
+    logo: '/images/azure-logo.png',
     services: ['Virtual Machines', 'Blob Storage', 'Functions', 'SQL Database', 'CDN'],
-    color: '#0089D6'
+    color: '#0078D4'
   },
   {
     name: 'Google Cloud',
     icon: FaGoogle,
-    logo: '/assets/partners/gcp-logo.png',
+    logo: '/images/gcp-logo.png',
     services: ['Compute Engine', 'Cloud Storage', 'Cloud Functions', 'Cloud SQL', 'Cloud CDN'],
     color: '#4285F4'
   },
   {
     name: 'Oracle Cloud',
     icon: SiOracle,
-    logo: '/assets/partners/oracle-logo.png',
+    logo: '/images/oracle-logo.png',
     services: ['Compute', 'Object Storage', 'Functions', 'Database', 'CDN'],
     color: '#F80000'
   }
@@ -57,7 +57,11 @@ const CloudPartners = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
             >
-              <partner.icon className="text-5xl mb-4" style={{ color: partner.color }} />
+              <img 
+                src={partner.logo} 
+                alt={partner.name} 
+                className="h-16 w-auto mb-4"
+              />
               <h3 className="text-xl font-semibold text-center">{partner.name}</h3>
             </motion.div>
           ))}

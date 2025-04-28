@@ -80,7 +80,11 @@ const AzureTraining = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FaMicrosoft className="text-6xl mb-6" />
+                <img 
+                  src="/images/azure-logo.png" 
+                  alt="Microsoft Azure" 
+                  className="w-16 h-16 mb-6"
+                />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   Microsoft Azure Training
                 </h1>

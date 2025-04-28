@@ -316,7 +316,7 @@ const Azure = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-90"
+          className="absolute inset-0 bg-gradient-to-r from-[#0078D4] to-[#00BCF2] opacity-90"
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5 }}
@@ -331,13 +331,17 @@ const Azure = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="max-w-3xl backdrop-blur-sm bg-white/10 p-8 rounded-2xl">
-              <div className="flex items-center gap-4 mb-6">
-                <SiMicrosoftazure className="text-5xl text-white" />
+              <div className="flex items-center mb-6">
+                <img 
+                  src="/images/azure-logo.png" 
+                  alt="CloudDigify" 
+                  className="w-12 h-12"
+                />
                 <h1 className="text-5xl md:text-6xl font-bold text-white">
-                  Azure Cloud
+                  Azure Cloud Services
                 </h1>
               </div>
-              <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              <p className="text-xl text-white/90 mb-4 leading-relaxed">
                 Transform your business with Microsoft Azure - the trusted enterprise cloud platform for modern innovation.
               </p>
               <motion.div

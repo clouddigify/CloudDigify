@@ -31,7 +31,8 @@ import {
   FaTshirt,
   FaBolt,
   FaSearch,
-  FaLandmark
+  FaLandmark,
+  FaYoutube
 } from 'react-icons/fa';
 
 import { menuConfig } from '../config/menuConfig';
@@ -39,7 +40,7 @@ import { menuConfig } from '../config/menuConfig';
 // Company info
 const companyInfo = {
   name: "CloudDigify",
-  tagline: "Your trusted digital transformation partner",
+  tagline: "Transforming What's Next",
   address: "Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Ghaziabad, Uttar Pradesh 201309",
   phone: "+91 7011112386",
   email: "contact@clouddigify.com",
@@ -52,6 +53,7 @@ const socialLinks = [
   { icon: <FaTwitter className="w-5 h-5" />, url: "https://twitter.com/clouddigify", label: "Twitter" },
   { icon: <FaFacebook className="w-5 h-5" />, url: "https://facebook.com/clouddigify", label: "Facebook" },
   { icon: <FaInstagram className="w-5 h-5" />, url: "https://instagram.com/clouddigify", label: "Instagram" },
+  { icon: <FaYoutube className="w-5 h-5" />, url: "https://youtube.com/@clouddigify", label: "YouTube" },
   { icon: <FaGithub className="w-5 h-5" />, url: "https://github.com/clouddigify", label: "GitHub" }
 ];
 

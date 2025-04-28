@@ -46,13 +46,16 @@ const Logo = () => {
 };
 
 const BrandTitle = () => (
-  <div className="flex items-center">
-    <span className="text-2xl font-bold bg-gradient-to-r from-[#2B6CB0] to-[#4299E1] bg-clip-text text-transparent">
-      Cloud
-    </span>
-    <span className="text-2xl font-bold text-[#4299E1]">
-      Digify
-    </span>
+  <div className="flex flex-col">
+    <div className="flex items-center">
+      <span className="text-2xl font-bold bg-gradient-to-r from-[#2B6CB0] to-[#4299E1] bg-clip-text text-transparent">
+        Cloud
+      </span>
+      <span className="text-2xl font-bold text-[#4299E1]">
+        Digify
+      </span>
+    </div>
+    <span className="text-xs text-gray-600">Transforming What's Next</span>
   </div>
 );
 

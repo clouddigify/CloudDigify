@@ -167,11 +167,13 @@ export const menuConfig = {
               path: '/services/cloud/oraclecloud',
               icon: 'fa-oracle'
             },
+            /* Alibaba Cloud temporarily hidden
             { 
               title: 'Alibaba Cloud',
               path: '/services/cloud/alibabacloud',
               icon: 'fa-alibaba'
             },
+            */
             {
               title: 'Infrastructure Services',
               path: '/services/infrastructure',
@@ -366,11 +368,13 @@ export const menuConfig = {
               path: '/training/oracle',
               icon: 'fa-oracle'
             },
+            /* Alibaba Cloud Training temporarily hidden
             {
               title: 'Alibaba Cloud Training',
               path: '/training/alibabacloud',
               icon: 'fa-alibaba'
             }
+            */
           ]
         },
         {
