@@ -1,18 +1,22 @@
 import React from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaCloudUploadAlt, FaUsers, FaAward, FaRocket, FaChartLine, FaGlobe, FaHandshake, FaUserTie, FaBuilding, FaChartBar, FaHome } from 'react-icons/fa';
 import SEO from '../common/SEO';
+import Breadcrumbs from '../common/Breadcrumbs';
 
 // Animated background shapes component
 const AnimatedBackground = () => {
-  const shapes = Array.from({ length: 8 }).map((_, i) => ({
-    id: i,
-    size: Math.random() * 60 + 40,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    duration: Math.random() * 20 + 15
-  }));
+  const shapes = useMemo(() => (
+    Array.from({ length: 8 }).map((_, i) => ({
+      id: i,
+      size: Math.random() * 60 + 40,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      duration: Math.random() * 20 + 15
+    }))
+  ), []);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
@@ -87,26 +91,6 @@ const certifications = [
   { title: 'Certified Kubernetes Administrator', desc: 'Certification demonstrating proficiency in Kubernetes deployment and management', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> }
 ];
 
-const Breadcrumbs = () => (
-  <nav
-    className="max-w-7xl mx-auto flex justify-center pt-10 pb-4 text-sm bg-white/80 rounded-xl shadow border border-gray-100 mt-6 mb-8"
-    aria-label="Breadcrumb"
-    style={{ position: 'relative', zIndex: 10 }}
-  >
-    <ol className="flex items-center space-x-2">
-      <li>
-        <Link to="/" className="flex items-center text-blue-500 hover:text-blue-700 font-medium">
-          <FaHome className="mr-1" /> Home
-        </Link>
-      </li>
-      <li>
-        <span className="text-gray-400">›</span>
-      </li>
-      <li className="text-blue-700 font-semibold">About Us</li>
-    </ol>
-  </nav>
-);
-
 const About = () => (
   <>
     <SEO
@@ -124,7 +108,7 @@ const About = () => (
         style={{ minHeight: 'calc(100vh - 80px)' }}
       >
         <AnimatedBackground />
-        <div className="relative max-w-7xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center z-10">
+        <div className="relative max-w-7xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center z-10 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

@@ -135,7 +135,7 @@ export const menuConfig = {
     { 
       title: 'About Us', 
       path: '/about', 
-      icon: 'fa-info'
+      icon: 'fa-info-circle'
     },
     { 
       title: 'Services', 

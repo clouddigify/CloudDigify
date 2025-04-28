@@ -29,6 +29,20 @@ class ErrorBoundary extends React.Component {
     }
     return this.props.children;
   }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-4">
+          <h1>Something went wrong.</h1>
+          <pre>{this.state.error?.toString()}</pre>
+          <details style={{ whiteSpace: 'pre-wrap', color: 'red' }}>
+            {this.state.error?.stack}
+          </details>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 export default ErrorBoundary; 

@@ -98,7 +98,7 @@ const PrivacyPolicy = () => {
                     <li>Clients,</li>
                     <li>Prospective clients,</li>
                     <li>Partners and service providers interacting with CloudDigify.</li>
-                  </ul>
+          </ul>
                   <p>It covers how CloudDigify collects, uses, processes, stores, shares, and secures personal data.</p>
                 </div>
               </div>
@@ -126,23 +126,23 @@ const PrivacyPolicy = () => {
                     <li>Personal Identification Information: Name, Email Address, Phone Number, Company Name</li>
                     <li>Message/Inquiry Details: Content you submit through forms</li>
                     <li>Technical Information: IP address, browser type, operating system (via tools like Google Analytics)</li>
-                  </ul>
+          </ul>
                   <p>We collect this information when you:</p>
                   <ul className="list-disc pl-5 mb-4">
                     <li>Submit a form through our website</li>
                     <li>Contact us directly via email or other channels</li>
-                  </ul>
-                </div>
+          </ul>
+        </div>
               </div>
             </div>
           </div>
         </motion.div>
 
         {/* How We Use Your Information */}
-        <motion.div
+    <motion.div
           variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+      initial="hidden"
+      animate="visible"
           className="bg-white rounded-xl shadow-sm overflow-hidden mb-8"
         >
           <div className="p-6 sm:p-8">
@@ -167,7 +167,7 @@ const PrivacyPolicy = () => {
         </motion.div>
 
         {/* Data Sharing and Disclosure */}
-        <motion.div
+        <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -228,8 +228,8 @@ const PrivacyPolicy = () => {
             <div className="flex items-start mb-4">
               <div className="flex-shrink-0 bg-blue-100 p-2 rounded-full mr-4">
                 <FaCookieBite className="h-6 w-6 text-blue-600" />
-              </div>
-              <div>
+          </div>
+          <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Cookies and Tracking Technologies</h2>
                 <div className="prose max-w-none text-gray-600">
                   <p>We may use cookies and similar tracking technologies to improve website functionality and analyze visitor interactions.</p>
@@ -241,7 +241,7 @@ const PrivacyPolicy = () => {
         </motion.div>
 
         {/* Data Security */}
-        <motion.div
+        <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -269,7 +269,7 @@ const PrivacyPolicy = () => {
         </motion.div>
 
         {/* Children's Privacy */}
-        <motion.div
+            <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -279,7 +279,7 @@ const PrivacyPolicy = () => {
             <div className="flex items-start mb-4">
               <div className="flex-shrink-0 bg-blue-100 p-2 rounded-full mr-4">
                 <FaChild className="h-6 w-6 text-blue-600" />
-              </div>
+                  </div>
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Children's Privacy</h2>
                 <div className="prose max-w-none text-gray-600">
@@ -322,9 +322,9 @@ const PrivacyPolicy = () => {
             </div>
           </div>
         </motion.div>
-
+              
         {/* Changes to This Privacy Statement */}
-        <motion.div
+              <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -345,7 +345,7 @@ const PrivacyPolicy = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+            </motion.div>
 
         {/* Contact Information */}
         <motion.div
