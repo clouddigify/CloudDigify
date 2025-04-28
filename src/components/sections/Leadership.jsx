@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaLinkedin, FaTwitter, FaEnvelope, FaUsers } from 'react-icons/fa';
 import PageTemplate from '../templates/PageTemplate';
+import LazyImage from '../common/LazyImage';
 
 const Leadership = () => {
   const leaders = [
@@ -91,10 +92,12 @@ const Leadership = () => {
               <div key={leader.name} className="bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="h-64 bg-gray-200">
                   {leader.image ? (
-                    <img
+                    <LazyImage
                       src={leader.image}
                       alt={leader.name}
                       className="w-full h-full object-cover"
+                      width={400}
+                      height={400}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-blue-100">

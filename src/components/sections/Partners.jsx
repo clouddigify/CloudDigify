@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaAward, FaCheckCircle, FaHandshake } from 'react-icons/fa';
 import PageTemplate from '../templates/PageTemplate';
+import LazyImage from '../common/LazyImage';
 
 const Partners = () => {
   // Partner logo data
@@ -127,10 +128,12 @@ const Partners = () => {
                   key={partner.id}
                   className="h-24 flex items-center justify-center relative group"
                 >
-                  <img 
+                  <LazyImage 
                     src={partner.logo} 
                     alt={partner.alt} 
                     className="max-h-full max-w-full object-contain transition-opacity duration-300 z-10"
+                    width={200}
+                    height={100}
                   />
                   <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-300"></div>
                 </div>

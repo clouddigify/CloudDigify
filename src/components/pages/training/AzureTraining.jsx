@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaMicrosoft, FaCloud, FaDatabase, FaCode, FaShieldAlt, FaCogs } from 'react-icons/fa';
+import LazyImage from '../../common/LazyImage';
 
 const AzureTraining = () => {
   const certifications = [
@@ -80,10 +81,12 @@ const AzureTraining = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <img 
+                <LazyImage 
                   src="/images/azure-logo.png" 
                   alt="Microsoft Azure" 
                   className="w-16 h-16 mb-6"
+                  width={64}
+                  height={64}
                 />
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   Microsoft Azure Training

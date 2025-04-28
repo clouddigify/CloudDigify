@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaQuoteLeft, FaStar, FaUserCircle, FaComments } from 'react-icons/fa';
 import PageTemplate from '../templates/PageTemplate';
+import LazyImage from '../common/LazyImage';
 
 // Client testimonials data
 const testimonials = [
@@ -57,10 +58,12 @@ const TestimonialCard = ({ testimonial }) => (
     
     <div className="flex items-center">
       {testimonial.image ? (
-        <img 
+        <LazyImage 
           src={testimonial.image} 
           alt={testimonial.author} 
           className="w-12 h-12 rounded-full object-cover mr-4"
+          width={48}
+          height={48}
         />
       ) : (
         <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">

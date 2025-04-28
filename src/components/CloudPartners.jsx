@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
 import { SiOracle } from 'react-icons/si';
+import LazyImage from './common/LazyImage';
 
 const partners = [
   {
@@ -57,10 +58,12 @@ const CloudPartners = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
             >
-              <img 
+              <LazyImage 
                 src={partner.logo} 
                 alt={partner.name} 
                 className="h-16 w-auto mb-4"
+                width={200}
+                height={64}
               />
               <h3 className="text-xl font-semibold text-center">{partner.name}</h3>
             </motion.div>
