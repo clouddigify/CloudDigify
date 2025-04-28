@@ -50,7 +50,8 @@ import {
   FaPlug,
   FaClock,
   FaPaintBrush,
-  FaPalette
+  FaPalette,
+  FaInfoCircle
 } from 'react-icons/fa';
 
 import { 
@@ -142,6 +143,7 @@ const ICONS = {
   'fa-clipboard-list': FaClipboardList,
   'fa-code': FaCode,
   'fa-cube': FaCube,
+  'fa-info-circle': FaInfoCircle,
   
   // Brand-specific cloud provider icons with exact brand names as keys
   'AWS': SiAmazonaws,
@@ -158,6 +160,7 @@ const ICONS = {
 };
 
 const IconRenderer = ({ icon, className, title }) => {
+  console.log('IconRenderer props:', { icon, className, title });
   if (!icon && !title) return null;
   
   // Get brand-specific color based on the title
