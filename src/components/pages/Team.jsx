@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import LazyImage from '../common/LazyImage';
 
 const teamMembers = {
   leadership: [
@@ -124,10 +125,12 @@ const Team = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden"
             >
               <div className="aspect-w-1 aspect-h-1">
-                <img
+                <LazyImage
                   src={member.image}
                   alt={member.name}
                   className="w-full h-full object-cover"
+                  width={400}
+                  height={400}
                 />
               </div>
               <div className="p-6">
@@ -189,24 +192,30 @@ const Team = () => {
                   className="bg-white rounded-xl shadow-lg overflow-hidden"
                 >
                   <div className="aspect-w-1 aspect-h-1">
-                    <img
+                    <LazyImage
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover"
+                      width={400}
+                      height={400}
                     />
                   </div>
                   <div className="p-4">
                     <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
                     <p className="text-blue-600 text-sm mb-2">{member.role}</p>
-                    {member.social.linkedin && (
-                      <a
-                        href={member.social.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-blue-600"
-                      >
-                        <FaLinkedin className="w-5 h-5" />
-                      </a>
+                    {member.social && (
+                      <div className="flex space-x-4 mt-2">
+                        {member.social.linkedin && (
+                          <a
+                            href={member.social.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-400 hover:text-blue-600"
+                          >
+                            <FaLinkedin className="w-5 h-5" />
+                          </a>
+                        )}
+                      </div>
                     )}
                   </div>
                 </motion.div>

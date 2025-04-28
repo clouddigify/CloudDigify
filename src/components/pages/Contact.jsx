@@ -14,6 +14,7 @@ import {
   FaInstagram
 } from 'react-icons/fa';
 import { submitContactForm } from '../../utils/contactService';
+import SEO from '../common/SEO';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -69,6 +70,13 @@ const Contact = () => {
   };
 
   return (
+    <>
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with CloudDigify for your cloud and digital transformation needs"
+        canonicalUrl="https://clouddigify.com/contact"
+        keywords={['contact', 'support', 'inquiries', 'business']}
+      />
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-blue-600 to-indigo-700 overflow-hidden">

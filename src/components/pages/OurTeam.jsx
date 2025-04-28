@@ -8,6 +8,7 @@ import {
   FaHandshake,
   FaRocket
 } from 'react-icons/fa';
+import LazyImage from '../common/LazyImage';
 
 const OurTeam = () => {
   const containerVariants = {
@@ -155,10 +156,12 @@ const OurTeam = () => {
                 className="bg-white rounded-xl shadow-lg overflow-hidden"
               >
                 <div className="aspect-w-16 aspect-h-9">
-                  <img
+                  <LazyImage
                     src={leader.image}
                     alt={leader.name}
                     className="w-full h-64 object-cover"
+                    width={400}
+                    height={256}
                   />
                 </div>
                 <div className="p-6">
@@ -200,16 +203,18 @@ const OurTeam = () => {
                 variants={itemVariants}
                 className="bg-white rounded-xl shadow-lg overflow-hidden"
               >
-                <div className="aspect-w-1 aspect-h-1">
-                  <img
+                <div className="aspect-w-16 aspect-h-9">
+                  <LazyImage
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-64 object-cover"
+                    width={400}
+                    height={256}
                   />
                 </div>
-                <div className="p-4 text-center">
-                  <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                  <p className="text-blue-600">{member.role}</p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
+                  <p className="text-blue-600 font-medium">{member.role}</p>
                 </div>
               </motion.div>
             ))}
