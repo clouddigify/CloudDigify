@@ -14,9 +14,9 @@ const partners = [
   {
     name: 'Microsoft Azure',
     icon: FaMicrosoft,
-    logo: '/assets/partners/azure-logo.png',
+    logo: '/images/azure-logo.png',
     services: ['Virtual Machines', 'Blob Storage', 'Functions', 'SQL Database', 'CDN'],
-    color: '#0089D6'
+    color: '#0078D4'
   },
   {
     name: 'Google Cloud',
@@ -57,7 +57,11 @@ const CloudPartners = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
             >
-              <partner.icon className="text-5xl mb-4" style={{ color: partner.color }} />
+              <img 
+                src={partner.logo} 
+                alt={partner.name} 
+                className="h-16 w-auto mb-4"
+              />
               <h3 className="text-xl font-semibold text-center">{partner.name}</h3>
             </motion.div>
           ))}
