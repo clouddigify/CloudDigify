@@ -333,7 +333,7 @@ const Azure = () => {
             <div className="max-w-3xl backdrop-blur-sm bg-white/10 p-8 rounded-2xl">
               <div className="flex items-center mb-6">
                 <img 
-                  src="/images/azure-logo.png" 
+                  src="/images/azure-logo.svg" 
                   alt="CloudDigify" 
                   className="w-12 h-12"
                 />

@@ -1,54 +1,48 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
-import { SiOracle } from 'react-icons/si';
 import LazyImage from './common/LazyImage';
 
 const partners = [
   {
     name: 'Amazon Web Services',
-    icon: FaAws,
-    logo: '/images/aws-logo.png',
-    services: ['EC2', 'S3', 'Lambda', 'RDS', 'CloudFront'],
-    color: '#FF9900'
+    logo: '/images/aws-logo.svg',
+    width: 60,
+    height: 40
   },
   {
     name: 'Microsoft Azure',
-    icon: FaMicrosoft,
-    logo: '/images/azure-logo.png',
-    services: ['Virtual Machines', 'Blob Storage', 'Functions', 'SQL Database', 'CDN'],
-    color: '#0078D4'
+    logo: '/images/azure-logo.svg',
+    width: 42,
+    height: 40
   },
   {
     name: 'Google Cloud',
-    icon: FaGoogle,
-    logo: '/images/gcp-logo.png',
-    services: ['Compute Engine', 'Cloud Storage', 'Cloud Functions', 'Cloud SQL', 'Cloud CDN'],
-    color: '#4285F4'
+    logo: '/images/gcp-logo.svg',
+    width: 180,
+    height: 60
   },
   {
     name: 'Oracle Cloud',
-    icon: SiOracle,
-    logo: '/images/oracle-logo.png',
-    services: ['Compute', 'Object Storage', 'Functions', 'Database', 'CDN'],
-    color: '#F80000'
+    logo: '/images/oracle-logo.svg',
+    width: 130,
+    height: 30
   }
 ];
 
 const CloudPartners = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-12 sm:py-16 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold text-center mb-12"
+          className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12"
         >
           Our Cloud Partners
         </motion.h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
           {partners.map((partner, index) => (
             <motion.div
               key={partner.name}
@@ -56,16 +50,18 @@ const CloudPartners = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-lg shadow p-4 sm:p-6 flex flex-col items-center hover:shadow-lg transition-shadow duration-300 min-h-[140px] sm:min-h-[160px]"
             >
-              <LazyImage 
-                src={partner.logo} 
-                alt={partner.name} 
-                className="max-h-12 w-auto mb-4 sm:max-h-14 md:max-h-16 lg:max-h-20 max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px]"
-                width={160}
-                height={64}
-              />
-              <h3 className="text-base md:text-lg font-semibold text-center mt-2 md:mt-4">{partner.name}</h3>
+              <div className="flex items-center justify-center h-16 sm:h-20 w-full mb-2 sm:mb-4 overflow-hidden">
+                <LazyImage 
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={partner.width}
+                  height={partner.height}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xs sm:text-sm font-medium text-center">{partner.name}</h3>
             </motion.div>
           ))}
         </div>
@@ -74,4 +70,4 @@ const CloudPartners = () => {
   );
 };
 
-export default CloudPartners; 
+export default CloudPartners;

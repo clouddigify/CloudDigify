@@ -136,22 +136,22 @@ const Home = () => {
   const partners = [
     {
       name: "AWS",
-      logo: "/assets/partners/aws-logo.png",
+      logo: "/assets/partners/aws-logo.svg",
       services: ["EC2", "Lambda", "S3", "RDS", "EKS"]
     },
     {
       name: "Microsoft Azure",
-      logo: "/assets/partners/azure-logo.png",
+      logo: "/assets/partners/azure-logo.svg",
       services: ["Azure VMs", "Azure Functions", "CosmosDB", "AKS"]
     },
     {
       name: "Google Cloud",
-      logo: "/assets/partners/gcp-logo.png",
+      logo: "/assets/partners/gcp-logo.svg",
       services: ["Compute Engine", "Cloud Functions", "BigQuery", "GKE"]
     },
     {
       name: "Oracle Cloud",
-      logo: "/assets/partners/oracle-logo.png",
+      logo: "/assets/partners/oracle-logo.svg",
       services: ["OCI", "Oracle DB", "Container Engine"]
     }
   ];

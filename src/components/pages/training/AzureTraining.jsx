@@ -82,7 +82,7 @@ const AzureTraining = () => {
                 transition={{ delay: 0.2 }}
               >
                 <LazyImage 
-                  src="/images/azure-logo.png" 
+                  src="/images/azure-logo.svg" 
                   alt="Microsoft Azure" 
                   className="w-16 h-16 mb-6"
                   width={64}
