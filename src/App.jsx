@@ -1,123 +1,247 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import React from 'react';
+import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import LoadingSpinner from './components/common/LoadingSpinner';
-import Breadcrumbs from './components/common/Breadcrumbs';
-import { getRedirect } from './config/redirects';
+import ScrollToTop from './components/common/ScrollToTop';
+import serviceRedirects from './utils/serviceRedirects';
+import CookieConsentBanner from './components/common/CookieConsentBanner';
 
-// Lazy load components
-const Home = lazy(() => import('./components/pages/Home'));
-const About = lazy(() => import('./components/pages/About'));
-const Services = lazy(() => import('./components/pages/Services'));
-const Contact = lazy(() => import('./components/pages/Contact'));
-const Team = lazy(() => import('./components/pages/Team'));
-const Career = lazy(() => import('./components/pages/Career'));
-const Culture = lazy(() => import('./components/pages/Culture'));
-const NotFound = lazy(() => import('./components/pages/NotFound'));
+// Page Components
+import Home from './components/pages/Home';
+import Contact from './components/pages/Contact';
+import About from './components/pages/About';
+import OurTeam from './components/pages/OurTeam';
+import Career from './components/pages/Career';
+import Culture from './components/pages/Culture';
 
-// Training pages
-const AwsTraining = lazy(() => import('./components/pages/training/AwsTraining'));
-const AzureTraining = lazy(() => import('./components/pages/training/AzureTraining'));
-const GoogleCloudTraining = lazy(() => import('./components/pages/training/GoogleCloudTraining'));
-const OracleCloudTraining = lazy(() => import('./components/pages/training/OracleCloudTraining'));
-const AlibabaCloudTraining = lazy(() => import('./components/pages/training/AlibabaCloudTraining'));
-const KubernetesTraining = lazy(() => import('./components/pages/training/KubernetesTraining'));
-const DevOpsTraining = lazy(() => import('./components/pages/training/DevOpsTraining'));
-const AIMLTraining = lazy(() => import('./components/pages/training/AIMLTraining'));
-const AutomationTraining = lazy(() => import('./components/pages/training/AutomationTraining'));
-const CampusTraining = lazy(() => import('./components/pages/training/CampusTraining'));
-const CorporateTraining = lazy(() => import('./components/pages/training/CorporateTraining'));
+// Legal Pages
+import TermsAndConditions from './components/pages/legal/TermsAndConditions';
+import PrivacyPolicy from './components/pages/legal/PrivacyPolicy';
+import CookiePolicy from './components/pages/legal/CookiePolicy';
+import Security from './components/pages/legal/Security';
 
-// Industry pages
-const Banking = lazy(() => import('./components/pages/industries/Banking'));
-const Healthcare = lazy(() => import('./components/pages/industries/Healthcare'));
-const Manufacturing = lazy(() => import('./components/pages/industries/Manufacturing'));
-const FinancialServices = lazy(() => import('./components/pages/industries/FinancialServices'));
-const IndustrialAutomation = lazy(() => import('./components/pages/industries/IndustrialAutomation'));
-const ElectricalEquipment = lazy(() => import('./components/pages/industries/ElectricalEquipment'));
-const TextileApparel = lazy(() => import('./components/pages/industries/TextileApparel'));
-const ResearchAdvisory = lazy(() => import('./components/pages/industries/ResearchAdvisory'));
-const PublicAdmin = lazy(() => import('./components/pages/industries/PublicAdmin'));
+// Industry Pages
+import FinancialServices from './components/pages/industries/FinancialServices';
+import Banking from './components/pages/industries/Banking';
+import Healthcare from './components/pages/industries/Healthcare';
+import TextileApparel from './components/pages/industries/TextileApparel';
+import IndustrialAutomation from './components/pages/industries/IndustrialAutomation';
+import ElectricalEquipment from './components/pages/industries/ElectricalEquipment';
+import ResearchAdvisory from './components/pages/industries/ResearchAdvisory';
+import PublicAdmin from './components/pages/industries/PublicAdmin';
+import Manufacturing from './components/pages/industries/Manufacturing';
 
-// Legal pages
-const PrivacyPolicy = lazy(() => import('./components/pages/legal/PrivacyPolicy'));
-const TermsAndConditions = lazy(() => import('./components/pages/legal/TermsAndConditions'));
-const CookiePolicy = lazy(() => import('./components/pages/legal/CookiePolicy'));
-const Security = lazy(() => import('./components/pages/legal/Security'));
+// Training Pages
+import AwsTraining from './components/pages/training/AwsTraining';
+import AzureTraining from './components/pages/training/AzureTraining';
+import GoogleCloudTraining from './components/pages/training/GoogleCloudTraining';
+import OracleCloudTraining from './components/pages/training/OracleCloudTraining';
+import AlibabaCloudTraining from './components/pages/training/AlibabaCloudTraining';
+import AIMLTraining from './components/pages/training/AIMLTraining';
+import AutomationTraining from './components/pages/training/AutomationTraining';
+import CorporateTraining from './components/pages/training/CorporateTraining';
+import CampusTraining from './components/pages/training/CampusTraining';
+import DevOpsTraining from './components/pages/training/DevOpsTraining';
+import KubernetesTraining from './components/pages/training/KubernetesTraining';
 
-// Redirect component to handle 301 redirects
-const RedirectHandler = ({ children }) => {
-  const location = useLocation();
-  const redirectPath = getRedirect(location.pathname);
+// Service Pages
+import DigitalEngineering from './components/services/DigitalEngineering';
+import PlatformOperation from './components/services/PlatformOperation';
+import QualityEngineering from './components/services/QualityEngineering';
 
-  if (redirectPath) {
-    return <Navigate to={redirectPath} replace />;
+// Cloud Service Pages
+import AWS from './components/services/cloud/AWS';
+import Azure from './components/services/cloud/Azure';
+import GoogleCloud from './components/services/cloud/GoogleCloud';
+import OracleCloud from './components/services/cloud/OracleCloud';
+import AlibabaCloud from './components/services/cloud/AlibabaCloud';
+
+// DevOps Service Pages
+import CICD from './components/services/devops/CICD';
+import InfrastructureAsCode from './components/services/devops/InfrastructureAsCode';
+import Containerization from './components/services/devops/Containerization';
+import ServerlessArchitecture from './components/services/devops/ServerlessArchitecture';
+import AgileTransformation from './components/services/devops/AgileTransformation';
+
+// Security Service Pages
+import CyberDefence from './components/services/security/CyberDefence';
+import PrivacySmartHub from './components/services/security/PrivacySmartHub';
+
+// AI Service Pages
+import ArtificialIntelligence from './components/services/ai/ArtificialIntelligence';
+import CognitiveServices from './components/services/ai/CognitiveServices';
+import AgenticAI from './components/services/ai/AgenticAI';
+import MLOps from './components/services/ai/MLOps';
+import RPA from './components/services/ai/RPA';
+
+// Consulting Service Pages
+import DigitalIntegration from './components/services/consulting/DigitalIntegration';
+import ConsultingOverview from './components/services/consulting/ConsultingOverview';
+import ExperienceDesign from './components/services/consulting/ExperienceDesign';
+import Databricks from './components/services/consulting/Databricks';
+import DataWarehousing from './components/services/consulting/DataWarehousing';
+import BusinessIntelligence from './components/services/consulting/BusinessIntelligence';
+import DataAnalytics from './components/services/consulting/DataAnalytics';
+import DigitalRuntime from './components/services/consulting/DigitalRuntime';
+
+// Infrastructure, Blockchain, and Strategy Service Pages
+import InfrastructureServices from './components/services/infrastructure/InfrastructureServices';
+import Blockchain from './components/services/blockchain/Blockchain';
+import Strategy from './components/services/strategy/Strategy';
+
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
   }
 
-  return children;
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught by boundary:', error);
+    console.error('Error info:', errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-4">
+          <h1>Something went wrong.</h1>
+          <pre>{this.state.error?.toString()}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Public Routes */}
+        <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        
+        {/* New Routes */}
+        <Route path="/team" element={<OurTeam />} />
+        <Route path="/career" element={<Career />} />
+        <Route path="/culture" element={<Culture />} />
+        
+        {/* Legal Routes */}
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/cookies" element={<CookiePolicy />} />
+        <Route path="/security" element={<Security />} />
+        
+        {/* Industry Routes */}
+        <Route path="/industries/financial-services" element={<FinancialServices />} />
+        <Route path="/industries/banking" element={<Banking />} />
+        <Route path="/industries/healthcare" element={<Healthcare />} />
+        <Route path="/industries/textile" element={<TextileApparel />} />
+        <Route path="/industries/automation" element={<IndustrialAutomation />} />
+        <Route path="/industries/electrical" element={<ElectricalEquipment />} />
+        <Route path="/industries/research" element={<ResearchAdvisory />} />
+        <Route path="/industries/governance" element={<PublicAdmin />} />
+        <Route path="/industries/manufacturing" element={<Manufacturing />} />
+
+        {/* Training Routes */}
+        <Route path="/training/aws" element={<AwsTraining />} />
+        <Route path="/training/azure" element={<AzureTraining />} />
+        <Route path="/training/googlecloud" element={<GoogleCloudTraining />} />
+        <Route path="/training/oracle" element={<OracleCloudTraining />} />
+        <Route path="/training/alibabacloud" element={<AlibabaCloudTraining />} />
+        <Route path="/training/ai-ml" element={<AIMLTraining />} />
+        <Route path="/training/automation" element={<AutomationTraining />} />
+        <Route path="/training/corporate" element={<CorporateTraining />} />
+        <Route path="/training/campus" element={<CampusTraining />} />
+        <Route path="/training/devops" element={<DevOpsTraining />} />
+        <Route path="/training/kubernetes" element={<KubernetesTraining />} />
+        
+        {/* Service Routes */}
+        <Route path="/services/digital-engineering" element={<DigitalEngineering />} />
+        <Route path="/services/platform-operation" element={<PlatformOperation />} />
+        <Route path="/services/quality-engineering" element={<QualityEngineering />} />
+        
+        {/* Cloud Service Routes */}
+        <Route path="/services/cloud/aws" element={<AWS />} />
+        <Route path="/services/cloud/azure" element={<Azure />} />
+        <Route path="/services/cloud/googlecloud" element={<GoogleCloud />} />
+        <Route path="/services/cloud/oraclecloud" element={<OracleCloud />} />
+        <Route path="/services/cloud/alibabacloud" element={<AlibabaCloud />} />
+        
+        {/* DevOps Service Routes */}
+        <Route path="/services/devops/cicd" element={<CICD />} />
+        <Route path="/services/devops/iac" element={<InfrastructureAsCode />} />
+        <Route path="/services/devops/containerization" element={<Containerization />} />
+        <Route path="/services/devops/serverless" element={<ServerlessArchitecture />} />
+        <Route path="/services/devops/agile" element={<AgileTransformation />} />
+        
+        {/* Security Service Routes */}
+        <Route path="/services/security/cyber-defence" element={<CyberDefence />} />
+        <Route path="/services/security/privacy-smarthub" element={<PrivacySmartHub />} />
+        
+        {/* AI Service Routes */}
+        <Route path="/services/ai/artificial-intelligence" element={<ArtificialIntelligence />} />
+        <Route path="/services/ai/cognitive-services" element={<CognitiveServices />} />
+        <Route path="/services/ai/agentic-ai" element={<AgenticAI />} />
+        <Route path="/services/ai/mlops" element={<MLOps />} />
+        <Route path="/services/ai/rpa" element={<RPA />} />
+        
+        {/* Consulting Service Routes */}
+        <Route path="/services/consulting/digital-integration" element={<DigitalIntegration />} />
+        <Route path="/services/consulting/overview" element={<ConsultingOverview />} />
+        <Route path="/services/consulting/experience-design" element={<ExperienceDesign />} />
+        <Route path="/services/consulting/databricks" element={<Databricks />} />
+        <Route path="/services/consulting/data-warehousing" element={<DataWarehousing />} />
+        <Route path="/services/consulting/business-intelligence" element={<BusinessIntelligence />} />
+        <Route path="/services/consulting/data-analytics" element={<DataAnalytics />} />
+        <Route path="/services/consulting/digital-runtime" element={<DigitalRuntime />} />
+
+        {/* Infrastructure, Blockchain, and Strategy Routes */}
+        <Route path="/services/infrastructure" element={<InfrastructureServices />} />
+        <Route path="/services/blockchain" element={<Blockchain />} />
+        <Route path="/services/strategy" element={<Strategy />} />        
+        
+        {/* Redirects for service paths from Home.jsx */}
+        <Route path="/services/cloud" element={<Navigate to="/services/cloud/aws" replace />} />
+        <Route path="/services/devops" element={<Navigate to="/services/devops/cicd" replace />} />
+        <Route path="/services/security" element={<Navigate to="/services/security/cyber-defence" replace />} />
+        <Route path="/services/analytics" element={<Navigate to="/services/consulting/data-analytics" replace />} />
+        <Route path="/services/digital" element={<Navigate to="/services/digital-engineering" replace />} />
+        <Route path="/services/ai" element={<Navigate to="/services/ai/artificial-intelligence" replace />} />
+        
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AnimatePresence>
+  );
 };
 
-function App() {
+const App = () => {
   return (
-    <HelmetProvider>
-      <Router>
+    <Router basename="/">
+      <ErrorBoundary>
+        <ScrollToTop />
         <div className="flex flex-col min-h-screen">
           <NavBar />
-          <Breadcrumbs />
           <main className="flex-grow">
-            <Suspense fallback={<LoadingSpinner />}>
-              <RedirectHandler>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/team" element={<Team />} />
-                  <Route path="/career" element={<Career />} />
-                  <Route path="/culture" element={<Culture />} />
-                  
-                  {/* Training Routes */}
-                  <Route path="/training/aws" element={<AwsTraining />} />
-                  <Route path="/training/azure" element={<AzureTraining />} />
-                  <Route path="/training/google-cloud" element={<GoogleCloudTraining />} />
-                  <Route path="/training/oracle-cloud" element={<OracleCloudTraining />} />
-                  <Route path="/training/alibaba-cloud" element={<AlibabaCloudTraining />} />
-                  <Route path="/training/kubernetes" element={<KubernetesTraining />} />
-                  <Route path="/training/devops" element={<DevOpsTraining />} />
-                  <Route path="/training/ai-ml" element={<AIMLTraining />} />
-                  <Route path="/training/automation" element={<AutomationTraining />} />
-                  <Route path="/training/campus" element={<CampusTraining />} />
-                  <Route path="/training/corporate" element={<CorporateTraining />} />
-                  
-                  {/* Industry Routes */}
-                  <Route path="/industries/banking" element={<Banking />} />
-                  <Route path="/industries/healthcare" element={<Healthcare />} />
-                  <Route path="/industries/manufacturing" element={<Manufacturing />} />
-                  <Route path="/industries/financial-services" element={<FinancialServices />} />
-                  <Route path="/industries/industrial-automation" element={<IndustrialAutomation />} />
-                  <Route path="/industries/electrical-equipment" element={<ElectricalEquipment />} />
-                  <Route path="/industries/textile-apparel" element={<TextileApparel />} />
-                  <Route path="/industries/research-advisory" element={<ResearchAdvisory />} />
-                  <Route path="/industries/public-admin" element={<PublicAdmin />} />
-                  
-                  {/* Legal Routes */}
-                  <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="/legal/terms-and-conditions" element={<TermsAndConditions />} />
-                  <Route path="/legal/cookie-policy" element={<CookiePolicy />} />
-                  <Route path="/legal/security" element={<Security />} />
-                  
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </RedirectHandler>
-            </Suspense>
+            <AnimatedRoutes />
           </main>
           <Footer />
+          <CookieConsentBanner />
         </div>
-      </Router>
-    </HelmetProvider>
+      </ErrorBoundary>
+    </Router>
   );
-}
+};
 
 export default App; 
