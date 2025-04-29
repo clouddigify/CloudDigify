@@ -8,6 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
+      // Add alias for our optimized framer-motion exports
+      'framer-motion-optimized': resolve(__dirname, 'src/components/common/LazyFramerMotion.js'),
     },
   },
   build: {
@@ -19,35 +21,26 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.debug', 'console.info'],
       },
     },
     // Split chunks for better caching
     rollupOptions: {
       output: {
         manualChunks: {
-          // Split vendor code into separate chunks
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['react-icons'],
-          'vendor-framer': ['framer-motion'],
-          'vendor-utils': ['react-helmet-async'],
+          'vendor': ['react', 'react-dom', 'react-router-dom', 'react-icons', 'react-helmet-async'],
+          'framer-motion': ['framer-motion']
         },
       },
+      // Improve tree-shaking for framer-motion
+      treeshake: 'recommended',
     },
     // Improve chunk loading
     chunkSizeWarningLimit: 1000,
   },
   // Pre-optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'react-icons', 'react-helmet-async'],
-    // Only include specific framer-motion features we need
-    include: [
-      'framer-motion/dist/es/render/dom/motion',
-      'framer-motion/dist/es/animation/AnimatePresence',
-      'framer-motion/dist/es/value/use-scroll',
-      'framer-motion/dist/es/value/use-transform',
-      'framer-motion/dist/es/render/utils/use-animation',
-      'framer-motion/dist/es/utils/use-in-view',
-    ],
+    include: ['react', 'react-dom', 'react-router-dom', 'react-icons', 'react-helmet-async', 'framer-motion'],
   },
   // Enable HTTPS for local development
   server: {

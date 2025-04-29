@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from '../common/LazyFramerMotion';
 import { FaUser, FaEnvelope, FaBuilding, FaPhone, FaCommentAlt, FaPaperPlane, FaTimes, FaCheck } from 'react-icons/fa';
 
 const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
