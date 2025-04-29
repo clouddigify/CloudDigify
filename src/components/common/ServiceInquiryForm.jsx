@@ -1,71 +1,110 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaPaperPlane, FaUser, FaEnvelope, FaBuilding, FaPhone, FaCommentAlt, FaCheck } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaBuilding, FaPhone, FaCommentAlt, FaPaperPlane, FaTimes, FaCheck } from 'react-icons/fa';
 
 const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
-  const modalRef = useRef(null);
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
     phone: '',
-    message: '',
-    service: serviceName || 'General Inquiry'
+    message: ''
   });
 
   const [formStatus, setFormStatus] = useState({
     submitted: false,
+    success: false,
     error: false,
     message: ''
   });
 
+  // Reset form on open/close
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isOpen && modalRef.current && !modalRef.current.contains(event.target)) {
-        onClose();
-      }
-    };
+    if (isOpen) {
+      // Reset form data and status when opening
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        phone: '',
+        message: ''
+      });
+      setFormStatus({
+        submitted: false,
+        success: false,
+        error: false,
+        message: ''
+      });
+    }
+  }, [isOpen]);
+
+  // Modal ref for click outside
+  const modalRef = useRef(null);
+
+  // Handle click outside
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      onClose();
+    }
+  };
+
+  // Add event listener for click outside
+  useEffect(() => {
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, onClose]);
 
-  useEffect(() => {
-    setFormData(prev => ({
-      ...prev,
-      service: serviceName || 'General Inquiry'
-    }));
-  }, [serviceName]);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
-      setFormStatus({ submitted: false, error: true, message: 'Please fill all required fields.' });
+      setFormStatus({
+        submitted: false,
+        success: false,
+        error: true,
+        message: 'Please fill all required fields.'
+      });
       return;
     }
-    setFormStatus({ submitted: true, error: false, message: 'Thank you! We will contact you shortly.' });
-    setTimeout(() => {
-      onClose();
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        message: '',
-        service: serviceName || 'General Inquiry'
-      });
-      setFormStatus({ submitted: false, error: false, message: '' });
-    }, 3000);
+
+    // Simulate form submission
+    setFormStatus({
+      submitted: true,
+      success: true,
+      error: false,
+      message: 'Thank you for your inquiry! Our team will contact you shortly.'
+    });
+    
+    // Here you would normally send the data to your backend
+    // For now, we'll just simulate a successful submission
+    console.log('Form submitted with:', { ...formData, service: serviceName });
   };
+
+  // Add this to fix any overflow or z-index issues
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -73,7 +112,7 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -86,6 +125,7 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.3 }}
           >
             <div
               ref={modalRef}
@@ -136,7 +176,7 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
               </div>
 
               {/* Form */}
-              <div className="p-5">
+              <div className="p-5 overflow-y-auto max-h-[calc(95vh-150px)]">
                 {formStatus.submitted ? (
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}

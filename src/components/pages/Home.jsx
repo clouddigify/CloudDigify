@@ -1,43 +1,65 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
-import CloudPartners from '../CloudPartners';
-import ImageSlider from '../common/ImageSlider';
+import { IoCalendarOutline } from 'react-icons/io5';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
 
+// Lazy load non-critical components
+const CloudPartners = lazy(() => import('../CloudPartners'));
+const ImageSlider = lazy(() => import('../common/ImageSlider'));
+const ServiceInquiryForm = lazy(() => import('../common/ServiceInquiryForm'));
+
+// Loading fallback
+const LoadingFallback = () => (
+  <div className="w-full h-64 flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 rounded-xl w-full h-full max-w-md mx-auto" />
+  </div>
+);
+
 const Home = () => {
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [selectedService, setSelectedService] = useState('');
+
+  const openInquiryForm = (serviceName = '') => {
+    setSelectedService(serviceName);
+    setShowInquiryForm(true);
+  };
+
+  // Pre-defined dimensions for UI elements to prevent layout shifts
+  useEffect(() => {
+    // Reserve space for elements that might cause layout shifts
+    document.documentElement.style.setProperty('--header-height', '80px');
+    document.documentElement.style.setProperty('--footer-form-height', '180px');
+    
+    return () => {
+      document.documentElement.style.removeProperty('--header-height');
+      document.documentElement.style.removeProperty('--footer-form-height');
+    };
+  }, []);
+
   const heroSlides = [
     {
       gradient: 'bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900',
       alt: 'Digital Transformation',
       title: 'Transform Your Enterprise with Cloud Excellence',
       description: 'Accelerate innovation and growth with our comprehensive cloud solutions and digital transformation expertise.',
-      cta: { 
-        label: 'Explore Solutions',
-        link: '/services/digital-engineering'
-      }
+      serviceLink: '/services/digital-engineering'
     },
     {
       gradient: 'bg-gradient-to-br from-indigo-900 via-blue-800 to-blue-900',
       alt: 'AI & Innovation',
       title: 'Innovate with AI & Automation',
       description: 'Leverage cutting-edge AI and automation solutions to streamline operations and drive business value.',
-      cta: {
-        label: 'Discover AI Solutions',
-        link: '/services/ai/artificial-intelligence'
-      }
+      serviceLink: '/services/ai/artificial-intelligence'
     },
     {
       gradient: 'bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-900',
       alt: 'Cloud Security',
       title: 'Enterprise-Grade Cloud Security',
       description: 'Protect your digital assets with our comprehensive cloud security and compliance solutions.',
-      cta: {
-        label: 'Learn About Security',
-        link: '/services/security/cyber-defence'
-      }
+      serviceLink: '/services/security/cyber-defence'
     }
   ];
 
@@ -165,52 +187,20 @@ const Home = () => {
         <meta name="description" content="CloudDigify delivers enterprise-grade cloud transformation, AI, and digital solutions to accelerate innovation and growth for businesses worldwide." />
         <meta name="keywords" content="cloud transformation, digital solutions, cloud migration, AI solutions, enterprise cloud, cloud security" />
         <meta httpEquiv="Cache-Control" content="max-age=86400, public" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </Helmet>
       <div className="min-h-screen">
         {/* Hero Section - Carousel */}
         <section className="relative w-full">
-          <ImageSlider
-            images={heroSlides.map(slide => ({
-              gradient: slide.gradient,
-              alt: slide.alt,
-              title: (
-                <div className="flex flex-col items-center justify-center h-full px-4 py-12 md:py-20">
-                  <motion.span 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="block text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 text-white drop-shadow-lg text-center max-w-6xl"
-                  >
-                    {slide.title}
-                  </motion.span>
-                  <motion.span 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="block text-base sm:text-lg md:text-xl lg:text-2xl font-normal mb-8 sm:mb-10 text-gray-200 max-w-3xl mx-auto text-center px-4"
-                  >
-                    {slide.description}
-                  </motion.span>
-                  {slide.cta && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.4 }}
-                    >
-                      <Link to={slide.cta.link}>
-                        <button className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-opacity-90 text-blue-600 font-semibold rounded-lg shadow-lg transition-all duration-300 text-sm sm:text-base">
-                          {slide.cta.label}
-                        </button>
-                      </Link>
-                    </motion.div>
-                  )}
-                </div>
-              ),
-              description: '',
-            }))}
-            interval={6000}
-            autoPlay={true}
-          />
+          <Suspense fallback={<LoadingFallback />}>
+            <ImageSlider
+              images={heroSlides}
+              interval={6000}
+              autoPlay={true}
+              onConsultationClick={openInquiryForm}
+            />
+          </Suspense>
         </section>
 
         {/* Services Section */}
@@ -247,15 +237,15 @@ const Home = () => {
                     <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
                     <p className="text-sm sm:text-base text-gray-600 mb-4">{service.description}</p>
                     <div className="flex justify-between items-center">
-                      <Link 
-                        to={service.path}
+                      <button 
+                        onClick={() => openInquiryForm(service.title)}
                         className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm sm:text-base font-medium"
                       >
-                        Explore Solutions
+                        Learn More
                         <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                         </svg>
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </motion.div>
@@ -291,7 +281,9 @@ const Home = () => {
         </section>
 
         {/* Cloud Partners Section */}
-        <CloudPartners />
+        <Suspense fallback={<LoadingFallback />}>
+          <CloudPartners />
+        </Suspense>
 
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
@@ -309,15 +301,13 @@ const Home = () => {
                 Join the 300+ enterprises already achieving measurable business outcomes with our tailored cloud solutions
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <Link to="/contact">
-                  <motion.button
-                    className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-blue-50 transition duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Schedule a Consultation
-                  </motion.button>
-                </Link>
+                <button
+                  onClick={() => openInquiryForm('Digital Transformation')}
+                  className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-blue-50 transition duration-300 flex items-center"
+                >
+                  <IoCalendarOutline className="mr-2 text-xl" />
+                  Schedule a Consultation
+                </button>
                 <Link to="/services">
                   <motion.button
                     className="px-8 py-4 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition duration-300"
@@ -332,6 +322,15 @@ const Home = () => {
           </div>
         </section>
       </div>
+      
+      {/* Service Inquiry Form Modal */}
+      <Suspense fallback={null}>
+        <ServiceInquiryForm 
+          isOpen={showInquiryForm}
+          onClose={() => setShowInquiryForm(false)}
+          serviceName={selectedService}
+        />
+      </Suspense>
     </>
   );
 };
