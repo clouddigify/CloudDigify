@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
+import React, { useState, useEffect, useRef, createContext, useContext, useMemo } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaArrowRight } from 'react-icons/fa';
@@ -130,7 +130,7 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
     timeoutRef.current = setTimeout(() => {
       setActiveItemIndex(-1);
       setNestedActiveIndex(-1);
-    }, 50); // Reduced delay for better responsiveness
+    }, 150); // Increased delay for Safari compatibility
   };
 
   const handleItemClick = (index, hasSubmenu) => (e) => {
@@ -248,80 +248,84 @@ const SubMenu = ({ items, depth, parentRef, activeItemIndex, setActiveItemIndex 
 
 const NavItem = ({ item, index }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeItemIndex, setActiveItemIndex] = useState(-1);
-  const itemRef = useRef(null);
+  const navItemRef = useRef(null);
+  const { activeMenu, setActiveMenu, preventClose, setPreventClose } = useContext(MenuContext);
+  const [subMenuActiveItem, setSubMenuActiveItem] = useState(-1);
+  const location = useLocation();
   const timeoutRef = useRef(null);
   const activationTimeoutRef = useRef(null);
-  const { activeMenu, setActiveMenu, setPreventClose } = useContext(MenuContext);
-  const [wasClicked, setWasClicked] = useState(false);
+  
+  const isSubmenuOpen = activeMenu === index;
+
+  // Check if the current NavItem's link or any of its submenu links matches the current location
+  const isActive = useMemo(() => {
+    // Check if the NavItem's path matches the current location
+    if (item.path && location.pathname === item.path) {
+      return true;
+    }
+    
+    // Check if any submenu items match the current location
+    if (item.submenu) {
+      const flattenSubmenu = (submenu) => {
+        return submenu.reduce((acc, subItem) => {
+          if (subItem.path) {
+            acc.push(subItem.path);
+          }
+          if (subItem.submenu) {
+            acc = [...acc, ...flattenSubmenu(subItem.submenu)];
+          }
+          return acc;
+        }, []);
+      };
+      
+      const paths = flattenSubmenu(item.submenu);
+      return paths.some(path => location.pathname === path) || 
+             paths.some(path => path !== '/' && location.pathname.startsWith(path));
+    }
+    
+    return false;
+  }, [item, location.pathname]);
 
   // Effect to close menu when another menu becomes active
   useEffect(() => {
     // If this is not the active menu and it's open, close it immediately
     if (activeMenu !== index && isOpen) {
       setIsOpen(false);
-      setActiveItemIndex(-1);
-      setWasClicked(false);
+      setSubMenuActiveItem(-1);
     }
     // If activeMenu is null (set when mouse leaves nav), close everything
     if (activeMenu === null && isOpen) {
       setIsOpen(false);
-      setActiveItemIndex(-1);
-      setWasClicked(false);
+      setSubMenuActiveItem(-1);
     }
-  }, [activeMenu, index, isOpen]);
-
-  // Effect to ensure this menu opens when it becomes the active menu
-  // This fixes the issue with switching between menu items
-  useEffect(() => {
-    if (activeMenu === index && !isOpen) {
-      setIsOpen(true);
-      setWasClicked(true);
-    } else if (activeMenu === null && isOpen) {
-      // Close when no menu is active (e.g., when mouse leaves navigation)
-      setIsOpen(false);
-      setActiveItemIndex(-1);
-      setWasClicked(false);
-    }
-  }, [activeMenu, index, isOpen]);
+  }, [activeMenu, isOpen]);
 
   const handleMouseEnter = () => {
-    // Clear any previous timeout
+    // Clear any existing timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
     
-    // Clear any previous activation timeout
-    if (activationTimeoutRef.current) {
-      clearTimeout(activationTimeoutRef.current);
-    }
-    
-    // When switching between menus via hover, briefly prevent closing
+    // If the user is moving between menu items, ensure submenus don't immediately close
     if (activeMenu !== null && activeMenu !== index) {
       setPreventClose(true);
     }
     
-    // Immediately set this as the active menu (this will close other menus)
     setActiveMenu(index);
-    
-    // Add a very short delay when opening the top-level menu
-    // to prevent flickering during quick mouse movements
-    activationTimeoutRef.current = setTimeout(() => {
-      setIsOpen(true);
-    }); // Very short delay
+    setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
     // If this menu was clicked open, don't close it on mouseleave
-    if (wasClicked) {
+    if (activationTimeoutRef.current) {
       return;
     }
     
     // Clear any activation timeout
-    if (activationTimeoutRef.current) {
-      clearTimeout(activationTimeoutRef.current);
-      activationTimeoutRef.current = null;
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
     
     // Set timeout to close the menu
@@ -333,7 +337,7 @@ const NavItem = ({ item, index }) => {
       if (activeMenu === index) {
         setActiveMenu(null);
       }
-    }); // Delay before closing
+    }, 150); // Increased delay for Safari compatibility
   };
 
   // Handle click on menu button
@@ -352,16 +356,14 @@ const NavItem = ({ item, index }) => {
       // First set this as the active menu (which will trigger the other menu to close)
       setActiveMenu(index);
       // This menu will be automatically opened by the useEffect above
-      setWasClicked(true);
-    } else if (isOpen && wasClicked) {
-      // If this menu is already open and was clicked, close it
+      setIsOpen(true);
+    } else if (isOpen && !preventClose) {
+      // If this menu is already open and wasn't prevented, close it
       setIsOpen(false);
-      setWasClicked(false);
       setActiveMenu(null);
     } else {
       // If this menu is closed or wasn't clicked open before
       setIsOpen(true);
-      setWasClicked(true);
       setActiveMenu(index);
     }
   };
@@ -370,14 +372,13 @@ const NavItem = ({ item, index }) => {
   useEffect(() => {
     const handleDocumentClick = (e) => {
       // If menu is open and was clicked to open it
-      if (isOpen && wasClicked) {
+      if (isOpen && !preventClose) {
         // Check if click was outside menu
         if (
-          itemRef.current && 
-          !itemRef.current.contains(e.target)
+          navItemRef.current && 
+          !navItemRef.current.contains(e.target)
         ) {
           setIsOpen(false);
-          setWasClicked(false);
           setActiveMenu(null);
         }
       }
@@ -387,7 +388,7 @@ const NavItem = ({ item, index }) => {
     return () => {
       document.removeEventListener('mousedown', handleDocumentClick);
     };
-  }, [isOpen, wasClicked, setActiveMenu]);
+  }, [isOpen, preventClose]);
 
   // Clean up timeout on unmount
   useEffect(() => {
@@ -395,16 +396,13 @@ const NavItem = ({ item, index }) => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      if (activationTimeoutRef.current) {
-        clearTimeout(activationTimeoutRef.current);
-      }
     };
   }, []);
 
   if (item.hasSubmenu && Array.isArray(item.submenu)) {
     return (
       <div
-        ref={itemRef}
+        ref={navItemRef}
         className="relative"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -424,9 +422,9 @@ const NavItem = ({ item, index }) => {
           <SubMenu 
             items={item.submenu} 
             depth={0} 
-            parentRef={itemRef} 
-            activeItemIndex={activeItemIndex}
-            setActiveItemIndex={setActiveItemIndex}
+            parentRef={navItemRef} 
+            activeItemIndex={subMenuActiveItem}
+            setActiveItemIndex={setSubMenuActiveItem}
           />
         )}
       </div>
@@ -620,13 +618,14 @@ const NavBar = () => {
 
   // Handle mouse leave for the entire navigation
   const handleNavMouseLeave = () => {
-    // Don't close immediately, add a short delay
-    closeTimeoutRef.current = setTimeout(() => {
-      // When mouse leaves entire nav, close all menus
-      setActiveMenu(null);
-      // Reset prevent close flag
+    // Add a small delay before closing menus when leaving the nav
+    // This helps prevent accidental menu closings
+    setTimeout(() => {
+      if (!preventClose) {
+        setActiveMenu(null);
+      }
       setPreventClose(false);
-    });
+    }, 150); // Increased delay for Safari compatibility
   };
 
   // Handle mouse enter for the navigation
