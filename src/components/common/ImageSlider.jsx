@@ -96,7 +96,7 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-8 h-8 flex items-center justify-center p-4 ${
+            className={`w-6 h-6 flex items-center justify-center p-0 ${
               index === currentIndex ? 'bg-white/30' : 'bg-transparent'
             }`}
             aria-label={`Go to slide ${index + 1}`}
