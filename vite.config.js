@@ -8,8 +8,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      // Add alias for our optimized framer-motion exports
-      'framer-motion-optimized': resolve(__dirname, 'src/components/common/LazyFramerMotion.js'),
     },
   },
   build: {
@@ -21,26 +19,25 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.debug', 'console.info'],
       },
     },
     // Split chunks for better caching
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom', 'react-icons', 'react-helmet-async'],
-          'framer-motion': ['framer-motion']
+          // Split vendor code into separate chunks
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-ui': ['framer-motion', 'react-icons'],
+          'vendor-utils': ['react-helmet-async'],
         },
       },
-      // Improve tree-shaking for framer-motion
-      treeshake: 'recommended',
     },
     // Improve chunk loading
     chunkSizeWarningLimit: 1000,
   },
   // Pre-optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'react-icons', 'react-helmet-async', 'framer-motion'],
+    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion', 'react-icons', 'react-helmet-async'],
   },
   // Enable HTTPS for local development
   server: {
