@@ -1,8 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
-import { IoCalendarOutline } from 'react-icons/io5';
+import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
 
@@ -45,21 +44,30 @@ const Home = () => {
       alt: 'Digital Transformation',
       title: 'Transform Your Enterprise with Cloud Excellence',
       description: 'Accelerate innovation and growth with our comprehensive cloud solutions and digital transformation expertise.',
-      serviceLink: '/services/digital-engineering'
+      cta: { 
+        label: 'Explore Solutions',
+        link: '#'  // Will be handled by onClick instead
+      }
     },
     {
       gradient: 'bg-gradient-to-br from-indigo-900 via-blue-800 to-blue-900',
       alt: 'AI & Innovation',
       title: 'Innovate with AI & Automation',
       description: 'Leverage cutting-edge AI and automation solutions to streamline operations and drive business value.',
-      serviceLink: '/services/ai/artificial-intelligence'
+      cta: {
+        label: 'Discover AI Solutions',
+        link: '/services/ai/artificial-intelligence'
+      }
     },
     {
       gradient: 'bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-900',
       alt: 'Cloud Security',
       title: 'Enterprise-Grade Cloud Security',
       description: 'Protect your digital assets with our comprehensive cloud security and compliance solutions.',
-      serviceLink: '/services/security/cyber-defence'
+      cta: {
+        label: 'Learn About Security',
+        link: '/services/security/cyber-defence'
+      }
     }
   ];
 
@@ -195,10 +203,47 @@ const Home = () => {
         <section className="relative w-full">
           <Suspense fallback={<LoadingFallback />}>
             <ImageSlider
-              images={heroSlides}
+              images={heroSlides.map(slide => ({
+                gradient: slide.gradient,
+                alt: slide.alt,
+                title: (
+                  <div className="flex flex-col items-center justify-center h-full px-4 py-12 md:py-20">
+                    <motion.span 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6 }}
+                      className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white drop-shadow-lg text-center max-w-6xl"
+                    >
+                      {slide.title}
+                    </motion.span>
+                    <motion.span 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="block text-base sm:text-lg md:text-xl lg:text-2xl font-normal mb-8 sm:mb-10 text-gray-200 max-w-3xl mx-auto text-center px-4"
+                    >
+                      {slide.description}
+                    </motion.span>
+                    {slide.cta && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                      >
+                        <button 
+                          onClick={() => openInquiryForm(slide.title)}
+                          className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-opacity-90 text-blue-600 font-semibold rounded-lg shadow-lg transition-all duration-300 text-sm sm:text-base"
+                        >
+                          {slide.cta.label}
+                        </button>
+                      </motion.div>
+                    )}
+                  </div>
+                ),
+                description: '',
+              }))}
               interval={6000}
               autoPlay={true}
-              onConsultationClick={openInquiryForm}
             />
           </Suspense>
         </section>
@@ -305,7 +350,7 @@ const Home = () => {
                   onClick={() => openInquiryForm('Digital Transformation')}
                   className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-blue-50 transition duration-300 flex items-center"
                 >
-                  <IoCalendarOutline className="mr-2 text-xl" />
+                  <FaCalendarAlt className="mr-2" />
                   Schedule a Consultation
                 </button>
                 <Link to="/services">

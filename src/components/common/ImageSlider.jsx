@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IoChevronBackOutline, IoChevronForwardOutline, IoCalendarOutline } from 'react-icons/io5';
+import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
-const ImageSlider = ({ images, interval = 5000, autoPlay = true, onConsultationClick }) => {
+const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -29,14 +29,6 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true, onConsultationC
     setCurrentIndex(index);
   };
 
-  const handleConsultationClick = () => {
-    if (onConsultationClick && typeof onConsultationClick === 'function') {
-      onConsultationClick(images[currentIndex].title || 'Cloud Consultation');
-    }
-  };
-
-  const currentSlide = images[currentIndex];
-
   return (
     <div
       className="relative w-full h-screen overflow-hidden"
@@ -52,62 +44,32 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true, onConsultationC
           transition={{ duration: 0.5 }}
           className="absolute inset-0"
         >
-          {currentSlide.url ? (
-            <img
-              src={currentSlide.url}
-              alt={currentSlide.alt}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
+          {images[currentIndex].url ? (
+          <img
+            src={images[currentIndex].url}
+            alt={images[currentIndex].alt}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
           ) : (
-            <div className={`w-full h-full ${currentSlide.gradient}`} />
+            <div className={`w-full h-full ${images[currentIndex].gradient}`} />
           )}
-          
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center max-w-6xl mx-auto leading-tight"
-            >
-              {currentSlide.title}
-            </motion.h2>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl lg:text-2xl text-center max-w-3xl mx-auto mb-10 text-gray-100"
-            >
-              {currentSlide.description}
-            </motion.p>
-            
-            {/* Buttons container */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
-            >
-              {/* Consultation Button */}
-              <button
-                onClick={handleConsultationClick}
-                className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center shadow-lg"
-                aria-label="Request consultation"
-              >
-                <IoCalendarOutline className="mr-2 text-xl" />
-                <span>Get Consultation</span>
-              </button>
-              
-              {/* Services Link Button */}
-              {currentSlide.serviceLink && (
-                <Link to={currentSlide.serviceLink}>
-                  <button className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors duration-300">
-                    Explore Services
-                  </button>
-                </Link>
-              )}
-            </motion.div>
+            {typeof images[currentIndex].title === 'string' ? (
+              <>
+                <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-center max-w-6xl mx-auto leading-tight">{images[currentIndex].title}</h2>
+                <p className="text-lg md:text-xl lg:text-2xl text-center max-w-3xl mx-auto mb-10 text-gray-100">{images[currentIndex].description}</p>
+                {images[currentIndex].cta && (
+                  <Link to={images[currentIndex].cta.link}>
+                    <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg">
+                      {images[currentIndex].cta.label}
+                    </button>
+                  </Link>
+                )}
+              </>
+            ) : (
+              images[currentIndex].title
+          )}
           </div>
         </motion.div>
       </AnimatePresence>
@@ -134,7 +96,7 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true, onConsultationC
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-6 h-6 flex items-center justify-center p-0 ${
+            className={`w-8 h-8 flex items-center justify-center p-4 ${
               index === currentIndex ? 'bg-white/30' : 'bg-transparent'
             }`}
             aria-label={`Go to slide ${index + 1}`}
