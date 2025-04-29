@@ -1,11 +1,10 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle } from 'react-icons/fa';
 import { IoCalendarOutline } from 'react-icons/io5';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
-// Import from our optimized framer-motion bundle
-import { motion, fadeIn, fadeInUp, staggerContainer } from '../common/LazyFramerMotion';
 
 // Lazy load non-critical components
 const CloudPartners = lazy(() => import('../CloudPartners'));
@@ -64,7 +63,27 @@ const Home = () => {
     }
   ];
 
-  // Use our exported animation variants instead of redefining them
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
@@ -189,9 +208,8 @@ const Home = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <motion.div
               className="text-center mb-12 sm:mb-16"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Cloud Transformation Expertise</h2>
@@ -249,9 +267,8 @@ const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <motion.div 
                 className="bg-blue-50 p-8 rounded-xl border border-blue-100"
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
@@ -268,9 +285,8 @@ const Home = () => {
               
               <motion.div 
                 className="bg-green-50 p-8 rounded-xl border border-green-100"
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
@@ -287,9 +303,8 @@ const Home = () => {
               
               <motion.div 
                 className="bg-purple-50 p-8 rounded-xl border border-purple-100"
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
@@ -319,9 +334,8 @@ const Home = () => {
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
@@ -330,9 +344,8 @@ const Home = () => {
               </motion.div>
               
               <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
@@ -341,9 +354,8 @@ const Home = () => {
               </motion.div>
               
               <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
@@ -352,9 +364,8 @@ const Home = () => {
               </motion.div>
               
               <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
@@ -379,7 +390,7 @@ const Home = () => {
           <div className="container mx-auto px-4">
             <motion.div
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-              variants={staggerContainer}
+              variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -388,7 +399,7 @@ const Home = () => {
                 <motion.div
                   key={index}
                   className="flex items-center space-x-3 bg-white p-6 rounded-xl shadow-md"
-                  variants={fadeInUp}
+                  variants={itemVariants}
                 >
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
                     <FaCheck className="text-blue-600 text-xl" />
@@ -410,9 +421,8 @@ const Home = () => {
           <div className="container mx-auto px-4">
             <motion.div
               className="text-center text-white"
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
