@@ -8,6 +8,7 @@ import ScrollToTop from './components/common/ScrollToTop';
 import serviceRedirects from './utils/serviceRedirects';
 import CookieConsentBanner from './components/common/CookieConsentBanner';
 import NotFound from './components/pages/NotFound';
+import LoadingSpinner from './components/common/LoadingSpinner';
 
 // Lazy load all page components
 const Home = lazy(() => import('./components/pages/Home'));
@@ -91,8 +92,6 @@ const DigitalRuntime = lazy(() => import('./components/services/consulting/Digit
 const InfrastructureServices = lazy(() => import('./components/services/infrastructure/InfrastructureServices'));
 const Blockchain = lazy(() => import('./components/services/blockchain/Blockchain'));
 const Strategy = lazy(() => import('./components/services/strategy/Strategy'));
-
-import LoadingSpinner from './components/common/LoadingSpinner';
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
@@ -236,11 +235,15 @@ const App = () => {
       <ErrorBoundary>
         <ScrollToTop />
         <div className="flex flex-col min-h-screen">
-          <NavBar />
-          <main className="flex-grow">
+          <header>
+            <NavBar />
+          </header>
+          <main className="flex-grow" id="main-content" role="main">
             <AnimatedRoutes />
           </main>
-          <Footer />
+          <footer>
+            <Footer />
+          </footer>
           <CookieConsentBanner />
         </div>
       </ErrorBoundary>

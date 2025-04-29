@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 
 const SEO = ({ 
   title, 
@@ -12,9 +13,14 @@ const SEO = ({
   author = 'CloudDigify',
   twitterHandle = '@clouddigify'
 }) => {
+  const location = useLocation();
   const siteTitle = 'CloudDigify';
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
-  const defaultImage = 'https://clouddigify.com/images/og-image.jpg';
+  const defaultImage = 'https://clouddigify.com/images/logo.png';
+  
+  // Generate canonical URL if not provided
+  const baseUrl = 'https://clouddigify.com';
+  const calculatedCanonicalUrl = canonicalUrl || `${baseUrl}${location.pathname}`;
 
   // Default schema if none provided
   const defaultSchema = {
@@ -22,7 +28,7 @@ const SEO = ({
     "@type": "WebPage",
     "name": fullTitle,
     "description": description,
-    "url": canonicalUrl,
+    "url": calculatedCanonicalUrl,
     "publisher": {
       "@type": "Organization",
       "name": siteTitle,
@@ -40,14 +46,17 @@ const SEO = ({
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords.join(', ')} />
       <meta name="author" content={author} />
-      {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+      <link rel="canonical" href={calculatedCanonicalUrl} />
+      
+      {/* Cache Control */}
+      <meta httpEquiv="Cache-Control" content="max-age=86400, public" />
 
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={ogImage || defaultImage} />
-      {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+      <meta property="og:url" content={calculatedCanonicalUrl} />
       <meta property="og:site_name" content={siteTitle} />
 
       {/* Twitter Card Meta Tags */}

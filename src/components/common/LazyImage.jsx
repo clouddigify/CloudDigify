@@ -1,46 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const LazyImage = ({
-  src,
-  alt,
-  className = '',
-  width,
-  height,
-  placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmMWYxZjEiLz48L3N2Zz4=',
-  ...props
+/**
+ * LazyImage component for optimized image loading
+ * 
+ * @param {Object} props
+ * @param {string} props.src - Image source URL
+ * @param {string} props.alt - Alt text for accessibility
+ * @param {string} props.className - CSS classes
+ * @param {string} props.width - Optional width
+ * @param {string} props.height - Optional height
+ * @param {Object} props.style - Optional inline styles
+ */
+const LazyImage = ({ 
+  src, 
+  alt, 
+  className = '', 
+  width, 
+  height, 
+  style = {}, 
+  ...rest 
 }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = src;
-    img.onload = () => setIsLoaded(true);
-    img.onerror = () => setError(true);
-  }, [src]);
-
   return (
-    <div 
-      className={`relative overflow-hidden ${className}`}
-      style={{ width, height }}
-    >
-      <img
-        src={isLoaded ? src : placeholder}
-        alt={alt}
-        className={`transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        loading="lazy"
-        width={width}
-        height={height}
-        {...props}
-      />
-      {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <span className="text-gray-400">Image failed to load</span>
-        </div>
-      )}
-    </div>
+    <img
+      src={src}
+      alt={alt || ""}
+      className={className}
+      width={width}
+      height={height}
+      loading="lazy"
+      style={style}
+      onError={(e) => {
+        console.error(`Failed to load image: ${src}`);
+        e.target.onerror = null;
+        e.target.src = '/images/placeholder.png'; // Fallback image
+      }}
+      {...rest}
+    />
   );
 };
 
