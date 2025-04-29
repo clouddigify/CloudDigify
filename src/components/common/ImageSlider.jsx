@@ -96,11 +96,15 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
-              index === currentIndex ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/70'
+            className={`w-8 h-8 flex items-center justify-center p-4 ${
+              index === currentIndex ? 'bg-white/30' : 'bg-transparent'
             }`}
             aria-label={`Go to slide ${index + 1}`}
-          />
+          >
+            <span className={`block w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+              index === currentIndex ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/70'
+            }`} />
+          </button>
         ))}
       </div>
     </div>
