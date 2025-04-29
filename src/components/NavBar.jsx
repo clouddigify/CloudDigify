@@ -35,7 +35,7 @@ const Logo = () => {
         <source srcSet={logoSvg} type="image/svg+xml" />
         <img 
           src={logoPng}
-          alt="CloudDigify Logo" 
+          alt="CloudDigify Official Logo" 
           className="w-full h-full object-contain"
           loading="eager"
           style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(89%) saturate(1857%) hue-rotate(199deg) brightness(91%) contrast(88%)' }}
