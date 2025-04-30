@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt } from 'react-icons/fa';
+import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
 
@@ -188,6 +188,91 @@ const Home = () => {
     }
   ];
 
+  // Add new data structures for new sections
+  const caseStudies = [
+    {
+      company: "Global Financial Corp",
+      industry: "Finance",
+      challenge: "Legacy System Migration",
+      solution: "Cloud-Native Transformation",
+      results: "40% Cost Reduction, 99.99% Uptime",
+      logo: "/images/case-studies/finance.jpg"
+    },
+    {
+      company: "HealthTech Solutions",
+      industry: "Healthcare",
+      challenge: "Data Security & Compliance",
+      solution: "Zero-Trust Security Implementation",
+      results: "HIPAA Compliance, 60% Faster Processing",
+      logo: "/images/case-studies/healthcare.jpg"
+    },
+    {
+      company: "RetailGiant",
+      industry: "Retail",
+      challenge: "Scale During Peak Season",
+      solution: "Auto-scaling Cloud Architecture",
+      results: "3x Faster Loading, 45% Cost Savings",
+      logo: "/images/case-studies/retail.jpg"
+    }
+  ];
+
+  const industryVerticals = [
+    {
+      name: "Healthcare",
+      solutions: ["HIPAA Compliance", "Patient Data Analytics", "Telemedicine Infrastructure"],
+      icon: "🏥"
+    },
+    {
+      name: "Finance",
+      solutions: ["Secure Banking Cloud", "Real-time Analytics", "Fraud Detection"],
+      icon: "💰"
+    },
+    {
+      name: "Retail",
+      solutions: ["E-commerce Platform", "Inventory Management", "Customer Analytics"],
+      icon: "🛍️"
+    },
+    {
+      name: "Manufacturing",
+      solutions: ["IoT Integration", "Supply Chain Optimization", "Predictive Maintenance"],
+      icon: "🏭"
+    }
+  ];
+
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      position: "CTO",
+      company: "TechCorp Inc.",
+      quote: "CloudDigify transformed our infrastructure, reducing costs by 45% while improving performance.",
+      image: "/images/testimonials/sarah.jpg",
+      metrics: "45% cost reduction"
+    },
+    {
+      name: "Michael Chen",
+      position: "Head of Engineering",
+      company: "InnovateTech",
+      quote: "The migration was seamless, and our applications now scale automatically with demand.",
+      image: "/images/testimonials/michael.jpg",
+      metrics: "99.99% uptime"
+    }
+  ];
+
+  const insights = [
+    {
+      title: "The Future of Cloud Computing in 2024",
+      category: "Trends",
+      date: "2024-01-15",
+      readTime: "5 min"
+    },
+    {
+      title: "Securing Your Cloud Infrastructure",
+      category: "Security",
+      date: "2024-01-10",
+      readTime: "4 min"
+    }
+  ];
+
   return (
     <>
       <Helmet>
@@ -363,6 +448,65 @@ const Home = () => {
                   </motion.button>
                 </Link>
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Industry Solutions Section */}
+        <section className="py-16 bg-blue-50">
+          <div className="container mx-auto px-4">
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-4xl font-bold mb-4">Industry Solutions</h2>
+              <p className="text-xl text-gray-600">Tailored solutions for your industry</p>
+            </motion.div>
+            <div className="grid md:grid-cols-4 gap-6">
+              {industryVerticals.map((industry, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="bg-white rounded-xl shadow-lg p-6"
+                >
+                  <div className="text-4xl mb-4">{industry.icon}</div>
+                  <h3 className="text-xl font-bold mb-4">{industry.name}</h3>
+                  <ul className="space-y-2">
+                    {industry.solutions.map((solution, idx) => (
+                      <li key={idx} className="flex items-center">
+                        <FaCheck className="text-green-500 mr-2" />
+                        <span className="text-gray-600">{solution}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Free Assessment CTA */}
+        <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+          <div className="container mx-auto px-4">
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-4xl font-bold mb-4">Get Your Free Cloud Assessment</h2>
+              <p className="text-xl mb-8">Discover your cloud transformation potential with our expert analysis</p>
+              <button
+                onClick={() => openInquiryForm('Free Assessment')}
+                className="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-all"
+              >
+                Start Free Assessment
+              </button>
             </motion.div>
           </div>
         </section>

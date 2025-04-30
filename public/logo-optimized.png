@@ -3,5 +3,5 @@ This is a placeholder for the optimized PNG logo file. Since we can't directly c
 1. Create a new PNG logo file that's less than 50KB (the current one is 418KB)
 2. Use a tool like TinyPNG or ImageOptim to compress it
 3. Use the filename 'logo.png' to replace the existing one
-
+ 
 For now, all images will use loading="lazy" except for those in the critical rendering path. 
