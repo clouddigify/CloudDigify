@@ -313,7 +313,7 @@ const NavItem = ({ item, index }) => {
     }
     
     setActiveMenu(index);
-    setIsOpen(true);
+      setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
@@ -622,7 +622,7 @@ const NavBar = () => {
     // This helps prevent accidental menu closings
     setTimeout(() => {
       if (!preventClose) {
-        setActiveMenu(null);
+      setActiveMenu(null);
       }
       setPreventClose(false);
     }, 150); // Increased delay for Safari compatibility

@@ -236,13 +236,13 @@ const App = () => {
         <ScrollToTop />
         <div className="flex flex-col min-h-screen">
           <header>
-            <NavBar />
+          <NavBar />
           </header>
           <main className="flex-grow" id="main-content" role="main">
             <AnimatedRoutes />
           </main>
           <footer>
-            <Footer />
+          <Footer />
           </footer>
           <CookieConsentBanner />
         </div>
