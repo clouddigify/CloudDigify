@@ -438,15 +438,6 @@ const Home = () => {
                   <FaCalendarAlt className="mr-2" />
                   Schedule a Consultation
                 </button>
-                <Link to="/services">
-                  <motion.button
-                    className="px-8 py-4 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Explore All Solutions
-                  </motion.button>
-                </Link>
               </div>
             </motion.div>
           </div>
