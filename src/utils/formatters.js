@@ -61,7 +61,6 @@ const parseNumber = (value) => {
  * @returns {number} Converted number or 0
  */
 export const safeNumber = (value) => {
-  if (value === null || value === undefined || value === '') return 0;
   const num = Number(value);
   return isNaN(num) ? 0 : num;
 };
@@ -87,13 +86,13 @@ export const roundAmount = (amount) => {
  * @returns {string} Formatted amount (e.g., "₹25,000.00")
  */
 export const formatCurrency = (amount) => {
-  try {
-    const num = safeNumber(amount);
-    return currencyFormatter.format(num);
-  } catch (error) {
-    console.warn(`Error formatting currency: ${error.message}`);
-    return '₹0.00';
-  }
+  const value = safeNumber(amount);
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(value);
 };
 
 /**
@@ -284,121 +283,137 @@ export const getMonthlyTransactions = (transactions = [], targetDate = new Date(
 };
 
 /**
- * Calculates monthly metrics with comprehensive validation
- * @param {Object} data - Financial data
- * @returns {Object} Dashboard metrics
+ * Calculate monthly metrics with improved accuracy
  */
-export const calculateMonthlyMetrics = (data = {}) => {
+export const calculateMonthlyMetrics = (data) => {
   try {
-    // Ensure data is an object and arrays exist
-    const safeData = data || {};
-    const { expenses = [], contributions = [] } = safeData;
-    
-    // Validate arrays
-    const safeExpenses = Array.isArray(expenses) ? expenses : [];
-    const safeContributions = Array.isArray(contributions) ? contributions : [];
-    
-    // Get current month's data
-    const currentMonth = getMonthlyTransactions(safeExpenses);
-    const currentContributions = getMonthlyTransactions(safeContributions);
-    
-    // Get previous month's data
-    const previousDate = new Date();
-    previousDate.setMonth(previousDate.getMonth() - 1);
-    const previousMonth = getMonthlyTransactions(safeExpenses, previousDate);
-    const previousContributions = getMonthlyTransactions(safeContributions, previousDate);
-    
-    // Calculate totals with validation
-    const expensesTotal = calculateTotal(safeExpenses);
-    const contributionsTotal = calculateTotal(safeContributions);
-    
-    // Calculate current month metrics with null checks
-    const current = {
-      expenses: currentMonth.total || 0,
-      contributions: currentContributions.total || 0,
-      balance: 0,
-      hasData: (currentMonth.metadata?.hasData || currentContributions.metadata?.hasData) || false,
-      activeMembers: new Set([
-        ...(currentMonth.transactions || []).map(e => e?.paidBy).filter(Boolean),
-        ...(currentContributions.transactions || []).map(c => c?.contributedBy).filter(Boolean)
-      ]).size || 3,
-      expensesByCategory: (currentMonth.transactions || []).reduce((acc, e) => {
-        if (!e) return acc;
-        const category = e.category || 'Other';
-        acc[category] = (acc[category] || 0) + parseFloat(e.amount || 0);
-        return acc;
-      }, {}),
-      contributionsByCategory: (currentContributions.transactions || []).reduce((acc, c) => {
-        if (!c) return acc;
-        const category = c.category || 'Other';
-        acc[category] = (acc[category] || 0) + parseFloat(c.amount || 0);
-        return acc;
-      }, {})
+    const { expenses = [], contributions = [] } = data;
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    // Get current month's transactions
+    const currentMonthData = {
+      expenses: expenses.filter(e => {
+        const date = new Date(e.date);
+        return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+      }),
+      contributions: contributions.filter(c => {
+        const date = new Date(c.date);
+        return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+      })
     };
 
-    // Calculate previous month metrics
-    const previous = {
-      expenses: previousMonth.total || 0,
-      contributions: previousContributions.total || 0,
-      balance: 0,
-      hasData: (previousMonth.metadata?.hasData || previousContributions.metadata?.hasData) || false
+    // Get previous month's transactions
+    const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+    const previousYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+    const previousMonthData = {
+      expenses: expenses.filter(e => {
+        const date = new Date(e.date);
+        return date.getMonth() === previousMonth && date.getFullYear() === previousYear;
+      }),
+      contributions: contributions.filter(c => {
+        const date = new Date(c.date);
+        return date.getMonth() === previousMonth && date.getFullYear() === previousYear;
+      })
     };
 
-    // Calculate changes with validation
-    const changes = {
-      expenses: calculateGrowthSafe(current.expenses || 0, previous.expenses || 0),
-      contributions: calculateGrowthSafe(current.contributions || 0, previous.contributions || 0),
-      balance: {
-        value: 0,
-        percentage: '0%',
-        isPositive: false,
-        trend: 'neutral'
+    // Calculate totals
+    const calculateTotal = transactions => 
+      transactions.reduce((sum, t) => sum + safeNumber(t.amount), 0);
+
+    const totals = {
+      currentMonth: {
+        expenses: calculateTotal(currentMonthData.expenses),
+        contributions: calculateTotal(currentMonthData.contributions)
+      },
+      previousMonth: {
+        expenses: calculateTotal(previousMonthData.expenses),
+        contributions: calculateTotal(previousMonthData.contributions)
+      },
+      allTime: {
+        expenses: calculateTotal(expenses),
+        contributions: calculateTotal(contributions)
       }
     };
 
+    // Calculate growth percentages
+    const calculateGrowth = (current, previous) => {
+      if (previous === 0) return { value: 0, percentage: '0%', isPositive: false };
+      const growth = ((current - previous) / previous) * 100;
+      return {
+        value: growth,
+        percentage: `${growth >= 0 ? '+' : ''}${growth.toFixed(1)}%`,
+        isPositive: growth >= 0
+      };
+    };
+
+    const growth = {
+      expenses: calculateGrowth(
+        totals.currentMonth.expenses,
+        totals.previousMonth.expenses
+      ),
+      contributions: calculateGrowth(
+        totals.currentMonth.contributions,
+        totals.previousMonth.contributions
+      ),
+      balance: calculateGrowth(
+        totals.currentMonth.contributions - totals.currentMonth.expenses,
+        totals.previousMonth.contributions - totals.previousMonth.expenses
+      )
+    };
+
+    // Get active members for current month
+    const activeMembers = new Set([
+      ...currentMonthData.expenses.map(e => e.paidBy),
+      ...currentMonthData.contributions.map(c => c.contributedBy)
+    ].filter(Boolean)).size;
+
+    // Calculate expense categories
+    const expenseCategories = currentMonthData.expenses.reduce((acc, expense) => {
+      const category = expense.category || 'Other';
+      acc[category] = (acc[category] || 0) + safeNumber(expense.amount);
+      return acc;
+    }, {});
+
+    // Calculate contribution categories
+    const contributionCategories = currentMonthData.contributions.reduce((acc, contribution) => {
+      const category = contribution.category || 'Other';
+      acc[category] = (acc[category] || 0) + safeNumber(contribution.amount);
+      return acc;
+    }, {});
+
     return {
-      current,
-      previous,
-      changes,
+      currentMonth: {
+        expenses: totals.currentMonth.expenses,
+        contributions: totals.currentMonth.contributions,
+        balance: totals.currentMonth.contributions - totals.currentMonth.expenses,
+        expenseCategories,
+        contributionCategories,
+        activeMembers
+      },
+      previousMonth: {
+        expenses: totals.previousMonth.expenses,
+        contributions: totals.previousMonth.contributions,
+        balance: totals.previousMonth.contributions - totals.previousMonth.expenses
+      },
+      allTime: {
+        expenses: totals.allTime.expenses,
+        contributions: totals.allTime.contributions,
+        balance: totals.allTime.contributions - totals.allTime.expenses
+      },
+      growth,
       metadata: {
-        ...(currentMonth.metadata || {}),
-        totalExpenses: expensesTotal,
-        totalContributions: contributionsTotal,
-        netBalance: 0,
-        hasData: safeExpenses.length > 0 || safeContributions.length > 0
+        hasData: expenses.length > 0 || contributions.length > 0,
+        currentMonthLabel: new Date(currentYear, currentMonth).toLocaleString('default', { 
+          month: 'long', 
+          year: 'numeric' 
+        })
       }
     };
   } catch (error) {
-    console.error('Error calculating monthly metrics:', error);
-    return {
-      current: {
-        expenses: 0,
-        contributions: 0,
-        balance: 0,
-        hasData: false,
-        activeMembers: 3,
-        expensesByCategory: {},
-        contributionsByCategory: {}
-      },
-      previous: {
-        expenses: 0,
-        contributions: 0,
-        balance: 0,
-        hasData: false
-      },
-      changes: {
-        expenses: { value: 0, percentage: '0%', isPositive: false, trend: 'neutral' },
-        contributions: { value: 0, percentage: '0%', isPositive: false, trend: 'neutral' },
-        balance: { value: 0, percentage: '0%', isPositive: false, trend: 'neutral' }
-      },
-      metadata: {
-        totalExpenses: 0,
-        totalContributions: 0,
-        netBalance: 0,
-        hasData: false,
-        error: error.message
-      }
-    };
+    console.error('Error in calculateMonthlyMetrics:', error);
+    return DEFAULT_STATS;
   }
 };
 
@@ -427,8 +442,8 @@ export const fromPaise = (paise) => Number(paise) / 100;
 
 // Format percentage with proper sign
 export const formatPercentage = (value) => {
-  const num = Number(value);
-  return isNaN(num) ? '0.0%' : `${num >= 0 ? '+' : ''}${num.toFixed(1)}%`;
+  const number = safeNumber(value);
+  return `${number >= 0 ? '+' : ''}${number.toFixed(1)}%`;
 };
 
 // Format large numbers with K/M/B suffix
@@ -486,132 +501,156 @@ export const dateUtils = {
 /**
  * Growth calculation with proper error handling
  */
-export const calculateMonthlyGrowth = (currentValue, previousValue) => {
+export const calculateGrowthSafe = (current, previous) => {
   try {
-    if (previousValue === 0 || !previousValue) {
-      return {
-        value: 'N/A',
-        trend: 'New',
-        isPositive: true
-      };
+    // Ensure we have valid numbers
+    const currentValue = safeNumber(current);
+    const previousValue = safeNumber(previous);
+
+    // Handle special cases
+    if (previousValue === 0) {
+      if (currentValue === 0) return { value: 0, percentage: '0%', isPositive: false, trend: 'neutral' };
+      if (currentValue > 0) return { value: currentValue, percentage: '+100%', isPositive: true, trend: 'up' };
+      return { value: currentValue, percentage: '-100%', isPositive: false, trend: 'down' };
     }
 
-    const growth = ((currentValue - previousValue) / Math.abs(previousValue)) * 100;
+    // Calculate growth
+    const absoluteChange = currentValue - previousValue;
+    const percentageChange = (absoluteChange / Math.abs(previousValue)) * 100;
+    const roundedPercentage = Math.round(percentageChange * 100) / 100;
+
+    // Format the percentage string
+    const percentageStr = `${roundedPercentage >= 0 ? '+' : ''}${roundedPercentage}%`;
+
     return {
-      value: roundAmount(growth),
-      trend: formatPercentage(growth),
-      isPositive: growth >= 0
+      value: absoluteChange,
+      percentage: percentageStr,
+      isPositive: roundedPercentage >= 0,
+      trend: roundedPercentage > 0 ? 'up' : roundedPercentage < 0 ? 'down' : 'neutral'
     };
   } catch (error) {
-    console.warn(`Error calculating monthly growth: ${error.message}`);
-    return {
-      value: 'N/A',
-      trend: 'Error',
-      isPositive: false
-    };
+    console.error('Error calculating growth:', error);
+    return { value: 0, percentage: '0%', isPositive: false, trend: 'neutral' };
   }
 };
 
 /**
- * Calculates financial metrics for the dashboard
- * @param {Object} data - Financial data
- * @returns {Object} Dashboard metrics
+ * Calculates all dashboard metrics from transaction data
+ * @param {Object} data - Transaction data
+ * @returns {Object} Calculated metrics
  */
 export const calculateDashboardMetrics = (data = {}) => {
-  // Ensure data is an object
-  const safeData = data || {};
+  const { contributions = [], expenses = [], sales = [] } = data;
+  const today = new Date();
   
-  // Safely destructure with defaults
-  const { contributions = [], expenses = [] } = safeData;
-  const currentDate = new Date();
-
-  // Validate arrays
-  const safeContributions = Array.isArray(contributions) ? contributions : [];
-  const safeExpenses = Array.isArray(expenses) ? expenses : [];
-
-  // Calculate current month's data
-  const currentMonth = {
-    contributions: getMonthlyTransactions(safeContributions, currentDate),
-    expenses: getMonthlyTransactions(safeExpenses, currentDate)
+  // Get current month's data
+  const currentMonthData = {
+    contributions: getMonthlyTransactions(contributions, today),
+    expenses: getMonthlyTransactions(expenses, today),
+    sales: getMonthlyTransactions(sales, today)
   };
 
-  // Calculate previous month's data
-  const previousDate = new Date(currentDate);
-  previousDate.setMonth(previousDate.getMonth() - 1);
-  const previousMonth = {
-    contributions: getMonthlyTransactions(safeContributions, previousDate),
-    expenses: getMonthlyTransactions(safeExpenses, previousDate)
+  // Get previous month's data
+  const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1);
+  const previousMonthData = {
+    contributions: getMonthlyTransactions(contributions, lastMonth),
+    expenses: getMonthlyTransactions(expenses, lastMonth),
+    sales: getMonthlyTransactions(sales, lastMonth)
   };
 
-  // Calculate totals with validation
+  // Calculate totals
   const totals = {
-    contributions: roundAmount(safeContributions.reduce((sum, item) => 
-      sum + roundAmount(item?.amount || 0), 0)),
-    expenses: roundAmount(safeExpenses.reduce((sum, item) => 
-      sum + roundAmount(item?.amount || 0), 0))
+    contributions: calculateTotal(contributions),
+    expenses: calculateTotal(expenses),
+    sales: calculateTotal(sales)
   };
 
-  // Calculate balances
-  const balances = {
-    total: roundAmount(totals.contributions - totals.expenses),
-    currentMonth: roundAmount(
-      (currentMonth.contributions?.total || 0) - (currentMonth.expenses?.total || 0)
+  // Calculate monthly values
+  const monthly = {
+    current: {
+      contributions: currentMonthData.contributions.total,
+      expenses: currentMonthData.expenses.total,
+      sales: currentMonthData.sales.total,
+      get balance() {
+        return this.contributions + this.sales - this.expenses;
+      },
+      get hasData() {
+        return this.contributions > 0 || this.expenses > 0 || this.sales > 0;
+      }
+    },
+    previous: {
+      contributions: previousMonthData.contributions.total,
+      expenses: previousMonthData.expenses.total,
+      sales: previousMonthData.sales.total,
+      get balance() {
+        return this.contributions + this.sales - this.expenses;
+      },
+      get hasData() {
+        return this.contributions > 0 || this.expenses > 0 || this.sales > 0;
+      }
+    }
+  };
+
+  // Calculate growth percentages
+  const growth = {
+    contributions: calculateGrowthSafe(
+      monthly.current.contributions,
+      monthly.previous.contributions
     ),
-    previousMonth: roundAmount(
-      (previousMonth.contributions?.total || 0) - (previousMonth.expenses?.total || 0)
+    expenses: calculateGrowthSafe(
+      monthly.current.expenses,
+      monthly.previous.expenses
+    ),
+    balance: calculateGrowthSafe(
+      monthly.current.balance,
+      monthly.previous.balance
     )
   };
 
-  // Calculate growth with null checks
-  const growth = calculateMonthlyGrowth(
-    balances.currentMonth || 0,
-    balances.previousMonth || 0
-  );
-
-  // Calculate active members with null checks
+  // Calculate active members for current month
   const activeMembers = new Set([
-    ...(currentMonth.contributions?.transactions || []).map(c => c?.contributedBy).filter(Boolean),
-    ...(currentMonth.expenses?.transactions || []).map(e => e?.paidBy).filter(Boolean)
-  ]).size;
+    ...currentMonthData.contributions.transactions.map(t => t.contributedBy),
+    ...currentMonthData.expenses.transactions.map(t => t.paidBy)
+  ].filter(Boolean));
 
-  // Calculate category breakdowns for current month
-  const getTopCategories = (transactions = []) => {
-    const breakdown = transactions.reduce((acc, item) => {
-      if (!item) return acc;
-      const category = item.category || 'Uncategorized';
-      const amount = roundAmount(item.amount || 0);
-      acc[category] = roundAmount((acc[category] || 0) + amount);
-      return acc;
-    }, {});
-
-    return Object.entries(breakdown)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 3)
-      .reduce((acc, [category, amount]) => {
-        acc[category] = amount;
-        return acc;
-      }, {});
+  // Calculate member metrics
+  const memberMetrics = {
+    active: activeMembers.size,
+    total: 3, // Hardcoded for now, should come from members list
+    averageExpense: activeMembers.size ? 
+      roundAmount(monthly.current.expenses / activeMembers.size) : 0
   };
 
+  // Calculate expense categories for current month
+  const expenseCategories = currentMonthData.expenses.transactions.reduce((acc, expense) => {
+    const category = expense.category || 'Uncategorized';
+    acc[category] = (acc[category] || 0) + roundAmount(expense.amount);
+    return acc;
+  }, {});
+
+  // Get month label
+  const monthLabel = today.toLocaleString('default', { 
+    month: 'long',
+    year: 'numeric'
+  });
+
   return {
-    totals,
-    currentMonth: {
-      contributions: currentMonth.contributions?.total || 0,
-      expenses: currentMonth.expenses?.total || 0,
-      balance: balances.currentMonth,
-      contributionCategories: getTopCategories(currentMonth.contributions?.transactions),
-      expenseCategories: getTopCategories(currentMonth.expenses?.transactions)
+    totals: {
+      contributions: roundAmount(totals.contributions),
+      expenses: roundAmount(totals.expenses),
+      sales: roundAmount(totals.sales),
+      balance: roundAmount(totals.contributions + totals.sales - totals.expenses)
     },
-    previousMonth: {
-      contributions: previousMonth.contributions?.total || 0,
-      expenses: previousMonth.expenses?.total || 0,
-      balance: balances.previousMonth
-    },
+    monthly,
     growth,
-    balances,
-    activeMembers,
+    members: memberMetrics,
+    categories: {
+      expenses: expenseCategories
+    },
     metadata: {
-      hasData: safeContributions.length > 0 || safeExpenses.length > 0,
+      currentMonth: monthLabel,
+      hasCurrentMonthData: monthly.current.hasData,
+      hasPreviousMonthData: monthly.previous.hasData,
       lastUpdated: new Date().toISOString()
     }
   };
@@ -810,55 +849,6 @@ const calculateHealthScore = (
 };
 
 /**
- * Safely calculates growth percentage with error handling
- * @param {number} current - Current value
- * @param {number} previous - Previous value
- * @returns {Object} Growth calculation result with safety checks
- */
-export const calculateGrowthSafe = (current, previous) => {
-  try {
-    // Handle invalid inputs
-    if (typeof current !== 'number' || typeof previous !== 'number') {
-      return {
-        value: 0,
-        percentage: '0%',
-        isPositive: false,
-        trend: 'neutral'
-      };
-    }
-
-    // Handle zero or negative previous value
-    if (previous <= 0) {
-      return {
-        value: current,
-        percentage: current > 0 ? '+100%' : '0%',
-        isPositive: current > 0,
-        trend: current > 0 ? 'positive' : 'neutral'
-      };
-    }
-
-    // Calculate growth
-    const growth = ((current - previous) / Math.abs(previous)) * 100;
-    const roundedGrowth = roundAmount(growth);
-
-    return {
-      value: roundAmount(current - previous),
-      percentage: formatPercentage(roundedGrowth),
-      isPositive: growth >= 0,
-      trend: growth > 0 ? 'positive' : growth < 0 ? 'negative' : 'neutral'
-    };
-  } catch (error) {
-    console.warn('Error calculating growth:', error);
-    return {
-      value: 0,
-      percentage: '0%',
-      isPositive: false,
-      trend: 'neutral'
-    };
-  }
-};
-
-/**
  * Calculates data quality score
  * @private
  */
@@ -881,4 +871,31 @@ const calculateDataQuality = ({ current, previous, activeMembers }) => {
   }
   
   return 'partial';
+};
+
+// Format date for display
+export const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('en-IN', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+};
+
+// Calculate growth percentage
+export const calculateGrowth = (current, previous) => {
+  if (!previous) return 0;
+  return ((current - previous) / previous) * 100;
+};
+
+// Get active members count
+export const getActiveMembers = (transactions, members) => {
+  const activeMembers = new Set(
+    transactions.map(t => t.memberId)
+  );
+  return {
+    active: activeMembers.size,
+    total: members.length,
+    percentage: (activeMembers.size / members.length) * 100
+  };
 }; 
