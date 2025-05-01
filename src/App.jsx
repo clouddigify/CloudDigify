@@ -1,6 +1,17 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { AdminProvider } from './context/AdminContext';
+import { ExpenseProvider } from './context/ExpenseContext';
+import AdminLogin from './components/admin/AdminLogin';
+import AdminPage from './components/admin/AdminPage';
+import AdminRoute from './components/admin/AdminRoute';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -9,6 +20,13 @@ import serviceRedirects from './utils/serviceRedirects';
 import CookieConsentBanner from './components/common/CookieConsentBanner';
 import NotFound from './components/pages/NotFound';
 import LoadingSpinner from './components/common/LoadingSpinner';
+
+// Lazy load admin components
+const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
+const ExpenseForm = lazy(() => import('./components/admin/ExpenseForm'));
+const ContributionForm = lazy(() => import('./components/admin/ContributionForm'));
+const Reports = lazy(() => import('./components/admin/Reports'));
+const MemberReport = lazy(() => import('./components/admin/MemberReport'));
 
 // Lazy load all page components
 const Home = lazy(() => import('./components/pages/Home'));
@@ -128,8 +146,31 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <React.Suspense fallback={<LoadingSpinner />}>
         <Routes location={location} key={location.pathname}>
+          {/* Admin Routes */}
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route
+            path="/admin/*"
+            element={
+              <AdminRoute>
+                <AdminPage>
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <Routes>
+                      <Route path="dashboard" element={<AdminDashboard />} />
+                      <Route path="expenses" element={<ExpenseForm />} />
+                      <Route path="contributions" element={<ContributionForm />} />
+                      <Route path="reports" element={<Reports />} />
+                      <Route path="reports/:memberId" element={<MemberReport />} />
+                      <Route path="*" element={<Navigate to="dashboard" replace />} />
+                    </Routes>
+                  </Suspense>
+                </AdminPage>
+              </AdminRoute>
+            }
+          />
+
           {/* Public Routes */}
-          <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           
@@ -229,26 +270,29 @@ const AnimatedRoutes = () => {
   );
 };
 
-const App = () => {
+function App() {
   return (
-    <Router basename="/">
-      <ErrorBoundary>
-        <ScrollToTop />
-        <div className="flex flex-col min-h-screen">
-          <header>
-          <NavBar />
-          </header>
-          <main className="flex-grow" id="main-content" role="main">
-            <AnimatedRoutes />
-          </main>
-          <footer>
-          <Footer />
-          </footer>
-          <CookieConsentBanner />
-        </div>
-      </ErrorBoundary>
-    </Router>
+    <ErrorBoundary>
+      <ThemeProvider theme={createTheme()}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <Router>
+            <AdminProvider>
+              <ExpenseProvider>
+                <div className="app">
+                  <NavBar />
+                  <ScrollToTop />
+                  <AnimatedRoutes />
+                  <Footer />
+                  <CookieConsentBanner />
+                  <ToastContainer position="bottom-right" />
+                </div>
+              </ExpenseProvider>
+            </AdminProvider>
+          </Router>
+        </LocalizationProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
-};
+}
 
 export default App; 
