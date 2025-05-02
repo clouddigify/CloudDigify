@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useExpense } from '../../context/ExpenseContext';
 import {
@@ -29,9 +29,8 @@ import {
   Link,
   Tooltip,
   Chip,
-  LinearProgress,
-  Avatar,
-  AvatarGroup
+  FormControlLabel,
+  Switch
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -52,12 +51,7 @@ import {
   HelpOutline as HelpOutlineIcon,
   CloudDownload as CloudDownloadIcon,
   PictureAsPdf as PictureAsPdfIcon,
-  TableChart as TableChartIcon,
-  MonetizationOn as MonetizationOnIcon,
-  Payments as PaymentsIcon,
-  ShowChart as ShowChartIcon,
-  People as PeopleIcon,
-  Download as DownloadIcon
+  TableChart as TableChartIcon
 } from '@mui/icons-material';
 import { 
   formatCurrency, 
@@ -74,7 +68,6 @@ import {
 import ContributionForm from './ContributionForm';
 import ExpenseForm from './ExpenseForm';
 import { toast } from 'react-toastify';
-import { Chart } from 'chart.js/auto';
 
 // Define members array at the top level
 const MEMBERS = ['Manish', 'Chirag', 'Deepak'];
@@ -118,149 +111,143 @@ const DEFAULT_STATS = {
   }
 };
 
-// Enhanced MetricCard component
-const MetricCard = ({
-  title,
-  value,
-  subtitle,
-  icon: Icon,
-  trend,
+const ActionCard = ({ title, icon: Icon, onClick, color = 'primary.main' }) => (
+  <Card 
+    sx={{ 
+      height: '100%',
+      cursor: 'pointer',
+      transition: 'transform 0.2s, box-shadow 0.2s',
+      '&:hover': {
+        transform: 'translateY(-4px)',
+        boxShadow: 3,
+      }
+    }}
+    onClick={onClick}
+  >
+    <CardContent sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center',
+      justifyContent: 'center',
+      p: 3,
+      textAlign: 'center'
+    }}>
+      <Icon sx={{ fontSize: 40, color: color, mb: 2 }} />
+      <Typography variant="h6" component="div" sx={{ fontWeight: 500 }}>
+        {title}
+      </Typography>
+    </CardContent>
+  </Card>
+);
+
+const StatCard = ({ 
+  title, 
+  value, 
+  icon: Icon, 
+  trend = null, 
   color = 'primary.main',
-  tooltip,
-  breakdown,
-  onClick,
-  avatars,
-  progress,
-  className
+  tooltip = '',
+  subtitle = '',
+  breakdown = null,
+  secondaryMetric = null
 }) => {
-  const theme = useTheme();
-  
   return (
-    <Card
-      onClick={onClick}
-      sx={{
+    <Card 
+      sx={{ 
         height: '100%',
-        cursor: onClick ? 'pointer' : 'default',
-        transition: 'transform 0.2s, box-shadow 0.2s',
-        '&:hover': onClick ? {
+        transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+        '&:hover': {
           transform: 'translateY(-4px)',
-          boxShadow: 3,
-        } : {},
-        bgcolor: trend?.isPositive ? 'success.alpha4' : trend?.isNegative ? 'error.alpha4' : 'background.paper'
+          boxShadow: (theme) => theme.shadows[4]
+        }
       }}
     >
       <CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
-          <Box sx={{ 
-            p: 1, 
-            borderRadius: 1, 
-            bgcolor: color,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            mr: 2
-          }}>
-            <Icon sx={{ color: 'common.white' }} />
-          </Box>
-          <Box sx={{ flex: 1 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="subtitle2" color="text.secondary">
-                {title}
-              </Typography>
-              {tooltip && (
-                <Tooltip title={tooltip} arrow placement="top">
-                  <HelpOutlineIcon sx={{ ml: 1, fontSize: 16, color: 'text.secondary' }} />
-                </Tooltip>
-              )}
-            </Box>
-            <Typography variant="h4" component="div" sx={{ fontWeight: 500, my: 1 }}>
-              {value}
-            </Typography>
-            {subtitle && (
-              <Typography variant="body2" color="text.secondary">
-                {subtitle}
-              </Typography>
-            )}
-          </Box>
-        </Box>
-
-        {trend && (
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
-            {trend.isPositive ? (
-              <ArrowUpwardIcon sx={{ color: 'success.main', fontSize: 16 }} />
-            ) : (
-              <ArrowDownwardIcon sx={{ color: 'error.main', fontSize: 16 }} />
-            )}
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: trend.isPositive ? 'success.main' : 'error.main',
-                fontWeight: 500
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <Icon sx={{ color: color, mr: 1 }} />
+          <Typography color="textSecondary" variant="subtitle1">
+            {title}
+          </Typography>
+          {tooltip && (
+            <Tooltip 
+              title={tooltip} 
+              arrow 
+              placement="top"
+              sx={{
+                '& .MuiTooltip-tooltip': {
+                  bgcolor: 'background.paper',
+                  color: 'text.primary',
+                  boxShadow: 1,
+                  fontSize: '0.875rem',
+                  p: 1,
+                  borderRadius: 1
+                }
               }}
             >
-              {trend.value}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              vs last month
-            </Typography>
-          </Stack>
+              <HelpOutlineIcon 
+                sx={{ 
+                  ml: 1, 
+                  fontSize: 18, 
+                  color: 'text.secondary',
+                  cursor: 'help'
+                }} 
+              />
+            </Tooltip>
+          )}
+        </Box>
+        <Typography variant="h4" component="div" sx={{ mb: 1, fontWeight: 500 }}>
+          {value}
+        </Typography>
+        {subtitle && (
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            {subtitle}
+          </Typography>
         )}
-
-        {progress && (
-          <Box sx={{ mt: 2 }}>
-            <LinearProgress 
-              variant="determinate" 
-              value={progress.value} 
-              sx={{ 
-                height: 8, 
-                borderRadius: 4,
-                bgcolor: 'background.neutral',
-                '& .MuiLinearProgress-bar': {
-                  borderRadius: 4
-                }
-              }} 
-            />
-            <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
-              {progress.label}
-            </Typography>
-          </Box>
+        {secondaryMetric && (
+          <Typography 
+            variant="body2" 
+            color="text.secondary" 
+            sx={{ 
+              mb: 1,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5
+            }}
+          >
+            {secondaryMetric.label}:
+            <span style={{ 
+              fontWeight: 500, 
+              color: 'text.primary',
+              marginLeft: '4px'
+            }}>
+              {secondaryMetric.value}
+            </span>
+          </Typography>
         )}
-
-        {avatars && (
-          <Box sx={{ mt: 2 }}>
-            <AvatarGroup max={4} sx={{ justifyContent: 'flex-start' }}>
-              {avatars.map((avatar, index) => (
-                <Avatar 
-                  key={index}
-                  alt={avatar.name}
-                  src={avatar.image}
-                  sx={{ width: 24, height: 24 }}
-                >
-                  {avatar.name.charAt(0)}
-                </Avatar>
-              ))}
-            </AvatarGroup>
-          </Box>
-        )}
-
-        {breakdown && (
+        {breakdown && Object.keys(breakdown).length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Divider sx={{ my: 1 }} />
-            {Object.entries(breakdown).map(([key, val]) => (
+            {Object.entries(breakdown).map(([category, amount]) => (
               <Box 
-                key={key} 
+                key={category} 
                 sx={{ 
                   display: 'flex', 
                   justifyContent: 'space-between',
                   alignItems: 'center',
+                  my: 0.5,
+                  '&:hover': {
+                    bgcolor: 'action.hover',
+                    borderRadius: 1
+                  },
+                  px: 1,
                   py: 0.5
                 }}
               >
-                <Typography variant="caption" color="text.secondary">
-                  {key}
+                <Typography variant="body2" color="text.secondary">
+                  {category}
                 </Typography>
                 <Typography variant="body2" fontWeight="medium">
-                  {val}
+                  {amount}
                 </Typography>
               </Box>
             ))}
@@ -271,24 +258,92 @@ const MetricCard = ({
   );
 };
 
-// Quick Action Button component
-const QuickActionButton = ({ icon: Icon, label, onClick, color = 'primary' }) => (
-  <Button
-    variant="outlined"
-    color={color}
-    startIcon={<Icon />}
-    onClick={onClick}
-    sx={{
-      borderRadius: 2,
-      py: 1,
-      px: 2,
-      textTransform: 'none',
-      fontWeight: 500
-    }}
-  >
-    {label}
-  </Button>
-);
+const StatisticsGrid = ({ monthlyStats = DEFAULT_STATS }) => {
+  const formatGrowthRate = (rate) => {
+    if (!rate || rate === Infinity || isNaN(rate)) return 'N/A';
+    return `${rate >= 0 ? '+' : ''}${(rate * 100).toFixed(1)}%`;
+  };
+
+  const getGrowthColor = (value) => {
+    if (!value || isNaN(value)) return 'text.secondary';
+    return value > 0 ? 'error.main' : 'success.main';
+  };
+
+  const safeValue = (value) => {
+    return value || 0;
+  };
+
+  // Safely access nested properties
+  const allTimeContributions = safeValue(monthlyStats?.allTime?.contributions);
+  const allTimeExpenses = safeValue(monthlyStats?.allTime?.expenses);
+  const currentMonthContributions = safeValue(monthlyStats?.currentMonth?.contributions);
+  const currentMonthExpenses = safeValue(monthlyStats?.currentMonth?.expenses);
+  const previousMonthExpenses = safeValue(monthlyStats?.previousMonth?.expenses);
+  const activeMembers = safeValue(monthlyStats?.activeMembers);
+
+  return (
+    <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Grid item xs={12} sm={6} md={3}>
+        <StatCard
+          title="Monthly Growth"
+          value={formatGrowthRate(safeValue(monthlyStats?.growth?.expenses))}
+          icon={TrendingUpIcon}
+          color={getGrowthColor(safeValue(monthlyStats?.growth?.expenses))}
+          tooltip={TOOLTIPS.monthlyGrowth}
+          secondaryMetric={{
+            label: "vs. Last Month",
+            value: formatCurrency(currentMonthExpenses - previousMonthExpenses)
+          }}
+        />
+      </Grid>
+      
+      <Grid item xs={12} sm={6} md={3}>
+        <StatCard
+          title="Total Contributions"
+          value={formatCurrency(allTimeContributions)}
+          icon={AccountBalanceIcon}
+          tooltip={TOOLTIPS.totalContributions}
+          secondaryMetric={{
+            label: "This Month",
+            value: formatCurrency(currentMonthContributions)
+          }}
+        />
+      </Grid>
+      
+      <Grid item xs={12} sm={6} md={3}>
+        <StatCard
+          title="Total Expenses"
+          value={formatCurrency(allTimeExpenses)}
+          icon={ReceiptIcon}
+          tooltip={TOOLTIPS.totalExpenses}
+          secondaryMetric={{
+            label: "This Month",
+            value: formatCurrency(currentMonthExpenses)
+          }}
+          breakdown={{
+            "Last Month": formatCurrency(previousMonthExpenses)
+          }}
+        />
+      </Grid>
+      
+      <Grid item xs={12} sm={6} md={3}>
+        <StatCard
+          title="Available Balance"
+          value={formatCurrency(allTimeContributions - allTimeExpenses)}
+          icon={AccountBalanceIcon}
+          tooltip={TOOLTIPS.availableBalance}
+          secondaryMetric={{
+            label: "Active Members",
+            value: `${activeMembers || 0}/${MEMBERS.length}`
+          }}
+          breakdown={{
+            "This Month's Balance": formatCurrency(currentMonthContributions - currentMonthExpenses)
+          }}
+        />
+      </Grid>
+    </Grid>
+  );
+};
 
 const AdminDashboard = () => {
   const [monthlyStats, setMonthlyStats] = useState(DEFAULT_STATS);
@@ -319,126 +374,16 @@ const AdminDashboard = () => {
     updateContribution 
   } = useExpense() || {};
 
-  // Add chart reference
-  const chartRef = useRef(null);
-  const chartInstance = useRef(null);
-
-  // Effect to handle chart cleanup
-  useEffect(() => {
-    return () => {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-        chartInstance.current = null;
-      }
-    };
-  }, []);
-
-  // Effect to update chart data
-  useEffect(() => {
-    if (chartRef.current) {
-      // Destroy existing chart instance
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-      }
-
-      const ctx = chartRef.current.getContext('2d');
-      chartInstance.current = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-          datasets: [{
-            label: 'Expenses',
-            data: [3000, 2500, 3500, 2800, monthlyStats.currentMonth?.expenses || 0],
-            borderColor: 'rgb(255, 99, 132)',
-            tension: 0.1,
-            fill: false
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top'
-            },
-            tooltip: {
-              callbacks: {
-                label: (context) => `₹${context.formattedValue}`
-              }
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: (value) => `₹${value}`
-              }
-            }
-          }
-        }
-      });
-    }
-  }, [monthlyStats.currentMonth?.expenses]);
-
   useEffect(() => {
     const calculateStats = () => {
       try {
         setLoading(true);
-
-        // Debug: Log raw data
-        console.log('Raw expenses:', expenses);
-        console.log('Raw contributions:', contributions);
-
-        // Validate transactions before calculation
-        const validExpenses = expenses.map(expense => {
-          const validation = validateTransaction(expense);
-          console.log('Expense validation:', {
-            expense,
-            validation,
-            isValid: validation.isValid,
-            errors: validation.errors
-          });
-          return { transaction: expense, isValid: validation.isValid };
-        });
-
-        const validContributions = contributions.map(contribution => {
-          const validation = validateTransaction(contribution);
-          console.log('Contribution validation:', {
-            contribution,
-            validation,
-            isValid: validation.isValid,
-            errors: validation.errors
-          });
-          return { transaction: contribution, isValid: validation.isValid };
-        });
-
-        // Log validation summary
-        console.log('Validation Summary:', {
-          totalExpenses: expenses.length,
-          validExpenses: validExpenses.filter(v => v.isValid).length,
-          totalContributions: contributions.length,
-          validContributions: validContributions.filter(v => v.isValid).length
-        });
-
-        // Calculate stats with validated data
-        const stats = calculateMonthlyMetrics({ 
-          expenses: expenses.filter((_, idx) => validExpenses[idx].isValid),
-          contributions: contributions.filter((_, idx) => validContributions[idx].isValid)
-        });
-
-        // Debug: Log calculated stats
-        console.log('Calculated stats:', stats);
-
+        const stats = calculateMonthlyMetrics({ expenses, contributions });
         setMonthlyStats(stats || DEFAULT_STATS);
         setError(null);
-
-        // If all transactions are invalid, show a specific error
-        if (validExpenses.every(v => !v.isValid) && validContributions.every(v => !v.isValid)) {
-          setError('No valid transactions found. Please check transaction data format.');
-        }
       } catch (err) {
         console.error('Error calculating stats:', err);
-        setError('Failed to calculate statistics: ' + err.message);
+        setError('Failed to calculate statistics');
         setMonthlyStats(DEFAULT_STATS);
       } finally {
         setLoading(false);
@@ -447,37 +392,6 @@ const AdminDashboard = () => {
 
     calculateStats();
   }, [expenses, contributions]);
-
-  // Add test data function for debugging
-  const addTestData = async () => {
-    try {
-      // Add a test contribution
-      const testContribution = {
-        id: Date.now(),
-        amount: "25000",
-        date: new Date().toISOString().split('T')[0],
-        contributedBy: "Chirag",
-        category: "Capital",
-        type: "contribution"
-      };
-
-      // Add a test expense
-      const testExpense = {
-        id: Date.now() + 1,
-        amount: "5000",
-        date: new Date().toISOString().split('T')[0],
-        paidBy: "Manish",
-        category: "Office Supplies",
-        type: "expense"
-      };
-
-      await addContribution(testContribution);
-      await addExpense(testExpense);
-      toast.success('Test data added successfully');
-    } catch (error) {
-      toast.error('Failed to add test data: ' + error.message);
-    }
-  };
 
   const handleSettingsClick = (event) => {
     setSettingsAnchorEl(event.currentTarget);
@@ -600,235 +514,62 @@ const AdminDashboard = () => {
   }
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 } }}>
-      {/* Header Section */}
+    <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 4 }}>
-        <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />}>
-          <Link color="inherit" href="/">
-            Home
+        <Breadcrumbs 
+          separator={<NavigateNextIcon fontSize="small" />} 
+          aria-label="breadcrumb"
+        >
+          <Link
+            color="inherit"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/');
+            }}
+          >
+            Dashboard
           </Link>
           <Typography color="text.primary">Financial Overview</Typography>
         </Breadcrumbs>
-        
-        <Box sx={{ 
-          mt: 2,
-          display: 'flex', 
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 2
-        }}>
-          <Typography variant="h4" component="h1">
-            Financial Overview
-          </Typography>
-          
-          <Stack direction="row" spacing={2}>
-            <QuickActionButton
-              icon={AddIcon}
-              label="Quick Add"
-              onClick={(e) => setQuickAddAnchorEl(e.currentTarget)}
-            />
-            <IconButton onClick={(e) => setSettingsAnchorEl(e.currentTarget)}>
-              <SettingsIcon />
-            </IconButton>
-          </Stack>
+      </Box>
+
+      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h4" component="h1">
+          Financial Overview
+        </Typography>
+        <Box>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleQuickAddClick}
+            sx={{ mr: 2 }}
+          >
+            Quick Add
+          </Button>
+          <IconButton onClick={handleSettingsClick}>
+            <SettingsIcon />
+          </IconButton>
         </Box>
       </Box>
 
-      {/* Main Metrics Grid */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        {/* Total Contributions */}
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Total Contributions"
-            value={formatCurrency(monthlyStats.allTime?.contributions || 0)}
-            subtitle={`This Month: ${formatCurrency(monthlyStats.currentMonth?.contributions || 0)}`}
-            icon={MonetizationOnIcon}
-            color={theme.palette.success.main}
-            trend={{
-              value: monthlyStats.growth?.contributions?.percentage || '0%',
-              isPositive: monthlyStats.growth?.contributions?.isPositive
-            }}
-            tooltip="Total funds contributed by all members to date"
-          />
-        </Grid>
+      <StatisticsGrid monthlyStats={monthlyStats} />
 
-        {/* Total Expenses */}
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Total Expenses"
-            value={formatCurrency(monthlyStats.allTime?.expenses || 0)}
-            subtitle={`This Month: ${formatCurrency(monthlyStats.currentMonth?.expenses || 0)}`}
-            icon={ReceiptIcon}
-            color={theme.palette.error.main}
-            trend={{
-              value: monthlyStats.growth?.expenses?.percentage || '0%',
-              isPositive: monthlyStats.growth?.expenses?.isPositive
-            }}
-            tooltip="Total expenses incurred by all members to date"
-            breakdown={{
-              "Per Member": formatCurrency((monthlyStats.currentMonth?.expenses || 0) / 3)
-            }}
-          />
-        </Grid>
-
-        {/* Available Balance */}
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Available Balance"
-            value={formatCurrency((monthlyStats.allTime?.contributions || 0) - (monthlyStats.allTime?.expenses || 0))}
-            subtitle="Net = Contributions - Expenses"
-            icon={AccountBalanceIcon}
-            color={theme.palette.info.main}
-            tooltip="Current balance after all transactions"
-            breakdown={{
-              "This Month": formatCurrency((monthlyStats.currentMonth?.contributions || 0) - (monthlyStats.currentMonth?.expenses || 0))
-            }}
-          />
-        </Grid>
-
-        {/* Active Members */}
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Active Members"
-            value={`${monthlyStats.currentMonth?.activeMembers || 3}`}
-            icon={PeopleIcon}
-            color={theme.palette.warning.main}
-            progress={{
-              value: ((monthlyStats.currentMonth?.activeMembers || 3) / 3) * 100,
-              label: `${monthlyStats.currentMonth?.activeMembers || 3} of 3 members active`
-            }}
-            avatars={[
-              { name: 'Manish' },
-              { name: 'Chirag' },
-              { name: 'Deepak' }
-            ]}
-          />
-        </Grid>
-
-        {/* Monthly Growth */}
-        <Grid item xs={12} sm={6} md={6}>
-          <MetricCard
-            title="Monthly Growth"
-            value={monthlyStats.growth?.balance?.percentage || '+0%'}
-            icon={ShowChartIcon}
-            color={theme.palette.success.main}
-            trend={{
-              value: monthlyStats.growth?.balance?.percentage || '+0%',
-              isPositive: monthlyStats.growth?.balance?.isPositive
-            }}
-            tooltip="Percentage change in net balance compared to last month"
-            breakdown={{
-              "Previous Month": formatCurrency(monthlyStats.previousMonth?.balance || 0),
-              "Current Month": formatCurrency(monthlyStats.currentMonth?.balance || 0)
-            }}
-          />
-        </Grid>
-
-        {/* Expense Trend */}
-        <Grid item xs={12} sm={6} md={6}>
-          <MetricCard
-            title="Expense Trend"
-            value="+8.2%"
-            icon={TimelineIcon}
-            color={theme.palette.warning.main}
-            trend={{
-              value: "+8.2%",
-              isPositive: true
-            }}
-            tooltip="Month-over-month change in expenses"
-            breakdown={{
-              "Previous Month": formatCurrency(monthlyStats.previousMonth?.expenses || 0),
-              "Current Month": formatCurrency(monthlyStats.currentMonth?.expenses || 0)
-            }}
-          />
-        </Grid>
-      </Grid>
-
-      {/* Recent Activity Section */}
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>Recent Activity</Typography>
-        {(!loading && recentActivity.length === 0) ? (
-          <Paper sx={{ p: 3, textAlign: 'center', bgcolor: 'background.neutral' }}>
-            <Typography color="text.secondary">
-              No recent activities to display
-            </Typography>
-          </Paper>
-        ) : (
-          <List>
-            {recentActivity.map((item) => (
-              <ListItem
-                key={item.id}
-                sx={{
-                  bgcolor: 'background.paper',
-                  mb: 1,
-                  borderRadius: 1,
-                  '&:hover': {
-                    bgcolor: 'background.neutral'
-                  }
-                }}
-              >
-                <ListItemIcon>
-                  {item.type === 'expense' ? (
-                    <ReceiptIcon color="error" />
-                  ) : (
-                    <MonetizationOnIcon color="success" />
-                  )}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.description}
-                  secondary={`${item.type === 'expense' ? 'Paid by' : 'Contributed by'}: ${
-                    item.paidBy || item.contributedBy
-                  } • ${new Date(item.date).toLocaleDateString('en-IN', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                  })}`}
-                />
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: item.type === 'expense' ? 'error.main' : 'success.main',
-                    fontWeight: 500,
-                    mr: 2
-                  }}
-                >
-                  {item.type === 'expense' ? '-' : '+'}
-                  {formatCurrency(item.amount)}
-                </Typography>
-                <IconButton 
-                  edge="end"
-                  onClick={(e) => handleActionMenuOpen(e, item)}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-              </ListItem>
-            ))}
-          </List>
-        )}
-      </Box>
-
-      {/* Menus */}
+      {/* Dialogs and Menus */}
       <Menu
         anchorEl={quickAddAnchorEl}
         open={Boolean(quickAddAnchorEl)}
-        onClose={() => setQuickAddAnchorEl(null)}
+        onClose={handleQuickAddClose}
       >
-        <MenuItem onClick={() => {
-          handleOpenDialog('expense');
-          setQuickAddAnchorEl(null);
-        }}>
+        <MenuItem onClick={() => handleOpenDialog('expense')}>
           <ListItemIcon>
             <ReceiptIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Add Expense</ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => {
-          handleOpenDialog('contribution');
-          setQuickAddAnchorEl(null);
-        }}>
+        <MenuItem onClick={() => handleOpenDialog('contribution')}>
           <ListItemIcon>
-            <MonetizationOnIcon fontSize="small" />
+            <AccountBalanceIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Add Contribution</ListItemText>
         </MenuItem>
@@ -837,38 +578,28 @@ const AdminDashboard = () => {
       <Menu
         anchorEl={settingsAnchorEl}
         open={Boolean(settingsAnchorEl)}
-        onClose={() => setSettingsAnchorEl(null)}
+        onClose={handleSettingsClose}
       >
         <MenuItem onClick={() => {
-          navigate('/admin/reports');
-          setSettingsAnchorEl(null);
+          setShowAdvancedStats(!showAdvancedStats);
+          handleSettingsClose();
         }}>
           <ListItemIcon>
             <AssessmentIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>View Reports</ListItemText>
+          <ListItemText>
+            {showAdvancedStats ? 'Hide Advanced Stats' : 'Show Advanced Stats'}
+          </ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
-          navigate('/admin/users');
-          setSettingsAnchorEl(null);
+          navigate('/reports');
+          handleSettingsClose();
         }}>
           <ListItemIcon>
-            <PeopleIcon fontSize="small" />
+            <TimelineIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Manage Users</ListItemText>
+          <ListItemText>View Reports</ListItemText>
         </MenuItem>
-        <Divider />
-        {process.env.NODE_ENV === 'development' && (
-          <MenuItem onClick={() => {
-            addTestData();
-            setSettingsAnchorEl(null);
-          }}>
-            <ListItemIcon>
-              <CloudDownloadIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Add Test Data</ListItemText>
-          </MenuItem>
-        )}
       </Menu>
 
       <Dialog
@@ -923,31 +654,6 @@ const AdminDashboard = () => {
           <Button onClick={handleDelete} color="error">Delete</Button>
         </DialogActions>
       </Dialog>
-
-      {/* Chart Section */}
-      <Paper 
-        elevation={0} 
-        sx={{ 
-          p: 2,
-          mb: 4,
-          bgcolor: 'background.paper' 
-        }}
-      >
-        <Typography 
-          variant="h6" 
-          sx={{ 
-            mb: 2,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1
-          }}
-        >
-          📊 Expense Trend
-        </Typography>
-        <Box sx={{ height: 300, position: 'relative' }}>
-          <canvas ref={chartRef} />
-        </Box>
-      </Paper>
     </Box>
   );
 };

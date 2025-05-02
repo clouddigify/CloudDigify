@@ -28,49 +28,6 @@ const safeJSONParse = (data, fallback = []) => {
   }
 };
 
-// Format date consistently
-const formatDate = (date) => {
-  try {
-    const d = new Date(date);
-    return d.toISOString().split('T')[0]; // YYYY-MM-DD
-  } catch (error) {
-    console.error('Error formatting date:', error);
-    return new Date().toISOString().split('T')[0];
-  }
-};
-
-// Format amount consistently
-const formatAmount = (amount) => {
-  try {
-    if (amount === null || amount === undefined || amount === '') {
-      console.warn('Empty amount provided:', amount);
-      return "0";
-    }
-    
-    // Remove any currency symbols and commas
-    const cleanAmount = amount.toString().replace(/[₹,]/g, '').trim();
-    
-    // Parse and validate the number
-    const num = parseFloat(cleanAmount);
-    if (isNaN(num)) {
-      console.warn('Invalid amount format:', amount);
-      return "0";
-    }
-    
-    // Ensure positive amount
-    if (num < 0) {
-      console.warn('Negative amount provided:', amount);
-      return "0";
-    }
-    
-    // Convert to string with 2 decimal places
-    return num.toFixed(2).toString();
-  } catch (error) {
-    console.error('Error formatting amount:', error);
-    return "0";
-  }
-};
-
 // Initialize storage with default data if empty
 export const initializeStorage = () => {
   try {
@@ -99,44 +56,41 @@ export const initializeTestData = () => {
     if (expenses.length === 0 && contributions.length === 0) {
       // Current month's data
       const currentDate = new Date();
-      const currentMonth = formatDate(currentDate);
-      
+      const currentMonth = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD
+
       // Previous month's data
       const previousDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 15);
-      const previousMonth = formatDate(previousDate);
+      const previousMonth = previousDate.toISOString().split('T')[0]; // YYYY-MM-DD
 
       const testExpenses = [
         {
           id: Date.now(),
-          amount: "1500",
+          amount: 1500,
           date: currentMonth,
           description: "Team Lunch",
           category: "Food",
           paidBy: "Manish",
           splitBetween: ["Manish", "Chirag", "Deepak"],
-          type: "expense",
           createdAt: new Date().toISOString()
         },
         {
           id: Date.now() + 1,
-          amount: "3000",
+          amount: 3000,
           date: currentMonth,
           description: "Office Supplies",
           category: "Shopping",
           paidBy: "Chirag",
           splitBetween: ["Manish", "Chirag", "Deepak"],
-          type: "expense",
           createdAt: new Date().toISOString()
         },
         {
           id: Date.now() + 2,
-          amount: "2400",
+          amount: 2400,
           date: previousMonth,
           description: "Internet Bill",
           category: "Utilities",
           paidBy: "Deepak",
           splitBetween: ["Manish", "Chirag", "Deepak"],
-          type: "expense",
           createdAt: new Date().toISOString()
         }
       ];
@@ -144,40 +98,32 @@ export const initializeTestData = () => {
       const testContributions = [
         {
           id: Date.now() + 3,
-          amount: "25000",
+          amount: 25000,
           date: currentMonth,
           description: "Monthly Contribution",
           contributedBy: "Chirag",
           category: "Capital",
-          type: "contribution",
           createdAt: new Date().toISOString()
         },
         {
           id: Date.now() + 4,
-          amount: "25000",
+          amount: 25000,
           date: currentMonth,
           description: "Monthly Contribution",
           contributedBy: "Manish",
           category: "Capital",
-          type: "contribution",
           createdAt: new Date().toISOString()
         },
         {
           id: Date.now() + 5,
-          amount: "25000",
+          amount: 25000,
           date: previousMonth,
           description: "Monthly Contribution",
           contributedBy: "Deepak",
           category: "Capital",
-          type: "contribution",
           createdAt: new Date().toISOString()
         }
       ];
-
-      console.log('Initializing test data:', {
-        expenses: testExpenses,
-        contributions: testContributions
-      });
 
       localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(testExpenses));
       localStorage.setItem(STORAGE_KEYS.CONTRIBUTIONS, JSON.stringify(testContributions));
@@ -205,17 +151,17 @@ export const getContributions = () => {
 // Add new expense
 export const addExpense = (expense) => {
   const expenses = getExpenses();
+  // Ensure date is stored in a consistent format (YYYY-MM-DD)
+  const expenseDate = new Date(expense.date);
+  const formattedDate = expenseDate.toISOString().split('T')[0];
+  
   const newExpense = {
     ...expense,
     id: Date.now(),
-    date: formatDate(expense.date),
-    amount: formatAmount(expense.amount),
-    type: "expense",
-    createdAt: new Date().toISOString()
+    date: formattedDate, // Store date in YYYY-MM-DD format
+    createdAt: new Date().toISOString(),
+    amount: parseFloat(expense.amount)
   };
-  
-  console.log('Adding new expense:', newExpense);
-  
   expenses.push(newExpense);
   localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(expenses));
   return expenses;
@@ -227,14 +173,9 @@ export const addContribution = (contribution) => {
   const newContribution = {
     ...contribution,
     id: Date.now(),
-    date: formatDate(contribution.date),
-    amount: formatAmount(contribution.amount),
-    type: "contribution",
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    amount: parseFloat(contribution.amount)
   };
-  
-  console.log('Adding new contribution:', newContribution);
-  
   contributions.push(newContribution);
   localStorage.setItem(STORAGE_KEYS.CONTRIBUTIONS, JSON.stringify(contributions));
   return contributions;
