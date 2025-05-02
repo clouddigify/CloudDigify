@@ -327,6 +327,11 @@ export const menuConfig = {
           icon: 'fa-laptop-code'
         },
         {
+          title: 'Digital Marketing',
+          path: '/services/digital-marketing',
+          icon: 'fa-bullhorn'
+        },
+        {
           title: 'Platform Operation',
           path: '/services/platform-operation',
           icon: 'fa-server'

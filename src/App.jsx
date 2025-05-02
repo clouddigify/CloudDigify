@@ -52,6 +52,7 @@ const KubernetesTraining = lazy(() => import('./components/pages/training/Kubern
 const DigitalEngineering = lazy(() => import('./components/services/DigitalEngineering'));
 const PlatformOperation = lazy(() => import('./components/services/PlatformOperation'));
 const QualityEngineering = lazy(() => import('./components/services/QualityEngineering'));
+const DigitalMarketing = lazy(() => import('./components/services/DigitalMarketing'));
 
 // Cloud Service Pages
 const AWS = lazy(() => import('./components/services/cloud/AWS'));
@@ -170,6 +171,7 @@ const AnimatedRoutes = () => {
           
           {/* Service Routes */}
           <Route path="/services/digital-engineering" element={<DigitalEngineering />} />
+          <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
           <Route path="/services/platform-operation" element={<PlatformOperation />} />
           <Route path="/services/quality-engineering" element={<QualityEngineering />} />
           
