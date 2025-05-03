@@ -4,6 +4,7 @@ import { FaLightbulb, FaChartLine, FaUsers, FaRocket, FaDownload, FaPlay, FaHand
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
+import SEO from '../../common/SEO';
 
 const ConsultingOverview = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -30,6 +31,13 @@ const ConsultingOverview = () => {
   });
 
   return (
+    <>
+      <SEO
+        title="Consulting Services | CloudDigify"
+        description="Unlock business value with CloudDigify's consulting services for digital transformation, integration, and analytics."
+        canonicalUrl="https://clouddigify.com/services/consulting/overview"
+        keywords={['consulting', 'digital transformation', 'integration', 'CloudDigify']}
+      />
     <div className="min-h-screen bg-white">
       {/* Hero Section with Wave Pattern */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">

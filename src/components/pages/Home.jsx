@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
+import SEO from '../common/SEO';
 
 // Lazy load non-critical components
 const CloudPartners = lazy(() => import('../CloudPartners'));
@@ -275,6 +276,12 @@ const Home = () => {
 
   return (
     <>
+      <SEO
+        title="CloudDigify | Cloud, DevOps, Digital Transformation Services"
+        description="CloudDigify offers cloud, DevOps, AI, and digital transformation services to accelerate your business growth."
+        canonicalUrl="https://clouddigify.com/"
+        keywords={['cloud services', 'devops', 'digital transformation', 'AI', 'CloudDigify']}
+      />
       <Helmet>
         <title>CloudDigify | Cloud Transformation & Digital Solutions</title>
         <meta name="description" content="CloudDigify delivers enterprise-grade cloud transformation, AI, and digital solutions to accelerate innovation and growth for businesses worldwide." />
