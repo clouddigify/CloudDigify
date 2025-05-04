@@ -12,7 +12,9 @@ import {
   FaPlane,
   FaHeart,
   FaGem,
-  FaCoffee
+  FaCoffee,
+  FaLinkedin,
+  FaArrowRight
 } from 'react-icons/fa';
 import SEO from '../common/SEO';
 
@@ -150,47 +152,51 @@ const Career = () => {
         keywords={['careers', 'jobs', 'cloud jobs', 'CloudDigify']}
       />
 
-      {/* Join Our Team Banner */}
-      <div className="bg-gradient-to-r from-blue-50 to-blue-100 py-12 mb-8 border-b border-blue-200">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center px-4 text-center md:text-left">
+      {/* We're Hiring Section - Improved 2-column layout with animation */}
+      <motion.section
+        initial={{ opacity: 0, y: 80 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="max-w-7xl mx-auto px-6 py-20 md:py-28"
+      >
+        <div className="flex flex-col md:flex-row items-center justify-between">
           <img
-            src="/images/join-our-team.webp"
+            src="/images/join-our-team.jpg"
             alt="Join Our Team"
-            className="rounded-xl shadow-lg mb-6 md:mb-0 md:mr-10 w-full max-w-xs h-auto"
-            width={350}
-            height={250}
-            loading="lazy"
-            decoding="async"
+            className="w-full md:w-[45%] max-w-lg rounded-2xl shadow-2xl object-contain mb-8 md:mb-0 md:mr-12"
           />
-          <div className="flex-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-700">We're Hiring!</h2>
-            <p className="text-lg text-gray-700 mb-6 max-w-xl">
+          <div className="w-full md:w-[55%] text-center md:text-left">
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-6">We're Hiring!</h2>
+            <p className="text-xl md:text-2xl text-gray-700 mb-8 font-medium">
               Want to be part of an innovative, passionate team? Explore our open positions and join CloudDigify!
             </p>
             <a
-              href="#open-positions"
-              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+              href="/careers"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg inline-flex items-center text-lg shadow-lg transition duration-200"
             >
               View Careers
+              <FaArrowRight className="ml-3 w-6 h-6" />
             </a>
           </div>
         </div>
-      </div>
+      </motion.section>
+
 
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <h1 className="text-5xl md:text-6xl font-extrabold mb-8 drop-shadow-lg">
                 Join Our Team
               </h1>
-              <p className="text-xl text-purple-100 max-w-2xl mx-auto">
+              <p className="text-2xl md:text-3xl text-purple-100 max-w-3xl mx-auto font-semibold">
                 Build the future of digital transformation with us
               </p>
             </motion.div>
