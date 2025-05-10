@@ -19,9 +19,15 @@ const GitLabDevOps = () => {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
         {/* Hero Section */}
         <section className="relative h-[420px] flex items-center justify-center bg-gradient-to-r from-orange-600 to-pink-600">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <FaGitlab className="text-[180px] md:text-[240px] text-white/10" />
+          </div>
           <div className="relative z-10 text-center text-white px-4">
             <motion.h1 className="text-5xl font-bold mb-4" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }}>
-              GitLab DevOps Solutions
+              <span className="inline-flex items-center gap-3 justify-center">
+                <FaGitlab className="inline-block text-white/80 text-4xl md:text-5xl mr-2" />
+                GitLab DevOps Solutions
+              </span>
             </motion.h1>
             <motion.p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
               Unify your software delivery with GitLab CI/CD, automation, and built-in security.
@@ -30,7 +36,6 @@ const GitLabDevOps = () => {
               Get GitLab Consultation
             </motion.button>
           </div>
-          <FaGitlab className="absolute right-8 bottom-8 text-[120px] text-white/10 hidden md:block" />
         </section>
 
         {/* Features Section */}
