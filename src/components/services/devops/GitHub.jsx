@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaCodeBranch, FaRocket, FaCheck, FaCloudDownloadAlt } from 'react-icons/fa';
+import { FaGithub, FaCodeBranch, FaRocket, FaCheck, FaCloudDownloadAlt, FaAws, FaMicrosoft, FaGoogle, FaDocker, FaKubernetes, FaSlack, FaJira } from 'react-icons/fa';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 import SEO from '../../common/SEO';
 
@@ -83,6 +83,48 @@ const GitHubDevOps = () => {
                   <p className="text-gray-200">{benefit.description}</p>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Popular Use Cases Section */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.h2 className="text-3xl font-bold text-gray-900 text-center mb-12" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }}>
+              Popular Use Cases
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { icon: FaRocket, title: 'Automated CI/CD', description: 'Build, test, and deploy automatically with GitHub Actions.' },
+                { icon: FaCheck, title: 'Security Scanning', description: 'Detect vulnerabilities and secrets in your codebase.' },
+                { icon: FaCloudDownloadAlt, title: 'Multi-Cloud Deployments', description: 'Deploy to AWS, Azure, GCP, and more.' },
+                { icon: FaGithub, title: 'Open Source Management', description: 'Collaborate and manage open source projects at scale.' },
+              ].map((useCase, idx) => (
+                <motion.div key={idx} className="bg-gray-50 rounded-lg p-8 shadow border border-gray-100 text-center" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
+                  <useCase.icon className="text-4xl text-blue-600 mb-4 mx-auto" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{useCase.title}</h3>
+                  <p className="text-gray-600">{useCase.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Ecosystem Integrations Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <motion.h2 className="text-3xl font-bold text-gray-900 text-center mb-12" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }}>
+              Ecosystem Integrations
+            </motion.h2>
+            <div className="flex flex-wrap justify-center items-center gap-10 text-5xl text-gray-400">
+              <FaAws title="AWS" className="hover:text-yellow-500 transition" />
+              <FaMicrosoft title="Azure" className="hover:text-blue-700 transition" />
+              <FaGoogle title="Google Cloud" className="hover:text-red-500 transition" />
+              <FaDocker title="Docker" className="hover:text-blue-400 transition" />
+              <FaKubernetes title="Kubernetes" className="hover:text-blue-600 transition" />
+              <FaSlack title="Slack" className="hover:text-purple-500 transition" />
+              <FaJira title="Jira" className="hover:text-blue-400 transition" />
+              <FaGithub title="GitHub Actions" className="hover:text-black transition" />
             </div>
           </div>
         </section>
