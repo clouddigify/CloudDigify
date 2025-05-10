@@ -88,6 +88,8 @@ const DataWarehousing = lazy(() => import('./components/services/consulting/Data
 const BusinessIntelligence = lazy(() => import('./components/services/consulting/BusinessIntelligence'));
 const DataAnalytics = lazy(() => import('./components/services/consulting/DataAnalytics'));
 const DigitalRuntime = lazy(() => import('./components/services/consulting/DigitalRuntime'));
+const PowerApps = lazy(() => import('./components/services/consulting/PowerApps'));
+const PowerAutomate = lazy(() => import('./components/services/consulting/PowerAutomate'));
 
 // Infrastructure, Blockchain, and Strategy Service Pages
 const InfrastructureServices = lazy(() => import('./components/services/infrastructure/InfrastructureServices'));
@@ -209,6 +211,8 @@ const AnimatedRoutes = () => {
           <Route path="/services/consulting/business-intelligence" element={<BusinessIntelligence />} />
           <Route path="/services/consulting/data-analytics" element={<DataAnalytics />} />
           <Route path="/services/consulting/digital-runtime" element={<DigitalRuntime />} />
+          <Route path="/services/consulting/powerapps" element={<PowerApps />} />
+          <Route path="/services/consulting/powerautomate" element={<PowerAutomate />} />
 
           {/* Infrastructure, Blockchain, and Strategy Routes */}
           <Route path="/services/infrastructure" element={<InfrastructureServices />} />

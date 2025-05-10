@@ -190,6 +190,16 @@ export const menuConfig = {
               path: '/services/consulting/overview',
               icon: 'fa-lightbulb'
             },
+            {
+              title: 'PowerApps',
+              path: '/services/consulting/powerapps',
+              icon: 'fa-cogs'
+            },
+            {
+              title: 'Power Automate',
+              path: '/services/consulting/powerautomate',
+              icon: 'fa-robot'
+            },
             { 
               title: 'Digital & Data Consulting',
               icon: 'fa-database',
@@ -228,6 +238,31 @@ export const menuConfig = {
                   title: 'Digital Runtime',
                   path: '/services/consulting/digital-runtime',
                   icon: 'fa-clock'
+                },
+                {
+                  title: 'AI & Automations',
+                  path: '/services/ai/artificial-intelligence',
+                  icon: 'fa-robot'
+                },
+                {
+                  title: 'Cognitive Services',
+                  path: '/services/ai/cognitive-services',
+                  icon: 'fa-brain'
+                },
+                {
+                  title: 'Agentic AI',
+                  path: '/services/ai/agentic-ai',
+                  icon: 'fa-microchip'
+                },
+                {
+                  title: 'Machine Learning Operations',
+                  path: '/services/ai/mlops',
+                  icon: 'fa-cogs'
+                },
+                {
+                  title: 'RPA Automations',
+                  path: '/services/ai/rpa',
+                  icon: 'fa-robot'
                 }
               ]
             },

@@ -283,6 +283,7 @@ const ConsultingOverview = () => {
         serviceName={inquiryType}
       />
     </div>
+    </>
   );
 };
 
