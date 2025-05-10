@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Test Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    button { padding: 8px 16px; background: #0070f3; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #0051a2; }
+    pre { background: #f1f1f1; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    input, textarea { width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 4px; }
+    .output { margin-top: 16px; }
+    h2 { border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>CloudDigify API Test</h1>
+  
+  <div class="card">
+    <h2>Authentication</h2>
+    <div>
+      <input type="text" id="username" placeholder="Username" value="admin" />
+      <input type="password" id="password" placeholder="Password" value="password123" />
+      <button onclick="login()">Login</button>
+      <button onclick="checkToken()">Check Token</button>
+      <button onclick="clearToken()">Clear Token</button>
+    </div>
+    <div class="output" id="auth-output"></div>
+  </div>
+  
+  <div class="card">
+    <h2>GitHub Test</h2>
+    <button onclick="testGitHub()">Test GitHub Connection</button>
+    <div class="output" id="github-output"></div>
+  </div>
+  
+  <div class="card">
+    <h2>Content Test</h2>
+    <select id="page-path">
+      <option value="home">Home</option>
+      <option value="about">About</option>
+      <option value="services">Services</option>
+      <option value="contact">Contact</option>
+    </select>
+    <button onclick="getContent()">Get Content</button>
+    <textarea id="content-editor" rows="6" placeholder="Content will appear here for editing"></textarea>
+    <button onclick="saveContent()">Save Content</button>
+    <div class="output" id="content-output"></div>
+  </div>
+  
+  <script>
+    // Helper functions
+    function displayOutput(id, data, isError = false) {
+      const el = document.getElementById(id);
+      if (typeof data === 'object') {
+        data = JSON.stringify(data, null, 2);
+      }
+      el.innerHTML = `<pre style="${isError ? 'color:red;' : ''}">${data}</pre>`;
+    }
+    
+    function getAuthToken() {
+      return localStorage.getItem('authToken');
+    }
+    
+    function atob(str) {
+      try {
+        return decodeURIComponent(escape(window.atob(str)));
+      } catch (e) {
+        return window.atob(str);
+      }
+    }
+    
+    // Auth functions
+    async function login() {
+      try {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        if (!username || !password) {
+          return displayOutput('auth-output', 'Username and password required', true);
+        }
+        
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.message || 'Login failed');
+        }
+        
+        localStorage.setItem('authToken', data.token);
+        
+        // Decode token
+        const decoded = JSON.parse(atob(data.token));
+        
+        displayOutput('auth-output', {
+          success: true,
+          message: 'Login successful',
+          token: data.token,
+          decoded: decoded
+        });
+      } catch (error) {
+        displayOutput('auth-output', `Error: ${error.message}`, true);
+      }
+    }
+    
+    function checkToken() {
+      const token = getAuthToken();
+      
+      if (!token) {
+        return displayOutput('auth-output', 'No token found', true);
+      }
+      
+      try {
+        const decoded = JSON.parse(atob(token));
+        const now = Math.floor(Date.now() / 1000);
+        const isExpired = decoded.exp && decoded.exp < now;
+        
+        displayOutput('auth-output', {
+          token,
+          decoded,
+          expires: decoded.exp ? new Date(decoded.exp * 1000).toLocaleString() : 'No expiration',
+          isExpired,
+          now: new Date().toLocaleString()
+        });
+      } catch (error) {
+        displayOutput('auth-output', `Error decoding token: ${error.message}`, true);
+      }
+    }
+    
+    function clearToken() {
+      localStorage.removeItem('authToken');
+      displayOutput('auth-output', 'Token cleared');
+    }
+    
+    // GitHub test
+    async function testGitHub() {
+      try {
+        const response = await fetch('/api/github-test');
+        const data = await response.json();
+        displayOutput('github-output', data);
+      } catch (error) {
+        displayOutput('github-output', `Error: ${error.message}`, true);
+      }
+    }
+    
+    // Content functions
+    async function getContent() {
+      try {
+        const path = document.getElementById('page-path').value;
+        const token = getAuthToken();
+        
+        if (!token) {
+          return displayOutput('content-output', 'Please login first', true);
+        }
+        
+        const response = await fetch(`/api/content?path=${path}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(`Failed to get content: ${text}`);
+        }
+        
+        const data = await response.json();
+        document.getElementById('content-editor').value = data.content;
+        
+        displayOutput('content-output', {
+          success: true,
+          message: `Content loaded for ${path}`,
+          title: data.title,
+          contentLength: data.content.length
+        });
+      } catch (error) {
+        displayOutput('content-output', `Error: ${error.message}`, true);
+      }
+    }
+    
+    async function saveContent() {
+      try {
+        const path = document.getElementById('page-path').value;
+        const content = document.getElementById('content-editor').value;
+        const token = getAuthToken();
+        
+        if (!token) {
+          return displayOutput('content-output', 'Please login first', true);
+        }
+        
+        if (!content) {
+          return displayOutput('content-output', 'Content cannot be empty', true);
+        }
+        
+        // Show saving status
+        displayOutput('content-output', 'Saving content...');
+        
+        const response = await fetch('/api/content', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            path,
+            content,
+            title: path.charAt(0).toUpperCase() + path.slice(1),
+            commitMessage: `Update ${path} content via test page`
+          })
+        });
+        
+        // Get text response first for debugging
+        const responseText = await response.text();
+        
+        let data;
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          throw new Error(`Invalid response: ${responseText}`);
+        }
+        
+        if (!response.ok) {
+          throw new Error(data.message || `Failed to save (${response.status})`);
+        }
+        
+        displayOutput('content-output', {
+          success: true,
+          message: 'Content saved successfully',
+          response: data
+        });
+      } catch (error) {
+        displayOutput('content-output', `Error: ${error.message}`, true);
+      }
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      checkToken();
+    });
+  </script>
+</body>
+</html> 

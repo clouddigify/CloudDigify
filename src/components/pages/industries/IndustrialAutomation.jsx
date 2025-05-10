@@ -1,0 +1,210 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { 
+  FaIndustry,
+  FaMicrochip,
+  FaNetworkWired,
+  FaBrain,
+  FaChartLine,
+  FaCogs,
+  FaTools
+} from 'react-icons/fa';
+import SEO from '../../common/SEO';
+
+const IndustrialAutomation = () => {
+  const solutions = [
+    {
+      title: 'Industrial IoT Platform',
+      icon: <FaNetworkWired className="text-3xl" />,
+      description: 'Comprehensive IIoT solutions for smart manufacturing',
+      expertise: 'Connected 10,000+ industrial devices across 50+ facilities'
+    },
+    {
+      title: 'Predictive Maintenance',
+      icon: <FaTools className="text-3xl" />,
+      description: 'AI-powered maintenance prediction and optimization',
+      expertise: 'Reduced downtime by 45% for manufacturing clients'
+    },
+    {
+      title: 'Process Automation',
+      icon: <FaMicrochip className="text-3xl" />,
+      description: 'End-to-end automation solutions for manufacturing',
+      expertise: 'Automated 1000+ industrial processes with 99.9% reliability'
+    },
+    {
+      title: 'Real-time Analytics',
+      icon: <FaChartLine className="text-3xl" />,
+      description: 'Live monitoring and performance analytics',
+      expertise: 'Processing 1M+ sensor data points per second'
+    },
+  ];
+
+  const features = [
+    {
+      title: 'IoT Integration',
+      description: 'Connected systems',
+      icon: <FaNetworkWired className="text-2xl text-blue-600" />
+    },
+    {
+      title: 'Smart Sensors',
+      description: 'Advanced monitoring',
+      icon: <FaMicrochip className="text-2xl text-blue-600" />
+    },
+    {
+      title: 'AI Analytics',
+      description: 'Intelligent insights',
+      icon: <FaBrain className="text-2xl text-blue-600" />
+    },
+    {
+      title: 'Automation',
+      description: 'Process automation',
+      icon: <FaCogs className="text-2xl text-blue-600" />
+    },
+  ];
+
+  return (
+    <>
+      <SEO
+        title="Industrial Automation Solutions | CloudDigify"
+        description="Transform your manufacturing with CloudDigify's industrial automation, IoT, AI, and process optimization solutions."
+        canonicalUrl="https://clouddigify.com/industries/industrial-automation"
+        keywords={['industrial automation', 'IIoT', 'manufacturing', 'CloudDigify']}
+      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="min-h-screen bg-gradient-to-b from-gray-50 to-white"
+      >
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+          <div className="container mx-auto px-4 py-20">
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <div className="md:w-1/2 mb-8 md:mb-0">
+                <motion.div
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <FaIndustry className="text-6xl mb-6" />
+                  <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                    Industrial Automation Excellence
+                  </h1>
+                  <p className="text-xl mb-8">
+                    Advanced industrial solutions combining IoT, AI, and automation for smart manufacturing
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <Link
+                      to="/contact"
+                      className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300"
+                    >
+                      Get Started
+                    </Link>
+                    <button
+                      onClick={() => document.getElementById('solutions').scrollIntoView({ behavior: 'smooth' })}
+                      className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300"
+                    >
+                      View Solutions
+                    </button>
+                  </div>
+                </motion.div>
+              </div>
+              <div className="md:w-1/2">
+                <motion.div
+                  initial={{ x: 50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
+                >
+                  <h2 className="text-2xl font-semibold mb-4">Our Industrial Expertise</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {features.map((feature, index) => (
+                      <div key={index} className="bg-white/10 rounded-lg p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          {feature.icon}
+                          <h3 className="font-semibold">{feature.title}</h3>
+                        </div>
+                        <p className="text-sm">{feature.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Solutions Section */}
+        <div id="solutions" className="container mx-auto px-4 py-16">
+          <h2 className="text-3xl font-bold mb-12 text-center">Industrial Technology Solutions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {solutions.map((solution, index) => (
+              <motion.div
+                key={index}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden"
+              >
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="text-blue-600">{solution.icon}</div>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
+                  <p className="text-gray-600 mb-4">{solution.description}</p>
+                  <div className="bg-blue-50 p-3 rounded-lg">
+                    <p className="text-sm text-blue-700">{solution.expertise}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Why Choose Us Section */}
+        <div className="bg-gray-50 py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Us for Industrial Automation</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center text-center p-6">
+                <FaIndustry className="text-4xl text-blue-600 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Industry Experience</h3>
+                <p className="text-gray-600">Deep expertise in manufacturing and industrial processes</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-6">
+                <FaNetworkWired className="text-4xl text-blue-600 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">IoT Leadership</h3>
+                <p className="text-gray-600">Cutting-edge IIoT solutions for smart manufacturing</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-6">
+                <FaBrain className="text-4xl text-blue-600 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">AI Innovation</h3>
+                <p className="text-gray-600">Advanced analytics and machine learning capabilities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-6">Transform Your Industrial Operations</h2>
+            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+              Partner with us to modernize your manufacturing with IoT, AI, and advanced automation solutions
+            </p>
+            <Link
+              to="/contact"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+            >
+              Schedule a Consultation
+            </Link>
+          </div>
+        </div>
+      </motion.div>
+    </>
+  );
+};
+
+export default IndustrialAutomation; 
