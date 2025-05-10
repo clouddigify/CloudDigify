@@ -335,6 +335,16 @@ export const menuConfig = {
                   title: 'Agile Transformation',
                   path: '/services/devops/agile',
                   icon: 'fa-sync'
+                },
+                { 
+                  title: 'GitHub',
+                  path: '/services/devops/github',
+                  icon: 'fa-github',
+                },
+                { 
+                  title: 'GitLab',
+                  path: '/services/devops/gitlab',
+                  icon: 'fa-gitlab',
                 }
               ]
             }

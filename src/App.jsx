@@ -67,6 +67,8 @@ const InfrastructureAsCode = lazy(() => import('./components/services/devops/Inf
 const Containerization = lazy(() => import('./components/services/devops/Containerization'));
 const ServerlessArchitecture = lazy(() => import('./components/services/devops/ServerlessArchitecture'));
 const AgileTransformation = lazy(() => import('./components/services/devops/AgileTransformation'));
+const GitHubDevOps = lazy(() => import('./components/services/devops/GitHub'));
+const GitLabDevOps = lazy(() => import('./components/services/devops/GitLab'));
 
 // Security Service Pages
 const CyberDefence = lazy(() => import('./components/services/security/CyberDefence'));
@@ -190,6 +192,8 @@ const AnimatedRoutes = () => {
           <Route path="/services/devops/containerization" element={<Containerization />} />
           <Route path="/services/devops/serverless" element={<ServerlessArchitecture />} />
           <Route path="/services/devops/agile" element={<AgileTransformation />} />
+          <Route path="/services/devops/github" element={<GitHubDevOps />} />
+          <Route path="/services/devops/gitlab" element={<GitLabDevOps />} />
           
           {/* Security Service Routes */}
           <Route path="/services/security/cyber-defence" element={<CyberDefence />} />
