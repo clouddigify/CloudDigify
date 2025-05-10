@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaCodeBranch, FaRocket, FaCheck, FaCloudDownloadAlt, FaAws, FaMicrosoft, FaGoogle, FaDocker, FaKubernetes, FaSlack, FaJira } from 'react-icons/fa';
+import { FaGithub, FaCodeBranch, FaRocket, FaCheck, FaCloudDownloadAlt } from 'react-icons/fa';
+import { SiAmazonaws, SiMicrosoftazure, SiGooglecloud, SiDocker, SiKubernetes, SiSlack, SiJira, SiGithubactions } from 'react-icons/si';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 import SEO from '../../common/SEO';
 
@@ -117,14 +118,23 @@ const GitHubDevOps = () => {
               Ecosystem Integrations
             </motion.h2>
             <div className="flex flex-wrap justify-center items-center gap-10 text-5xl text-gray-400">
-              <FaAws title="AWS" className="hover:text-yellow-500 transition" />
-              <FaMicrosoft title="Azure" className="hover:text-blue-700 transition" />
-              <FaGoogle title="Google Cloud" className="hover:text-red-500 transition" />
-              <FaDocker title="Docker" className="hover:text-blue-400 transition" />
-              <FaKubernetes title="Kubernetes" className="hover:text-blue-600 transition" />
-              <FaSlack title="Slack" className="hover:text-purple-500 transition" />
-              <FaJira title="Jira" className="hover:text-blue-400 transition" />
-              <FaGithub title="GitHub Actions" className="hover:text-black transition" />
+              {[
+                { icon: SiAmazonaws, label: 'AWS' },
+                { icon: SiMicrosoftazure, label: 'Azure' },
+                { icon: SiGooglecloud, label: 'Google Cloud' },
+                { icon: SiDocker, label: 'Docker' },
+                { icon: SiKubernetes, label: 'Kubernetes' },
+                { icon: SiSlack, label: 'Slack' },
+                { icon: SiJira, label: 'Jira' },
+                { icon: SiGithubactions, label: 'GitHub Actions' },
+              ].map(({ icon: Icon, label }, idx) => (
+                <div key={label} className="relative group flex flex-col items-center">
+                  <Icon className="transition-colors duration-200 group-hover:text-blue-600" />
+                  <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-gray-900 text-white text-xs opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-10 transition-opacity duration-200">
+                    {label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
