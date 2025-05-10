@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaCogs, FaRobot, FaCloud, FaPlug, FaCheckCircle, FaSyncAlt, FaMagic, FaBolt } from 'react-icons/fa';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 import SEO from '../../common/SEO';
+import { Link, useLocation } from 'react-router-dom';
 
 const PowerAutomate = () => {
   const [showInquiryForm, setShowInquiryForm] = useState(false);
@@ -16,6 +17,8 @@ const PowerAutomate = () => {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+
+  const location = useLocation();
 
   const services = [
     {
@@ -221,12 +224,13 @@ const PowerAutomate = () => {
 
       {/* Link to PowerApps */}
       <section className="py-8 bg-white text-center">
-        <a
-          href="/services/consulting/powerapps"
-          className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition-all duration-300 text-base tracking-wide"
+        <Link
+          to="/services/consulting/powerapps"
+          className={`inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition-all duration-300 text-base tracking-wide${location.pathname === '/services/consulting/powerapps' ? ' pointer-events-none opacity-50' : ''}`}
+          tabIndex={location.pathname === '/services/consulting/powerapps' ? -1 : 0}
         >
           Learn More About PowerApps
-        </a>
+        </Link>
       </section>
 
       {/* Inquiry Form Modal */}
