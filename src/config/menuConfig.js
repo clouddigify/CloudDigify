@@ -182,14 +182,12 @@ export const menuConfig = {
             {
               title: 'GitHub',
               path: '/services/devops/github',
-              icon: 'fa-github',
-              description: 'CI/CD, Actions, Security, Marketplace',
+              icon: 'fa-github'
             },
             {
               title: 'GitLab',
               path: '/services/devops/gitlab',
-              icon: 'fa-gitlab',
-              description: 'Unified DevOps, CI/CD, Security',
+              icon: 'fa-gitlab'
             },
           ]
         },
