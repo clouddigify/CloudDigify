@@ -12,8 +12,11 @@ import {
   FaPlane,
   FaHeart,
   FaGem,
-  FaCoffee
+  FaCoffee,
+  FaLinkedin,
+  FaArrowRight
 } from 'react-icons/fa';
+import SEO from '../common/SEO';
 
 const Career = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('all');
@@ -141,139 +144,179 @@ const Career = () => {
     : jobs.filter(job => job.department === selectedDepartment);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Join Our Team
-            </h1>
-            <p className="text-xl text-purple-100 max-w-2xl mx-auto">
-              Build the future of digital transformation with us
+    <>
+      <SEO
+        title="Careers at CloudDigify"
+        description="Explore career opportunities at CloudDigify. Join our team of cloud, DevOps, and digital transformation experts."
+        canonicalUrl="https://clouddigify.com/career"
+        keywords={['careers', 'jobs', 'cloud jobs', 'CloudDigify']}
+      />
+
+      {/* We're Hiring Section - Improved 2-column layout with animation */}
+      <motion.section
+        initial={{ opacity: 0, y: 80 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="max-w-7xl mx-auto px-6 py-20 md:py-28"
+      >
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <img
+            src="/images/join-our-team.jpg"
+            alt="Join Our Team"
+            className="w-full md:w-[45%] max-w-lg rounded-2xl shadow-2xl object-contain mb-8 md:mb-0 md:mr-12"
+          />
+          <div className="w-full md:w-[55%] text-center md:text-left">
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-6">We're Hiring!</h2>
+            <p className="text-xl md:text-2xl text-gray-700 mb-8 font-medium">
+              Want to be part of an innovative, passionate team? Explore our open positions and join CloudDigify!
             </p>
+            <a
+              href="/careers"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg inline-flex items-center text-lg shadow-lg transition duration-200"
+            >
+              View Careers
+              <FaArrowRight className="ml-3 w-6 h-6" />
+            </a>
+          </div>
+        </div>
+      </motion.section>
+
+
+      <div className="min-h-screen bg-gray-50">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <h1 className="text-5xl md:text-6xl font-extrabold mb-8 drop-shadow-lg">
+                Join Our Team
+              </h1>
+              <p className="text-2xl md:text-3xl text-purple-100 max-w-3xl mx-auto font-semibold">
+                Build the future of digital transformation with us
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          {/* Department Filter */}
+          <div className="mb-12">
+            <div className="flex flex-wrap gap-4 justify-center">
+              {departments.map((dept) => (
+                <button
+                  key={dept.id}
+                  onClick={() => setSelectedDepartment(dept.id)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors
+                    ${selectedDepartment === dept.id
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-white text-gray-600 hover:bg-purple-50'
+                    }`}
+                >
+                  {dept.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Job Listings */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-6"
+          >
+            {filteredJobs.map((job) => (
+              <motion.div
+                key={job.id}
+                variants={itemVariants}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              >
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-2xl font-bold text-gray-900">{job.title}</h2>
+                    <div className="flex space-x-4">
+                      <span className="px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                        {job.location}
+                      </span>
+                      <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        {job.type}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-4">{job.description}</p>
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-gray-900">Requirements:</h3>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {job.requirements.map((req, index) => (
+                        <li key={index} className="text-gray-600">{req}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-6">
+                    <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                      Apply Now
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Benefits Section */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="mt-24"
+          >
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900">Why Join Us?</h2>
+              <p className="mt-4 text-xl text-gray-600">
+                We offer great benefits and a fantastic work environment
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {benefits.map((benefit) => (
+                <motion.div
+                  key={benefit.title}
+                  variants={itemVariants}
+                  className="bg-white rounded-xl shadow-lg p-6"
+                >
+                  <div className="flex items-center mb-4">
+                    {benefit.icon}
+                    <h3 className="text-xl font-bold text-gray-900 ml-4">{benefit.title}</h3>
+                  </div>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* CTA Section */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-24 text-center"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              Don't see the right role?
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Send us your resume and we'll keep you in mind for future opportunities
+            </p>
+            <button className="bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition-colors">
+              Submit Your Resume
+            </button>
           </motion.div>
         </div>
       </div>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Department Filter */}
-        <div className="mb-12">
-          <div className="flex flex-wrap gap-4 justify-center">
-            {departments.map((dept) => (
-              <button
-                key={dept.id}
-                onClick={() => setSelectedDepartment(dept.id)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors
-                  ${selectedDepartment === dept.id
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-white text-gray-600 hover:bg-purple-50'
-                  }`}
-              >
-                {dept.name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Job Listings */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-6"
-        >
-          {filteredJobs.map((job) => (
-            <motion.div
-              key={job.id}
-              variants={itemVariants}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-            >
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-gray-900">{job.title}</h2>
-                  <div className="flex space-x-4">
-                    <span className="px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-                      {job.location}
-                    </span>
-                    <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                      {job.type}
-                    </span>
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4">{job.description}</p>
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-gray-900">Requirements:</h3>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {job.requirements.map((req, index) => (
-                      <li key={index} className="text-gray-600">{req}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-6">
-                  <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
-                    Apply Now
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Benefits Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mt-24"
-        >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Why Join Us?</h2>
-            <p className="mt-4 text-xl text-gray-600">
-              We offer great benefits and a fantastic work environment
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit) => (
-              <motion.div
-                key={benefit.title}
-                variants={itemVariants}
-                className="bg-white rounded-xl shadow-lg p-6"
-              >
-                <div className="flex items-center mb-4">
-                  {benefit.icon}
-                  <h3 className="text-xl font-bold text-gray-900 ml-4">{benefit.title}</h3>
-                </div>
-                <p className="text-gray-600">{benefit.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-24 text-center"
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Don't see the right role?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Send us your resume and we'll keep you in mind for future opportunities
-          </p>
-          <button className="bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition-colors">
-            Submit Your Resume
-          </button>
-        </motion.div>
-      </div>
-    </div>
+    </>
   );
 };
 

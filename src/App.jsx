@@ -67,6 +67,8 @@ const InfrastructureAsCode = lazy(() => import('./components/services/devops/Inf
 const Containerization = lazy(() => import('./components/services/devops/Containerization'));
 const ServerlessArchitecture = lazy(() => import('./components/services/devops/ServerlessArchitecture'));
 const AgileTransformation = lazy(() => import('./components/services/devops/AgileTransformation'));
+const GitHubDevOps = lazy(() => import('./components/services/devops/GitHub'));
+const GitLabDevOps = lazy(() => import('./components/services/devops/GitLab'));
 
 // Security Service Pages
 const CyberDefence = lazy(() => import('./components/services/security/CyberDefence'));
@@ -88,6 +90,8 @@ const DataWarehousing = lazy(() => import('./components/services/consulting/Data
 const BusinessIntelligence = lazy(() => import('./components/services/consulting/BusinessIntelligence'));
 const DataAnalytics = lazy(() => import('./components/services/consulting/DataAnalytics'));
 const DigitalRuntime = lazy(() => import('./components/services/consulting/DigitalRuntime'));
+const PowerApps = lazy(() => import('./components/services/consulting/PowerApps'));
+const PowerAutomate = lazy(() => import('./components/services/consulting/PowerAutomate'));
 
 // Infrastructure, Blockchain, and Strategy Service Pages
 const InfrastructureServices = lazy(() => import('./components/services/infrastructure/InfrastructureServices'));
@@ -188,6 +192,8 @@ const AnimatedRoutes = () => {
           <Route path="/services/devops/containerization" element={<Containerization />} />
           <Route path="/services/devops/serverless" element={<ServerlessArchitecture />} />
           <Route path="/services/devops/agile" element={<AgileTransformation />} />
+          <Route path="/services/devops/github" element={<GitHubDevOps />} />
+          <Route path="/services/devops/gitlab" element={<GitLabDevOps />} />
           
           {/* Security Service Routes */}
           <Route path="/services/security/cyber-defence" element={<CyberDefence />} />
@@ -209,6 +215,8 @@ const AnimatedRoutes = () => {
           <Route path="/services/consulting/business-intelligence" element={<BusinessIntelligence />} />
           <Route path="/services/consulting/data-analytics" element={<DataAnalytics />} />
           <Route path="/services/consulting/digital-runtime" element={<DigitalRuntime />} />
+          <Route path="/services/consulting/powerapps" element={<PowerApps />} />
+          <Route path="/services/consulting/powerautomate" element={<PowerAutomate />} />
 
           {/* Infrastructure, Blockchain, and Strategy Routes */}
           <Route path="/services/infrastructure" element={<InfrastructureServices />} />
