@@ -61,7 +61,7 @@ const HeroSlider = () => {
 
   return (
     <div
-      className="relative w-full h-[70vh] md:h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative w-full h-[40vh] md:h-[90vh] flex items-center justify-center overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Homepage hero slider"
@@ -78,7 +78,7 @@ const HeroSlider = () => {
           <img
             src={slides[current].image}
             alt={slides[current].alt}
-            className="w-full h-full object-cover object-center"
+            className="w-full h-[220px] md:h-full object-contain md:object-cover object-center"
             loading="lazy"
             draggable="false"
             aria-label={slides[current].alt}
@@ -86,12 +86,12 @@ const HeroSlider = () => {
           {/* Gradient overlay */}
           <div className={`absolute inset-0 ${slides[current].gradient} pointer-events-none`} aria-hidden="true" />
           {/* Centered content */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-2 py-4 md:px-4 md:py-0 z-10 mb-8 md:mb-12">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-white text-3xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-xl tracking-tight"
+              className="text-white text-xl sm:text-3xl md:text-6xl font-extrabold mb-2 md:mb-4 drop-shadow-xl tracking-tight"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               {slides[current].title}
@@ -100,7 +100,7 @@ const HeroSlider = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-white text-base sm:text-xl md:text-2xl font-medium mb-8 max-w-2xl mx-auto drop-shadow-lg"
+              className="text-white text-base sm:text-xl md:text-2xl font-medium mb-4 md:mb-8 max-w-2xl mx-auto drop-shadow-lg"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               {slides[current].subtitle}
@@ -136,7 +136,7 @@ const HeroSlider = () => {
         <IoChevronForwardOutline size={28} />
       </button>
       {/* Dots Navigation */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
         {slides.map((_, idx) => (
           <button
             key={idx}
