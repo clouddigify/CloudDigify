@@ -87,7 +87,7 @@ const keyFeatures = [
 
 const certifications = [
   { title: 'AWS Certified Solutions Architect – Associate', icon: <FaAward className="text-4xl text-blue-600 mb-2" /> },
-  { title: 'Google Cloud Certified – Associate Cloud Engineer', icon: <FaCertificate className="text-4xl text-indigo-500 mb-2" /> },
+  { title: 'Google Cloud Certified – Professional Cloud Developer', icon: <FaCertificate className="text-4xl text-indigo-500 mb-2" /> },
   { title: 'Microsoft Certified: Azure Administrator Associate', icon: <FaMedal className="text-4xl text-cyan-600 mb-2" /> },
   { title: 'Microsoft Certified: Azure Solutions Architect Expert', icon: <FaCheckCircle className="text-4xl text-purple-500 mb-2" /> },
   { title: 'Microsoft Certified: DevOps Engineer Expert', icon: <FaAward className="text-4xl text-pink-500 mb-2" /> },
@@ -210,11 +210,16 @@ const About = () => (
         <section className="py-12 bg-white border-y border-gray-100">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900">Our Certifications</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               {certifications.map((cert, idx) => (
-                <div key={idx} className="bg-white p-4 rounded-xl shadow flex flex-col items-center text-center border border-gray-100">
-                  {cert.icon}
-                  <h3 className="text-sm md:text-base font-semibold text-gray-800 whitespace-nowrap mt-1">{cert.title}</h3>
+                <div
+                  key={idx}
+                  className="bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center p-8 transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+                >
+                  <div className="mb-4 flex items-center justify-center w-full">
+                    {React.cloneElement(cert.icon, { className: 'text-5xl ' + (cert.icon.props.className || '') })}
+                  </div>
+                  <div className="font-semibold text-lg text-gray-800 text-center">{cert.title}</div>
                 </div>
               ))}
             </div>

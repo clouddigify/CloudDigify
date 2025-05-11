@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   FaBriefcase,
@@ -20,6 +20,7 @@ import SEO from '../common/SEO';
 
 const Career = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('all');
+  const jobSectionRef = useRef(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -50,37 +51,107 @@ const Career = () => {
   const jobs = [
     {
       id: 1,
-      title: "Senior Full Stack Developer",
+      title: "AWS Engineer",
       department: "engineering",
       location: "Remote",
       type: "Full-time",
-      description: "We're looking for an experienced Full Stack Developer to join our engineering team.",
+      description: "Design, implement, and manage AWS cloud infrastructure and services.",
       requirements: [
-        "5+ years of experience with React and Node.js",
-        "Experience with cloud platforms (AWS/Azure/GCP)",
-        "Strong understanding of web security and performance",
-        "Excellent problem-solving skills"
+        "3+ years of AWS experience",
+        "AWS certification preferred",
+        "Strong scripting and automation skills",
+        "Experience with cloud security and networking"
       ]
     },
     {
       id: 2,
-      title: "UX/UI Designer",
-      department: "design",
-      location: "Hybrid",
+      title: "Azure Engineer",
+      department: "engineering",
+      location: "Remote",
       type: "Full-time",
-      description: "Join our design team to create beautiful and intuitive user experiences.",
+      description: "Build and maintain solutions on Microsoft Azure for enterprise clients.",
       requirements: [
-        "3+ years of UX/UI design experience",
-        "Proficiency in Figma and Adobe Creative Suite",
-        "Portfolio showcasing web and mobile designs",
-        "Experience with design systems"
+        "3+ years of Azure experience",
+        "Azure certification preferred",
+        "Experience with Azure DevOps and automation",
+        "Strong troubleshooting and communication skills"
       ]
     },
     {
       id: 3,
+      title: "Google Cloud Engineer",
+      department: "engineering",
+      location: "Remote",
+      type: "Full-time",
+      description: "Develop and optimize cloud solutions on Google Cloud Platform.",
+      requirements: [
+        "2+ years of GCP experience",
+        "GCP certification preferred",
+        "Experience with Kubernetes and containerization",
+        "Solid understanding of cloud best practices"
+      ]
+    },
+    {
+      id: 4,
+      title: "DevOps Engineer",
+      department: "engineering",
+      location: "Remote",
+      type: "Full-time",
+      description: "Automate, monitor, and optimize CI/CD pipelines and cloud infrastructure.",
+      requirements: [
+        "3+ years in DevOps roles",
+        "Experience with CI/CD tools (Jenkins, GitHub Actions, etc.)",
+        "Strong scripting (Python, Bash, etc.)",
+        "Cloud and containerization experience"
+      ]
+    },
+    {
+      id: 5,
+      title: "Terraform Engineer",
+      department: "engineering",
+      location: "Remote",
+      type: "Full-time",
+      description: "Design and implement infrastructure as code using Terraform.",
+      requirements: [
+        "2+ years of Terraform experience",
+        "Experience with AWS, Azure, or GCP",
+        "Strong understanding of IaC principles",
+        "Version control (Git) proficiency"
+      ]
+    },
+    {
+      id: 6,
+      title: "Infrastructure as Code (IaC) Engineer",
+      department: "engineering",
+      location: "Remote",
+      type: "Full-time",
+      description: "Develop and maintain infrastructure as code solutions for cloud environments.",
+      requirements: [
+        "Experience with Terraform, CloudFormation, or ARM templates",
+        "Cloud platform experience (AWS, Azure, GCP)",
+        "Automation and scripting skills",
+        "Strong documentation and collaboration skills"
+      ]
+    },
+    {
+      id: 7,
+      title: "Website Developer",
+      department: "design",
+      location: "Remote",
+      type: "Full-time",
+      description: "Design, develop, and maintain modern, responsive websites.",
+      requirements: [
+        "3+ years of web development experience",
+        "Proficiency in React, HTML, CSS, JavaScript",
+        "Experience with web performance and SEO",
+        "Strong UI/UX sensibility"
+      ]
+    },
+    {
+      id: 8,
       title: "Product Manager",
       department: "product",
-      location: "On-site",
+      location: "Remote",
       type: "Full-time",
       description: "Lead product strategy and development for our digital solutions.",
       requirements: [
@@ -91,17 +162,45 @@ const Career = () => {
       ]
     },
     {
-      id: 4,
-      title: "Cloud Solutions Architect",
-      department: "engineering",
+      id: 9,
+      title: "Cloud Solutions Sales Specialist",
+      department: "sales",
       location: "Remote",
       type: "Full-time",
-      description: "Design and implement scalable cloud infrastructure solutions.",
+      description: "Drive sales of cloud solutions to enterprise clients.",
       requirements: [
-        "6+ years of cloud architecture experience",
-        "AWS/Azure certification required",
-        "Experience with microservices architecture",
-        "Strong security background"
+        "3+ years of technology sales experience",
+        "Experience selling cloud or SaaS solutions",
+        "Strong negotiation and presentation skills",
+        "Proven track record of meeting sales targets"
+      ]
+    },
+    {
+      id: 10,
+      title: "Digital Marketing Specialist",
+      department: "marketing",
+      location: "Remote",
+      type: "Full-time",
+      description: "Plan and execute digital marketing campaigns for our cloud services.",
+      requirements: [
+        "2+ years of digital marketing experience",
+        "Experience with SEO, SEM, and social media marketing",
+        "Strong analytical and creative skills",
+        "Excellent written and verbal communication"
+      ]
+    },
+    {
+      id: 11,
+      title: "Inside Sales Representative (ISR)",
+      department: "sales",
+      location: "Remote",
+      type: "Full-time",
+      description: "Engage with prospective clients, qualify leads, and support the sales pipeline for cloud and digital solutions.",
+      requirements: [
+        "1+ years of inside sales or tele-sales experience",
+        "Excellent communication and relationship-building skills",
+        "Experience with CRM tools (Salesforce, HubSpot, etc.)",
+        "Ability to understand and explain technology solutions"
       ]
     }
   ];
@@ -111,11 +210,6 @@ const Career = () => {
       icon: <FaMedal className="h-8 w-8 text-yellow-500" />,
       title: "Competitive Salary",
       description: "Industry-leading compensation packages"
-    },
-    {
-      icon: <FaLeaf className="h-8 w-8 text-green-500" />,
-      title: "Health & Wellness",
-      description: "Comprehensive health insurance and wellness programs"
     },
     {
       icon: <FaPlane className="h-8 w-8 text-blue-500" />,
@@ -133,9 +227,14 @@ const Career = () => {
       description: "Learning stipend and career development opportunities"
     },
     {
-      icon: <FaCoffee className="h-8 w-8 text-brown-500" />,
-      title: "Office Perks",
-      description: "Modern offices with great amenities"
+      icon: <FaPlane className="h-8 w-8 text-blue-400" />,
+      title: "Remote Work Flexibility",
+      description: "Work from anywhere with a fully remote team"
+    },
+    {
+      icon: <FaGem className="h-8 w-8 text-purple-400" />,
+      title: "Team Recognition & Rewards",
+      description: "Regular recognition and rewards for outstanding contributions"
     }
   ];
 
@@ -171,13 +270,17 @@ const Career = () => {
             <p className="text-xl md:text-2xl text-gray-700 mb-8 font-medium">
               Want to be part of an innovative, passionate team? Explore our open positions and join CloudDigify!
             </p>
-            <a
-              href="/careers"
+            <button
+              onClick={() => {
+                if (jobSectionRef.current) {
+                  jobSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg inline-flex items-center text-lg shadow-lg transition duration-200"
             >
               View Careers
               <FaArrowRight className="ml-3 w-6 h-6" />
-            </a>
+            </button>
           </div>
         </div>
       </motion.section>
@@ -204,7 +307,7 @@ const Career = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div ref={jobSectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Department Filter */}
           <div className="mb-12">
             <div className="flex flex-wrap gap-4 justify-center">
