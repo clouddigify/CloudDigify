@@ -53,7 +53,9 @@ import {
   FaFileContract,
   FaCookie,
   FaHandshake,
-  FaUserTie
+  FaUserTie,
+  FaGithub,
+  FaGitlab
 } from 'react-icons/fa';
 
 import { 
@@ -126,7 +128,9 @@ const Icons = {
   'fa-file-contract': FaFileContract,
   'fa-cookie': FaCookie,
   'fa-shield': FaShieldAlt,
-  'fa-user-tie': FaUserTie
+  'fa-user-tie': FaUserTie,
+  'fa-github': FaGithub,
+  'fa-gitlab': FaGitlab
 };
 
 export const menuConfig = {
