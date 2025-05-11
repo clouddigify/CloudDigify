@@ -326,7 +326,7 @@ const Contact = () => {
               {/* Map */}
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-[300px] border border-gray-100">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.4866767159354!2d77.43986897464042!3d28.561193287933516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cefc8c7a0a167%3A0x8d3ac73fc1de5f59!2sSector%2016%2C%20Greater%20Noida%2C%20Uttar%20Pradesh%20201310!5e0!3m2!1sen!2sin!4v1714243301394!5m2!1sen!2sin"
+                src="https://www.google.com/maps?q=28.6085045,77.4522788&z=15&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
