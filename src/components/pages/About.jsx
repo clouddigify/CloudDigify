@@ -2,7 +2,8 @@ import React from 'react';
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaCloudUploadAlt, FaUsers, FaAward, FaRocket, FaChartLine, FaGlobe, FaHandshake, FaUserTie, FaBuilding, FaChartBar, FaHome } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaUsers, FaAward, FaRocket, FaChartLine, FaGlobe, FaHandshake, FaUserTie, FaBuilding, FaChartBar, FaHome, FaCodeBranch, FaShieldAlt, FaProjectDiagram, FaCertificate, FaMedal, FaCheckCircle } from 'react-icons/fa';
+import { SiAmazonaws, SiGooglecloud, SiMicrosoftazure } from 'react-icons/si';
 import SEO from '../common/SEO';
 import Breadcrumbs from '../common/Breadcrumbs';
 
@@ -48,10 +49,10 @@ const AnimatedBackground = () => {
 };
 
 const businessStats = [
-  { icon: <FaBuilding className="w-7 h-7 text-blue-600" />, label: 'Founded', value: '2015' },
-  { icon: <FaUsers className="w-7 h-7 text-blue-600" />, label: 'Clients Served', value: '200+' },
-  { icon: <FaGlobe className="w-7 h-7 text-blue-600" />, label: 'Countries', value: '12+' },
-  { icon: <FaChartBar className="w-7 h-7 text-blue-600" />, label: 'Projects Delivered', value: '350+' }
+  { icon: <FaBuilding className="w-7 h-7 text-blue-600" />, label: 'Founded', value: '2022' },
+  { icon: <FaUsers className="w-7 h-7 text-blue-600" />, label: 'Clients Served', value: '50+' },
+  { icon: <FaGlobe className="w-7 h-7 text-blue-600" />, label: 'Countries', value: '7+' },
+  { icon: <FaChartBar className="w-7 h-7 text-blue-600" />, label: 'Projects Delivered', value: '50+' }
 ];
 
 const coreValues = [
@@ -72,7 +73,7 @@ const leadership = [
 const milestones = [
   { year: '2015', title: 'Company Founded', desc: 'CloudDigify was established to revolutionize cloud services.' },
   { year: '2017', title: 'Major Partnership', desc: 'Strategic partnership with leading cloud providers.' },
-  { year: '2019', title: 'Global Expansion', desc: 'Expanded operations to serve clients in 12+ countries.' },
+  { year: '2019', title: 'Global Expansion', desc: 'Expanded operations to serve clients in 7+ countries.' },
   { year: '2022', title: 'Award-Winning Delivery', desc: 'Recognized for excellence in digital transformation.' }
 ];
 
@@ -80,15 +81,20 @@ const keyFeatures = [
   { icon: <FaCloudUploadAlt className="text-blue-600 text-4xl mb-4" />, title: 'Cloud Expertise', desc: 'Deep experience in AWS, Azure, and Google Cloud to deliver secure, scalable, and cost-effective solutions.' },
   { icon: <FaRocket className="text-blue-600 text-4xl mb-4" />, title: 'Innovation', desc: 'We leverage the latest technologies and creative thinking to help your business stay ahead of the curve.' },
   { icon: <FaHandshake className="text-blue-600 text-4xl mb-4" />, title: 'Client Focus', desc: 'We prioritize your goals, offering tailored solutions and dedicated support for every client partnership.' },
-  { icon: <FaGlobe className="text-blue-600 text-4xl mb-4" />, title: 'Global Reach', desc: 'Serving clients across 12+ countries, we bring international perspective and local expertise to every project.' },
+  { icon: <FaGlobe className="text-blue-600 text-4xl mb-4" />, title: 'Global Reach', desc: 'Serving clients across 7+ countries, we bring international perspective and local expertise to every project.' },
   { icon: <FaChartLine className="text-blue-600 text-4xl mb-4" />, title: 'Scalable Solutions', desc: 'Our solutions are designed to grow with your business, ensuring flexibility and long-term value.' }
 ];
 
 const certifications = [
-  { title: 'AWS Certified Solutions Architect', desc: 'Professional-level certification validating expertise in designing distributed systems on AWS', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Microsoft Azure Solutions Expert', desc: 'Expert-level certification for professionals who design and implement Azure solutions', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Google Cloud Professional Architect', desc: 'Certification validating expertise in designing and managing solutions on Google Cloud', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Certified Kubernetes Administrator', desc: 'Certification demonstrating proficiency in Kubernetes deployment and management', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> }
+  { title: 'AWS Certified Solutions Architect – Associate', icon: <FaAward className="text-4xl text-blue-600 mb-2" /> },
+  { title: 'Google Cloud Certified – Professional Cloud Developer', icon: <FaCertificate className="text-4xl text-indigo-500 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Administrator Associate', icon: <FaMedal className="text-4xl text-cyan-600 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Solutions Architect Expert', icon: <FaCheckCircle className="text-4xl text-purple-500 mb-2" /> },
+  { title: 'Microsoft Certified: DevOps Engineer Expert', icon: <FaAward className="text-4xl text-pink-500 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Security Engineer Associate', icon: <FaCertificate className="text-4xl text-green-600 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Data Engineer Associate', icon: <FaMedal className="text-4xl text-yellow-500 mb-2" /> },
+  { title: 'ITIL® Foundation Certificate in IT Service Management', icon: <FaCheckCircle className="text-4xl text-red-500 mb-2" /> },
+  { title: 'Certified ScrumMaster® (CSM)', icon: <FaAward className="text-4xl text-orange-500 mb-2" /> },
 ];
 
 const About = () => (
@@ -204,12 +210,16 @@ const About = () => (
         <section className="py-12 bg-white border-y border-gray-100">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900">Our Certifications</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               {certifications.map((cert, idx) => (
-                <div key={idx} className="bg-white p-5 md:p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center">
-                  {cert.icon}
-                  <h3 className="text-base md:text-lg font-bold mb-2 text-gray-800">{cert.title}</h3>
-                  <p className="text-xs md:text-sm text-gray-600">{cert.desc}</p>
+                <div
+                  key={idx}
+                  className="bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center p-8 transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+                >
+                  <div className="mb-4 flex items-center justify-center w-full">
+                    {React.cloneElement(cert.icon, { className: 'text-5xl ' + (cert.icon.props.className || '') })}
+                  </div>
+                  <div className="font-semibold text-lg text-gray-800 text-center">{cert.title}</div>
                 </div>
               ))}
             </div>
