@@ -48,10 +48,10 @@ const AnimatedBackground = () => {
 };
 
 const businessStats = [
-  { icon: <FaBuilding className="w-7 h-7 text-blue-600" />, label: 'Founded', value: '2015' },
-  { icon: <FaUsers className="w-7 h-7 text-blue-600" />, label: 'Clients Served', value: '200+' },
-  { icon: <FaGlobe className="w-7 h-7 text-blue-600" />, label: 'Countries', value: '12+' },
-  { icon: <FaChartBar className="w-7 h-7 text-blue-600" />, label: 'Projects Delivered', value: '350+' }
+  { icon: <FaBuilding className="w-7 h-7 text-blue-600" />, label: 'Founded', value: '2022' },
+  { icon: <FaUsers className="w-7 h-7 text-blue-600" />, label: 'Clients Served', value: '50+' },
+  { icon: <FaGlobe className="w-7 h-7 text-blue-600" />, label: 'Countries', value: '7+' },
+  { icon: <FaChartBar className="w-7 h-7 text-blue-600" />, label: 'Projects Delivered', value: '50+' }
 ];
 
 const coreValues = [
@@ -72,7 +72,7 @@ const leadership = [
 const milestones = [
   { year: '2015', title: 'Company Founded', desc: 'CloudDigify was established to revolutionize cloud services.' },
   { year: '2017', title: 'Major Partnership', desc: 'Strategic partnership with leading cloud providers.' },
-  { year: '2019', title: 'Global Expansion', desc: 'Expanded operations to serve clients in 12+ countries.' },
+  { year: '2019', title: 'Global Expansion', desc: 'Expanded operations to serve clients in 7+ countries.' },
   { year: '2022', title: 'Award-Winning Delivery', desc: 'Recognized for excellence in digital transformation.' }
 ];
 
@@ -80,15 +80,18 @@ const keyFeatures = [
   { icon: <FaCloudUploadAlt className="text-blue-600 text-4xl mb-4" />, title: 'Cloud Expertise', desc: 'Deep experience in AWS, Azure, and Google Cloud to deliver secure, scalable, and cost-effective solutions.' },
   { icon: <FaRocket className="text-blue-600 text-4xl mb-4" />, title: 'Innovation', desc: 'We leverage the latest technologies and creative thinking to help your business stay ahead of the curve.' },
   { icon: <FaHandshake className="text-blue-600 text-4xl mb-4" />, title: 'Client Focus', desc: 'We prioritize your goals, offering tailored solutions and dedicated support for every client partnership.' },
-  { icon: <FaGlobe className="text-blue-600 text-4xl mb-4" />, title: 'Global Reach', desc: 'Serving clients across 12+ countries, we bring international perspective and local expertise to every project.' },
+  { icon: <FaGlobe className="text-blue-600 text-4xl mb-4" />, title: 'Global Reach', desc: 'Serving clients across 7+ countries, we bring international perspective and local expertise to every project.' },
   { icon: <FaChartLine className="text-blue-600 text-4xl mb-4" />, title: 'Scalable Solutions', desc: 'Our solutions are designed to grow with your business, ensuring flexibility and long-term value.' }
 ];
 
 const certifications = [
-  { title: 'AWS Certified Solutions Architect', desc: 'Professional-level certification validating expertise in designing distributed systems on AWS', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Microsoft Azure Solutions Expert', desc: 'Expert-level certification for professionals who design and implement Azure solutions', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Google Cloud Professional Architect', desc: 'Certification validating expertise in designing and managing solutions on Google Cloud', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Certified Kubernetes Administrator', desc: 'Certification demonstrating proficiency in Kubernetes deployment and management', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> }
+  { title: 'AWS Solutions Architect Associate', desc: 'Certification for designing and deploying scalable systems on AWS.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
+  { title: 'Google Cloud Developer', desc: 'Certification for developers building scalable and secure applications on Google Cloud Platform.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
+  { title: 'Microsoft Azure Administrator', desc: 'Certification for managing Azure subscriptions, resources, and governance.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
+  { title: 'Microsoft Azure Architect', desc: 'Certification for designing cloud and hybrid solutions on Microsoft Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
+  { title: 'Microsoft Azure DevOps', desc: 'Certification for DevOps practices and tools on Microsoft Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
+  { title: 'Microsoft Azure Security', desc: 'Certification for implementing security controls and threat protection on Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
+  { title: 'Azure Data Engineer', desc: 'Certification for designing and implementing data solutions on Microsoft Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> }
 ];
 
 const About = () => (
