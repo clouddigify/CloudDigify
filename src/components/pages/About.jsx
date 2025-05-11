@@ -2,7 +2,8 @@ import React from 'react';
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaCloudUploadAlt, FaUsers, FaAward, FaRocket, FaChartLine, FaGlobe, FaHandshake, FaUserTie, FaBuilding, FaChartBar, FaHome } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaUsers, FaAward, FaRocket, FaChartLine, FaGlobe, FaHandshake, FaUserTie, FaBuilding, FaChartBar, FaHome, FaCodeBranch, FaShieldAlt, FaProjectDiagram, FaCertificate, FaMedal, FaCheckCircle } from 'react-icons/fa';
+import { SiAmazonaws, SiGooglecloud, SiMicrosoftazure } from 'react-icons/si';
 import SEO from '../common/SEO';
 import Breadcrumbs from '../common/Breadcrumbs';
 
@@ -85,13 +86,15 @@ const keyFeatures = [
 ];
 
 const certifications = [
-  { title: 'AWS Solutions Architect Associate', desc: 'Certification for designing and deploying scalable systems on AWS.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Google Cloud Developer', desc: 'Certification for developers building scalable and secure applications on Google Cloud Platform.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Microsoft Azure Administrator', desc: 'Certification for managing Azure subscriptions, resources, and governance.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Microsoft Azure Architect', desc: 'Certification for designing cloud and hybrid solutions on Microsoft Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Microsoft Azure DevOps', desc: 'Certification for DevOps practices and tools on Microsoft Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Microsoft Azure Security', desc: 'Certification for implementing security controls and threat protection on Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> },
-  { title: 'Azure Data Engineer', desc: 'Certification for designing and implementing data solutions on Microsoft Azure.', icon: <FaAward className="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl md:text-3xl mb-4" /> }
+  { title: 'AWS Certified Solutions Architect – Associate', icon: <FaAward className="text-4xl text-blue-600 mb-2" /> },
+  { title: 'Google Cloud Certified – Associate Cloud Engineer', icon: <FaCertificate className="text-4xl text-indigo-500 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Administrator Associate', icon: <FaMedal className="text-4xl text-cyan-600 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Solutions Architect Expert', icon: <FaCheckCircle className="text-4xl text-purple-500 mb-2" /> },
+  { title: 'Microsoft Certified: DevOps Engineer Expert', icon: <FaAward className="text-4xl text-pink-500 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Security Engineer Associate', icon: <FaCertificate className="text-4xl text-green-600 mb-2" /> },
+  { title: 'Microsoft Certified: Azure Data Engineer Associate', icon: <FaMedal className="text-4xl text-yellow-500 mb-2" /> },
+  { title: 'ITIL® Foundation Certificate in IT Service Management', icon: <FaCheckCircle className="text-4xl text-red-500 mb-2" /> },
+  { title: 'Certified ScrumMaster® (CSM)', icon: <FaAward className="text-4xl text-orange-500 mb-2" /> },
 ];
 
 const About = () => (
@@ -207,12 +210,11 @@ const About = () => (
         <section className="py-12 bg-white border-y border-gray-100">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900">Our Certifications</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 justify-center">
               {certifications.map((cert, idx) => (
-                <div key={idx} className="bg-white p-5 md:p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center">
+                <div key={idx} className="bg-white p-4 rounded-xl shadow flex flex-col items-center text-center border border-gray-100">
                   {cert.icon}
-                  <h3 className="text-base md:text-lg font-bold mb-2 text-gray-800">{cert.title}</h3>
-                  <p className="text-xs md:text-sm text-gray-600">{cert.desc}</p>
+                  <h3 className="text-sm md:text-base font-semibold text-gray-800 whitespace-nowrap mt-1">{cert.title}</h3>
                 </div>
               ))}
             </div>
