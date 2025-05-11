@@ -17,9 +17,12 @@ import {
   FaArrowRight
 } from 'react-icons/fa';
 import SEO from '../common/SEO';
+import JobApplicationForm from '../common/JobApplicationForm';
 
 const Career = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('all');
+  const [showAppForm, setShowAppForm] = useState(false);
+  const [selectedJobTitle, setSelectedJobTitle] = useState('');
   const jobSectionRef = useRef(null);
 
   const containerVariants = {
@@ -217,9 +220,9 @@ const Career = () => {
       description: "Generous paid time off and flexible work arrangements"
     },
     {
-      icon: <FaHeart className="h-8 w-8 text-red-500" />,
-      title: "Family Care",
-      description: "Parental leave and family support benefits"
+      icon: <FaGraduationCap className="h-8 w-8 text-blue-600" />,
+      title: "Learning Budget",
+      description: "Annual budget for courses, certifications, or conferences."
     },
     {
       icon: <FaGem className="h-8 w-8 text-purple-500" />,
@@ -362,7 +365,13 @@ const Career = () => {
                     </ul>
                   </div>
                   <div className="mt-6">
-                    <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                    <button
+                      className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                      onClick={() => {
+                        setSelectedJobTitle(job.title);
+                        setShowAppForm(true);
+                      }}
+                    >
                       Apply Now
                     </button>
                   </div>
@@ -413,12 +422,28 @@ const Career = () => {
             <p className="text-xl text-gray-600 mb-8">
               Send us your resume and we'll keep you in mind for future opportunities
             </p>
-            <button className="bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition-colors">
+            <button
+              className="bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition-colors"
+              onClick={() => {
+                setSelectedJobTitle('General Resume Submission');
+                setShowAppForm(true);
+              }}
+            >
               Submit Your Resume
             </button>
           </motion.div>
         </div>
       </div>
+
+      <JobApplicationForm
+        isOpen={showAppForm}
+        onClose={() => setShowAppForm(false)}
+        jobTitle={selectedJobTitle}
+        onSubmit={() => {
+          setShowAppForm(false);
+          alert('Application submitted!');
+        }}
+      />
     </>
   );
 };
