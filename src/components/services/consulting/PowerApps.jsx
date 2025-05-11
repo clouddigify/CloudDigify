@@ -4,6 +4,7 @@ import { FaCogs, FaMobileAlt, FaCloud, FaRocket, FaCheckCircle, FaPlug, FaDataba
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
 import SEO from '../../common/SEO';
+import { Link, useLocation } from 'react-router-dom';
 
 const PowerApps = () => {
   const [showInquiryForm, setShowInquiryForm] = useState(false);
@@ -249,12 +250,12 @@ const PowerApps = () => {
                 <li>Enable RPA (Robotic Process Automation) for legacy systems</li>
                 <li>Trigger flows from apps, emails, forms, and more</li>
               </ul>
-              <a
-                href="/services/consulting/powerautomate"
+              <Link
+                to="/services/consulting/powerautomate"
                 className="inline-block mt-6 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow transition-all duration-300 text-base tracking-wide"
               >
                 Learn More About Power Automate
-              </a>
+              </Link>
             </div>
           </div>
         </div>

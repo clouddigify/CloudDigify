@@ -53,7 +53,9 @@ import {
   FaFileContract,
   FaCookie,
   FaHandshake,
-  FaUserTie
+  FaUserTie,
+  FaGithub,
+  FaGitlab
 } from 'react-icons/fa';
 
 import { 
@@ -126,7 +128,9 @@ const Icons = {
   'fa-file-contract': FaFileContract,
   'fa-cookie': FaCookie,
   'fa-shield': FaShieldAlt,
-  'fa-user-tie': FaUserTie
+  'fa-user-tie': FaUserTie,
+  'fa-github': FaGithub,
+  'fa-gitlab': FaGitlab
 };
 
 export const menuConfig = {
@@ -182,14 +186,12 @@ export const menuConfig = {
             {
               title: 'GitHub',
               path: '/services/devops/github',
-              icon: 'fa-github',
-              description: 'CI/CD, Actions, Security, Marketplace',
+              icon: 'fa-github'
             },
             {
               title: 'GitLab',
               path: '/services/devops/gitlab',
-              icon: 'fa-gitlab',
-              description: 'Unified DevOps, CI/CD, Security',
+              icon: 'fa-gitlab'
             },
           ]
         },
