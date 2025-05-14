@@ -135,5 +135,14 @@
       },
       "dest": "/index.html"
     }
+  ],
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.clouddigify.com" }],
+      "destination": "https://clouddigify.com/$1",
+      "permanent": true
+    }
   ]
 } 
