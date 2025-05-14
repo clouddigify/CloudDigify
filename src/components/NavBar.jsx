@@ -254,6 +254,7 @@ const NavItem = ({ item, index }) => {
   const location = useLocation();
   const timeoutRef = useRef(null);
   const activationTimeoutRef = useRef(null);
+  const [activeItemIndex, setActiveItemIndex] = useState(-1);
   
   const isSubmenuOpen = activeMenu === index;
 

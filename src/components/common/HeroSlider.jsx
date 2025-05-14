@@ -61,7 +61,7 @@ const HeroSlider = () => {
 
   return (
     <div
-      className="relative w-full h-[40vh] md:h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative w-full h-[60vh] md:h-[90vh] flex items-center justify-center overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Homepage hero slider"
@@ -78,7 +78,7 @@ const HeroSlider = () => {
           <img
             src={slides[current].image}
             alt={slides[current].alt}
-            className="w-full h-[220px] md:h-full object-contain md:object-cover object-center"
+            className="w-full h-full object-contain object-center bg-black"
             loading="lazy"
             draggable="false"
             aria-label={slides[current].alt}
