@@ -78,7 +78,7 @@ const HeroSlider = () => {
           <img
             src={slides[current].image}
             alt={slides[current].alt}
-            className="w-full h-full object-contain object-center bg-black"
+            className="w-full h-full object-contain object-center bg-white"
             loading="lazy"
             draggable="false"
             aria-label={slides[current].alt}
