@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
@@ -239,7 +239,20 @@ const AnimatedRoutes = () => {
   );
 };
 
+// Custom hook for Google Analytics pageview tracking
+function useGtagPageview() {
+  const location = useLocation();
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag('config', 'G-ZRMKN7K7BB', {
+        page_path: location.pathname + location.search,
+      });
+    }
+  }, [location]);
+}
+
 const App = () => {
+  useGtagPageview();
   return (
     <Router basename="/">
       <ErrorBoundary>
