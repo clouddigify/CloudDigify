@@ -61,7 +61,7 @@ const socialLinks = [
 const footerLinks = {
   company: [
     { title: "About Us", path: "/about", icon: <FaInfoCircle className="w-4 h-4" /> },
-    { title: "Our Team", path: "/team", icon: <FaUsers className="w-4 h-4" /> },
+    // { title: "Our Team", path: "/team", icon: <FaUsers className="w-4 h-4" /> }, // Disabled: Our Team page for future use
     { title: "Our Culture", path: "/culture", icon: <FaHandshake className="w-4 h-4" /> },
     { title: "Career", path: "/career", icon: <FaBriefcase className="w-4 h-4" /> },
     { title: "Contact", path: "/contact", icon: <FaEnvelope className="w-4 h-4" /> }

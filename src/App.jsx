@@ -14,7 +14,7 @@ import LoadingSpinner from './components/common/LoadingSpinner';
 const Home = lazy(() => import('./components/pages/Home'));
 const Contact = lazy(() => import('./components/pages/Contact'));
 const About = lazy(() => import('./components/pages/About'));
-const OurTeam = lazy(() => import('./components/pages/OurTeam'));
+// const OurTeam = lazy(() => import('./components/pages/OurTeam')); // Disabled: OurTeam page for future use
 const Career = lazy(() => import('./components/pages/Career'));
 const Culture = lazy(() => import('./components/pages/Culture'));
 
@@ -139,7 +139,7 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           
           {/* New Routes */}
-          <Route path="/team" element={<OurTeam />} />
+          // <Route path="/team" element={<OurTeam />} /> // Disabled: OurTeam page for future use
           <Route path="/career" element={<Career />} />
           <Route path="/culture" element={<Culture />} />
           
