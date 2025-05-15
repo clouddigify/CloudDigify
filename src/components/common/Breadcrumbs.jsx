@@ -11,7 +11,7 @@ const Breadcrumbs = () => {
       about: 'About Us',
       services: 'Services',
       contact: 'Contact',
-      team: 'Our Team',
+      // team: 'Our Team',
       career: 'Careers',
       culture: 'Culture',
       training: 'Training',

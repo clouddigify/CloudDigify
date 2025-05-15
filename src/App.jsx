@@ -139,7 +139,7 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           
           {/* New Routes */}
-          // <Route path="/team" element={<OurTeam />} /> // Disabled: OurTeam page for future use
+          {/* <Route path="/team" element={<OurTeam />} /> // Disabled: OurTeam page for future use */}
           <Route path="/career" element={<Career />} />
           <Route path="/culture" element={<Culture />} />
           

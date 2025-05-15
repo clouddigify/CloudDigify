@@ -515,7 +515,7 @@ export const menuConfig = {
   footerNav: {
     company: [
       { title: 'About Us', path: '/about', icon: 'fa-info-circle' },
-      { title: 'Our Team', path: '/team', icon: 'fa-users' },
+      // { title: 'Our Team', path: '/team', icon: 'fa-users' }, // Disabled: Our Team page for future use
       { title: 'Our Culture', path: '/culture', icon: 'fa-culture' },
       { title: 'Career', path: '/career', icon: 'fa-briefcase' },
       { title: 'Contact', path: '/contact', icon: 'fa-envelope' }
