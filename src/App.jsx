@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import NavBar from './components/NavBar';
@@ -9,6 +9,7 @@ import serviceRedirects from './utils/serviceRedirects';
 import CookieConsentBanner from './components/common/CookieConsentBanner';
 import NotFound from './components/pages/NotFound';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import useGtagPageview from './utils/useGtagPageview';
 
 // Lazy load all page components
 const Home = lazy(() => import('./components/pages/Home'));
@@ -240,6 +241,7 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
+  useGtagPageview();
   return (
     <Router basename="/">
       <ErrorBoundary>
