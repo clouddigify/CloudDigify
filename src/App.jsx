@@ -129,6 +129,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const AnimatedRoutes = () => {
+  useGtagPageview(); // Google Analytics pageview tracking
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
@@ -241,7 +242,6 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
-  useGtagPageview();
   return (
     <Router basename="/">
       <ErrorBoundary>
