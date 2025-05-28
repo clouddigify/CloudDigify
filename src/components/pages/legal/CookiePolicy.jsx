@@ -293,7 +293,7 @@ const CookiePolicy = () => {
                   <div className="prose max-w-none text-gray-600">
                     <p>If you have questions or concerns regarding this Cookies Policy, please contact us:</p>
                     <p>CloudDigify LLP</p>
-                    <p>Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Ghaziabad, Uttar Pradesh 201309</p>
+                    <p>Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Uttar Pradesh 201309</p>
                     <p>Phone: +91 7011112386</p>
                     <p>Email: info@clouddigify.com</p>
                   </div>

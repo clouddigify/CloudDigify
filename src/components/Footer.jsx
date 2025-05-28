@@ -41,7 +41,7 @@ import { menuConfig } from '../config/menuConfig';
 const companyInfo = {
   name: "CloudDigify",
   tagline: "Transforming What's Next",
-  address: "Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Ghaziabad, Uttar Pradesh 201309",
+  address: "Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Uttar Pradesh 201309",
   phone: "+91 7011112386",
   email: "contact@clouddigify.com",
   hours: "Mon-Fri: 9:00 AM - 6:00 PM IST"
