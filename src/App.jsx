@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import NavBar from './components/NavBar';
@@ -9,12 +9,13 @@ import serviceRedirects from './utils/serviceRedirects';
 import CookieConsentBanner from './components/common/CookieConsentBanner';
 import NotFound from './components/pages/NotFound';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import useGtagPageview from './utils/useGtagPageview';
 
 // Lazy load all page components
 const Home = lazy(() => import('./components/pages/Home'));
 const Contact = lazy(() => import('./components/pages/Contact'));
 const About = lazy(() => import('./components/pages/About'));
-const OurTeam = lazy(() => import('./components/pages/OurTeam'));
+// const OurTeam = lazy(() => import('./components/pages/OurTeam')); // Disabled: OurTeam page for future use
 const Career = lazy(() => import('./components/pages/Career'));
 const Culture = lazy(() => import('./components/pages/Culture'));
 
@@ -128,6 +129,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const AnimatedRoutes = () => {
+  useGtagPageview(); // Google Analytics pageview tracking
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
@@ -139,7 +141,7 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           
           {/* New Routes */}
-          <Route path="/team" element={<OurTeam />} />
+          {/* <Route path="/team" element={<OurTeam />} /> // Disabled: OurTeam page for future use */}
           <Route path="/career" element={<Career />} />
           <Route path="/culture" element={<Culture />} />
           

@@ -25,12 +25,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
+  <!-- <url>
     <loc>https://clouddigify.com/team</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
+  </url> --> <!-- Disabled: Our Team page for future use -->
   <url>
     <loc>https://clouddigify.com/career</loc>
     <lastmod>2024-04-29</lastmod>

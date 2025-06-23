@@ -67,7 +67,7 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Basic validation
@@ -81,17 +81,51 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
       return;
     }
 
-    // Simulate form submission
+    // Set submitting state
     setFormStatus({
-      submitted: true,
-      success: true,
+      submitted: false,
+      success: false,
       error: false,
-      message: 'Thank you for your inquiry! Our team will contact you shortly.'
+      message: ''
     });
-    
-    // Here you would normally send the data to your backend
-    // For now, we'll just simulate a successful submission
-    console.log('Form submitted with:', { ...formData, service: serviceName });
+
+    try {
+      // Send email via API
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...formData,
+          message: `Service Inquiry: ${serviceName}\n\n${formData.message}`,
+          formType: 'service-inquiry'
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form');
+      }
+
+      // Success
+      setFormStatus({
+        submitted: true,
+        success: true,
+        error: false,
+        message: 'Thank you for your inquiry! Our team will contact you shortly.'
+      });
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setFormStatus({
+        submitted: false,
+        success: false,
+        error: true,
+        message: error.message || 'Failed to submit form. Please try again.'
+      });
+    }
   };
 
   // Add this to fix any overflow or z-index issues
