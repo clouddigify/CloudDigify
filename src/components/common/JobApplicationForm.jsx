@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { LoadingButton } from './LoadingSpinner';
 
 const JobApplicationForm = ({ isOpen, onClose, jobTitle, onSubmit }) => {
   const fileInputRef = useRef();
@@ -112,17 +113,14 @@ const JobApplicationForm = ({ isOpen, onClose, jobTitle, onSubmit }) => {
             <label className="block text-gray-700 font-medium mb-1">Message / Why you're a fit</label>
             <textarea name="message" rows={4} required className="w-full border rounded-lg px-4 py-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Tell us why you're a great fit for this role..." />
           </div>
-          <button
+          <LoadingButton
             type="submit"
-            disabled={submitting}
-            className={`w-full font-semibold py-3 rounded-lg shadow-lg transition-colors text-lg mt-2 ${
-              submitting 
-                ? 'bg-blue-400 cursor-not-allowed' 
-                : 'bg-blue-600 hover:bg-blue-700'
-            } text-white`}
+            loading={submitting}
+            loadingText="Submitting..."
+            className="w-full font-semibold py-3 rounded-lg shadow-lg transition-colors text-lg mt-2 bg-blue-600 hover:bg-blue-700 text-white"
           >
-            {submitting ? 'Submitting...' : 'Submit Application'}
-          </button>
+            Submit Application
+          </LoadingButton>
         </form>
       </div>
     </div>

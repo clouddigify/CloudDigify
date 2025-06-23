@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fa';
 import { submitContactForm } from '../../utils/contactService';
 import SEO from '../common/SEO';
+import { LoadingButton } from '../common/LoadingSpinner';
 
 // Animated background component
 const AnimatedBackground = () => {
@@ -274,18 +275,17 @@ const Contact = () => {
                     ></textarea>
                   </div>
                   
-                  <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  <LoadingButton
                     type="submit"
-                    disabled={formStatus.submitting}
-                  className="w-full bg-blue-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base font-medium
-                           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
-                           focus:ring-offset-2 transition-all duration-200 disabled:opacity-50
-                           shadow-lg shadow-blue-500/30"
+                    loading={formStatus.submitting}
+                    loadingText="Sending..."
+                    className="w-full bg-blue-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base font-medium
+                             hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                             focus:ring-offset-2 transition-all duration-200
+                             shadow-lg shadow-blue-500/30"
                   >
-                    {formStatus.submitting ? 'Sending...' : 'Send Message'}
-                  </motion.button>
+                    Send Message
+                  </LoadingButton>
                 </form>
             </motion.div>
 
