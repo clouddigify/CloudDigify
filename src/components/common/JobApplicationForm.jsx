@@ -1,7 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 const JobApplicationForm = ({ isOpen, onClose, jobTitle, onSubmit }) => {
   const fileInputRef = useRef();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ success: false, error: null });
+  
   if (!isOpen) return null;
 
   // Handler for overlay click
@@ -22,13 +25,66 @@ const JobApplicationForm = ({ isOpen, onClose, jobTitle, onSubmit }) => {
           &times;
         </button>
         <h2 className="text-2xl font-bold mb-2 text-gray-900 text-center">Apply for {jobTitle}</h2>
+        
+        {submitStatus.success && (
+          <div className="bg-green-50 text-green-700 p-3 rounded-lg text-center mb-4">
+            Application submitted successfully! We'll be in touch soon.
+          </div>
+        )}
+        
+        {submitStatus.error && (
+          <div className="bg-red-50 text-red-700 p-3 rounded-lg text-center mb-4">
+            Error: {submitStatus.error}
+          </div>
+        )}
+        
         <form
           className="space-y-4 mt-4"
-          onSubmit={e => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            // Placeholder: collect form data and call onSubmit
-            const formData = new FormData(e.target);
-            onSubmit && onSubmit(formData);
+            setSubmitting(true);
+            setSubmitStatus({ success: false, error: null });
+            
+            try {
+              const formData = new FormData(e.target);
+              const data = Object.fromEntries(formData.entries());
+              
+              // Send job application email
+              const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  name: data.name,
+                  email: data.email,
+                  phone: data.phone,
+                  company: data.linkedin ? `LinkedIn: ${data.linkedin}` : 'Not provided',
+                  message: `Job Application for: ${jobTitle}\n\n${data.message}\n\nNote: Resume was attached (file uploads need separate handling)`,
+                  formType: 'job-application'
+                })
+              });
+              
+              const result = await response.json();
+              
+              if (!response.ok) {
+                throw new Error(result.error || 'Failed to submit application');
+              }
+              
+              setSubmitStatus({ success: true, error: null });
+              onSubmit && onSubmit(formData);
+              
+              // Close form after 2 seconds
+              setTimeout(() => {
+                onClose();
+              }, 2000);
+              
+            } catch (error) {
+              console.error('Error submitting application:', error);
+              setSubmitStatus({ success: false, error: error.message });
+            } finally {
+              setSubmitting(false);
+            }
           }}
         >
           <input type="hidden" name="jobTitle" value={jobTitle} />
@@ -58,9 +114,14 @@ const JobApplicationForm = ({ isOpen, onClose, jobTitle, onSubmit }) => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-colors text-lg mt-2"
+            disabled={submitting}
+            className={`w-full font-semibold py-3 rounded-lg shadow-lg transition-colors text-lg mt-2 ${
+              submitting 
+                ? 'bg-blue-400 cursor-not-allowed' 
+                : 'bg-blue-600 hover:bg-blue-700'
+            } text-white`}
           >
-            Submit Application
+            {submitting ? 'Submitting...' : 'Submit Application'}
           </button>
         </form>
       </div>

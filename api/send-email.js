@@ -1,37 +1,5 @@
 // API endpoint to handle form submissions and send emails
-const nodemailer = require('nodemailer');
-
-// Create a transporter object using SMTP with improved Zoho Mail settings
-const createTransporter = () => {
-  console.log('Setting up email transporter with host:', process.env.SMTP_HOST);
-  
-  // Zoho Mail specific configuration
-  const transportConfig = {
-    host: process.env.SMTP_HOST || 'smtp.zoho.com',
-    port: parseInt(process.env.SMTP_PORT || '587', 10),
-    secure: process.env.SMTP_SECURE === 'true' || false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD
-    },
-    tls: {
-      // Do not fail on invalid certs
-      rejectUnauthorized: false
-    },
-    debug: true // Enable debug logging for SMTP
-  };
-  
-  // Log configuration (excluding password)
-  console.log('Transporter config:', {
-    ...transportConfig,
-    auth: { 
-      user: transportConfig.auth.user,
-      pass: '***PASSWORD-HIDDEN***' 
-    }
-  });
-  
-  return nodemailer.createTransport(transportConfig);
-};
+const EmailService = require('./email-service');
 
 // Handler for API requests
 module.exports = async (req, res) => {
@@ -155,36 +123,42 @@ module.exports = async (req, res) => {
       `
     };
 
-    console.log('Creating email transporter...');
-    // Create a new transporter for each request to avoid connection issues
-    const transporter = createTransporter();
+    console.log('Creating email service...');
+    // Create email service instance
+    const emailService = new EmailService();
     
-    console.log('Sending email with options:', {
-      ...mailOptions,
-      html: '(HTML content not shown for brevity)',
-      text: '(Text content not shown for brevity)'
-    });
+    // Prepare email data for the service
+    const emailData = {
+      to: toEmail,
+      cc: ccRecipients.join(','),
+      replyTo: email,
+      subject: subject,
+      html: htmlContent,
+      text: `
+        New Form Submission
+        -------------------
+        
+        Form Type: ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Page'}
+        
+        Name: ${name}
+        Email: ${email}
+        ${phone ? `Phone: ${phone}\n` : ''}
+        ${company ? `Company: ${company}\n` : ''}
+        
+        Message:
+        ${message}
+      `
+    };
 
-    // Test SMTP connection before sending
-    try {
-      console.log('Verifying SMTP connection...');
-      const verifyResult = await transporter.verify();
-      console.log('SMTP connection verified:', verifyResult);
-    } catch (verifyError) {
-      console.error('SMTP verification failed:', verifyError);
-      // Continue attempting to send anyway
-    }
-
-    // Send the email
-    console.log('Attempting to send email...');
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', info);
+    console.log('Sending email via EmailService...');
+    const result = await emailService.sendEmail(emailData);
+    console.log('Email sent successfully:', result);
 
     // Return success response
     return res.status(200).json({ 
       success: true, 
       message: 'Email sent successfully',
-      messageId: info.messageId || 'No message ID returned'
+      messageId: result.messageId || 'No message ID returned'
     });
   } catch (error) {
     console.error('Error sending email:', error);
