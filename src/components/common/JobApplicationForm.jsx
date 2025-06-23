@@ -50,6 +50,27 @@ const JobApplicationForm = ({ isOpen, onClose, jobTitle, onSubmit }) => {
               const formData = new FormData(e.target);
               const data = Object.fromEntries(formData.entries());
               
+              // Handle file attachment
+              let resumeAttachment = null;
+              if (data.resume && data.resume.size > 0) {
+                // Convert file to base64
+                const resumeFile = data.resume;
+                const reader = new FileReader();
+                
+                resumeAttachment = await new Promise((resolve, reject) => {
+                  reader.onload = () => {
+                    const base64 = reader.result.split(',')[1]; // Remove data:mime;base64, prefix
+                    resolve({
+                      filename: resumeFile.name,
+                      content: base64,
+                      contentType: resumeFile.type
+                    });
+                  };
+                  reader.onerror = reject;
+                  reader.readAsDataURL(resumeFile);
+                });
+              }
+              
               // Send job application email
               const response = await fetch('/api/send-email', {
                 method: 'POST',
@@ -61,8 +82,9 @@ const JobApplicationForm = ({ isOpen, onClose, jobTitle, onSubmit }) => {
                   email: data.email,
                   phone: data.phone,
                   company: data.linkedin ? `LinkedIn: ${data.linkedin}` : 'Not provided',
-                  message: `Job Application for: ${jobTitle}\n\n${data.message}\n\nNote: Resume was attached (file uploads need separate handling)`,
-                  formType: 'job-application'
+                  message: `Job Application for: ${jobTitle}\n\n${data.message}`,
+                  formType: 'job-application',
+                  attachment: resumeAttachment
                 })
               });
               

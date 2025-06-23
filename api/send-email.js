@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Invalid request body' });
     }
     
-    const { name, email, phone, company, message, formType } = req.body;
+    const { name, email, phone, company, message, formType, attachment } = req.body;
     
     console.log('Received form data:', { name, email, formType });
 
@@ -48,51 +48,153 @@ module.exports = async (req, res) => {
     // Determine which email address to use as primary recipient based on form type
     const toEmail = 'info@clouddigify.com';
     
-    // Format subject line
-    const subject = `New ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Form'} Submission from ${name}`;
+    // Enhanced professional subject line
+    const getSubjectLine = (formType, name) => {
+      const today = new Date().toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric'
+      });
+      
+      switch(formType) {
+        case 'job-application':
+          return `🎯 Job Application: ${name} | ${today}`;
+        case 'service-inquiry':
+          return `💼 Service Inquiry: ${name} | ${today}`;
+        case 'contact-page':
+          return `📧 Contact Request: ${name} | ${today}`;
+        case 'quick-contact':
+          return `⚡ Quick Contact: ${name} | ${today}`;
+        default:
+          return `📞 New Contact: ${name} | ${today}`;
+      }
+    };
+    
+    const subject = getSubjectLine(formType, name);
     
     console.log('Preparing email to:', toEmail, 'with cc:', ccRecipients);
     
-    // Create HTML email body with better formatting
+    // Enterprise-level professional email template
     const htmlContent = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 5px;">
-        <h2 style="color: #0070f3; margin-top: 0;">New Form Submission</h2>
-        <p style="color: #333; font-size: 16px;"><strong>Form Type:</strong> ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Page'}</p>
-        <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;">
-        
-        <h3 style="color: #333;">Contact Information</h3>
-        <table style="width: 100%; border-collapse: collapse;">
-          <tr>
-            <td style="padding: 8px 0; color: #666; width: 120px;"><strong>Name:</strong></td>
-            <td style="padding: 8px 0; color: #333;">${name}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #666;"><strong>Email:</strong></td>
-            <td style="padding: 8px 0; color: #333;"><a href="mailto:${email}" style="color: #0070f3; text-decoration: none;">${email}</a></td>
-          </tr>
-          ${phone ? `
-          <tr>
-            <td style="padding: 8px 0; color: #666;"><strong>Phone:</strong></td>
-            <td style="padding: 8px 0; color: #333;">${phone}</td>
-          </tr>` : ''}
-          ${company ? `
-          <tr>
-            <td style="padding: 8px 0; color: #666;"><strong>Company:</strong></td>
-            <td style="padding: 8px 0; color: #333;">${company}</td>
-          </tr>` : ''}
-        </table>
-        
-        <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;">
-        
-        <h3 style="color: #333;">Message</h3>
-        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; color: #333;">
-          ${message.replace(/\n/g, '<br>')}
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CloudDigify Contact Form</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #f7f8fc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <!-- Email Container -->
+        <div style="max-width: 650px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+          
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 40px; text-align: center;">
+            <div style="background-color: rgba(255,255,255,0.1); display: inline-block; padding: 15px 25px; border-radius: 50px; margin-bottom: 15px;">
+              <span style="color: #ffffff; font-size: 24px; font-weight: bold;">CloudDigify</span>
+            </div>
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">New Contact Received</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">
+              ${formType === 'job-application' ? 'Job Application Submitted' : 
+                formType === 'service-inquiry' ? 'Service Inquiry Received' :
+                formType === 'contact-page' ? 'Contact Form Submitted' :
+                'Quick Contact Request'}
+            </p>
+          </div>
+
+          <!-- Form Type Badge -->
+          <div style="text-align: center; margin-top: -20px; position: relative; z-index: 10;">
+            <span style="background-color: ${
+              formType === 'job-application' ? '#10b981' :
+              formType === 'service-inquiry' ? '#3b82f6' :
+              formType === 'contact-page' ? '#8b5cf6' :
+              '#f59e0b'
+            }; color: #ffffff; padding: 8px 20px; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              ${formType.replace('-', ' ').toUpperCase()}
+            </span>
+          </div>
+
+          <!-- Content -->
+          <div style="padding: 40px;">
+            
+            <!-- Contact Details Card -->
+            <div style="background-color: #f8fafc; border-radius: 10px; padding: 25px; margin-bottom: 25px; border-left: 4px solid #667eea;">
+              <h2 style="color: #1e293b; margin: 0 0 20px 0; font-size: 20px; font-weight: 600;">Contact Information</h2>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 12px 0; color: #64748b; font-weight: 600; width: 140px; vertical-align: top;">👤 Full Name:</td>
+                  <td style="padding: 12px 0; color: #1e293b; font-weight: 500;">${name}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">✉️ Email:</td>
+                  <td style="padding: 12px 0;">
+                    <a href="mailto:${email}" style="color: #667eea; text-decoration: none; font-weight: 500; background-color: #eef2ff; padding: 6px 12px; border-radius: 6px; display: inline-block;">
+                      ${email}
+                    </a>
+                  </td>
+                </tr>
+                ${phone ? `
+                <tr>
+                  <td style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">📱 Phone:</td>
+                  <td style="padding: 12px 0;">
+                    <a href="tel:${phone}" style="color: #10b981; text-decoration: none; font-weight: 500; background-color: #ecfdf5; padding: 6px 12px; border-radius: 6px; display: inline-block;">
+                      ${phone}
+                    </a>
+                  </td>
+                </tr>` : ''}
+                ${company ? `
+                <tr>
+                  <td style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">🏢 Company:</td>
+                  <td style="padding: 12px 0; color: #1e293b; font-weight: 500;">${company}</td>
+                </tr>` : ''}
+                <tr>
+                  <td style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">⏰ Submitted:</td>
+                  <td style="padding: 12px 0; color: #1e293b; font-weight: 500;">${new Date().toLocaleString('en-US', { 
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZoneName: 'short'
+                  })}</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Message Card -->
+            <div style="background-color: #ffffff; border: 2px solid #e2e8f0; border-radius: 10px; padding: 25px; margin-bottom: 25px;">
+              <h2 style="color: #1e293b; margin: 0 0 15px 0; font-size: 20px; font-weight: 600; display: flex; align-items: center;">
+                💬 Message
+              </h2>
+              <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; color: #334155; line-height: 1.6; font-size: 15px; border-left: 4px solid #94a3b8;">
+                ${message.replace(/\n/g, '<br>')}
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="mailto:${email}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 0 10px; display: inline-block; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                📧 Reply to ${name}
+              </a>
+              ${phone ? `
+              <a href="tel:${phone}" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 0 10px; display: inline-block; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">
+                📞 Call ${name}
+              </a>
+              ` : ''}
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div style="background-color: #f8fafc; padding: 25px 40px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="color: #64748b; margin: 0; font-size: 14px; line-height: 1.5;">
+              <strong>CloudDigify</strong> | Transforming What's Next<br>
+              This email was automatically generated from your website contact form.<br>
+              <span style="color: #94a3b8;">Timestamp: ${new Date().toISOString()}</span>
+            </p>
+          </div>
         </div>
-        
-        <div style="margin-top: 30px; font-size: 12px; color: #999; text-align: center;">
-          <p>This is an automated message from your CloudDigify website.</p>
-        </div>
-      </div>
+      </body>
+      </html>
     `;
 
     // Configure email data with modified from address for Zoho
@@ -147,7 +249,13 @@ module.exports = async (req, res) => {
         
         Message:
         ${message}
-      `
+      `,
+      attachments: attachment ? [{
+        filename: attachment.filename,
+        content: attachment.content,
+        encoding: 'base64',
+        contentType: attachment.contentType
+      }] : undefined
     };
 
     console.log('Sending email via EmailService...');
