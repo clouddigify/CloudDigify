@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
     const ccRecipients = ['chirag@clouddigify.com'];
     
     // Determine which email address to use as primary recipient based on form type
-    const toEmail = formType === 'quick-contact' ? 'info@clouddigify.com' : 'contact@clouddigify.com';
+    const toEmail = 'info@clouddigify.com';
     
     // Format subject line
     const subject = `New ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Form'} Submission from ${name}`;
