@@ -4,7 +4,7 @@ class EmailService {
   constructor() {
     this.config = {
       smtp: {
-        host: process.env.SMTP_HOST || 'smtp.zoho.com',
+        host: process.env.SMTP_HOST || 'smtppro.zoho.in',
         port: parseInt(process.env.SMTP_PORT || '587', 10),
         secure: process.env.SMTP_SECURE === 'true' || false,
         auth: {

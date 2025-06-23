@@ -18,21 +18,21 @@ Create a `.env` file in your project root with the following variables:
 
 ```env
 # SMTP Configuration (Required for sending emails)
-SMTP_HOST=smtp.zoho.com
+SMTP_HOST=smtppro.zoho.in
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=your-email@yourdomain.com
+SMTP_USER=chirag@clouddigify.com
 SMTP_PASSWORD=your-app-password
 ```
 
 ### Provider-Specific Settings
 
-#### Zoho Mail (Recommended)
+#### Zoho Mail Pro (Your Setup)
 ```env
-SMTP_HOST=smtp.zoho.com
+SMTP_HOST=smtppro.zoho.in
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=your-email@clouddigify.com
+SMTP_USER=chirag@clouddigify.com
 SMTP_PASSWORD=your-app-password
 ```
 
