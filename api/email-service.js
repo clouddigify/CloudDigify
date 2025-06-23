@@ -21,7 +21,7 @@ class EmailService {
   // Create SMTP transporter
   createTransporter() {
     console.log('Creating SMTP transporter...');
-    return nodemailer.createTransporter(this.config.smtp);
+    return nodemailer.createTransport(this.config.smtp);
   }
 
   // Send email function
