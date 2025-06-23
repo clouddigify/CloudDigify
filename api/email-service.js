@@ -28,11 +28,24 @@ class EmailService {
   async sendEmail(emailData) {
     const { to, cc, bcc, subject, text, html, attachments, replyTo } = emailData;
     
+    console.log('=== EMAIL SERVICE DEBUG ===');
+    console.log('Environment variables:', {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: process.env.SMTP_SECURE,
+      user: process.env.SMTP_USER ? process.env.SMTP_USER.substring(0, 5) + '...' : 'MISSING',
+      password: process.env.SMTP_PASSWORD ? 'SET' : 'MISSING'
+    });
+    console.log('Email config:', this.config);
+    console.log('Email data:', { to, cc, subject });
+    
     try {
+      console.log('Creating transporter...');
       const transporter = this.createTransporter();
       
-      // Verify connection
+      console.log('Verifying SMTP connection...');
       await transporter.verify();
+      console.log('SMTP connection verified successfully');
       
       const mailOptions = {
         from: `"CloudDigify" <${this.config.smtp.auth.user}>`,
@@ -46,16 +59,31 @@ class EmailService {
         attachments
       };
 
+      console.log('Mail options:', mailOptions);
+      console.log('Attempting to send email...');
+      
       const info = await transporter.sendMail(mailOptions);
-      console.log('Email sent successfully:', info.messageId);
+      
+      console.log('=== EMAIL SENT SUCCESSFULLY ===');
+      console.log('Message ID:', info.messageId);
+      console.log('Response:', info.response);
+      console.log('Accepted:', info.accepted);
+      console.log('Rejected:', info.rejected);
+      console.log('==============================');
       
       return {
         success: true,
         messageId: info.messageId,
-        response: info.response
+        response: info.response,
+        accepted: info.accepted,
+        rejected: info.rejected
       };
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('=== EMAIL SENDING FAILED ===');
+      console.error('Error:', error.message);
+      console.error('Error code:', error.code);
+      console.error('Error stack:', error.stack);
+      console.error('============================');
       throw error;
     }
   }

@@ -13,39 +13,34 @@
  */
 export const submitContactForm = async (formData) => {
   try {
-    // In a real implementation, this would be an API call to your backend 
-    // Here we're simulating the API call
+    console.log('Sending contact form to email API with data:', formData);
     
-    // This is where you'd modify the recipient email 
-    const backendData = {
-      ...formData,
-      recipientEmail: 'info@clouddigify.com' // Backend email is different from what's shown on UI
-    };
-    
-    console.log('Sending contact form to backend with data:', backendData);
-    
-    // Simulate API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          success: true,
-          message: 'Contact form submitted successfully'
-        });
-      }, 1500);
-    });
-    
-    // In a real implementation, this would be something like:
-    /*
-    const response = await fetch('/api/contact', {
+    // Call the real email API
+    const response = await fetch('/api/send-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(backendData),
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || '',
+        message: formData.subject ? `Subject: ${formData.subject}\n\n${formData.message}` : formData.message,
+        formType: 'contact-page'
+      }),
     });
     
-    return await response.json();
-    */
+    const result = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to submit contact form');
+    }
+    
+    return {
+      success: true,
+      message: 'Contact form submitted successfully',
+      messageId: result.messageId
+    };
   } catch (error) {
     console.error('Error submitting contact form:', error);
     throw error;
