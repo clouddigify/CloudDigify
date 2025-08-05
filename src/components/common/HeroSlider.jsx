@@ -24,7 +24,7 @@ const slides = [
     alt: 'Futuristic automation dashboard',
     title: 'Seamless Cloud Solutions',
     subtitle: 'Accelerate your digital journey with tailored automation expertise.',
-    cta: { label: 'Explore Services', link: '/services' },
+    cta: { label: 'Explore Services', action: 'scroll' },
     gradient: 'bg-gradient-to-br from-blue-800/80 via-indigo-900/70 to-blue-900/80'
   }
 ];
@@ -35,6 +35,29 @@ const HeroSlider = () => {
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
+
+  // Function to scroll to Cloud Transformation Expertise section
+  const scrollToServices = () => {
+    // Try to find the section with "Cloud Transformation Expertise" heading
+    const headings = document.querySelectorAll('h2');
+    const servicesHeading = Array.from(headings).find(heading => 
+      heading.textContent.includes('Cloud Transformation Expertise')
+    );
+    
+    if (servicesHeading) {
+      const servicesSection = servicesHeading.closest('section');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
+    
+    // Fallback: scroll to the second section (services section)
+    const sections = document.querySelectorAll('section');
+    if (sections.length > 1) {
+      sections[1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   useEffect(() => {
     if (!isHovered) {
@@ -110,16 +133,29 @@ const HeroSlider = () => {
                >
                  {slides[current].subtitle}
                </motion.p>
-               <motion.a
-                 href={slides[current].cta.link}
-                 initial={{ opacity: 0, x: 30 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ duration: 0.7, delay: 0.3 }}
-                 className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-xl transition-all duration-300 text-sm sm:text-base tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-                 aria-label={slides[current].cta.label}
-               >
-                 {slides[current].cta.label}
-               </motion.a>
+                               {slides[current].cta.action === 'scroll' ? (
+                  <motion.button
+                    onClick={scrollToServices}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, delay: 0.3 }}
+                    className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-xl transition-all duration-300 text-sm sm:text-base tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                    aria-label={slides[current].cta.label}
+                  >
+                    {slides[current].cta.label}
+                  </motion.button>
+                ) : (
+                  <motion.a
+                    href={slides[current].cta.link}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, delay: 0.3 }}
+                    className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-xl transition-all duration-300 text-sm sm:text-base tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                    aria-label={slides[current].cta.label}
+                  >
+                    {slides[current].cta.label}
+                  </motion.a>
+                )}
              </div>
            </div>
         </motion.div>
