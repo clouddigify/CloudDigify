@@ -41,7 +41,7 @@ import { menuConfig } from '../config/menuConfig';
 const companyInfo = {
   name: "CloudDigify",
   tagline: "Transforming What's Next",
-  address: "AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301",
+  address: "Gaur World SmartStreet, AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301",
   phone: "+91 7011112386",
   email: "contact@clouddigify.com",
   hours: "Mon-Fri: 9:00 AM - 6:00 PM IST"

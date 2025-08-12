@@ -293,7 +293,7 @@ const CookiePolicy = () => {
                   <div className="prose max-w-none text-gray-600">
                     <p>If you have questions or concerns regarding this Cookies Policy, please contact us:</p>
                     <p>CloudDigify LLP</p>
-                    <p>AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301</p>
+                    <p>Gaur World SmartStreet, AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301</p>
                     <p>Phone: +91 7011112386</p>
                     <p>Email: info@clouddigify.com</p>
                   </div>

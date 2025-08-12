@@ -306,7 +306,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Greater Noida Office</h4>
-                      <p className="text-sm sm:text-base text-gray-600">AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301</p>
+                      <p className="text-sm sm:text-base text-gray-600">Gaur World SmartStreet, AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301</p>
                     </div>
                   </div>
 
