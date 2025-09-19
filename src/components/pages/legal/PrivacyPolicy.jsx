@@ -372,7 +372,7 @@ const PrivacyPolicy = () => {
                   <div className="prose max-w-none text-gray-600">
                     <p>If you have questions, concerns, or requests regarding this Privacy Statement or your personal information, you may contact us:</p>
                     <p>CloudDigify LLP</p>
-                    <p>Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Uttar Pradesh 201309</p>
+                    <p>Gaur World SmartStreet, AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301</p>
                     <p>Phone: +91 7011112386</p>
                     <p>Email: info@clouddigify.com</p>
                     <p>(Privacy email to be updated to privacy@clouddigify.com in the future.)</p>

@@ -70,13 +70,6 @@ const leadership = [
   { name: 'Miguel Rodriguez', title: 'Head of Operations', desc: 'Ensures reliable, secure, and optimized client solutions.', icon: <FaUserTie className="w-10 h-10 text-blue-600" /> }
 ];
 
-const milestones = [
-  { year: '2015', title: 'Company Founded', desc: 'CloudDigify was established to revolutionize cloud services.' },
-  { year: '2017', title: 'Major Partnership', desc: 'Strategic partnership with leading cloud providers.' },
-  { year: '2019', title: 'Global Expansion', desc: 'Expanded operations to serve clients in 7+ countries.' },
-  { year: '2022', title: 'Award-Winning Delivery', desc: 'Recognized for excellence in digital transformation.' }
-];
-
 const keyFeatures = [
   { icon: <FaCloudUploadAlt className="text-blue-600 text-4xl mb-4" />, title: 'Cloud Expertise', desc: 'Deep experience in AWS, Azure, and Google Cloud to deliver secure, scalable, and cost-effective solutions.' },
   { icon: <FaRocket className="text-blue-600 text-4xl mb-4" />, title: 'Innovation', desc: 'We leverage the latest technologies and creative thinking to help your business stay ahead of the curve.' },
