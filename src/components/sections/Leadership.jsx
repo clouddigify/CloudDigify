@@ -60,7 +60,7 @@ const Leadership = () => {
     // Sidebar
     sidebarTitle: "Quick Facts",
     approachPoints: [
-      "Founded in 2018",
+      "Founded in 2022",
       "100+ Enterprise Clients",
       "Global Presence",
       "Award-winning Team",
