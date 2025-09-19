@@ -203,7 +203,7 @@ const DigitalEngineering = () => {
                 {
                   icon: FaRocket,
                   title: "Technical Excellence",
-                  description: "Our team of 200+ engineers have developed over 500 successful applications using the latest technologies and best practices in software development."
+                  description: "Our team have developed over 50+ successful applications using the latest technologies and best practices in software development."
                 },
                 {
                   icon: FaUserFriends,
