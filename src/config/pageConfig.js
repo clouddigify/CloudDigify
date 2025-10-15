@@ -88,7 +88,8 @@ export const servicePages = {
   // CRM & Business Tools
   zohoCRM: { path: '/services/crm/zoho-crm' },
   zohoMail: { path: '/services/crm/zoho-mail' },
-  microsoftMail: { path: '/services/crm/microsoft-mail' }
+  microsoftMail: { path: '/services/crm/microsoft-mail' },
+  microsoftDynamicsCRM: { path: '/services/crm/microsoft-dynamics-crm' }
 };
 
 // Industry pages

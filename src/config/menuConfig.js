@@ -142,7 +142,8 @@ const Icons = {
   'fa-at': FaAt,
   'fa-user-friends': FaUserFriends,
   'fa-inbox': FaInbox,
-  'fa-microsoft': FaMicrosoft
+  'fa-microsoft': FaMicrosoft,
+  'fa-cogs': FaCogs
 };
 
 export const menuConfig = {
@@ -413,6 +414,11 @@ export const menuConfig = {
               title: 'Microsoft Mail',
               path: '/services/crm/microsoft-mail',
               icon: 'fa-microsoft'
+            },
+            {
+              title: 'Microsoft Dynamics CRM',
+              path: '/services/crm/microsoft-dynamics-crm',
+              icon: 'fa-cogs'
             }
           ]
         }

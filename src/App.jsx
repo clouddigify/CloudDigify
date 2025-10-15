@@ -98,6 +98,7 @@ const PowerAutomate = lazy(() => import('./components/services/consulting/PowerA
 const ZohoCRM = lazy(() => import('./components/services/crm/ZohoCRM'));
 const ZohoMail = lazy(() => import('./components/services/crm/ZohoMail'));
 const MicrosoftMail = lazy(() => import('./components/services/crm/MicrosoftMail'));
+const MicrosoftDynamicsCRM = lazy(() => import('./components/services/crm/MicrosoftDynamicsCRM'));
 
 // Infrastructure, Blockchain, and Strategy Service Pages
 const InfrastructureServices = lazy(() => import('./components/services/infrastructure/InfrastructureServices'));
@@ -233,7 +234,8 @@ const AnimatedRoutes = () => {
           {/* CRM Service Routes */}
           <Route path="/services/crm/zoho-crm" element={<ZohoCRM />} />
           <Route path="/services/crm/zoho-mail" element={<ZohoMail />} />
-          <Route path="/services/crm/microsoft-mail" element={<MicrosoftMail />} />        
+          <Route path="/services/crm/microsoft-mail" element={<MicrosoftMail />} />
+          <Route path="/services/crm/microsoft-dynamics-crm" element={<MicrosoftDynamicsCRM />} />        
           
           {/* Redirects for service paths from Home.jsx */}
           <Route path="/services/cloud" element={<Navigate to="/services/cloud/aws" replace />} />
