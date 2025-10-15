@@ -55,7 +55,13 @@ import {
   FaHandshake,
   FaUserTie,
   FaGithub,
-  FaGitlab
+  FaGitlab,
+  FaAddressBook,
+  FaMailBulk,
+  FaAt,
+  FaUserFriends,
+  FaInbox,
+  FaMicrosoft
 } from 'react-icons/fa';
 
 import { 
@@ -130,7 +136,13 @@ const Icons = {
   'fa-shield': FaShieldAlt,
   'fa-user-tie': FaUserTie,
   'fa-github': FaGithub,
-  'fa-gitlab': FaGitlab
+  'fa-gitlab': FaGitlab,
+  'fa-address-book': FaAddressBook,
+  'fa-mail-bulk': FaMailBulk,
+  'fa-at': FaAt,
+  'fa-user-friends': FaUserFriends,
+  'fa-inbox': FaInbox,
+  'fa-microsoft': FaMicrosoft
 };
 
 export const menuConfig = {
@@ -382,6 +394,27 @@ export const menuConfig = {
           title: 'Quality Engineering',
           path: '/services/quality-engineering',
           icon: 'fa-vial'
+        },
+        {
+          title: 'CRM & Business Tools',
+          icon: 'fa-user-friends',
+          submenu: [
+            {
+              title: 'Zoho CRM',
+              path: '/services/crm/zoho-crm',
+              icon: 'fa-address-book'
+            },
+            {
+              title: 'Zoho Mail',
+              path: '/services/crm/zoho-mail',
+              icon: 'fa-inbox'
+            },
+            {
+              title: 'Microsoft Mail',
+              path: '/services/crm/microsoft-mail',
+              icon: 'fa-microsoft'
+            }
+          ]
         }
       ]
     },

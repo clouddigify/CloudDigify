@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar } from 'react-icons/fa';
+import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar, FaAddressBook, FaMailBulk, FaAt, FaHandshake } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
 import SEO from '../common/SEO';
@@ -345,6 +345,200 @@ const Home = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* CRM & Business Tools Section */}
+        <section className="py-16 bg-gradient-to-r from-indigo-50 to-purple-50">
+          <div className="container mx-auto px-4">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <FaHandshake className="mr-2" />
+                Authorized Partners
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                CRM & Business Tools
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Streamline your business operations with our CRM and email solutions from trusted partners Zoho and Microsoft.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center mb-6">
+                  <FaAddressBook className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Zoho CRM</h3>
+                <p className="text-gray-600 mb-4">Complete customer relationship management with lead tracking, sales analytics, and automation.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/zoho-crm" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center mb-6">
+                  <FaMailBulk className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Zoho Mail</h3>
+                <p className="text-gray-600 mb-4">Professional business email with custom domains, advanced security, and seamless integration.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/zoho-mail" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center mb-6">
+                  <FaAt className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Microsoft Mail</h3>
+                <p className="text-gray-600 mb-4">Enterprise-grade email solution with Microsoft 365 integration and advanced security features.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/microsoft-mail" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.div
+              className="mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-gray-900 mb-4">Exclusive Partner Benefits</h3>
+                <p className="text-lg text-gray-600">Get more value with our authorized partnerships</p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                {/* Zoho Partnership Card */}
+                <motion.div
+                  className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100 hover:shadow-xl transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4">
+                      <FaHandshake className="text-white text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900">Zoho Partnership</h4>
+                      <p className="text-blue-600 font-medium">Authorized Partner</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Special partner pricing</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Free migration support</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Priority technical support</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Custom training programs</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-blue-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-blue-600 font-medium">Save up to 30%</span>
+                      <Link to="/services/crm/zoho-crm" className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Learn More →
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Microsoft Partnership Card */}
+                <motion.div
+                  className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-8 border border-purple-100 hover:shadow-xl transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mr-4">
+                      <FaHandshake className="text-white text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900">Microsoft Partnership</h4>
+                      <p className="text-purple-600 font-medium">Authorized Reseller</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Authorized reseller discounts</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Expert implementation</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">24/7 support</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Integration services</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-purple-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-purple-600 font-medium">Save up to 25%</span>
+                      <Link to="/services/crm/microsoft-mail" className="text-purple-600 hover:text-purple-700 font-medium text-sm">
+                        Learn More →
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
         </section>
 

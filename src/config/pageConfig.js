@@ -83,7 +83,12 @@ export const servicePages = {
   iotSolutions: { path: '/services/iot-solutions' },
   platformEngineering: { path: '/services/platform-engineering' },
   reimaginedEnterprise: { path: '/services/reimagined-enterprise' },
-  smartCity: { path: '/services/smart-city' }
+  smartCity: { path: '/services/smart-city' },
+  
+  // CRM & Business Tools
+  zohoCRM: { path: '/services/crm/zoho-crm' },
+  zohoMail: { path: '/services/crm/zoho-mail' },
+  microsoftMail: { path: '/services/crm/microsoft-mail' }
 };
 
 // Industry pages
