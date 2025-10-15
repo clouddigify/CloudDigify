@@ -369,7 +369,7 @@ const Home = () => {
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <motion.div
                 className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
                 initial={{ opacity: 0, y: 20 }}
@@ -428,6 +428,28 @@ const Home = () => {
                 <p className="text-gray-600 mb-4">Enterprise-grade email solution with Microsoft 365 integration and advanced security features.</p>
                 <div className="flex items-center text-blue-600 font-medium">
                   <Link to="/services/crm/microsoft-mail" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 flex items-center justify-center mb-6">
+                  <FaCogs className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Microsoft Dynamics CRM</h3>
+                <p className="text-gray-600 mb-4">Enterprise-grade CRM with AI-powered insights, advanced analytics, and seamless Microsoft 365 integration.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/microsoft-dynamics-crm" className="flex items-center">
                     Learn More
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
