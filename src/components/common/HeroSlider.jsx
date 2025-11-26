@@ -100,7 +100,7 @@ const HeroSlider = () => {
           {/* Image Section */}
           <div 
             className={`w-full h-[55%] md:h-full md:w-[70%] relative overflow-hidden bg-white ${
-              current === 1 ? 'pt-4' : ''
+              current === 1 ? 'pt-4 md:pt-0' : ''
             }`}
           >
             <img
