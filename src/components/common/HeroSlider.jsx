@@ -84,7 +84,6 @@ const HeroSlider = () => {
 
   return (
     <div
-      // CHANGE: Height wapas original h-[60vh] md:h-[90vh] kar diya hai
       className="relative w-full h-[60vh] md:h-[90vh] flex overflow-hidden mt-16 md:mt-20"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -104,7 +103,10 @@ const HeroSlider = () => {
             <img
               src={slides[current].image}
               alt={slides[current].alt}
-              className="w-full h-full object-cover object-top"
+              // CHANGE: Dynamic object alignment based on current slide
+              className={`w-full h-full object-cover ${
+                current === 1 ? 'object-top' : (current === 2 ? 'object-bottom' : 'object-center')
+              }`}
               loading="lazy"
               draggable="false"
               aria-label={slides[current].alt}
