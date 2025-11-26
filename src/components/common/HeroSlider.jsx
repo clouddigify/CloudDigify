@@ -4,7 +4,7 @@ import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 
 const slides = [
   {
-    image: '/images/homepage3.jpg', // Abstract cloud infrastructure visual
+    image: '/images/homepage3.jpg',
     alt: 'Abstract cloud infrastructure',
     title: 'Elevate Your Business with CloudDigify',
     subtitle: 'Unlock growth and efficiency with expert cloud, DevOps, and transformation services.',
@@ -12,7 +12,7 @@ const slides = [
     gradient: 'bg-gradient-to-br from-blue-900/80 via-blue-800/70 to-indigo-900/80'
   },
   {
-    image: '/images/homepage1.jpg', // Secure cloud/network system visual
+    image: '/images/homepage1.jpg',
     alt: 'Secure cloud network system',
     title: 'Transform with Confidence',
     subtitle: 'Modernize your enterprise with secure, scalable, and innovative cloud solutions.',
@@ -20,7 +20,7 @@ const slides = [
     gradient: 'bg-gradient-to-br from-indigo-900/80 via-blue-800/70 to-blue-900/80'
   },
   {
-    image: '/images/homepage2.jpg', // Futuristic automation dashboard visual
+    image: '/images/homepage2.jpg',
     alt: 'Futuristic automation dashboard',
     title: 'Seamless Cloud Solutions',
     subtitle: 'Accelerate your digital journey with tailored automation expertise.',
@@ -38,7 +38,6 @@ const HeroSlider = () => {
 
   // Function to scroll to Cloud Transformation Expertise section
   const scrollToServices = () => {
-    // Try to find the section with "Cloud Transformation Expertise" heading
     const headings = document.querySelectorAll('h2');
     const servicesHeading = Array.from(headings).find(heading => 
       heading.textContent.includes('Cloud Transformation Expertise')
@@ -84,7 +83,7 @@ const HeroSlider = () => {
 
   return (
     <div
-      className="relative w-full h-[60vh] md:h-[90vh] flex overflow-hidden mt-16 md:mt-20"
+      className="relative w-full h-[70vh] md:h-[90vh] flex overflow-hidden mt-16 md:mt-20"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Homepage hero slider"
@@ -96,16 +95,21 @@ const HeroSlider = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.7 }}
-          className="absolute inset-0 w-full h-full flex"
+          className="absolute inset-0 w-full h-full flex flex-col md:flex-row"
         >
-          {/* Image Section - 70% on desktop, full width on mobile */}
-          <div className="w-full md:w-[70%] h-full relative overflow-hidden bg-gray-900">
+          {/* Image Section */}
+          <div 
+            className={`w-full h-[55%] md:h-full md:w-[70%] relative overflow-hidden bg-white ${
+              current === 1 ? 'pt-4' : ''
+            }`}
+          >
             <img
               src={slides[current].image}
               alt={slides[current].alt}
-              // CHANGE: Dynamic object alignment based on current slide
               className={`w-full h-full object-cover ${
-                current === 1 ? 'object-top' : (current === 2 ? 'object-bottom' : 'object-center')
+                current === 1 ? 'object-top' : 'object-center'
+              } ${
+                current === 1 ? 'md:object-top' : (current === 2 ? 'md:object-bottom' : 'md:object-center')
               }`}
               loading="lazy"
               draggable="false"
@@ -115,8 +119,8 @@ const HeroSlider = () => {
             <div className={`absolute inset-0 bg-gradient-to-r from-black/20 via-black/5 to-transparent pointer-events-none`} aria-hidden="true" />
           </div>
           
-          {/* Content Section - 30% on desktop, overlay on mobile */}
-          <div className="absolute inset-0 md:relative md:w-[30%] h-full bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-indigo-900/90 md:bg-gradient-to-br md:from-blue-900 md:via-blue-800 md:to-indigo-900 flex flex-col justify-center px-4 sm:px-6 py-6 md:py-8 relative">
+          {/* Content Section */}
+          <div className="w-full h-[45%] md:h-full md:w-[30%] bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-indigo-900/90 md:bg-gradient-to-br md:from-blue-900 md:via-blue-800 md:to-indigo-900 flex flex-col justify-center px-4 sm:px-6 py-6 pb-16 md:py-8 relative">
             <div className="text-white z-10 text-center md:text-left max-w-sm mx-auto md:mx-0">
               <motion.h1
                 initial={{ opacity: 0, x: 30 }}
@@ -131,7 +135,7 @@ const HeroSlider = () => {
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="text-sm sm:text-base md:text-lg font-medium mb-4 md:mb-6 leading-relaxed opacity-95"
+                className="text-sm sm:text-base md:text-lg font-medium mb-4 md:mb-6 leading-relaxed opacity-95 line-clamp-3 md:line-clamp-none"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {slides[current].subtitle}
