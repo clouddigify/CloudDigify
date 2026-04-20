@@ -41,7 +41,16 @@ import { menuConfig } from '../config/menuConfig';
 const companyInfo = {
   name: "CloudDigify",
   tagline: "Transforming What's Next",
-  address: "Plot No GH-02/A, Sector 16, Vaidpura, Greater Noida, Ghaziabad, Uttar Pradesh 201309",
+  addresses: [
+    {
+      label: "Greater Noida Office",
+      value: "Gaur World SmartStreet, AFOF 54, Plot C, 01, Sector 16B Rd, Greater Noida West, Uttar Pradesh 201301"
+    },
+    {
+      label: "Bengaluru Office",
+      value: "9th Floor, Brigade IRV, Nallurhalli Rd, Nallurhalli, Whitefield, Bengaluru, Karnataka 560066"
+    }
+  ],
   phone: "+91 7011112386",
   email: "contact@clouddigify.com",
   hours: "Mon-Fri: 9:00 AM - 6:00 PM IST"
@@ -61,7 +70,7 @@ const socialLinks = [
 const footerLinks = {
   company: [
     { title: "About Us", path: "/about", icon: <FaInfoCircle className="w-4 h-4" /> },
-    { title: "Our Team", path: "/team", icon: <FaUsers className="w-4 h-4" /> },
+    // { title: "Our Team", path: "/team", icon: <FaUsers className="w-4 h-4" /> }, // Disabled: Our Team page for future use
     { title: "Our Culture", path: "/culture", icon: <FaHandshake className="w-4 h-4" /> },
     { title: "Career", path: "/career", icon: <FaBriefcase className="w-4 h-4" /> },
     { title: "Contact", path: "/contact", icon: <FaEnvelope className="w-4 h-4" /> }
@@ -97,7 +106,14 @@ const Footer = () => {
             <div className="mt-6 space-y-4 text-gray-400">
               <div className="flex items-start space-x-3">
                 <FaMapMarkerAlt className="w-5 h-5 mt-1 text-blue-500" />
-                <span>{companyInfo.address}</span>
+                <div className="space-y-2">
+                  {companyInfo.addresses.map((office) => (
+                    <div key={office.label}>
+                      <p className="text-white/90 font-medium">{office.label}</p>
+                      <p>{office.value}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="flex items-center space-x-3">
                 <FaPhone className="w-5 h-5 text-blue-500" />
