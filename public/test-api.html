@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test CloudDigify Email API</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        button { background: #0070f3; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0051a2; }
+        #result { margin-top: 20px; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Test CloudDigify Email API</h1>
+    <p>Click the button below to test if your email API is working:</p>
+    <button onclick="testAPI()">Test Email API</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            resultDiv.style.background = '#f0f0f0';
+            resultDiv.style.color = '#333';
+            
+            try {
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: 'API Test User',
+                        email: 'test@example.com',
+                        message: 'This is a test message from the API test page',
+                        formType: 'quick-contact'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.style.background = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                    resultDiv.innerHTML = `
+                        <h3>✅ SUCCESS!</h3>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Message:</strong> ${data.message}</p>
+                        <p><strong>Message ID:</strong> ${data.messageId}</p>
+                        <p><em>Check your email inbox for the test message!</em></p>
+                    `;
+                } else {
+                    resultDiv.style.background = '#f8d7da';
+                    resultDiv.style.color = '#721c24';
+                    resultDiv.innerHTML = `
+                        <h3>❌ ERROR</h3>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Error:</strong> ${data.error}</p>
+                        <p><strong>Details:</strong> ${data.details || 'No details provided'}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+                resultDiv.innerHTML = `
+                    <h3>❌ NETWORK ERROR</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>This usually means the API endpoint is not accessible or there's a CORS issue.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

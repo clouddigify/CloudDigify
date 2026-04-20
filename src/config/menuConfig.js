@@ -53,7 +53,15 @@ import {
   FaFileContract,
   FaCookie,
   FaHandshake,
-  FaUserTie
+  FaUserTie,
+  FaGithub,
+  FaGitlab,
+  FaAddressBook,
+  FaMailBulk,
+  FaAt,
+  FaUserFriends,
+  FaInbox,
+  FaMicrosoft
 } from 'react-icons/fa';
 
 import { 
@@ -126,7 +134,16 @@ const Icons = {
   'fa-file-contract': FaFileContract,
   'fa-cookie': FaCookie,
   'fa-shield': FaShieldAlt,
-  'fa-user-tie': FaUserTie
+  'fa-user-tie': FaUserTie,
+  'fa-github': FaGithub,
+  'fa-gitlab': FaGitlab,
+  'fa-address-book': FaAddressBook,
+  'fa-mail-bulk': FaMailBulk,
+  'fa-at': FaAt,
+  'fa-user-friends': FaUserFriends,
+  'fa-inbox': FaInbox,
+  'fa-microsoft': FaMicrosoft,
+  'fa-cogs': FaCogs
 };
 
 export const menuConfig = {
@@ -178,7 +195,17 @@ export const menuConfig = {
               title: 'Infrastructure Services',
               path: '/services/infrastructure',
               icon: 'fa-network-wired'
-            }
+            },
+            {
+              title: 'GitHub',
+              path: '/services/devops/github',
+              icon: 'fa-github'
+            },
+            {
+              title: 'GitLab',
+              path: '/services/devops/gitlab',
+              icon: 'fa-gitlab'
+            },
           ]
         },
         {
@@ -190,41 +217,63 @@ export const menuConfig = {
               path: '/services/consulting/overview',
               icon: 'fa-lightbulb'
             },
-            { 
-              title: 'Digital & Data Consulting',
-              icon: 'fa-database',
+            {
+              title: 'Power Platform',
+              icon: 'fa-cogs',
               submenu: [
-                { 
+                {
+                  title: 'PowerApps',
+                  path: '/services/consulting/powerapps',
+                  icon: 'fa-cogs'
+                },
+                {
+                  title: 'Power Automate',
+                  path: '/services/consulting/powerautomate',
+                  icon: 'fa-robot'
+                }
+              ]
+            },
+            {
+              title: 'Data & Analytics',
+              icon: 'fa-chart-bar',
+              submenu: [
+                {
                   title: 'Data Analytics Services',
                   path: '/services/consulting/data-analytics',
                   icon: 'fa-chart-bar'
                 },
-                { 
+                {
                   title: 'Business Intelligence',
                   path: '/services/consulting/business-intelligence',
                   icon: 'fa-chart-line'
                 },
-                { 
+                {
                   title: 'Data Warehousing',
                   path: '/services/consulting/data-warehousing',
                   icon: 'fa-database'
                 },
-                { 
+                {
                   title: 'DataBricks',
                   path: '/services/consulting/databricks',
                   icon: 'DataBricks'
-                },
-                { 
+                }
+              ]
+            },
+            {
+              title: 'Digital Experience',
+              icon: 'fa-palette',
+              submenu: [
+                {
                   title: 'Experience Design',
                   path: '/services/consulting/experience-design',
                   icon: 'fa-palette'
                 },
-                { 
+                {
                   title: 'Digital Integration',
                   path: '/services/consulting/digital-integration',
                   icon: 'fa-link'
                 },
-                { 
+                {
                   title: 'Digital Runtime',
                   path: '/services/consulting/digital-runtime',
                   icon: 'fa-clock'
@@ -232,30 +281,30 @@ export const menuConfig = {
               ]
             },
             {
-              title: 'AI & Automations',
+              title: 'AI & Automation',
               icon: 'fa-brain',
               submenu: [
-                { 
-                  title: 'Artificial Intelligence',
+                {
+                  title: 'AI & Automations',
                   path: '/services/ai/artificial-intelligence',
                   icon: 'fa-robot'
                 },
-                { 
+                {
                   title: 'Cognitive Services',
                   path: '/services/ai/cognitive-services',
                   icon: 'fa-brain'
                 },
-                { 
+                {
                   title: 'Agentic AI',
                   path: '/services/ai/agentic-ai',
                   icon: 'fa-microchip'
                 },
-                { 
+                {
                   title: 'Machine Learning Operations',
                   path: '/services/ai/mlops',
                   icon: 'fa-cogs'
                 },
-                { 
+                {
                   title: 'RPA Automations',
                   path: '/services/ai/rpa',
                   icon: 'fa-robot'
@@ -263,14 +312,20 @@ export const menuConfig = {
               ]
             },
             {
-              title: 'Blockchain',
-              path: '/services/blockchain',
-              icon: 'fa-link'
-            },
-            {
-              title: 'Digital Strategy & Innovation',
-              path: '/services/strategy',
-              icon: 'fa-lightbulb'
+              title: 'Emerging Tech',
+              icon: 'fa-lightbulb',
+              submenu: [
+                {
+                  title: 'Blockchain',
+                  path: '/services/blockchain',
+                  icon: 'fa-link'
+                },
+                {
+                  title: 'Digital Strategy & Innovation',
+                  path: '/services/strategy',
+                  icon: 'fa-lightbulb'
+                }
+              ]
             },
             {
               title: 'DevOps & Engineering',
@@ -300,7 +355,7 @@ export const menuConfig = {
                   title: 'Agile Transformation',
                   path: '/services/devops/agile',
                   icon: 'fa-sync'
-                }
+                },
               ]
             }
           ]
@@ -327,6 +382,11 @@ export const menuConfig = {
           icon: 'fa-laptop-code'
         },
         {
+          title: 'Digital Marketing',
+          path: '/services/digital-marketing',
+          icon: 'fa-bullhorn'
+        },
+        {
           title: 'Platform Operation',
           path: '/services/platform-operation',
           icon: 'fa-server'
@@ -335,6 +395,32 @@ export const menuConfig = {
           title: 'Quality Engineering',
           path: '/services/quality-engineering',
           icon: 'fa-vial'
+        },
+        {
+          title: 'CRM & Business Tools',
+          icon: 'fa-user-friends',
+          submenu: [
+            {
+              title: 'Zoho CRM',
+              path: '/services/crm/zoho-crm',
+              icon: 'fa-address-book'
+            },
+            {
+              title: 'Zoho Mail',
+              path: '/services/crm/zoho-mail',
+              icon: 'fa-inbox'
+            },
+            {
+              title: 'Microsoft Mail',
+              path: '/services/crm/microsoft-mail',
+              icon: 'fa-microsoft'
+            },
+            {
+              title: 'Microsoft Dynamics CRM',
+              path: '/services/crm/microsoft-dynamics-crm',
+              icon: 'fa-cogs'
+            }
+          ]
         }
       ]
     },
@@ -468,7 +554,7 @@ export const menuConfig = {
   footerNav: {
     company: [
       { title: 'About Us', path: '/about', icon: 'fa-info-circle' },
-      { title: 'Our Team', path: '/team', icon: 'fa-users' },
+      // { title: 'Our Team', path: '/team', icon: 'fa-users' }, // Disabled: Our Team page for future use
       { title: 'Our Culture', path: '/culture', icon: 'fa-culture' },
       { title: 'Career', path: '/career', icon: 'fa-briefcase' },
       { title: 'Contact', path: '/contact', icon: 'fa-envelope' }

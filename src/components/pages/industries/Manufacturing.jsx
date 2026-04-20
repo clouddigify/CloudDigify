@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaIndustry, FaRobot, FaChartLine, FaNetworkWired, FaShieldAlt, FaDatabase } from 'react-icons/fa';
 import PageTemplate from '../../templates/PageTemplate';
+import SEO from '../../common/SEO';
 
 const Manufacturing = () => {
   // Define the industry info object
@@ -101,7 +102,17 @@ const Manufacturing = () => {
     finalCta: "Start Your Manufacturing Transformation"
   };
 
-  return <PageTemplate pageInfo={pageInfo} pageType="industry" />;
+  return (
+    <>
+      <SEO
+        title="Manufacturing Industry Solutions | CloudDigify"
+        description="Accelerate digital transformation in manufacturing with CloudDigify's cloud, IoT, and smart factory solutions."
+        canonicalUrl="https://clouddigify.com/industries/manufacturing"
+        keywords={['manufacturing', 'cloud', 'IoT', 'smart factory', 'CloudDigify']}
+      />
+      <PageTemplate pageInfo={pageInfo} pageType="industry" />
+    </>
+  );
 };
 
 export default Manufacturing; 

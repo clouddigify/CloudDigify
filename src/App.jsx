@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import NavBar from './components/NavBar';
@@ -9,12 +9,13 @@ import serviceRedirects from './utils/serviceRedirects';
 import CookieConsentBanner from './components/common/CookieConsentBanner';
 import NotFound from './components/pages/NotFound';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import useGtagPageview from './utils/useGtagPageview';
 
 // Lazy load all page components
 const Home = lazy(() => import('./components/pages/Home'));
 const Contact = lazy(() => import('./components/pages/Contact'));
 const About = lazy(() => import('./components/pages/About'));
-const OurTeam = lazy(() => import('./components/pages/OurTeam'));
+// const OurTeam = lazy(() => import('./components/pages/OurTeam')); // Disabled: OurTeam page for future use
 const Career = lazy(() => import('./components/pages/Career'));
 const Culture = lazy(() => import('./components/pages/Culture'));
 
@@ -52,6 +53,7 @@ const KubernetesTraining = lazy(() => import('./components/pages/training/Kubern
 const DigitalEngineering = lazy(() => import('./components/services/DigitalEngineering'));
 const PlatformOperation = lazy(() => import('./components/services/PlatformOperation'));
 const QualityEngineering = lazy(() => import('./components/services/QualityEngineering'));
+const DigitalMarketing = lazy(() => import('./components/services/DigitalMarketing'));
 
 // Cloud Service Pages
 const AWS = lazy(() => import('./components/services/cloud/AWS'));
@@ -66,6 +68,8 @@ const InfrastructureAsCode = lazy(() => import('./components/services/devops/Inf
 const Containerization = lazy(() => import('./components/services/devops/Containerization'));
 const ServerlessArchitecture = lazy(() => import('./components/services/devops/ServerlessArchitecture'));
 const AgileTransformation = lazy(() => import('./components/services/devops/AgileTransformation'));
+const GitHubDevOps = lazy(() => import('./components/services/devops/GitHub'));
+const GitLabDevOps = lazy(() => import('./components/services/devops/GitLab'));
 
 // Security Service Pages
 const CyberDefence = lazy(() => import('./components/services/security/CyberDefence'));
@@ -87,6 +91,14 @@ const DataWarehousing = lazy(() => import('./components/services/consulting/Data
 const BusinessIntelligence = lazy(() => import('./components/services/consulting/BusinessIntelligence'));
 const DataAnalytics = lazy(() => import('./components/services/consulting/DataAnalytics'));
 const DigitalRuntime = lazy(() => import('./components/services/consulting/DigitalRuntime'));
+const PowerApps = lazy(() => import('./components/services/consulting/PowerApps'));
+const PowerAutomate = lazy(() => import('./components/services/consulting/PowerAutomate'));
+
+// CRM Service Pages
+const ZohoCRM = lazy(() => import('./components/services/crm/ZohoCRM'));
+const ZohoMail = lazy(() => import('./components/services/crm/ZohoMail'));
+const MicrosoftMail = lazy(() => import('./components/services/crm/MicrosoftMail'));
+const MicrosoftDynamicsCRM = lazy(() => import('./components/services/crm/MicrosoftDynamicsCRM'));
 
 // Infrastructure, Blockchain, and Strategy Service Pages
 const InfrastructureServices = lazy(() => import('./components/services/infrastructure/InfrastructureServices'));
@@ -123,6 +135,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const AnimatedRoutes = () => {
+  useGtagPageview(); // Google Analytics pageview tracking
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
@@ -134,7 +147,7 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           
           {/* New Routes */}
-          <Route path="/team" element={<OurTeam />} />
+          {/* <Route path="/team" element={<OurTeam />} /> // Disabled: OurTeam page for future use */}
           <Route path="/career" element={<Career />} />
           <Route path="/culture" element={<Culture />} />
           
@@ -170,6 +183,7 @@ const AnimatedRoutes = () => {
           
           {/* Service Routes */}
           <Route path="/services/digital-engineering" element={<DigitalEngineering />} />
+          <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
           <Route path="/services/platform-operation" element={<PlatformOperation />} />
           <Route path="/services/quality-engineering" element={<QualityEngineering />} />
           
@@ -186,6 +200,8 @@ const AnimatedRoutes = () => {
           <Route path="/services/devops/containerization" element={<Containerization />} />
           <Route path="/services/devops/serverless" element={<ServerlessArchitecture />} />
           <Route path="/services/devops/agile" element={<AgileTransformation />} />
+          <Route path="/services/devops/github" element={<GitHubDevOps />} />
+          <Route path="/services/devops/gitlab" element={<GitLabDevOps />} />
           
           {/* Security Service Routes */}
           <Route path="/services/security/cyber-defence" element={<CyberDefence />} />
@@ -207,11 +223,19 @@ const AnimatedRoutes = () => {
           <Route path="/services/consulting/business-intelligence" element={<BusinessIntelligence />} />
           <Route path="/services/consulting/data-analytics" element={<DataAnalytics />} />
           <Route path="/services/consulting/digital-runtime" element={<DigitalRuntime />} />
+          <Route path="/services/consulting/powerapps" element={<PowerApps />} />
+          <Route path="/services/consulting/powerautomate" element={<PowerAutomate />} />
 
           {/* Infrastructure, Blockchain, and Strategy Routes */}
           <Route path="/services/infrastructure" element={<InfrastructureServices />} />
           <Route path="/services/blockchain" element={<Blockchain />} />
-          <Route path="/services/strategy" element={<Strategy />} />        
+          <Route path="/services/strategy" element={<Strategy />} />
+
+          {/* CRM Service Routes */}
+          <Route path="/services/crm/zoho-crm" element={<ZohoCRM />} />
+          <Route path="/services/crm/zoho-mail" element={<ZohoMail />} />
+          <Route path="/services/crm/microsoft-mail" element={<MicrosoftMail />} />
+          <Route path="/services/crm/microsoft-dynamics-crm" element={<MicrosoftDynamicsCRM />} />        
           
           {/* Redirects for service paths from Home.jsx */}
           <Route path="/services/cloud" element={<Navigate to="/services/cloud/aws" replace />} />

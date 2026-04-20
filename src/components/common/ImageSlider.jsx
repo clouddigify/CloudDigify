@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
 
-const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
+const ImageSlider = ({ slides, interval = 6000, autoPlay = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -11,18 +10,18 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
     let timer;
     if (autoPlay && !isHovered) {
       timer = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % images.length);
+        setCurrentIndex((prev) => (prev + 1) % slides.length);
       }, interval);
     }
     return () => clearInterval(timer);
-  }, [autoPlay, images.length, interval, isHovered]);
+  }, [autoPlay, slides.length, interval, isHovered]);
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
   };
 
   const goToSlide = (index) => {
@@ -31,9 +30,10 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden"
+      className="relative w-full min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      aria-label="Homepage hero slider"
     >
       <AnimatePresence mode="wait">
         <motion.div
@@ -41,70 +41,83 @@ const ImageSlider = ({ images, interval = 5000, autoPlay = true }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0"
+          transition={{ duration: 0.7 }}
+          className="absolute inset-0 w-full h-full"
         >
-          {images[currentIndex].url ? (
-          <img
-            src={images[currentIndex].url}
-            alt={images[currentIndex].alt}
-            className="w-full h-full object-cover"
-            loading="lazy"
+          <div
+            className="w-full h-full bg-cover bg-center absolute inset-0"
+            style={{ backgroundImage: `url('${slides[currentIndex].backgroundImage}')` }}
+            aria-label={slides[currentIndex].alt}
           />
-          ) : (
-            <div className={`w-full h-full ${images[currentIndex].gradient}`} />
-          )}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
-            {typeof images[currentIndex].title === 'string' ? (
-              <>
-                <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-center max-w-6xl mx-auto leading-tight">{images[currentIndex].title}</h2>
-                <p className="text-lg md:text-xl lg:text-2xl text-center max-w-3xl mx-auto mb-10 text-gray-100">{images[currentIndex].description}</p>
-                {images[currentIndex].cta && (
-                  <Link to={images[currentIndex].cta.link}>
-                    <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg">
-                      {images[currentIndex].cta.label}
-                    </button>
-                  </Link>
-                )}
-              </>
-            ) : (
-              images[currentIndex].title
-          )}
+          {/* Gradient overlay for depth and readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-800 via-blue-900 to-indigo-900 opacity-70" aria-hidden="true" />
+          {/* Centered content */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
+            <div className="max-w-3xl mx-auto w-full">
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 40 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
+                className="text-white font-extrabold mb-4 drop-shadow-xl tracking-tight text-lg sm:text-2xl md:text-4xl lg:text-5xl"
+              >
+                {slides[currentIndex].title}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 30 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+                className="text-white font-medium mb-6 max-w-2xl mx-auto drop-shadow-lg text-sm sm:text-base md:text-lg lg:text-xl"
+              >
+                {slides[currentIndex].description}
+              </motion.p>
+              {slides[currentIndex].cta && (
+                <motion.a
+                  href={slides[currentIndex].cta.link}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+                  className="inline-block w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-xl transition-all duration-300 text-base sm:text-lg tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 mt-6"
+                  aria-label={slides[currentIndex].cta.label}
+                >
+                  {slides[currentIndex].cta.label}
+                </motion.a>
+              )}
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>
-
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-200 backdrop-blur-sm"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full shadow-lg transition-all duration-200 z-20"
         aria-label="Previous slide"
+        tabIndex={0}
       >
         <IoChevronBackOutline size={28} />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-200 backdrop-blur-sm"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full shadow-lg transition-all duration-200 z-20"
         aria-label="Next slide"
+        tabIndex={0}
       >
         <IoChevronForwardOutline size={28} />
       </button>
-
       {/* Dots Navigation */}
-      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-3">
-        {images.map((_, index) => (
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex space-x-3 z-20 pb-10">
+        {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-6 h-6 flex items-center justify-center p-0 ${
-              index === currentIndex ? 'bg-white/30' : 'bg-transparent'
+            className={`w-4 h-4 rounded-full border-2 border-white transition-all duration-200 focus:outline-none ${
+              index === currentIndex ? 'bg-white' : 'bg-white/40'
             }`}
             aria-label={`Go to slide ${index + 1}`}
-          >
-            <span className={`block w-2.5 h-2.5 rounded-full transition-all duration-200 ${
-              index === currentIndex ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/70'
-            }`} />
-          </button>
+            tabIndex={0}
+          />
         ))}
       </div>
     </div>

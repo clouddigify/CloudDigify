@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUser, FaEnvelope, FaBuilding, FaPhone, FaCommentAlt, FaPaperPlane, FaTimes, FaCheck } from 'react-icons/fa';
+import { LoadingButton } from './LoadingSpinner';
 
 const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
   });
 
   const [formStatus, setFormStatus] = useState({
+    submitting: false,
     submitted: false,
     success: false,
     error: false,
@@ -30,6 +32,7 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
         message: ''
       });
       setFormStatus({
+        submitting: false,
         submitted: false,
         success: false,
         error: false,
@@ -67,12 +70,13 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
       setFormStatus({
+        submitting: false,
         submitted: false,
         success: false,
         error: true,
@@ -81,17 +85,54 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
       return;
     }
 
-    // Simulate form submission
+    // Set submitting state
     setFormStatus({
-      submitted: true,
-      success: true,
+      submitting: true,
+      submitted: false,
+      success: false,
       error: false,
-      message: 'Thank you for your inquiry! Our team will contact you shortly.'
+      message: ''
     });
-    
-    // Here you would normally send the data to your backend
-    // For now, we'll just simulate a successful submission
-    console.log('Form submitted with:', { ...formData, service: serviceName });
+
+    try {
+      // Send email via API
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...formData,
+          message: `Service Inquiry: ${serviceName}\n\n${formData.message}`,
+          formType: 'service-inquiry'
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form');
+      }
+
+      // Success
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        success: true,
+        error: false,
+        message: 'Thank you for your inquiry! Our team will contact you shortly.'
+      });
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setFormStatus({
+        submitting: false,
+        submitted: false,
+        success: false,
+        error: true,
+        message: error.message || 'Failed to submit form. Please try again.'
+      });
+    }
   };
 
   // Add this to fix any overflow or z-index issues
@@ -287,17 +328,15 @@ const ServiceInquiryForm = ({ isOpen, onClose, serviceName }) => {
                       </div>
                     </div>
 
-                    <motion.button
+                    <LoadingButton
                       type="submit"
-                      whileHover={{ scale: 1.02, boxShadow: "0 8px 15px -5px rgba(59, 130, 246, 0.5)" }}
-                      whileTap={{ scale: 0.98 }}
+                      loading={formStatus.submitting}
+                      loadingText="Submitting..."
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white font-medium py-2.5 text-sm rounded-xl transition-all duration-300 shadow-md"
                     >
-                      <div className="flex items-center justify-center">
-                        <FaPaperPlane className="mr-2" />
-                        <span>Submit Request</span>
-                      </div>
-                    </motion.button>
+                      <FaPaperPlane className="mr-2" />
+                      <span>Submit Request</span>
+                    </LoadingButton>
                     
                     <p className="text-xs text-gray-500 text-center mt-3">
                       By submitting, you agree to our privacy policy

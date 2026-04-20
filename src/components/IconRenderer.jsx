@@ -51,7 +51,9 @@ import {
   FaClock,
   FaPaintBrush,
   FaPalette,
-  FaInfoCircle
+  FaInfoCircle,
+  FaGithub,
+  FaGitlab
 } from 'react-icons/fa';
 
 import { 
@@ -144,6 +146,8 @@ const ICONS = {
   'fa-code': FaCode,
   'fa-cube': FaCube,
   'fa-info-circle': FaInfoCircle,
+  'fa-github': FaGithub,
+  'fa-gitlab': FaGitlab,
   
   // Brand-specific cloud provider icons with exact brand names as keys
   'AWS': SiAmazonaws,

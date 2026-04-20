@@ -13,6 +13,7 @@ import {
   FaFileAlt,
   FaExclamationTriangle
 } from 'react-icons/fa';
+import SEO from '../../common/SEO';
 
 const Security = () => {
   const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -174,91 +175,99 @@ const Security = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <>
+      <SEO
+        title="Security Policy | CloudDigify"
+        description="Learn about CloudDigify's security practices, data protection, and compliance standards."
+        canonicalUrl="https://clouddigify.com/legal/security"
+        keywords={['security', 'data protection', 'compliance', 'CloudDigify']}
+      />
+      <div className="min-h-screen bg-gray-50">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                Security at CloudDigify
+              </h1>
+              <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+                Our commitment to protecting your data and maintaining trust
+              </p>
+              <p className="mt-4 text-blue-200">
+                Last Updated: {currentDate}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-12"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Security at CloudDigify
-            </h1>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              Our commitment to protecting your data and maintaining trust
+            {sections.map((section) => (
+              <motion.div
+                key={section.id}
+                variants={itemVariants}
+                className="bg-white rounded-xl shadow-lg overflow-hidden"
+              >
+                <div className="p-6 sm:p-8">
+                  <div className="flex items-center mb-6">
+                    {section.icon}
+                    <h2 className="text-2xl font-bold text-gray-900 ml-4">
+                      {section.title}
+                    </h2>
+                  </div>
+                  <div className="prose max-w-none text-gray-600">
+                    {section.content}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Security Contact */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-12 bg-blue-50 rounded-xl p-6 sm:p-8"
+          >
+            <div className="flex items-center mb-4">
+              <FaUserSecret className="h-6 w-6 text-blue-600" />
+              <h3 className="text-xl font-semibold text-gray-900 ml-3">
+                Report a Security Concern
+              </h3>
+            </div>
+            <p className="text-gray-600 mb-6">
+              If you discover a potential security issue, please contact our security team immediately:
             </p>
-            <p className="mt-4 text-blue-200">
-              Last Updated: {currentDate}
+            <div className="bg-white rounded-lg p-4">
+              <p className="text-gray-800">Email: security@clouddigify.com</p>
+              <p className="text-gray-800">Emergency Hotline: +91 7011112386</p>
+            </div>
+          </motion.div>
+
+          {/* Security Warning */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-8 flex items-start p-4 bg-yellow-50 rounded-lg"
+          >
+            <FaExclamationTriangle className="h-6 w-6 text-yellow-600 mt-1" />
+            <p className="ml-3 text-sm text-yellow-700">
+              While we implement comprehensive security measures, no system is completely immune to security risks. 
+              We encourage all users to follow security best practices and promptly report any security concerns.
             </p>
           </motion.div>
         </div>
       </div>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-12"
-        >
-          {sections.map((section) => (
-            <motion.div
-              key={section.id}
-              variants={itemVariants}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
-            >
-              <div className="p-6 sm:p-8">
-                <div className="flex items-center mb-6">
-                  {section.icon}
-                  <h2 className="text-2xl font-bold text-gray-900 ml-4">
-                    {section.title}
-                  </h2>
-                </div>
-                <div className="prose max-w-none text-gray-600">
-                  {section.content}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Security Contact */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-12 bg-blue-50 rounded-xl p-6 sm:p-8"
-        >
-          <div className="flex items-center mb-4">
-            <FaUserSecret className="h-6 w-6 text-blue-600" />
-            <h3 className="text-xl font-semibold text-gray-900 ml-3">
-              Report a Security Concern
-            </h3>
-          </div>
-          <p className="text-gray-600 mb-6">
-            If you discover a potential security issue, please contact our security team immediately:
-          </p>
-          <div className="bg-white rounded-lg p-4">
-            <p className="text-gray-800">Email: security@clouddigify.com</p>
-            <p className="text-gray-800">Emergency Hotline: +91 7011112386</p>
-          </div>
-        </motion.div>
-
-        {/* Security Warning */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-8 flex items-start p-4 bg-yellow-50 rounded-lg"
-        >
-          <FaExclamationTriangle className="h-6 w-6 text-yellow-600 mt-1" />
-          <p className="ml-3 text-sm text-yellow-700">
-            While we implement comprehensive security measures, no system is completely immune to security risks. 
-            We encourage all users to follow security best practices and promptly report any security concerns.
-          </p>
-        </motion.div>
-      </div>
-    </div>
+    </>
   );
 };
 

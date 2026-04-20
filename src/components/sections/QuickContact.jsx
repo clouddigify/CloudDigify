@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle, FaComments } from 'react-icons/fa';
 import PageTemplate from '../templates/PageTemplate';
+import { LoadingButton } from '../common/LoadingSpinner';
 
 const QuickContact = () => {
   const [formData, setFormData] = useState({
@@ -142,18 +143,15 @@ const QuickContact = () => {
         </div>
         
         <div>
-          <button
+          <LoadingButton
             type="submit" 
-            disabled={formStatus.submitting}
-            className={`w-full py-3 px-6 flex items-center justify-center rounded-lg text-white font-medium ${formStatus.submitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} transition-colors shadow-md`}
+            loading={formStatus.submitting}
+            loadingText="Sending..."
+            className="w-full py-3 px-6 rounded-lg text-white font-medium bg-blue-600 hover:bg-blue-700 transition-colors shadow-md"
           >
-            {formStatus.submitting ? 'Sending...' : (
-              <>
-                <FaPaperPlane className="mr-2" /> 
-                <span>Send Message</span>
-              </>
-            )}
-          </button>
+            <FaPaperPlane className="mr-2" /> 
+            <span>Send Message</span>
+          </LoadingButton>
         </div>
       </form>
     </div>

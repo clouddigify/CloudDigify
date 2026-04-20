@@ -1,37 +1,5 @@
 // API endpoint to handle form submissions and send emails
-const nodemailer = require('nodemailer');
-
-// Create a transporter object using SMTP with improved Zoho Mail settings
-const createTransporter = () => {
-  console.log('Setting up email transporter with host:', process.env.SMTP_HOST);
-  
-  // Zoho Mail specific configuration
-  const transportConfig = {
-    host: process.env.SMTP_HOST || 'smtp.zoho.com',
-    port: parseInt(process.env.SMTP_PORT || '587', 10),
-    secure: process.env.SMTP_SECURE === 'true' || false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD
-    },
-    tls: {
-      // Do not fail on invalid certs
-      rejectUnauthorized: false
-    },
-    debug: true // Enable debug logging for SMTP
-  };
-  
-  // Log configuration (excluding password)
-  console.log('Transporter config:', {
-    ...transportConfig,
-    auth: { 
-      user: transportConfig.auth.user,
-      pass: '***PASSWORD-HIDDEN***' 
-    }
-  });
-  
-  return nodemailer.createTransport(transportConfig);
-};
+const EmailService = require('./email-service');
 
 // Handler for API requests
 module.exports = async (req, res) => {
@@ -65,7 +33,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Invalid request body' });
     }
     
-    const { name, email, phone, company, message, formType } = req.body;
+    const { name, email, phone, company, message, formType, attachment } = req.body;
     
     console.log('Received form data:', { name, email, formType });
 
@@ -78,53 +46,192 @@ module.exports = async (req, res) => {
     const ccRecipients = ['chirag@clouddigify.com'];
     
     // Determine which email address to use as primary recipient based on form type
-    const toEmail = formType === 'quick-contact' ? 'info@clouddigify.com' : 'contact@clouddigify.com';
+    const toEmail = 'info@clouddigify.com';
     
-    // Format subject line
-    const subject = `New ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Form'} Submission from ${name}`;
+    // Enhanced professional subject line
+    const getSubjectLine = (formType, name) => {
+      const today = new Date().toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric'
+      });
+      
+      switch(formType) {
+        case 'job-application':
+          return `🎯 Job Application: ${name} | ${today}`;
+        case 'service-inquiry':
+          return `💼 Service Inquiry: ${name} | ${today}`;
+        case 'contact-page':
+          return `📧 Contact Request: ${name} | ${today}`;
+        case 'quick-contact':
+          return `⚡ Quick Contact: ${name} | ${today}`;
+        default:
+          return `📞 New Contact: ${name} | ${today}`;
+      }
+    };
+    
+    const subject = getSubjectLine(formType, name);
     
     console.log('Preparing email to:', toEmail, 'with cc:', ccRecipients);
     
-    // Create HTML email body with better formatting
+    // Enterprise-level professional email template
     const htmlContent = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 5px;">
-        <h2 style="color: #0070f3; margin-top: 0;">New Form Submission</h2>
-        <p style="color: #333; font-size: 16px;"><strong>Form Type:</strong> ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Page'}</p>
-        <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;">
-        
-        <h3 style="color: #333;">Contact Information</h3>
-        <table style="width: 100%; border-collapse: collapse;">
-          <tr>
-            <td style="padding: 8px 0; color: #666; width: 120px;"><strong>Name:</strong></td>
-            <td style="padding: 8px 0; color: #333;">${name}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #666;"><strong>Email:</strong></td>
-            <td style="padding: 8px 0; color: #333;"><a href="mailto:${email}" style="color: #0070f3; text-decoration: none;">${email}</a></td>
-          </tr>
-          ${phone ? `
-          <tr>
-            <td style="padding: 8px 0; color: #666;"><strong>Phone:</strong></td>
-            <td style="padding: 8px 0; color: #333;">${phone}</td>
-          </tr>` : ''}
-          ${company ? `
-          <tr>
-            <td style="padding: 8px 0; color: #666;"><strong>Company:</strong></td>
-            <td style="padding: 8px 0; color: #333;">${company}</td>
-          </tr>` : ''}
-        </table>
-        
-        <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;">
-        
-        <h3 style="color: #333;">Message</h3>
-        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; color: #333;">
-          ${message.replace(/\n/g, '<br>')}
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CloudDigify Contact Form</title>
+        <!--[if mso]>
+        <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+        <![endif]-->
+        <style>
+          @media only screen and (max-width: 600px) {
+            .container { width: 100% !important; margin: 10px !important; border-radius: 0 !important; }
+            .header-padding { padding: 20px 15px !important; }
+            .content-padding { padding: 20px 15px !important; }
+            .card-padding { padding: 15px !important; }
+            .footer-padding { padding: 20px 15px !important; }
+            .mobile-title { font-size: 22px !important; }
+            .mobile-subtitle { font-size: 14px !important; }
+            .mobile-text { font-size: 14px !important; }
+            .mobile-button { 
+              display: block !important; 
+              width: 90% !important; 
+              margin: 8px auto !important; 
+              padding: 12px 16px !important;
+              font-size: 14px !important;
+            }
+            .mobile-table { width: 100% !important; }
+            .mobile-table td { 
+              display: block !important; 
+              width: 100% !important; 
+              padding: 6px 0 !important;
+              border: none !important;
+            }
+            .mobile-table .label { 
+              font-weight: bold !important; 
+              margin-bottom: 3px !important;
+              display: block !important;
+            }
+            .mobile-table .value {
+              display: block !important;
+              margin-bottom: 12px !important;
+            }
+          }
+        </style>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #f7f8fc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <!-- Email Container -->
+        <div class="container" style="max-width: 650px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+          
+          <!-- Header -->
+          <div class="header-padding" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 40px; text-align: center;">
+            <div style="background-color: rgba(255,255,255,0.1); display: inline-block; padding: 10px 20px; border-radius: 50px; margin-bottom: 10px;">
+              <span style="color: #ffffff; font-size: 20px; font-weight: bold;">CloudDigify</span>
+            </div>
+            <h1 class="mobile-title" style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">New Contact Received</h1>
+            <p class="mobile-subtitle" style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">
+              ${formType === 'job-application' ? 'Job Application Submitted' : 
+                formType === 'service-inquiry' ? 'Service Inquiry Received' :
+                formType === 'contact-page' ? 'Contact Form Submitted' :
+                'Quick Contact Request'}
+            </p>
+          </div>
+
+          <!-- Form Type Badge -->
+          <div style="text-align: center; margin-top: -20px; position: relative; z-index: 10;">
+            <span style="background-color: ${
+              formType === 'job-application' ? '#10b981' :
+              formType === 'service-inquiry' ? '#3b82f6' :
+              formType === 'contact-page' ? '#8b5cf6' :
+              '#f59e0b'
+            }; color: #ffffff; padding: 8px 20px; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              ${formType.replace('-', ' ').toUpperCase()}
+            </span>
+          </div>
+
+          <!-- Content -->
+          <div class="content-padding" style="padding: 40px;">
+            
+            <!-- Contact Details Card -->
+            <div class="card-padding" style="background-color: #f8fafc; border-radius: 10px; padding: 25px; margin-bottom: 25px; border-left: 4px solid #667eea;">
+              <h2 class="mobile-text" style="color: #1e293b; margin: 0 0 20px 0; font-size: 20px; font-weight: 600;">Contact Information</h2>
+              <table class="mobile-table" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td class="label" style="padding: 12px 0; color: #64748b; font-weight: 600; width: 140px; vertical-align: top;">👤 Full Name:</td>
+                  <td class="value" style="padding: 12px 0; color: #1e293b; font-weight: 500;">${name}</td>
+                </tr>
+                <tr>
+                  <td class="label" style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">✉️ Email:</td>
+                  <td class="value" style="padding: 12px 0;">
+                    <a href="mailto:${email}" style="color: #667eea; text-decoration: none; font-weight: 500; background-color: #eef2ff; padding: 6px 12px; border-radius: 6px; display: inline-block; word-break: break-all;">
+                      ${email}
+                    </a>
+                  </td>
+                </tr>
+                ${phone ? `
+                <tr>
+                  <td class="label" style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">📱 Phone:</td>
+                  <td class="value" style="padding: 12px 0;">
+                    <a href="tel:${phone}" style="color: #10b981; text-decoration: none; font-weight: 500; background-color: #ecfdf5; padding: 6px 12px; border-radius: 6px; display: inline-block;">
+                      ${phone}
+                    </a>
+                  </td>
+                </tr>` : ''}
+                ${company ? `
+                <tr>
+                  <td class="label" style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">🏢 Company:</td>
+                  <td class="value" style="padding: 12px 0; color: #1e293b; font-weight: 500;">${company}</td>
+                </tr>` : ''}
+                <tr>
+                  <td class="label" style="padding: 12px 0; color: #64748b; font-weight: 600; vertical-align: top;">⏰ Submitted:</td>
+                  <td class="value" style="padding: 12px 0; color: #1e293b; font-weight: 500; font-size: 14px;">${new Date().toLocaleString('en-US', { 
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Message Card -->
+            <div class="card-padding" style="background-color: #ffffff; border: 2px solid #e2e8f0; border-radius: 10px; padding: 25px; margin-bottom: 25px;">
+              <h2 class="mobile-text" style="color: #1e293b; margin: 0 0 15px 0; font-size: 20px; font-weight: 600;">
+                💬 Message
+              </h2>
+              <div style="background-color: #f1f5f9; border-radius: 8px; padding: 15px; color: #334155; line-height: 1.6; font-size: 15px; border-left: 4px solid #94a3b8;">
+                ${message.replace(/\n/g, '<br>')}
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="text-align: center; margin: 20px 0;">
+              <a class="mobile-button" href="mailto:${email}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 0 10px; display: inline-block; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                📧 Reply to ${name.split(' ')[0]}
+              </a>
+              ${phone ? `
+              <a class="mobile-button" href="tel:${phone}" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 0 10px; display: inline-block; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">
+                📞 Call ${name.split(' ')[0]}
+              </a>
+              ` : ''}
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="footer-padding" style="background-color: #f8fafc; padding: 25px 40px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p class="mobile-text" style="color: #64748b; margin: 0; font-size: 14px; line-height: 1.5;">
+              <strong>CloudDigify</strong> | Transforming What's Next<br>
+              This email was automatically generated from your website contact form.<br>
+              <span style="color: #94a3b8; font-size: 12px;">Timestamp: ${new Date().toISOString()}</span>
+            </p>
+          </div>
         </div>
-        
-        <div style="margin-top: 30px; font-size: 12px; color: #999; text-align: center;">
-          <p>This is an automated message from your CloudDigify website.</p>
-        </div>
-      </div>
+      </body>
+      </html>
     `;
 
     // Configure email data with modified from address for Zoho
@@ -155,36 +262,48 @@ module.exports = async (req, res) => {
       `
     };
 
-    console.log('Creating email transporter...');
-    // Create a new transporter for each request to avoid connection issues
-    const transporter = createTransporter();
+    console.log('Creating email service...');
+    // Create email service instance
+    const emailService = new EmailService();
     
-    console.log('Sending email with options:', {
-      ...mailOptions,
-      html: '(HTML content not shown for brevity)',
-      text: '(Text content not shown for brevity)'
-    });
+    // Prepare email data for the service
+    const emailData = {
+      to: toEmail,
+      cc: ccRecipients.join(','),
+      replyTo: email,
+      subject: subject,
+      html: htmlContent,
+      text: `
+        New Form Submission
+        -------------------
+        
+        Form Type: ${formType === 'quick-contact' ? 'Quick Contact' : 'Contact Page'}
+        
+        Name: ${name}
+        Email: ${email}
+        ${phone ? `Phone: ${phone}\n` : ''}
+        ${company ? `Company: ${company}\n` : ''}
+        
+        Message:
+        ${message}
+      `,
+      attachments: attachment ? [{
+        filename: attachment.filename,
+        content: attachment.content,
+        encoding: 'base64',
+        contentType: attachment.contentType
+      }] : undefined
+    };
 
-    // Test SMTP connection before sending
-    try {
-      console.log('Verifying SMTP connection...');
-      const verifyResult = await transporter.verify();
-      console.log('SMTP connection verified:', verifyResult);
-    } catch (verifyError) {
-      console.error('SMTP verification failed:', verifyError);
-      // Continue attempting to send anyway
-    }
-
-    // Send the email
-    console.log('Attempting to send email...');
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', info);
+    console.log('Sending email via EmailService...');
+    const result = await emailService.sendEmail(emailData);
+    console.log('Email sent successfully:', result);
 
     // Return success response
     return res.status(200).json({ 
       success: true, 
       message: 'Email sent successfully',
-      messageId: info.messageId || 'No message ID returned'
+      messageId: result.messageId || 'No message ID returned'
     });
   } catch (error) {
     console.error('Error sending email:', error);

@@ -12,6 +12,7 @@ import {
   FaChartLine,
   FaCoffee
 } from 'react-icons/fa';
+import SEO from '../common/SEO';
 
 const Culture = () => {
   const containerVariants = {
@@ -101,141 +102,149 @@ const Culture = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <>
+      <SEO
+        title="Our Culture | CloudDigify"
+        description="Discover the culture and values that drive CloudDigify's team and innovation."
+        canonicalUrl="https://clouddigify.com/culture"
+        keywords={['culture', 'values', 'team', 'CloudDigify']}
+      />
+      <div className="min-h-screen bg-gray-50">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                Our Culture & Values
+              </h1>
+              <p className="text-xl text-purple-100 max-w-2xl mx-auto">
+                Building a workplace where innovation thrives and people grow
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Core Values Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Our Culture & Values
-            </h1>
-            <p className="text-xl text-purple-100 max-w-2xl mx-auto">
-              Building a workplace where innovation thrives and people grow
-            </p>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900">Our Core Values</h2>
+              <p className="mt-4 text-xl text-gray-600">
+                The principles that guide everything we do
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              {values.map((value) => (
+                <motion.div
+                  key={value.title}
+                  variants={itemVariants}
+                  className="bg-white rounded-xl shadow-lg p-8"
+                >
+                  <div className="flex justify-center mb-6">
+                    {value.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">{value.title}</h3>
+                  <p className="text-gray-600 text-center mb-6">{value.description}</p>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-gray-900 mb-2">How we live this value:</h4>
+                    <ul className="space-y-2">
+                      {value.examples.map((example, index) => (
+                        <li key={index} className="flex items-center text-gray-600">
+                          <FaStar className="h-4 w-4 text-yellow-500 mr-2" />
+                          {example}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Work Culture Section */}
+            <div className="mt-24">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900">Our Work Culture</h2>
+                <p className="mt-4 text-xl text-gray-600">
+                  Creating an environment where everyone can thrive
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {practices.map((practice) => (
+                  <motion.div
+                    key={practice.title}
+                    variants={itemVariants}
+                    className="bg-white rounded-xl shadow-lg p-6"
+                  >
+                    <div className="flex items-center mb-4">
+                      {practice.icon}
+                      <h3 className="text-xl font-bold text-gray-900 ml-4">{practice.title}</h3>
+                    </div>
+                    <p className="text-gray-600">{practice.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Benefits Section */}
+            <div className="mt-24">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900">Life at CloudDigify</h2>
+                <p className="mt-4 text-xl text-gray-600">
+                  Benefits and perks that make working here special
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {benefits.map((benefit) => (
+                  <motion.div
+                    key={benefit.title}
+                    variants={itemVariants}
+                    className="bg-white rounded-xl shadow-lg p-6"
+                  >
+                    <div className="flex items-center mb-4">
+                      {benefit.icon}
+                      <h3 className="text-xl font-bold text-gray-900 ml-4">{benefit.title}</h3>
+                    </div>
+                    <p className="text-gray-600">{benefit.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Join Us CTA */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-24 text-center bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl p-12"
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Join Our Team
+              </h2>
+              <p className="text-xl text-gray-600 mb-8">
+                Be part of a team that's shaping the future of digital transformation
+              </p>
+              <a
+                href="/career"
+                className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition-colors"
+              >
+                View Open Positions
+              </a>
+            </motion.div>
           </motion.div>
         </div>
       </div>
-
-      {/* Core Values Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-16"
-        >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Our Core Values</h2>
-            <p className="mt-4 text-xl text-gray-600">
-              The principles that guide everything we do
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {values.map((value) => (
-              <motion.div
-                key={value.title}
-                variants={itemVariants}
-                className="bg-white rounded-xl shadow-lg p-8"
-              >
-                <div className="flex justify-center mb-6">
-                  {value.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">{value.title}</h3>
-                <p className="text-gray-600 text-center mb-6">{value.description}</p>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-900 mb-2">How we live this value:</h4>
-                  <ul className="space-y-2">
-                    {value.examples.map((example, index) => (
-                      <li key={index} className="flex items-center text-gray-600">
-                        <FaStar className="h-4 w-4 text-yellow-500 mr-2" />
-                        {example}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Work Culture Section */}
-          <div className="mt-24">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900">Our Work Culture</h2>
-              <p className="mt-4 text-xl text-gray-600">
-                Creating an environment where everyone can thrive
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {practices.map((practice) => (
-                <motion.div
-                  key={practice.title}
-                  variants={itemVariants}
-                  className="bg-white rounded-xl shadow-lg p-6"
-                >
-                  <div className="flex items-center mb-4">
-                    {practice.icon}
-                    <h3 className="text-xl font-bold text-gray-900 ml-4">{practice.title}</h3>
-                  </div>
-                  <p className="text-gray-600">{practice.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Benefits Section */}
-          <div className="mt-24">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900">Life at CloudDigify</h2>
-              <p className="mt-4 text-xl text-gray-600">
-                Benefits and perks that make working here special
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {benefits.map((benefit) => (
-                <motion.div
-                  key={benefit.title}
-                  variants={itemVariants}
-                  className="bg-white rounded-xl shadow-lg p-6"
-                >
-                  <div className="flex items-center mb-4">
-                    {benefit.icon}
-                    <h3 className="text-xl font-bold text-gray-900 ml-4">{benefit.title}</h3>
-                  </div>
-                  <p className="text-gray-600">{benefit.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Join Us CTA */}
-          <motion.div
-            variants={itemVariants}
-            className="mt-24 text-center bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl p-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Join Our Team
-            </h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Be part of a team that's shaping the future of digital transformation
-            </p>
-            <a
-              href="/career"
-              className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition-colors"
-            >
-              View Open Positions
-            </a>
-          </motion.div>
-        </motion.div>
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar } from 'react-icons/fa';
+import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar, FaAddressBook, FaMailBulk, FaAt, FaHandshake } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
+import SEO from '../common/SEO';
+import HeroSlider from '../common/HeroSlider';
 
 // Lazy load non-critical components
 const CloudPartners = lazy(() => import('../CloudPartners'));
@@ -40,32 +42,32 @@ const Home = () => {
 
   const heroSlides = [
     {
-      gradient: 'bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900',
+      backgroundImage: '/assets/home-hero/slide1.jpg',
       alt: 'Digital Transformation',
       title: 'Transform Your Enterprise with Cloud Excellence',
-      description: 'Accelerate innovation and growth with our comprehensive cloud solutions and digital transformation expertise.',
-      cta: { 
+      description: 'Accelerate innovation and growth with our comprehensive cloud solutions.',
+      cta: {
         label: 'Explore Solutions',
-        link: '#'  // Will be handled by onClick instead
+        link: '#'
       }
     },
     {
-      gradient: 'bg-gradient-to-br from-indigo-900 via-blue-800 to-blue-900',
-      alt: 'AI & Innovation',
+      backgroundImage: '/assets/home-hero/slide2.jpg',
+      alt: 'AI & Automation',
       title: 'Innovate with AI & Automation',
-      description: 'Leverage cutting-edge AI and automation solutions to streamline operations and drive business value.',
+      description: 'Streamline operations and unlock insights with AI-powered solutions.',
       cta: {
-        label: 'Discover AI Solutions',
+        label: 'Discover AI',
         link: '/services/ai/artificial-intelligence'
       }
     },
     {
-      gradient: 'bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-900',
-      alt: 'Cloud Security',
+      backgroundImage: '/assets/home-hero/slide3.jpg',
+      alt: 'Security & Compliance',
       title: 'Enterprise-Grade Cloud Security',
-      description: 'Protect your digital assets with our comprehensive cloud security and compliance solutions.',
+      description: 'Protect your digital assets with real-time monitoring and compliance.',
       cta: {
-        label: 'Learn About Security',
+        label: 'Secure Now',
         link: '/services/security/cyber-defence'
       }
     }
@@ -275,6 +277,12 @@ const Home = () => {
 
   return (
     <>
+      <SEO
+        title="CloudDigify | Cloud, DevOps, Digital Transformation Services"
+        description="CloudDigify offers cloud, DevOps, AI, and digital transformation services to accelerate your business growth."
+        canonicalUrl="https://clouddigify.com/"
+        keywords={['cloud services', 'devops', 'digital transformation', 'AI', 'CloudDigify']}
+      />
       <Helmet>
         <title>CloudDigify | Cloud Transformation & Digital Solutions</title>
         <meta name="description" content="CloudDigify delivers enterprise-grade cloud transformation, AI, and digital solutions to accelerate innovation and growth for businesses worldwide." />
@@ -286,51 +294,7 @@ const Home = () => {
       <div className="min-h-screen">
         {/* Hero Section - Carousel */}
         <section className="relative w-full">
-          <Suspense fallback={<LoadingFallback />}>
-            <ImageSlider
-              images={heroSlides.map(slide => ({
-                gradient: slide.gradient,
-                alt: slide.alt,
-                title: (
-                  <div className="flex flex-col items-center justify-center h-full px-4 py-12 md:py-20">
-                    <motion.span 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6 }}
-                      className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white drop-shadow-lg text-center max-w-6xl"
-                    >
-                      {slide.title}
-                    </motion.span>
-                    <motion.span 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                      className="block text-base sm:text-lg md:text-xl lg:text-2xl font-normal mb-8 sm:mb-10 text-gray-200 max-w-3xl mx-auto text-center px-4"
-                    >
-                      {slide.description}
-                    </motion.span>
-                    {slide.cta && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                      >
-                        <button 
-                          onClick={() => openInquiryForm(slide.title)}
-                          className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-opacity-90 text-blue-600 font-semibold rounded-lg shadow-lg transition-all duration-300 text-sm sm:text-base"
-                        >
-                          {slide.cta.label}
-                        </button>
-                      </motion.div>
-                    )}
-                  </div>
-                ),
-                description: '',
-              }))}
-              interval={6000}
-              autoPlay={true}
-            />
-          </Suspense>
+          <HeroSlider slides={heroSlides} />
         </section>
 
         {/* Services Section */}
@@ -381,6 +345,222 @@ const Home = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* CRM & Business Tools Section */}
+        <section className="py-16 bg-gradient-to-r from-indigo-50 to-purple-50">
+          <div className="container mx-auto px-4">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <FaHandshake className="mr-2" />
+                Authorized Partners
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                CRM & Business Tools
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Streamline your business operations with our CRM and email solutions from trusted partners Zoho and Microsoft.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center mb-6">
+                  <FaAddressBook className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Zoho CRM</h3>
+                <p className="text-gray-600 mb-4">Complete customer relationship management with lead tracking, sales analytics, and automation.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/zoho-crm" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center mb-6">
+                  <FaMailBulk className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Zoho Mail</h3>
+                <p className="text-gray-600 mb-4">Professional business email with custom domains, advanced security, and seamless integration.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/zoho-mail" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center mb-6">
+                  <FaAt className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Microsoft Mail</h3>
+                <p className="text-gray-600 mb-4">Enterprise-grade email solution with Microsoft 365 integration and advanced security features.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/microsoft-mail" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 flex items-center justify-center mb-6">
+                  <FaCogs className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Microsoft Dynamics CRM</h3>
+                <p className="text-gray-600 mb-4">Enterprise-grade CRM with AI-powered insights, advanced analytics, and seamless Microsoft 365 integration.</p>
+                <div className="flex items-center text-blue-600 font-medium">
+                  <Link to="/services/crm/microsoft-dynamics-crm" className="flex items-center">
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.div
+              className="mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-gray-900 mb-4">Exclusive Partner Benefits</h3>
+                <p className="text-lg text-gray-600">Get more value with our authorized partnerships</p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                {/* Zoho Partnership Card */}
+                <motion.div
+                  className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100 hover:shadow-xl transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4">
+                      <FaHandshake className="text-white text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900">Zoho Partnership</h4>
+                      <p className="text-blue-600 font-medium">Authorized Partner</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Special partner pricing</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Free migration support</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Priority technical support</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Custom training programs</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-blue-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-blue-600 font-medium">Save up to 30%</span>
+                      <Link to="/services/crm/zoho-crm" className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Learn More →
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Microsoft Partnership Card */}
+                <motion.div
+                  className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-8 border border-purple-100 hover:shadow-xl transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mr-4">
+                      <FaHandshake className="text-white text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900">Microsoft Partnership</h4>
+                      <p className="text-purple-600 font-medium">Authorized Reseller</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Authorized reseller discounts</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Expert implementation</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">24/7 support</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <span className="text-gray-700 font-medium">Integration services</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-purple-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-purple-600 font-medium">Save up to 25%</span>
+                      <Link to="/services/crm/microsoft-mail" className="text-purple-600 hover:text-purple-700 font-medium text-sm">
+                        Learn More →
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
         </section>
 

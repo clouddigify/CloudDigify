@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaBrain, FaChartLine, FaCode, FaDatabase, FaRobot, FaCloud, FaSearch, FaMicrochip, FaArrowRight,
          FaLightbulb, FaClipboardCheck, FaCogs, FaServer, FaChartBar } from 'react-icons/fa';
+import SEO from '../../common/SEO';
 
   {/* Use Cases Section */}
   <section className="py-20 bg-white">
@@ -120,3 +121,13 @@ import { FaBrain, FaChartLine, FaCode, FaDatabase, FaRobot, FaCloud, FaSearch, F
   </section>
 
   {/* CTA Section */} 
+  return (
+    <>
+      <SEO
+        title="Machine Learning Services | CloudDigify"
+        description="Unlock business value with CloudDigify's machine learning solutions for predictive analytics, automation, and AI-driven insights."
+        canonicalUrl="https://clouddigify.com/services/ai/machine-learning"
+        keywords={['machine learning', 'ai', 'predictive analytics', 'CloudDigify']}
+      />
+    </>
+  ); 

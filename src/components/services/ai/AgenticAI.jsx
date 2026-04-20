@@ -4,6 +4,7 @@ import { FaRobot, FaNetworkWired, FaBrain, FaUserCog, FaExchangeAlt, FaLightbulb
          FaSearchPlus, FaChartBar, FaCode, FaServer, FaSyncAlt, FaClipboardCheck } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import ServiceInquiryForm from '../../common/ServiceInquiryForm';
+import SEO from '../../common/SEO';
 
 const AgenticAI = () => {
   const [activeAgent, setActiveAgent] = useState(null);
@@ -279,183 +280,191 @@ const AgenticAI = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen"
-    >
-      {/* Enhanced Hero Section */}
-      <section className="relative min-h-screen bg-gradient-to-r from-indigo-800 to-purple-900 text-white flex flex-col items-center justify-center px-4 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <AgentNetworkAnimation />
-        </div>
-        
-        <div className="relative z-10 container mx-auto text-center max-w-4xl">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-5xl sm:text-6xl font-bold mb-6 leading-tight"
-          >
-            CloudDigify Agentic AI Solutions
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-xl sm:text-2xl text-indigo-100 mb-8"
-          >
-            Transforming business processes with intelligent, autonomous AI systems that work together to solve complex problems
-          </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => openInquiryForm('General Inquiry')}
-            className="px-8 py-4 bg-white text-indigo-800 rounded-lg font-semibold hover:bg-indigo-50 shadow-lg transition-all inline-flex items-center"
-          >
-            Explore Agentic AI <FaArrowRight className="ml-2" />
-          </motion.button>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-24" viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path
-              d="M0,100 C240,0 480,0 720,0 C960,0 1200,0 1440,0 L1440,100 L0,100 Z"
-              fill="white"
-            />
-          </svg>
-        </div>
-      </section>
-
-      {/* Overview Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">{pageInfo.overview.title}</h2>
-          <div className="space-y-4">
-            {pageInfo.overview.descriptions.map((desc, index) => (
-              <p key={index} className="text-lg text-gray-600 text-center">{desc}</p>
-            ))}
+    <>
+      <SEO
+        title="Agentic AI Services | CloudDigify"
+        description="Leverage autonomous AI agents to transform your business processes and decision-making with CloudDigify's Agentic AI solutions."
+        canonicalUrl="https://clouddigify.com/services/ai/agentic-ai"
+        keywords={['agentic ai', 'autonomous ai', 'ai agents', 'CloudDigify']}
+      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="min-h-screen"
+      >
+        {/* Enhanced Hero Section */}
+        <section className="relative min-h-screen bg-gradient-to-r from-indigo-800 to-purple-900 text-white flex flex-col items-center justify-center px-4 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <AgentNetworkAnimation />
           </div>
-        </div>
-      </section>
-
-      {/* Benefits Grid */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">{pageInfo.benefits.title}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {pageInfo.benefits.items.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 bg-white rounded-lg shadow-lg"
-              >
-                <div className="text-3xl text-violet-600 mb-4">{benefit.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
-              </motion.div>
-            ))}
+          
+          <div className="relative z-10 container mx-auto text-center max-w-4xl">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-5xl sm:text-6xl font-bold mb-6 leading-tight"
+            >
+              CloudDigify Agentic AI Solutions
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-xl sm:text-2xl text-indigo-100 mb-8"
+            >
+              Transforming business processes with intelligent, autonomous AI systems that work together to solve complex problems
+            </motion.p>
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => openInquiryForm('General Inquiry')}
+              className="px-8 py-4 bg-white text-indigo-800 rounded-lg font-semibold hover:bg-indigo-50 shadow-lg transition-all inline-flex items-center"
+            >
+              Explore Agentic AI <FaArrowRight className="ml-2" />
+            </motion.button>
           </div>
-        </div>
-      </section>
 
-      {/* Implementation Process Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold mb-6">
-              CloudDigify Agentic AI Implementation Process
-            </h2>
-            <p className="text-xl text-gray-600">
-              Our structured methodology ensures successful deployment of autonomous AI agent systems
-            </p>
-          </motion.div>
+          <div className="absolute bottom-0 left-0 right-0">
+            <svg className="w-full h-24" viewBox="0 0 1440 100" preserveAspectRatio="none">
+              <path
+                d="M0,100 C240,0 480,0 720,0 C960,0 1200,0 1440,0 L1440,100 L0,100 Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                icon: FaSearchPlus,
-                title: "Use Case Discovery",
-                description: "We analyze your business processes to identify opportunities where autonomous AI agents can deliver substantial value."
-              },
-              {
-                icon: FaClipboardCheck,
-                title: "Agent Design & Planning",
-                description: "Our experts design the agent architecture, capabilities, and integration points tailored to your specific requirements."
-              },
-              {
-                icon: FaNetworkWired,
-                title: "Agent Ecosystem Development",
-                description: "We develop the multi-agent system with sophisticated coordination and communication mechanisms."
-              },
-              {
-                icon: FaCode,
-                title: "Integration & Testing",
-                description: "Our team rigorously tests agent interactions and integrates the system with your existing infrastructure."
-              },
-              {
-                icon: FaServer,
-                title: "Deployment & Training",
-                description: "We deploy the agent system in your environment and train your teams on effective management and oversight."
-              },
-              {
-                icon: FaSyncAlt,
-                title: "Monitoring & Refinement",
-                description: "Continuous monitoring and learning ensure your agent system evolves and improves over time."
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all"
-                onClick={() => openInquiryForm('Agentic AI Implementation')}
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="mb-4 bg-gradient-to-r from-indigo-100 to-purple-100 p-4 rounded-full">
-                    <item.icon className="text-3xl text-indigo-600" />
+        {/* Overview Section */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center">{pageInfo.overview.title}</h2>
+            <div className="space-y-4">
+              {pageInfo.overview.descriptions.map((desc, index) => (
+                <p key={index} className="text-lg text-gray-600 text-center">{desc}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Grid */}
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold mb-12 text-center">{pageInfo.benefits.title}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {pageInfo.benefits.items.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 bg-white rounded-lg shadow-lg"
+                >
+                  <div className="text-3xl text-violet-600 mb-4">{benefit.icon}</div>
+                  <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Implementation Process Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-4xl mx-auto text-center mb-16"
+            >
+              <h2 className="text-4xl font-bold mb-6">
+                CloudDigify Agentic AI Implementation Process
+              </h2>
+              <p className="text-xl text-gray-600">
+                Our structured methodology ensures successful deployment of autonomous AI agent systems
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[
+                {
+                  icon: FaSearchPlus,
+                  title: "Use Case Discovery",
+                  description: "We analyze your business processes to identify opportunities where autonomous AI agents can deliver substantial value."
+                },
+                {
+                  icon: FaClipboardCheck,
+                  title: "Agent Design & Planning",
+                  description: "Our experts design the agent architecture, capabilities, and integration points tailored to your specific requirements."
+                },
+                {
+                  icon: FaNetworkWired,
+                  title: "Agent Ecosystem Development",
+                  description: "We develop the multi-agent system with sophisticated coordination and communication mechanisms."
+                },
+                {
+                  icon: FaCode,
+                  title: "Integration & Testing",
+                  description: "Our team rigorously tests agent interactions and integrates the system with your existing infrastructure."
+                },
+                {
+                  icon: FaServer,
+                  title: "Deployment & Training",
+                  description: "We deploy the agent system in your environment and train your teams on effective management and oversight."
+                },
+                {
+                  icon: FaSyncAlt,
+                  title: "Monitoring & Refinement",
+                  description: "Continuous monitoring and learning ensure your agent system evolves and improves over time."
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                  onClick={() => openInquiryForm('Agentic AI Implementation')}
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <div className="mb-4 bg-gradient-to-r from-indigo-100 to-purple-100 p-4 rounded-full">
+                      <item.icon className="text-3xl text-indigo-600" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                    <p className="text-gray-600">{item.description}</p>
                   </div>
-                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Call to Action */}
-      <section className="py-16 px-4 bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">{pageInfo.callToAction.title}</h2>
-          <p className="text-xl mb-8">{pageInfo.callToAction.description}</p>
-          <button className="bg-white text-violet-600 px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">
-            {pageInfo.callToAction.buttonText}
-          </button>
-        </div>
-      </section>
+        {/* Call to Action */}
+        <section className="py-16 px-4 bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 text-white">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-4">{pageInfo.callToAction.title}</h2>
+            <p className="text-xl mb-8">{pageInfo.callToAction.description}</p>
+            <button className="bg-white text-violet-600 px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">
+              {pageInfo.callToAction.buttonText}
+            </button>
+          </div>
+        </section>
 
-      {/* Service Inquiry Form Modal */}
-      {showInquiryForm && (
-        <ServiceInquiryForm
-          isOpen={showInquiryForm}
-          onClose={() => setShowInquiryForm(false)}
-          serviceName={inquiryType}
-        />
-      )}
-    </motion.div>
+        {/* Service Inquiry Form Modal */}
+        {showInquiryForm && (
+          <ServiceInquiryForm
+            isOpen={showInquiryForm}
+            onClose={() => setShowInquiryForm(false)}
+            serviceName={inquiryType}
+          />
+        )}
+      </motion.div>
+    </>
   );
 };
 
