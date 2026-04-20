@@ -312,6 +312,16 @@ const Contact = () => {
 
                   <div className="flex items-start space-x-3 sm:space-x-4">
                     <div className="p-2 sm:p-3 bg-blue-50 rounded-lg">
+                      <FaMapMarkerAlt className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Bengaluru Office</h4>
+                      <p className="text-sm sm:text-base text-gray-600">9th Floor, Brigade IRV, Nallurhalli Rd, Nallurhalli, Whitefield, Bengaluru, Karnataka 560066</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3 sm:space-x-4">
+                    <div className="p-2 sm:p-3 bg-blue-50 rounded-lg">
                       <FaClock className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                     </div>
                     <div>
