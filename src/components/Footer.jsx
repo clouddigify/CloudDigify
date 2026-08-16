@@ -71,10 +71,8 @@ const socialLinks = [
 const footerLinks = {
   company: [
     { title: "About Us", path: "/about", icon: <FaInfoCircle className="w-4 h-4" /> },
-    // { title: "Our Team", path: "/team", icon: <FaUsers className="w-4 h-4" /> }, // Disabled: Our Team page for future use
     { title: "Our Culture", path: "/culture", icon: <FaHandshake className="w-4 h-4" /> },
-    { title: "Career", path: "/career", icon: <FaBriefcase className="w-4 h-4" /> },
-    { title: "Contact", path: "/contact", icon: <FaEnvelope className="w-4 h-4" /> }
+    { title: "Career", path: "/career", icon: <FaBriefcase className="w-4 h-4" /> }
   ],
   services: [
     { title: "Cloud Services", path: "/services/cloud/aws", icon: <FaCloud className="w-4 h-4" /> },
@@ -84,11 +82,14 @@ const footerLinks = {
     { title: "Industries", path: "/industries", icon: <FaIndustry className="w-4 h-4" /> }
   ],
   product: [
-    { title: "CloudDigify Platform", path: "/platform", icon: <FaCloud className="w-4 h-4" /> },
-    { title: "Platform Features", path: "/platform/features", icon: <FaCogs className="w-4 h-4" /> },
-    { title: "Platform Pricing", path: "/platform/pricing", icon: <FaChartLine className="w-4 h-4" /> },
-    { title: "Request Demo", path: "/platform/demo", icon: <FaEnvelope className="w-4 h-4" /> },
-    { title: "Support", path: "/support", icon: <FaInfoCircle className="w-4 h-4" /> }
+    { title: "Overview", path: "/platform", icon: <FaCloud className="w-4 h-4" /> },
+    { title: "Features", path: "/platform/features", icon: <FaCogs className="w-4 h-4" /> },
+    { title: "Pricing", path: "/platform/pricing", icon: <FaChartLine className="w-4 h-4" /> },
+    { title: "Request Demo", path: "/platform/demo", icon: <FaEnvelope className="w-4 h-4" /> }
+  ],
+  support: [
+    { title: "Support", path: "/support", icon: <FaInfoCircle className="w-4 h-4" /> },
+    { title: "Contact", path: "/contact", icon: <FaEnvelope className="w-4 h-4" /> }
   ],
   resources: [
     { title: "Terms & Conditions", path: "/terms", icon: <FaFileContract className="w-4 h-4" /> },
@@ -142,7 +143,7 @@ const Footer = () => {
 
           {/* Links Sections */}
           <div className="flex-1 flex flex-col items-center justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 w-full mx-auto">
               <div>
                 <h3 className="text-lg font-semibold mb-4">Company</h3>
                 <ul className="space-y-3">
@@ -157,7 +158,20 @@ const Footer = () => {
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-4">Product</h3>
+                <h3 className="text-lg font-semibold mb-4">Services</h3>
+                <ul className="space-y-3">
+                  {footerLinks.services.map((link, index) => (
+                    <li key={index}>
+                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.icon}
+                        <span>{link.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Platform</h3>
                 <ul className="space-y-3">
                   {footerLinks.product.map((link, index) => (
                     <li key={index}>
@@ -181,9 +195,9 @@ const Footer = () => {
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-4">Services</h3>
+                <h3 className="text-lg font-semibold mb-4">Support</h3>
                 <ul className="space-y-3">
-                  {footerLinks.services.map((link, index) => (
+                  {footerLinks.support.map((link, index) => (
                     <li key={index}>
                       <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
                         {link.icon}
@@ -194,7 +208,7 @@ const Footer = () => {
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-4">Resources</h3>
+                <h3 className="text-lg font-semibold mb-4">Legal</h3>
                 <ul className="space-y-3">
                   {footerLinks.resources.map((link, index) => (
                     <li key={index}>

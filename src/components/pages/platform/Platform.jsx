@@ -5,12 +5,20 @@ import SEO from '../../common/SEO';
 import { PLATFORM_AUDIENCES, PLATFORM_MODULES, PLATFORM_ROUTES } from '../../../config/platformConfig';
 
 const moduleIcons = [
-  <FaAddressBook className="text-2xl text-blue-600" />,
-  <FaFileInvoiceDollar className="text-2xl text-blue-600" />,
-  <FaCloud className="text-2xl text-blue-600" />,
-  <FaSyncAlt className="text-2xl text-blue-600" />,
-  <FaUserShield className="text-2xl text-blue-600" />,
-  <FaUsersCog className="text-2xl text-blue-600" />,
+  <FaAddressBook className="text-2xl" />,
+  <FaFileInvoiceDollar className="text-2xl" />,
+  <FaCloud className="text-2xl" />,
+  <FaSyncAlt className="text-2xl" />,
+  <FaUserShield className="text-2xl" />,
+  <FaUsersCog className="text-2xl" />,
+];
+
+// Real product screenshots only — set true once files exist in public/images/platform/
+const SHOW_SCREENSHOTS = false;
+const screenshots = [
+  { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify Platform CRM showing lead and customer management', caption: 'CRM' },
+  { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify Platform invoice and billing view with GST details', caption: 'Billing' },
+  { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify Platform subscription and renewal management', caption: 'Renewals' },
 ];
 
 const Platform = () => {
@@ -29,27 +37,27 @@ const Platform = () => {
         ]}
       />
 
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <section className="bg-gradient-to-r from-blue-700 to-indigo-700 text-white py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">CloudDigify Platform</h1>
-            <p className="text-lg md:text-xl text-blue-100 max-w-4xl mb-8">
-              A commercial SaaS platform for MSPs, CSP partners, cloud resellers, and IT service companies to manage sales, customers, billing, cloud consumption, subscriptions, renewals, and customer collaboration in one place.
+      <div className="min-h-screen bg-white">
+        <section className="bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-800 text-white">
+          <div className="container-site py-16 md:py-24">
+            <p className="inline-flex items-center text-xs font-semibold tracking-wider uppercase bg-white/10 border border-white/20 rounded-full px-3.5 py-1.5 mb-6 text-blue-100">
+              CloudDigify Platform
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to={PLATFORM_ROUTES.demo}
-                className="px-6 py-3 rounded-lg bg-white text-blue-700 font-semibold hover:bg-blue-50 transition-colors"
-              >
-                Request a CloudDigify Platform Demo
+            <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl leading-tight">
+              Run sales, billing and cloud operations in one product.
+            </h1>
+            <p className="text-lg md:text-xl text-blue-100 max-w-[700px] mb-8">
+              A commercial SaaS platform for MSPs, CSP partners, cloud resellers and IT service companies — CRM, billing, cloud consumption, subscriptions, renewals and customer collaboration in one place.
+            </p>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-4">
+              <Link to={PLATFORM_ROUTES.demo} className="btn-primary bg-white text-blue-700 hover:bg-blue-50">
+                Request Demo
               </Link>
-              <Link
-                to={PLATFORM_ROUTES.features}
-                className="px-6 py-3 rounded-lg border border-blue-200 text-white font-semibold hover:bg-white/10 transition-colors"
-              >
-                Explore Platform
+              <Link to={PLATFORM_ROUTES.pricing} className="btn-secondary border-white/60 text-white bg-transparent hover:bg-white/10">
+                View Pricing
               </Link>
             </div>
+            <p className="text-sm text-blue-200">14-day supervised trial · guided onboarding by our team</p>
           </div>
         </section>
 
@@ -93,22 +101,70 @@ const Platform = () => {
         </section>
 
         <section className="pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 mt-14">Platform Modules</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="container-site">
+            <h2 className="section-heading mt-14 mb-8">Platform Modules</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {PLATFORM_MODULES.map((module, index) => (
                 <article
                   key={module.title}
-                  className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow"
+                  className="card p-6 hover:shadow-md transition-shadow"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
+                  <div className="icon-tile mb-4">
                     {moduleIcons[index]}
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{module.title}</h3>
-                  <p className="text-gray-600">{module.description}</p>
+                  <h3 className="text-lg font-semibold text-slate-900 mb-1.5">{module.title}</h3>
+                  <p className="text-slate-600 text-sm">{module.description}</p>
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        {SHOW_SCREENSHOTS && (
+          <section className="section section-tinted">
+            <div className="container-site">
+              <h2 className="section-heading text-center mb-10">See the Platform</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {screenshots.map((shot) => (
+                  <figure key={shot.caption} className="card overflow-hidden">
+                    <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex gap-1.5" aria-hidden="true">
+                      <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                    </div>
+                    <img src={shot.src} alt={shot.alt} loading="lazy" className="w-full aspect-[16/10] object-cover object-top" />
+                    <figcaption className="px-4 py-3 text-sm font-medium text-slate-700">{shot.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Pricing teaser */}
+        <section className="section section-brand-tint border-t border-slate-100">
+          <div className="container-site text-center">
+            <h2 className="section-heading">Simple plans that grow with you</h2>
+            <p className="section-sub mx-auto mb-8">
+              Starter, Professional and Enterprise editions — with annual billing that gives you 12 months for the price of 10.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link to={PLATFORM_ROUTES.pricing} className="btn-primary">View Pricing</Link>
+              <Link to={PLATFORM_ROUTES.features} className="btn-secondary">Explore Features</Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Final demo CTA */}
+        <section className="section bg-gradient-to-br from-blue-700 to-indigo-700 text-white">
+          <div className="container-site text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">See CloudDigify in action</h2>
+            <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+              Get a guided walkthrough tailored to your sales, billing and cloud operations.
+            </p>
+            <Link to={PLATFORM_ROUTES.demo} className="btn-primary bg-white text-blue-700 hover:bg-blue-50">
+              Request a CloudDigify Platform Demo
+            </Link>
           </div>
         </section>
       </div>
