@@ -33,7 +33,7 @@ const TermsAndConditions = () => {
       <SEO
         title="Terms and Conditions | CloudDigify"
         description="Read the terms and conditions for using CloudDigify's website and services."
-        canonicalUrl="https://clouddigify.com/legal/terms-and-conditions"
+        canonicalUrl="https://clouddigify.com/terms"
         keywords={['terms and conditions', 'legal', 'CloudDigify', 'website terms']}
       />
       <div className="pt-24 pb-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">

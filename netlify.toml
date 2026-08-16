@@ -3,6 +3,24 @@
   publish = "dist"
 
 [[redirects]]
+  from = "/test-api"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test_api.html"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test-api.html"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

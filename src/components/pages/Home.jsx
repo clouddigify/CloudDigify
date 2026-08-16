@@ -1,11 +1,12 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar, FaAddressBook, FaMailBulk, FaAt, FaHandshake } from 'react-icons/fa';
+import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar, FaAddressBook, FaMailBulk, FaAt, FaHandshake, FaFileInvoiceDollar, FaSyncAlt, FaUsersCog } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
 import SEO from '../common/SEO';
 import HeroSlider from '../common/HeroSlider';
+import { PLATFORM_MODULES, PLATFORM_ROUTES } from '../../config/platformConfig';
 
 // Lazy load non-critical components
 const CloudPartners = lazy(() => import('../CloudPartners'));
@@ -273,6 +274,15 @@ const Home = () => {
       date: "2024-01-10",
       readTime: "4 min"
     }
+  ];
+
+  const platformModuleIcons = [
+    <FaAddressBook className="text-2xl text-blue-600" />,
+    <FaFileInvoiceDollar className="text-2xl text-blue-600" />,
+    <FaCloud className="text-2xl text-blue-600" />,
+    <FaSyncAlt className="text-2xl text-blue-600" />,
+    <FaShieldAlt className="text-2xl text-blue-600" />,
+    <FaUsersCog className="text-2xl text-blue-600" />,
   ];
 
   return (
@@ -587,6 +597,58 @@ const Home = () => {
                 </motion.div>
               ))}
             </motion.div>
+          </div>
+        </section>
+
+        {/* CloudDigify Platform Section */}
+        <section className="py-16 bg-white border-y border-gray-100">
+          <div className="container mx-auto px-4">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">CloudDigify Platform</h2>
+              <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+                One platform for MSPs, CSP partners, cloud resellers and IT service companies to manage
+                sales, billing, cloud operations, subscriptions and customer collaboration.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {PLATFORM_MODULES.map((module, index) => (
+                <motion.div
+                  key={module.title}
+                  className="bg-white rounded-xl border border-gray-200 shadow-sm p-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
+                    {platformModuleIcons[index]}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{module.title}</h3>
+                  <p className="text-gray-600 text-sm">{module.description}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to={PLATFORM_ROUTES.demo}
+                className="px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Request a Demo
+              </Link>
+              <Link
+                to={PLATFORM_ROUTES.landing}
+                className="px-8 py-3 border border-blue-600 text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                Explore Platform
+              </Link>
+            </div>
           </div>
         </section>
 
