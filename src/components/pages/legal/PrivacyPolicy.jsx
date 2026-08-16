@@ -105,6 +105,7 @@ const PrivacyPolicy = () => {
                       <li>Website visitors,</li>
                       <li>Clients,</li>
                       <li>Prospective clients,</li>
+                      <li>Users of the CloudDigify Platform (SaaS),</li>
                       <li>Partners and service providers interacting with CloudDigify.</li>
                     </ul>
                     <p>It covers how CloudDigify collects, uses, processes, stores, shares, and secures personal data.</p>
@@ -134,7 +135,11 @@ const PrivacyPolicy = () => {
                       <li>Personal Identification Information: Name, Email Address, Phone Number, Company Name</li>
                       <li>Message/Inquiry Details: Content you submit through forms</li>
                       <li>Technical Information: IP address, browser type, operating system (via tools like Google Analytics)</li>
+                      <li>Account and contact information for CloudDigify Platform users</li>
+                      <li>Organization and customer business data entered into the CloudDigify Platform (such as CRM records and billing/invoice information)</li>
+                      <li>Authentication information and application usage/security logs for the CloudDigify Platform</li>
                     </ul>
+                    {/* LEGAL REVIEW REQUIRED: data retention periods, data residency, DPA commitments, subprocessor list and breach notification timelines are not documented and must be confirmed by legal before publishing. */}
                     <p>We collect this information when you:</p>
                     <ul className="list-disc pl-5 mb-4">
                       <li>Submit a form through our website</li>
