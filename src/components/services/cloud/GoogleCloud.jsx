@@ -294,7 +294,7 @@ const GoogleCloud = () => {
         {/* Hero Section */}
         <section className="relative overflow-hidden">
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 opacity-90"
+            className="absolute inset-0 bg-[#101B33] opacity-95"
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5 }}
@@ -325,7 +325,7 @@ const GoogleCloud = () => {
                 >
                   <button
                     onClick={() => openInquiryForm('General Inquiry')}
-                    className="group inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-green-50 transition-all duration-300"
+                    className="group inline-flex items-center bg-white text-[#101B33] px-8 py-4 rounded-lg shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all duration-300"
                   >
                     <span className="mr-2">Get Started with Google Cloud</span>
                     <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
@@ -471,7 +471,7 @@ const GoogleCloud = () => {
                       </ul>
                   <div className="mt-auto">
                     <button 
-                      className="w-full py-3 px-6 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors duration-300"
+                      className="w-full py-3 px-6 rounded-lg bg-[#1E5EFF] text-white hover:bg-[#1848CC] transition-colors duration-300"
                       onClick={() => openInquiryForm(model.title)}
                     >
                       {model.ctaText}

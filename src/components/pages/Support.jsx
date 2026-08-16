@@ -11,11 +11,11 @@ const Support = () => {
         keywords={['CloudDigify support', 'technical support', 'help', 'contact support']}
       />
 
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <section className="bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-800 text-white">
+      <div className="min-h-screen bg-white">
+        <section className="bg-[#101B33] text-white">
           <div className="container-site py-16 md:py-20">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">How can we help?</h1>
-            <p className="text-lg text-blue-100 max-w-[700px]">
+            <h1 className="text-4xl md:text-5xl mb-4 text-white">How can we help?</h1>
+            <p className="text-lg text-slate-300 max-w-[700px]">
               Support for the CloudDigify Platform and our cloud services — Monday to Friday, 9:00 AM to 6:00 PM IST.
             </p>
           </div>

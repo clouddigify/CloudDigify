@@ -7,47 +7,6 @@ import { SiAmazonaws, SiGooglecloud, SiMicrosoftazure } from 'react-icons/si';
 import SEO from '../common/SEO';
 import Breadcrumbs from '../common/Breadcrumbs';
 
-// Animated background shapes component
-const AnimatedBackground = () => {
-  const shapes = useMemo(() => (
-    Array.from({ length: 8 }).map((_, i) => ({
-      id: i,
-      size: Math.random() * 60 + 40,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      duration: Math.random() * 20 + 15
-    }))
-  ), []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {shapes.map((shape) => (
-        <motion.div
-          key={shape.id}
-          className="absolute rounded-full bg-white/5"
-          style={{
-            width: shape.size,
-            height: shape.size,
-            left: `${shape.x}%`,
-            top: `${shape.y}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 20, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: shape.duration,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 const businessStats = [
   { icon: <FaBuilding className="w-7 h-7 text-blue-600" />, label: 'Founded', value: '2022' },
   { icon: <FaUsers className="w-7 h-7 text-blue-600" />, label: 'Clients Served', value: '50+' },
@@ -96,19 +55,15 @@ const About = () => (
     <div className="bg-gray-50">
       <Breadcrumbs />
 
-      {/* Animated Hero Section */}
-      <section
-        className="relative bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 text-white overflow-hidden min-h-[calc(100vh-80px)] flex items-center"
-        style={{ minHeight: 'calc(100vh - 80px)' }}
-      >
-        <AnimatedBackground />
-        <div className="relative max-w-7xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center z-10 w-full">
+      {/* Hero Section */}
+      <section className="bg-white border-b border-[#E5E7EB]">
+        <div className="container-site py-14 md:py-20 flex flex-col items-center justify-center text-center w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white">
+            <h1 className="text-4xl md:text-5xl mb-6">
               About CloudDigify
             </h1>
           </motion.div>
@@ -116,7 +71,7 @@ const About = () => (
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-blue-100 font-medium max-w-3xl mb-8"
+            className="text-lg md:text-xl text-[#4B5563] font-medium max-w-3xl mb-8"
           >
             Empowering businesses to achieve digital transformation through cloud innovation, partnership, and results-driven solutions.
           </motion.p>
@@ -126,21 +81,11 @@ const About = () => (
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-wrap justify-center"
           >
-            <Link to="/contact" className="px-8 py-3 bg-white text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300">
+            <Link to="/contact" className="btn-primary">
               Contact Us
             </Link>
           </motion.div>
         </div>
-        {/* Animated scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-white/50 rounded-full" />
-          </div>
-        </motion.div>
       </section>
 
       {/* Rest of the sections */}

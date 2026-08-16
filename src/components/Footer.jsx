@@ -103,7 +103,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <footer className="bg-[#101B33] text-white">
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -149,9 +149,8 @@ const Footer = () => {
                 <ul className="space-y-3">
                   {footerLinks.company.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                        {link.icon}
-                        <span>{link.title}</span>
+                      <Link to={link.path} className="text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.title}
                       </Link>
                     </li>
                   ))}
@@ -162,9 +161,8 @@ const Footer = () => {
                 <ul className="space-y-3">
                   {footerLinks.services.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                        {link.icon}
-                        <span>{link.title}</span>
+                      <Link to={link.path} className="text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.title}
                       </Link>
                     </li>
                   ))}
@@ -175,9 +173,8 @@ const Footer = () => {
                 <ul className="space-y-3">
                   {footerLinks.product.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                        {link.icon}
-                        <span>{link.title}</span>
+                      <Link to={link.path} className="text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.title}
                       </Link>
                     </li>
                   ))}
@@ -186,10 +183,9 @@ const Footer = () => {
                       href={PLATFORM_LOGIN_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200"
+                      className="text-gray-400 hover:text-white transition-colors duration-200"
                     >
-                      <FaUserShield className="w-4 h-4" />
-                      <span>Login</span>
+                      Login
                     </a>
                   </li>
                 </ul>
@@ -199,9 +195,8 @@ const Footer = () => {
                 <ul className="space-y-3">
                   {footerLinks.support.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                        {link.icon}
-                        <span>{link.title}</span>
+                      <Link to={link.path} className="text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.title}
                       </Link>
                     </li>
                   ))}
@@ -212,9 +207,8 @@ const Footer = () => {
                 <ul className="space-y-3">
                   {footerLinks.resources.map((link, index) => (
                     <li key={index}>
-                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
-                        {link.icon}
-                        <span>{link.title}</span>
+                      <Link to={link.path} className="text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.title}
                       </Link>
                     </li>
                   ))}

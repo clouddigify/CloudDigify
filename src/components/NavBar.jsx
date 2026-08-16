@@ -410,8 +410,9 @@ const NavItem = ({ item, index }) => {
         onMouseLeave={handleMouseLeave}
       >
         <button 
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 
-                   hover:text-blue-600 transition-colors duration-200"
+          className={`inline-flex items-center px-3 h-16 text-sm font-medium transition-colors duration-200 border-b-2 ${
+            isActive ? 'text-[#1E5EFF] border-[#1E5EFF]' : 'text-gray-700 border-transparent hover:text-[#1E5EFF]'
+          }`}
           onClick={handleClick}
         >
           <span>{item.title}</span>
@@ -437,10 +438,10 @@ const NavItem = ({ item, index }) => {
     <NavLink
       to={item.path}
       className={({ isActive }) =>
-        `inline-flex items-center px-3 py-2 text-sm font-medium transition-colors duration-200
+        `inline-flex items-center px-3 h-16 text-sm font-medium transition-colors duration-200 border-b-2
          ${isActive 
-           ? 'text-blue-600' 
-           : 'text-gray-700 hover:text-blue-600'
+           ? 'text-[#1E5EFF] border-[#1E5EFF]' 
+           : 'text-gray-700 border-transparent hover:text-[#1E5EFF]'
          }`
       }
     >
@@ -659,8 +660,8 @@ const NavBar = () => {
         onMouseLeave={handleNavMouseLeave}
         onMouseEnter={handleNavMouseEnter}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-[72px]">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16">
               {/* Logo */}
               <Link to="/" className="flex-shrink-0">
                 <LogoWrapper>
@@ -694,9 +695,9 @@ const NavBar = () => {
               </a>
               <Link to={PLATFORM_ROUTES.demo} className="hidden lg:block ml-2">
                 <motion.button
-                  className="px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg 
-                           transition-colors duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 
-                           focus:ring-blue-500 focus:ring-offset-2"
+                  className="px-5 py-2.5 bg-[#1E5EFF] text-white text-sm font-semibold rounded-lg 
+                           transition-colors duration-200 hover:bg-[#1848CC] focus:outline-none focus:ring-2 
+                           focus:ring-[#1E5EFF]/40 focus:ring-offset-2"
                   whileTap={{ scale: 0.97 }}
                 >
                   Request Demo

@@ -42,12 +42,12 @@ const CookieConsentBanner = () => {
           <div className="max-w-7xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-4 md:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-start sm:items-center gap-3">
-                <div className="hidden sm:flex h-10 w-10 bg-orange-100 rounded-full items-center justify-center flex-shrink-0">
-                  <FaCookieBite className="h-5 w-5 text-orange-600" />
+                <div className="hidden sm:flex h-10 w-10 bg-[#EEF4FF] rounded-full items-center justify-center flex-shrink-0">
+                  <FaCookieBite className="h-5 w-5 text-[#1E5EFF]" />
                 </div>
                 <p className="text-gray-700 text-sm md:text-base">
                   We use necessary cookies for website functionality. Optional analytics cookies help us improve the site and load only if you accept.{' '}
-                  <Link to="/cookies" className="text-orange-600 font-medium hover:underline">
+                  <Link to="/cookies" className="text-[#1E5EFF] font-medium hover:underline">
                     Cookie Policy
                   </Link>
                 </p>
@@ -61,7 +61,7 @@ const CookieConsentBanner = () => {
                 </button>
                 <button
                   onClick={handleAccept}
-                  className="bg-orange-600 hover:bg-orange-700 transition-colors text-white py-2 px-5 rounded-md text-sm font-medium"
+                  className="bg-[#1E5EFF] hover:bg-[#1848CC] transition-colors text-white py-2 px-5 rounded-md text-sm font-medium"
                 >
                   Accept analytics
                 </button>
