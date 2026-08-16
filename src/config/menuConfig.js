@@ -150,11 +150,6 @@ export const menuConfig = {
   mainNav: [
     { title: 'Home', path: '/', icon: 'fa-home' },
     { 
-      title: 'About Us', 
-      path: '/about', 
-      icon: 'fa-info-circle'
-    },
-    { 
       title: 'Services', 
       path: '/services', 
       hasSubmenu: true,
@@ -425,6 +420,54 @@ export const menuConfig = {
       ]
     },
     {
+      title: 'Platform',
+      path: '/platform',
+      icon: 'fa-cube'
+    },
+    { 
+      title: 'Industries', 
+      path: '/industries', 
+      hasSubmenu: true,
+      icon: 'fa-industry',
+      submenu: [
+        { 
+          title: 'Healthcare',
+          path: '/industries/healthcare',
+          icon: 'fa-heartbeat'
+        },
+        { 
+          title: 'Banking',
+          path: '/industries/banking',
+          icon: 'fa-university'
+        },
+        { 
+          title: 'Smart Textile Solutions',
+          path: '/industries/textile',
+          icon: 'fa-tshirt'
+        },
+        { 
+          title: 'Industrial Automation',
+          path: '/industries/automation',
+          icon: 'fa-industry'
+        },
+        { 
+          title: 'Electrical & Equipment',
+          path: '/industries/electrical',
+          icon: 'fa-bolt'
+        },
+        { 
+          title: 'Research & Advisory Services',
+          path: '/industries/research',
+          icon: 'fa-search'
+        },
+        { 
+          title: 'Public Sector Transformation',
+          path: '/industries/governance',
+          icon: 'fa-landmark'
+        }
+      ]
+    },
+    {
       title: 'Training',
       path: '/training',
       hasSubmenu: true,
@@ -508,47 +551,14 @@ export const menuConfig = {
       ]
     },
     { 
-      title: 'Industries', 
-      path: '/industries', 
-      hasSubmenu: true,
-      icon: 'fa-industry',
-      submenu: [
-        { 
-          title: 'Healthcare',
-          path: '/industries/healthcare',
-          icon: 'fa-heartbeat'
-        },
-        { 
-          title: 'Banking',
-          path: '/industries/banking',
-          icon: 'fa-university'
-        },
-        { 
-          title: 'Smart Textile Solutions',
-          path: '/industries/textile',
-          icon: 'fa-tshirt'
-        },
-        { 
-          title: 'Industrial Automation',
-          path: '/industries/automation',
-          icon: 'fa-industry'
-        },
-        { 
-          title: 'Electrical & Equipment',
-          path: '/industries/electrical',
-          icon: 'fa-bolt'
-        },
-        { 
-          title: 'Research & Advisory Services',
-          path: '/industries/research',
-          icon: 'fa-search'
-        },
-        { 
-          title: 'Public Sector Transformation',
-          path: '/industries/governance',
-          icon: 'fa-landmark'
-        }
-      ]
+      title: 'About',
+      path: '/about',
+      icon: 'fa-info-circle'
+    },
+    {
+      title: 'Contact',
+      path: '/contact',
+      icon: 'fa-envelope'
     }
   ],
   footerNav: {

@@ -179,7 +179,7 @@ const Security = () => {
       <SEO
         title="Security Policy | CloudDigify"
         description="Learn about CloudDigify's security practices, data protection, and compliance standards."
-        canonicalUrl="https://clouddigify.com/legal/security"
+        canonicalUrl="https://clouddigify.com/security"
         keywords={['security', 'data protection', 'compliance', 'CloudDigify']}
       />
       <div className="min-h-screen bg-gray-50">

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import { menuConfig, Icons } from '../config/menuConfig';
 import IconRenderer from './IconRenderer';
+import { PLATFORM_LOGIN_URL, PLATFORM_ROUTES } from '../config/platformConfig';
 
 // Create a context for managing active menu state
 const MenuContext = createContext({
@@ -681,19 +682,36 @@ const NavBar = () => {
               </nav>
             </div>
 
-            {/* Right section: CTA Button + Mobile Menu */}
+            {/* Right section: CTA Buttons + Mobile Menu */}
             <div className="flex items-center pl-4">
-              <Link to="/contact" className="hidden lg:block">
+              <Link to={PLATFORM_ROUTES.demo} className="hidden lg:block">
                 <motion.button
-                  className="px-6 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg 
+                  className="px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg 
                            transition-all duration-200 ease-in-out
                            hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-2 
                            focus:ring-blue-500 focus:ring-offset-2 shadow-md"
                   whileTap={{ scale: 0.95 }}
                 >
-                  Get Started
+                  Request Demo
                 </motion.button>
               </Link>
+
+              <a
+                href={PLATFORM_LOGIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden lg:block ml-3"
+              >
+                <motion.button
+                  className="px-5 py-2.5 border border-blue-600 text-blue-700 text-sm font-medium rounded-lg 
+                           transition-all duration-200 ease-in-out
+                           hover:bg-blue-50 hover:scale-105 focus:outline-none focus:ring-2 
+                           focus:ring-blue-500 focus:ring-offset-2"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Login
+                </motion.button>
+              </a>
 
               {/* Mobile Menu Button */}
               <button
@@ -728,17 +746,32 @@ const NavBar = () => {
                 {menuConfig.mainNav.map((item, index) => (
                   <MobileMenuItem key={index} item={item} />
                 ))}
-                <div className="pt-4 pb-2">
-                  <Link to="/contact" className="block w-full">
+                <div className="pt-4 pb-2 grid grid-cols-1 gap-3">
+                  <Link to={PLATFORM_ROUTES.demo} className="block w-full">
                     <motion.button
                       className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg 
                                font-medium hover:bg-blue-700 transition-all duration-200 
                                text-center shadow-md"
                       whileTap={{ scale: 0.95 }}
                     >
-                      Get Started
+                      Request Demo
                     </motion.button>
                   </Link>
+                  <a
+                    href={PLATFORM_LOGIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full"
+                  >
+                    <motion.button
+                      className="w-full px-4 py-3 border border-blue-600 text-blue-700 rounded-lg 
+                               font-medium hover:bg-blue-50 transition-all duration-200 
+                               text-center"
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Login
+                    </motion.button>
+                  </a>
                 </div>
               </div>
             </motion.div>
