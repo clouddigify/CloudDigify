@@ -17,9 +17,12 @@ const moduleIcons = [
 const SHOW_SCREENSHOTS = true;
 // Maps PLATFORM_MODULES index -> screenshot; modules without one keep the abstract motif
 const moduleScreenshots = {
-  0: { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify CRM leads workspace showing lead status, ownership and follow-up management' },
-  1: { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify billing invoice workspace showing GST calculation, line items and totals' },
-  3: { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify renewals center showing upcoming subscription renewals and seat details' },
+  0: { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify CRM workspace showing lead status, ownership and follow-up management' },
+  1: { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify billing workspace showing GST calculation, invoice line items and totals' },
+  2: { src: '/images/platform/platform-cloud-billing.webp', alt: 'CloudDigify cloud billing workspace showing cloud spend and consumption information' },
+  3: { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify renewals workspace showing subscription renewal dates and seat information' },
+  4: { src: '/images/platform/platform-customer-portal.webp', alt: 'CloudDigify customer portal showing customer-facing account and service information' },
+  5: { src: '/images/platform/platform-organization-access.webp', alt: 'CloudDigify organization roles and permissions workspace' },
 };
 
 // Plan availability per verified feature matrix

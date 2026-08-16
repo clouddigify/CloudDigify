@@ -7,9 +7,12 @@ import { PLATFORM_ROUTES } from '../../../config/platformConfig';
 // Real product screenshots (sanitized, fictional demo data) — set false to hide
 const SHOW_SCREENSHOTS = true;
 const sectionScreenshots = {
-  'Sales & CRM': { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify CRM leads workspace showing lead status, ownership and follow-up management' },
-  'Billing & Finance': { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify billing invoice workspace showing GST calculation, line items and totals' },
-  'Subscription & Renewal Operations': { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify renewals center showing upcoming subscription renewals and seat details' },
+  'Sales & CRM': { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify CRM workspace showing lead status, ownership and follow-up management' },
+  'Billing & Finance': { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify billing workspace showing GST calculation, invoice line items and totals' },
+  'Cloud & Resale Operations': { src: '/images/platform/platform-cloud-billing.webp', alt: 'CloudDigify cloud billing workspace showing cloud spend and consumption information' },
+  'Subscription & Renewal Operations': { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify renewals workspace showing subscription renewal dates and seat information' },
+  'Customer Collaboration': { src: '/images/platform/platform-customer-portal.webp', alt: 'CloudDigify customer portal showing customer-facing account and service information' },
+  'Organization Administration': { src: '/images/platform/platform-organization-access.webp', alt: 'CloudDigify organization roles and permissions workspace' },
 };
 
 const sections = [

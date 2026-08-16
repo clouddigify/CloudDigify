@@ -268,7 +268,7 @@ const Home = () => {
             <div className="max-w-3xl mx-auto mb-10">
               <img
                 src="/images/platform/platform-crm.webp"
-                alt="CloudDigify CRM leads workspace showing lead status, ownership and follow-up management"
+                alt="CloudDigify CRM workspace showing lead status, ownership and follow-up management"
                 width="1600"
                 height="1000"
                 loading="lazy"
