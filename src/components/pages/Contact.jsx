@@ -17,45 +17,6 @@ import { submitContactForm } from '../../utils/contactService';
 import SEO from '../common/SEO';
 import { LoadingButton } from '../common/LoadingSpinner';
 
-// Animated background component
-const AnimatedBackground = () => {
-  const shapes = Array.from({ length: 8 }).map((_, i) => ({
-    id: i,
-    size: Math.random() * 60 + 40,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    duration: Math.random() * 20 + 15
-  }));
-
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {shapes.map((shape) => (
-        <motion.div
-          key={shape.id}
-          className="absolute rounded-full bg-white/5"
-          style={{
-            width: shape.size,
-            height: shape.size,
-            left: `${shape.x}%`,
-            top: `${shape.y}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 20, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: shape.duration,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -117,10 +78,9 @@ const Contact = () => {
         canonicalUrl="https://clouddigify.com/contact"
         keywords={['contact', 'cloud services', 'devops', 'digital transformation', 'CloudDigify']}
       />
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <div className="relative bg-gradient-to-r from-blue-600 to-indigo-700 overflow-hidden">
-          <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="relative bg-[#101B33] overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24 mt-20 sm:mt-10 md:mt-0 relative">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -131,7 +91,7 @@ const Contact = () => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
                 Let's Start a Conversation
               </h1>
-              <p className="text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto px-4">
+              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto px-4">
                 Whether you're looking to transform your business or just want to learn more,
                 we're here to help you every step of the way.
               </p>

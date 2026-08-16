@@ -89,14 +89,14 @@ const PlatformPricing = () => {
       />
 
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <section className="bg-gradient-to-r from-blue-700 to-indigo-700 text-white py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">CloudDigify Platform Pricing</h1>
-            <p className="text-lg text-blue-100 max-w-4xl mb-6">
+        <section className="bg-[#101B33] text-white">
+          <div className="container-site py-16 md:py-20">
+            <h1 className="text-4xl md:text-5xl mb-4 text-white">CloudDigify Platform Pricing</h1>
+            <p className="text-lg text-slate-300 max-w-4xl mb-6">
               Simple monthly plans for MSPs, CSP partners, cloud resellers and IT service companies.
               All plans include a 14-day free trial through supervised onboarding.
             </p>
-            <div className="inline-flex items-center bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-blue-50">
+            <div className="inline-flex items-center bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-slate-200">
               Annual billing: pay for 10 months, get 12 months — equivalent to 2 months free
             </div>
           </div>
@@ -109,20 +109,20 @@ const PlatformPricing = () => {
               {plans.map((plan) => (
                 <article
                   key={plan.name}
-                  className={`relative flex flex-col bg-white rounded-2xl p-6 shadow-sm transition-shadow hover:shadow-md ${
+                  className={`relative flex flex-col bg-white rounded-xl p-6 shadow-sm transition-shadow hover:shadow-md ${
                     plan.recommended
-                      ? 'border-2 border-blue-600 md:scale-105 shadow-md'
-                      : 'border border-gray-200'
+                      ? 'border-2 border-[#1E5EFF] md:scale-105 shadow-md'
+                      : 'border border-[#E5E7EB]'
                   }`}
                 >
                   {plan.recommended && (
-                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-semibold px-4 py-1.5 rounded-full whitespace-nowrap">
+                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#1E5EFF] text-white text-xs font-semibold px-4 py-1.5 rounded-full whitespace-nowrap">
                       Recommended
                     </span>
                   )}
                   <h2 className="text-2xl font-bold text-gray-900 mb-1 mt-2">{plan.name}</h2>
                   <p className="mb-4">
-                    <span className="text-3xl font-bold text-blue-700">{plan.price}</span>
+                    <span className="text-3xl font-bold text-[#1E5EFF] tabular-nums">{plan.price}</span>
                     <span className="text-gray-600">{plan.period}</span>
                   </p>
                   <p className="text-gray-600 text-sm mb-5">{plan.description}</p>

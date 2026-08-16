@@ -13,13 +13,68 @@ const moduleIcons = [
   <FaUsersCog className="text-2xl" />,
 ];
 
-// Real product screenshots only — set true once files exist in public/images/platform/
-const SHOW_SCREENSHOTS = false;
-const screenshots = [
-  { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify Platform CRM showing lead and customer management', caption: 'CRM' },
-  { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify Platform invoice and billing view with GST details', caption: 'Billing' },
-  { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify Platform subscription and renewal management', caption: 'Renewals' },
+// Real product screenshots (sanitized, fictional demo data) — set false to fall back to abstract motifs
+const SHOW_SCREENSHOTS = true;
+// Maps PLATFORM_MODULES index -> screenshot; modules without one keep the abstract motif
+const moduleScreenshots = {
+  0: { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify CRM workspace showing lead status, ownership and follow-up management' },
+  1: { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify billing workspace showing GST calculation, invoice line items and totals' },
+  2: { src: '/images/platform/platform-cloud-billing.webp', alt: 'CloudDigify cloud billing workspace showing cloud spend and consumption information' },
+  3: { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify renewals workspace showing subscription renewal dates and seat information' },
+  4: { src: '/images/platform/platform-customer-portal.webp', alt: 'CloudDigify customer portal showing customer-facing account and service information' },
+  5: { src: '/images/platform/platform-organization-access.webp', alt: 'CloudDigify organization roles and permissions workspace' },
+};
+
+// Plan availability per verified feature matrix
+const modulePlans = ['All plans', 'All plans', 'Professional+', 'Professional+', 'Enterprise', 'All plans'];
+
+// Capabilities sourced from module descriptions / features page — no new claims
+const moduleCapabilities = [
+  ['Lead capture & assignment', 'Activities & follow-ups', 'Bulk lead imports', 'Sales reporting'],
+  ['Quotations & invoices', 'GST/TDS handling', 'Payments & receivables', 'Customer statements'],
+  ['Cloud consumption tracking', 'Distributor invoice reconciliation', 'Margin visibility', 'Customer cloud spend control'],
+  ['Subscription lifecycle', 'Seat & plan changes', 'Renewal tracking', 'Day-to-day license operations'],
+  ['Invoices & quotes access', 'Subscription & renewal visibility', 'Cloud spend view', 'Account statements'],
+  ['Tenant administration', 'Users & roles', 'Entitlements', 'Controlled module access'],
 ];
+
+const ScreenshotFigure = ({ src, alt }) => (
+  <img
+    src={src}
+    alt={alt}
+    width="1600"
+    height="1000"
+    loading="lazy"
+    decoding="async"
+    className="w-full h-auto rounded-xl border border-[#E5E7EB] shadow-sm"
+  />
+);
+
+// Safe abstract UI fragment (no fake customer data) — replaced by real screenshot per module later
+const ModuleMotif = ({ tag }) => (
+  <div className="card overflow-hidden" aria-hidden="true">
+    <div className="bg-[#F7F9FC] border-b border-[#E5E7EB] px-4 py-2 flex items-center gap-2">
+      <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]" />
+      <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]" />
+      <span className="ml-2 text-[11px] font-semibold tracking-wider uppercase text-[#6B7280]">{tag}</span>
+    </div>
+    <div className="p-4 space-y-2.5">
+      <div className="flex gap-2">
+        <span className="h-2.5 rounded bg-[#EEF4FF] w-1/3" />
+        <span className="h-2.5 rounded bg-[#F7F9FC] w-1/4" />
+        <span className="h-2.5 rounded bg-[#F7F9FC] w-1/5" />
+      </div>
+      {[0, 1, 2, 3].map((row) => (
+        <div key={row} className="flex items-center gap-2">
+          <span className="h-2 rounded bg-[#E5E7EB] w-2/5" />
+          <span className="h-2 rounded bg-[#F7F9FC] w-1/5" />
+          <span className="h-2 rounded bg-[#F7F9FC] w-1/6" />
+          <span className="ml-auto h-4 w-14 rounded-full bg-[#EEF4FF]" />
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 const Platform = () => {
   return (
@@ -38,26 +93,26 @@ const Platform = () => {
       />
 
       <div className="min-h-screen bg-white">
-        <section className="bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-800 text-white">
+        <section className="bg-[#101B33] text-white">
           <div className="container-site py-16 md:py-24">
-            <p className="inline-flex items-center text-xs font-semibold tracking-wider uppercase bg-white/10 border border-white/20 rounded-full px-3.5 py-1.5 mb-6 text-blue-100">
+            <p className="eyebrow bg-white/10 border border-white/20 text-[#22D3EE]">
               CloudDigify Platform
             </p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl leading-tight">
+            <h1 className="text-4xl md:text-5xl mb-5 max-w-3xl text-white">
               Run sales, billing and cloud operations in one product.
             </h1>
-            <p className="text-lg md:text-xl text-blue-100 max-w-[700px] mb-8">
+            <p className="text-lg md:text-xl text-slate-300 max-w-[700px] mb-8">
               A commercial SaaS platform for MSPs, CSP partners, cloud resellers and IT service companies — CRM, billing, cloud consumption, subscriptions, renewals and customer collaboration in one place.
             </p>
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-4">
-              <Link to={PLATFORM_ROUTES.demo} className="btn-primary bg-white text-blue-700 hover:bg-blue-50">
+              <Link to={PLATFORM_ROUTES.demo} className="btn-primary bg-white text-[#101B33] hover:bg-blue-50">
                 Request Demo
               </Link>
-              <Link to={PLATFORM_ROUTES.pricing} className="btn-secondary border-white/60 text-white bg-transparent hover:bg-white/10">
+              <Link to={PLATFORM_ROUTES.pricing} className="btn-secondary border-white/50 text-white bg-transparent hover:bg-white/10">
                 View Pricing
               </Link>
             </div>
-            <p className="text-sm text-blue-200">14-day supervised trial · guided onboarding by our team</p>
+            <p className="text-sm text-slate-400">14-day supervised trial · guided onboarding by our team</p>
           </div>
         </section>
 
@@ -100,46 +155,57 @@ const Platform = () => {
           </div>
         </section>
 
-        <section className="pb-16">
+        <section className="pb-4">
           <div className="container-site">
-            <h2 className="section-heading mt-14 mb-8">Platform Modules</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <h2 className="section-heading mt-14 mb-10">Platform Modules</h2>
+            <div className="space-y-12 md:space-y-16">
               {PLATFORM_MODULES.map((module, index) => (
                 <article
                   key={module.title}
-                  className="card p-6 hover:shadow-md transition-shadow"
+                  className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:[direction:rtl]' : ''}`}
                 >
-                  <div className="icon-tile mb-4">
-                    {moduleIcons[index]}
+                  <div className="md:[direction:ltr]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="icon-tile">{moduleIcons[index]}</div>
+                      <span className="plan-chip">{modulePlans[index]}</span>
+                    </div>
+                    <h3 className="text-2xl font-semibold text-[#111827] mb-2">{module.title}</h3>
+                    <p className="text-[#4B5563] mb-4">{module.description}</p>
+                    <ul className="space-y-1.5">
+                      {moduleCapabilities[index].map((cap) => (
+                        <li key={cap} className="flex items-start text-sm text-[#4B5563]">
+                          <span className="text-[#059669] mr-2 mt-0.5" aria-hidden="true">✓</span>
+                          {cap}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-1.5">{module.title}</h3>
-                  <p className="text-slate-600 text-sm">{module.description}</p>
+                  <div className="md:[direction:ltr]">
+                    {SHOW_SCREENSHOTS && moduleScreenshots[index] ? (
+                      <ScreenshotFigure {...moduleScreenshots[index]} />
+                    ) : (
+                      <ModuleMotif tag={module.title} />
+                    )}
+                  </div>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        {SHOW_SCREENSHOTS && (
-          <section className="section section-tinted">
-            <div className="container-site">
-              <h2 className="section-heading text-center mb-10">See the Platform</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {screenshots.map((shot) => (
-                  <figure key={shot.caption} className="card overflow-hidden">
-                    <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex gap-1.5" aria-hidden="true">
-                      <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                    </div>
-                    <img src={shot.src} alt={shot.alt} loading="lazy" className="w-full aspect-[16/10] object-cover object-top" />
-                    <figcaption className="px-4 py-3 text-sm font-medium text-slate-700">{shot.caption}</figcaption>
-                  </figure>
-                ))}
-              </div>
+        {/* Security & trust */}
+        <section className="section section-tinted mt-14">
+          <div className="container-site">
+            <h2 className="section-heading">Built with practical security controls</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+              {['Tenant isolation', 'Role-based access', 'Entitlement enforcement', 'Audit logging', 'GST-ready billing', 'Backup & recovery'].map((item) => (
+                <div key={item} className="card px-4 py-3.5 text-sm font-medium text-[#111827]">
+                  ✓ <span className="ml-1">{item}</span>
+                </div>
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
         {/* Pricing teaser */}
         <section className="section section-brand-tint border-t border-slate-100">
@@ -156,13 +222,13 @@ const Platform = () => {
         </section>
 
         {/* Final demo CTA */}
-        <section className="section bg-gradient-to-br from-blue-700 to-indigo-700 text-white">
+        <section className="section section-navy">
           <div className="container-site text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">See CloudDigify in action</h2>
-            <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">See CloudDigify in action</h2>
+            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
               Get a guided walkthrough tailored to your sales, billing and cloud operations.
             </p>
-            <Link to={PLATFORM_ROUTES.demo} className="btn-primary bg-white text-blue-700 hover:bg-blue-50">
+            <Link to={PLATFORM_ROUTES.demo} className="btn-primary bg-white text-[#101B33] hover:bg-blue-50">
               Request a CloudDigify Platform Demo
             </Link>
           </div>

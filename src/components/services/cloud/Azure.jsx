@@ -294,7 +294,7 @@ const Azure = () => {
         {/* Hero Section */}
         <section className="relative overflow-hidden">
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-[#0078D4] to-[#00BCF2] opacity-90"
+            className="absolute inset-0 bg-[#101B33] opacity-95"
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5 }}
@@ -475,7 +475,7 @@ const Azure = () => {
                       </ul>
                   <div className="mt-auto">
                     <button 
-                      className="w-full py-3 px-6 rounded-full bg-[#0078D4] text-white hover:bg-blue-700 transition-colors duration-300"
+                      className="w-full py-3 px-6 rounded-lg bg-[#1E5EFF] text-white hover:bg-[#1848CC] transition-colors duration-300"
                       onClick={() => openInquiryForm(model.title)}
                     >
                       {model.ctaText}

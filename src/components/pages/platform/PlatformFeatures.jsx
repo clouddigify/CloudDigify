@@ -4,6 +4,17 @@ import { FaAddressBook, FaFileInvoiceDollar, FaCloud, FaSyncAlt, FaUserShield, F
 import SEO from '../../common/SEO';
 import { PLATFORM_ROUTES } from '../../../config/platformConfig';
 
+// Real product screenshots (sanitized, fictional demo data) — set false to hide
+const SHOW_SCREENSHOTS = true;
+const sectionScreenshots = {
+  'Sales & CRM': { src: '/images/platform/platform-crm.webp', alt: 'CloudDigify CRM workspace showing lead status, ownership and follow-up management' },
+  'Billing & Finance': { src: '/images/platform/platform-billing.webp', alt: 'CloudDigify billing workspace showing GST calculation, invoice line items and totals' },
+  'Cloud & Resale Operations': { src: '/images/platform/platform-cloud-billing.webp', alt: 'CloudDigify cloud billing workspace showing cloud spend and consumption information' },
+  'Subscription & Renewal Operations': { src: '/images/platform/platform-renewals.webp', alt: 'CloudDigify renewals workspace showing subscription renewal dates and seat information' },
+  'Customer Collaboration': { src: '/images/platform/platform-customer-portal.webp', alt: 'CloudDigify customer portal showing customer-facing account and service information' },
+  'Organization Administration': { src: '/images/platform/platform-organization-access.webp', alt: 'CloudDigify organization roles and permissions workspace' },
+};
+
 const sections = [
   {
     title: 'Sales & CRM',
@@ -96,13 +107,13 @@ const PlatformFeatures = () => {
       />
 
       <div className="min-h-screen bg-white">
-        <section className="bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-800 text-white">
+        <section className="bg-[#101B33] text-white">
           <div className="container-site py-16 md:py-20">
-            <p className="inline-flex items-center text-xs font-semibold tracking-wider uppercase bg-white/10 border border-white/20 rounded-full px-3.5 py-1.5 mb-6 text-blue-100">
+            <p className="eyebrow bg-white/10 border border-white/20 text-[#22D3EE]">
               CloudDigify Platform
             </p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Platform Features</h1>
-            <p className="text-lg text-blue-100 max-w-[700px]">
+            <h1 className="text-4xl md:text-5xl mb-4 text-white">Platform Features</h1>
+            <p className="text-lg text-slate-300 max-w-[700px]">
               Business outcomes first — sales, billing, cloud operations, renewals and customer collaboration in one product environment.
             </p>
           </div>
@@ -110,20 +121,33 @@ const PlatformFeatures = () => {
 
         {sections.map((section, index) => (
           <section key={section.title} className={index % 2 === 1 ? 'section section-tinted' : 'section'}>
-            <div className="container-site grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-              <div>
-                <div className="icon-tile mb-4">{section.icon}</div>
-                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">{section.title}</h2>
-                <p className="text-slate-600 max-w-md">{section.intro}</p>
+            <div className="container-site">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+                <div>
+                  <div className="icon-tile mb-4">{section.icon}</div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">{section.title}</h2>
+                  <p className="text-slate-600 max-w-md">{section.intro}</p>
+                </div>
+                <ul className="space-y-3">
+                  {section.points.map((point) => (
+                    <li key={point} className="flex items-start text-slate-700">
+                      <span className="text-blue-600 mr-3 font-bold">✓</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-3">
-                {section.points.map((point) => (
-                  <li key={point} className="flex items-start text-slate-700">
-                    <span className="text-blue-600 mr-3 font-bold">✓</span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
+              {SHOW_SCREENSHOTS && sectionScreenshots[section.title] && (
+                <img
+                  src={sectionScreenshots[section.title].src}
+                  alt={sectionScreenshots[section.title].alt}
+                  width="1600"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full max-w-4xl mx-auto h-auto rounded-xl border border-[#E5E7EB] shadow-sm mt-10"
+                />
+              )}
             </div>
           </section>
         ))}

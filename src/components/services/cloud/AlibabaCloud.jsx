@@ -294,7 +294,7 @@ const AlibabaCloud = () => {
         {/* Hero Section */}
         <section className="relative overflow-hidden">
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-orange-600 to-amber-400 opacity-90"
+            className="absolute inset-0 bg-[#101B33] opacity-95"
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5 }}
@@ -325,7 +325,7 @@ const AlibabaCloud = () => {
                 >
                   <button
                     onClick={() => openInquiryForm('General Inquiry')}
-                    className="group inline-flex items-center bg-white text-orange-600 px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-orange-50 transition-all duration-300"
+                    className="group inline-flex items-center bg-white text-[#101B33] px-8 py-4 rounded-lg shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all duration-300"
                   >
                     <span className="mr-2">Get Started with Alibaba Cloud</span>
                     <FaArrowRight className="transform group-hover:translate-x-1 transition-transform" />
@@ -471,7 +471,7 @@ const AlibabaCloud = () => {
                       </ul>
                   <div className="mt-auto">
                     <button 
-                      className="w-full py-3 px-6 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors duration-300"
+                      className="w-full py-3 px-6 rounded-lg bg-[#1E5EFF] text-white hover:bg-[#1848CC] transition-colors duration-300"
                       onClick={() => openInquiryForm(model.title)}
                     >
                       {model.ctaText}
