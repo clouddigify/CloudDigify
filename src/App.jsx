@@ -16,7 +16,6 @@ const Home = lazy(() => import('./components/pages/Home'));
 const Contact = lazy(() => import('./components/pages/Contact'));
 const About = lazy(() => import('./components/pages/About'));
 const Services = lazy(() => import('./components/pages/Services'));
-// const OurTeam = lazy(() => import('./components/pages/OurTeam')); // Disabled: OurTeam page for future use
 const Career = lazy(() => import('./components/pages/Career'));
 const Culture = lazy(() => import('./components/pages/Culture'));
 const Support = lazy(() => import('./components/pages/Support'));
@@ -161,7 +160,6 @@ const AnimatedRoutes = () => {
           <Route path="/support" element={<Support />} />
           
           {/* New Routes */}
-          {/* <Route path="/team" element={<OurTeam />} /> // Disabled: OurTeam page for future use */}
           <Route path="/career" element={<Career />} />
           <Route path="/culture" element={<Culture />} />
           

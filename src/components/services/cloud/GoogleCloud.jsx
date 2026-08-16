@@ -133,71 +133,41 @@ const GoogleCloud = () => {
 
   const stats = [
     {
-      icon: <FaServer className="text-4xl" />,
-      value: '99.99',
-      unit: '%',
-      label: 'Uptime Guarantee',
-      description: 'Enterprise-grade reliability',
-      color: 'from-green-500 to-green-600',
-      metric: 'Average across all services',
-      achievement: '5-star reliability rating'
-    },
-    {
-      icon: <FaRocket className="text-4xl" />,
-      value: '150+',
+      icon: <FaGlobe className="text-4xl" />,
+      value: 'Global',
       unit: '',
-      label: 'Successful Launches',
-      description: 'Cloud migrations completed',
-      color: 'from-indigo-500 to-indigo-600',
-      metric: 'In the last 24 months',
-      achievement: 'Zero downtime migrations'
+      label: 'Region Coverage',
+      description: 'Google Cloud operates data-center regions worldwide',
+      color: 'from-rose-500 to-rose-600',
+      metric: 'Multi-region architectures',
+      achievement: 'Deploy close to your users'
     },
     {
-      icon: <FaPiggyBank className="text-4xl" />,
-      value: '65',
-      unit: '%',
-      label: 'Cost Reduction',
-      description: 'Average client savings',
-      color: 'from-emerald-500 to-emerald-600',
-      metric: 'Through optimization',
-      achievement: 'Industry-leading ROI'
+      icon: <FaServer className="text-4xl" />,
+      value: 'Elastic',
+      unit: '',
+      label: 'On-Demand Scale',
+      description: 'Scale workloads up or down as demand changes',
+      color: 'from-green-500 to-green-600',
+      metric: 'Right-sized infrastructure',
+      achievement: 'Pay for what you use'
     },
     {
       icon: <FaShieldAlt className="text-4xl" />,
-      value: '100',
-      unit: '%',
-      label: 'Security Score',
-      description: 'GCP security standards',
-      color: 'from-purple-500 to-purple-600',
-      metric: 'Compliance rate',
-      achievement: 'Zero security incidents'
-    },
-    {
-      icon: <FaGlobe className="text-4xl" />,
-      value: '35+',
+      value: 'Layered',
       unit: '',
-      label: 'Global Regions',
-      description: 'Worldwide deployment',
-      color: 'from-rose-500 to-rose-600',
-      metric: 'Multi-region presence',
-      achievement: '24/7 global support'
-    },
-    {
-      icon: <FaChartLine className="text-4xl" />,
-      value: '40',
-      unit: 'min',
-      label: 'Response Time',
-      description: 'Average resolution time',
-      color: 'from-amber-500 to-amber-600',
-      metric: 'Support SLA',
-      achievement: '97% client satisfaction'
+      label: 'Security Tooling',
+      description: 'Google Cloud-native security and compliance services',
+      color: 'from-purple-500 to-purple-600',
+      metric: 'Defense-in-depth design',
+      achievement: 'Security-first delivery'
     }
   ];
 
   const pricingModels = [
     {
       title: 'Hourly Services',
-      description: '75/hour',
+      description: 'Contact us for pricing',
       subtitle: 'Perfect for small projects',
       ctaText: 'Start Now',
       bgClass: 'bg-gradient-to-b from-gray-50 to-white',
@@ -210,7 +180,7 @@ const GoogleCloud = () => {
     },
     {
       title: 'Weekly Plan',
-      description: '2,800/week',
+      description: 'Contact us for pricing',
       subtitle: 'Ideal for ongoing projects',
       ctaText: 'Schedule Call',
       bgClass: 'bg-gradient-to-b from-blue-50 to-white',
@@ -223,7 +193,7 @@ const GoogleCloud = () => {
     },
     {
       title: 'Monthly Retainer',
-      description: '8,500/month',
+      description: 'Contact us for pricing',
       subtitle: 'Best value for enterprises',
       ctaText: 'Get Started',
       bgClass: 'bg-gradient-to-b from-green-50 to-white',
@@ -428,7 +398,7 @@ const GoogleCloud = () => {
               className="text-3xl font-bold text-center mb-16 text-gray-900"
               variants={fadeInUp}
             >
-              Google Cloud Performance Metrics
+              Why Build on Google Cloud
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {stats.map((stat, index) => (
@@ -489,7 +459,7 @@ const GoogleCloud = () => {
                       </div>
                     )}
                   <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
-                  <p className="text-2xl font-bold text-green-600 mb-2">${model.description}</p>
+                  <p className="text-2xl font-bold text-green-600 mb-2">{model.description}</p>
                   <p className="text-gray-600 mb-6">{model.subtitle}</p>
                   <ul className="space-y-3 mb-8 flex-grow">
                     {model.features.map((feature, i) => (
