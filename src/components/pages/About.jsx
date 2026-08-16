@@ -64,11 +64,6 @@ const coreValues = [
   { icon: <FaCloudUploadAlt className="w-8 h-8 text-blue-600" />, title: 'Cloud Mastery', desc: 'We are dedicated to cloud excellence and digital transformation.' }
 ];
 
-const leadership = [
-  { name: 'Sarah Johnson', title: 'CEO & Founder', desc: 'Visionary leader with 15+ years in cloud and business strategy.', icon: <FaUserTie className="w-10 h-10 text-blue-600" /> },
-  { name: 'David Chen', title: 'CTO', desc: 'Expert in cloud architecture and technical innovation.', icon: <FaUserTie className="w-10 h-10 text-blue-600" /> },
-  { name: 'Miguel Rodriguez', title: 'Head of Operations', desc: 'Ensures reliable, secure, and optimized client solutions.', icon: <FaUserTie className="w-10 h-10 text-blue-600" /> }
-];
 
 const keyFeatures = [
   { icon: <FaCloudUploadAlt className="text-blue-600 text-4xl mb-4" />, title: 'Cloud Expertise', desc: 'Deep experience in AWS, Azure, and Google Cloud to deliver secure, scalable, and cost-effective solutions.' },

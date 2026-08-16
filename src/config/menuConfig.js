@@ -159,262 +159,75 @@ export const menuConfig = {
           title: 'Cloud & Infrastructure',
           icon: 'fa-cloud',
           submenu: [
-            { 
-              title: 'AWS',
-              path: '/services/cloud/aws',
-              icon: 'fa-aws'
-            },
-            { 
-              title: 'Microsoft Azure',
-              path: '/services/cloud/azure',
-              icon: 'fa-microsoft'
-            },
-            { 
-              title: 'Google Cloud',
-              path: '/services/cloud/googlecloud',
-              icon: 'fa-google'
-            },
-            { 
-              title: 'Oracle Cloud',
-              path: '/services/cloud/oraclecloud',
-              icon: 'fa-oracle'
-            },
-            /* Alibaba Cloud temporarily hidden
-            { 
-              title: 'Alibaba Cloud',
-              path: '/services/cloud/alibabacloud',
-              icon: 'fa-alibaba'
-            },
-            */
-            {
-              title: 'Infrastructure Services',
-              path: '/services/infrastructure',
-              icon: 'fa-network-wired'
-            },
-            {
-              title: 'GitHub',
-              path: '/services/devops/github',
-              icon: 'fa-github'
-            },
-            {
-              title: 'GitLab',
-              path: '/services/devops/gitlab',
-              icon: 'fa-gitlab'
-            },
+            { title: 'AWS', path: '/services/cloud/aws', icon: 'fa-aws' },
+            { title: 'Microsoft Azure', path: '/services/cloud/azure', icon: 'fa-microsoft' },
+            { title: 'Google Cloud', path: '/services/cloud/googlecloud', icon: 'fa-google' },
+            { title: 'Oracle Cloud', path: '/services/cloud/oraclecloud', icon: 'fa-oracle' },
+            { title: 'Infrastructure Services', path: '/services/infrastructure', icon: 'fa-network-wired' }
           ]
         },
         {
-          title: 'Consulting',
-          icon: 'fa-lightbulb',
+          title: 'DevOps & Engineering',
+          icon: 'fa-code-branch',
           submenu: [
-            { 
-              title: 'Consulting Overview',
-              path: '/services/consulting/overview',
-              icon: 'fa-lightbulb'
-            },
-            {
-              title: 'Power Platform',
-              icon: 'fa-cogs',
-              submenu: [
-                {
-                  title: 'PowerApps',
-                  path: '/services/consulting/powerapps',
-                  icon: 'fa-cogs'
-                },
-                {
-                  title: 'Power Automate',
-                  path: '/services/consulting/powerautomate',
-                  icon: 'fa-robot'
-                }
-              ]
-            },
-            {
-              title: 'Data & Analytics',
-              icon: 'fa-chart-bar',
-              submenu: [
-                {
-                  title: 'Data Analytics Services',
-                  path: '/services/consulting/data-analytics',
-                  icon: 'fa-chart-bar'
-                },
-                {
-                  title: 'Business Intelligence',
-                  path: '/services/consulting/business-intelligence',
-                  icon: 'fa-chart-line'
-                },
-                {
-                  title: 'Data Warehousing',
-                  path: '/services/consulting/data-warehousing',
-                  icon: 'fa-database'
-                },
-                {
-                  title: 'DataBricks',
-                  path: '/services/consulting/databricks',
-                  icon: 'DataBricks'
-                }
-              ]
-            },
-            {
-              title: 'Digital Experience',
-              icon: 'fa-palette',
-              submenu: [
-                {
-                  title: 'Experience Design',
-                  path: '/services/consulting/experience-design',
-                  icon: 'fa-palette'
-                },
-                {
-                  title: 'Digital Integration',
-                  path: '/services/consulting/digital-integration',
-                  icon: 'fa-link'
-                },
-                {
-                  title: 'Digital Runtime',
-                  path: '/services/consulting/digital-runtime',
-                  icon: 'fa-clock'
-                }
-              ]
-            },
-            {
-              title: 'AI & Automation',
-              icon: 'fa-brain',
-              submenu: [
-                {
-                  title: 'AI & Automations',
-                  path: '/services/ai/artificial-intelligence',
-                  icon: 'fa-robot'
-                },
-                {
-                  title: 'Cognitive Services',
-                  path: '/services/ai/cognitive-services',
-                  icon: 'fa-brain'
-                },
-                {
-                  title: 'Agentic AI',
-                  path: '/services/ai/agentic-ai',
-                  icon: 'fa-microchip'
-                },
-                {
-                  title: 'Machine Learning Operations',
-                  path: '/services/ai/mlops',
-                  icon: 'fa-cogs'
-                },
-                {
-                  title: 'RPA Automations',
-                  path: '/services/ai/rpa',
-                  icon: 'fa-robot'
-                }
-              ]
-            },
-            {
-              title: 'Emerging Tech',
-              icon: 'fa-lightbulb',
-              submenu: [
-                {
-                  title: 'Blockchain',
-                  path: '/services/blockchain',
-                  icon: 'fa-link'
-                },
-                {
-                  title: 'Digital Strategy & Innovation',
-                  path: '/services/strategy',
-                  icon: 'fa-lightbulb'
-                }
-              ]
-            },
-            {
-              title: 'DevOps & Engineering',
-              icon: 'fa-code-branch',
-              submenu: [
-                { 
-                  title: 'DevOps & CI/CD',
-                  path: '/services/devops/cicd',
-                  icon: 'fa-code-branch'
-                },
-                { 
-                  title: 'Infrastructure as a Code',
-                  path: '/services/devops/iac',
-                  icon: 'fa-file-code'
-                },
-                { 
-                  title: 'Containerization',
-                  path: '/services/devops/containerization',
-                  icon: 'fa-cube'
-                },
-                { 
-                  title: 'Serverless Architecture',
-                  path: '/services/devops/serverless',
-                  icon: 'fa-server'
-                },
-                { 
-                  title: 'Agile Transformation',
-                  path: '/services/devops/agile',
-                  icon: 'fa-sync'
-                },
-              ]
-            }
+            { title: 'DevOps & CI/CD', path: '/services/devops/cicd', icon: 'fa-code-branch' },
+            { title: 'Infrastructure as Code', path: '/services/devops/iac', icon: 'fa-file-code' },
+            { title: 'Containerization', path: '/services/devops/containerization', icon: 'fa-cube' },
+            { title: 'Serverless Architecture', path: '/services/devops/serverless', icon: 'fa-server' },
+            { title: 'Agile Transformation', path: '/services/devops/agile', icon: 'fa-sync' },
+            { title: 'GitHub', path: '/services/devops/github', icon: 'fa-github' },
+            { title: 'GitLab', path: '/services/devops/gitlab', icon: 'fa-gitlab' },
+            { title: 'Digital Engineering', path: '/services/digital-engineering', icon: 'fa-laptop-code' },
+            { title: 'Platform Operation', path: '/services/platform-operation', icon: 'fa-server' },
+            { title: 'Quality Engineering', path: '/services/quality-engineering', icon: 'fa-vial' }
           ]
         },
         {
-          title: 'Security & Compliance',
+          title: 'Security',
           icon: 'fa-shield-alt',
           submenu: [
-            { 
-              title: 'Cyber Defence Resiliency',
-              path: '/services/security/cyber-defence',
-              icon: 'fa-shield-alt'
-            },
-            { 
-              title: 'Privacy SmartHub',
-              path: '/services/security/privacy-smarthub',
-              icon: 'fa-user-shield'
-            }
+            { title: 'Cyber Defence Resiliency', path: '/services/security/cyber-defence', icon: 'fa-shield-alt' },
+            { title: 'Privacy SmartHub', path: '/services/security/privacy-smarthub', icon: 'fa-user-shield' }
           ]
         },
         {
-          title: 'Digital Engineering',
-          path: '/services/digital-engineering',
-          icon: 'fa-laptop-code'
+          title: 'AI & Automation',
+          icon: 'fa-brain',
+          submenu: [
+            { title: 'Artificial Intelligence', path: '/services/ai/artificial-intelligence', icon: 'fa-robot' },
+            { title: 'Cognitive Services', path: '/services/ai/cognitive-services', icon: 'fa-brain' },
+            { title: 'Agentic AI', path: '/services/ai/agentic-ai', icon: 'fa-microchip' },
+            { title: 'MLOps', path: '/services/ai/mlops', icon: 'fa-cogs' },
+            { title: 'RPA Automations', path: '/services/ai/rpa', icon: 'fa-robot' }
+          ]
         },
         {
-          title: 'Digital Marketing',
-          path: '/services/digital-marketing',
-          icon: 'fa-bullhorn'
-        },
-        {
-          title: 'Platform Operation',
-          path: '/services/platform-operation',
-          icon: 'fa-server'
-        },
-        {
-          title: 'Quality Engineering',
-          path: '/services/quality-engineering',
-          icon: 'fa-vial'
+          title: 'Consulting & Data',
+          icon: 'fa-lightbulb',
+          submenu: [
+            { title: 'Consulting Overview', path: '/services/consulting/overview', icon: 'fa-lightbulb' },
+            { title: 'Data Analytics', path: '/services/consulting/data-analytics', icon: 'fa-chart-bar' },
+            { title: 'Business Intelligence', path: '/services/consulting/business-intelligence', icon: 'fa-chart-line' },
+            { title: 'Data Warehousing', path: '/services/consulting/data-warehousing', icon: 'fa-database' },
+            { title: 'DataBricks', path: '/services/consulting/databricks', icon: 'DataBricks' },
+            { title: 'PowerApps', path: '/services/consulting/powerapps', icon: 'fa-cogs' },
+            { title: 'Power Automate', path: '/services/consulting/powerautomate', icon: 'fa-robot' },
+            { title: 'Experience Design', path: '/services/consulting/experience-design', icon: 'fa-palette' },
+            { title: 'Digital Integration', path: '/services/consulting/digital-integration', icon: 'fa-link' },
+            { title: 'Digital Runtime', path: '/services/consulting/digital-runtime', icon: 'fa-clock' },
+            { title: 'Blockchain', path: '/services/blockchain', icon: 'fa-link' },
+            { title: 'Digital Strategy', path: '/services/strategy', icon: 'fa-lightbulb' },
+            { title: 'Digital Marketing', path: '/services/digital-marketing', icon: 'fa-bullhorn' }
+          ]
         },
         {
           title: 'CRM & Business Tools',
           icon: 'fa-user-friends',
           submenu: [
-            {
-              title: 'Zoho CRM',
-              path: '/services/crm/zoho-crm',
-              icon: 'fa-address-book'
-            },
-            {
-              title: 'Zoho Mail',
-              path: '/services/crm/zoho-mail',
-              icon: 'fa-inbox'
-            },
-            {
-              title: 'Microsoft Mail',
-              path: '/services/crm/microsoft-mail',
-              icon: 'fa-microsoft'
-            },
-            {
-              title: 'Microsoft Dynamics CRM',
-              path: '/services/crm/microsoft-dynamics-crm',
-              icon: 'fa-cogs'
-            }
+            { title: 'Zoho CRM', path: '/services/crm/zoho-crm', icon: 'fa-address-book' },
+            { title: 'Zoho Mail', path: '/services/crm/zoho-mail', icon: 'fa-inbox' },
+            { title: 'Microsoft Mail', path: '/services/crm/microsoft-mail', icon: 'fa-microsoft' },
+            { title: 'Microsoft Dynamics CRM', path: '/services/crm/microsoft-dynamics-crm', icon: 'fa-cogs' }
           ]
         }
       ]
@@ -473,81 +286,16 @@ export const menuConfig = {
       hasSubmenu: true,
       icon: 'fa-graduation-cap',
       submenu: [
-        {
-          title: 'Cloud Training',
-          icon: 'fa-cloud',
-          submenu: [
-            {
-              title: 'AWS Training',
-              path: '/training/aws',
-              icon: 'fa-aws'
-            },
-            {
-              title: 'Azure Training',
-              path: '/training/azure',
-              icon: 'fa-microsoft'
-            },
-            {
-              title: 'Google Cloud Training',
-              path: '/training/googlecloud',
-              icon: 'fa-google'
-            },
-            {
-              title: 'Oracle Cloud Training',
-              path: '/training/oracle',
-              icon: 'fa-oracle'
-            },
-            /* Alibaba Cloud Training temporarily hidden
-            {
-              title: 'Alibaba Cloud Training',
-              path: '/training/alibabacloud',
-              icon: 'fa-alibaba'
-            }
-            */
-          ]
-        },
-        {
-          title: 'Technology Training',
-          icon: 'fa-laptop-code',
-          submenu: [
-            {
-              title: 'AI & ML Training',
-              path: '/training/ai-ml',
-              icon: 'fa-brain'
-            },
-            {
-              title: 'Automation Training',
-              path: '/training/automation',
-              icon: 'fa-cogs'
-            },
-            {
-              title: 'DevOps Training',
-              path: '/training/devops',
-              icon: 'fa-code-branch'
-            },
-            {
-              title: 'Kubernetes Training',
-              path: '/training/kubernetes',
-              icon: 'fa-cube'
-            }
-          ]
-        },
-        {
-          title: 'Enterprise Programs',
-          icon: 'fa-building',
-          submenu: [
-            {
-              title: 'Corporate Training',
-              path: '/training/corporate',
-              icon: 'fa-building'
-            },
-            {
-              title: 'Campus Training',
-              path: '/training/campus',
-              icon: 'fa-university'
-            }
-          ]
-        }
+        { title: 'AWS Training', path: '/training/aws', icon: 'fa-aws' },
+        { title: 'Azure Training', path: '/training/azure', icon: 'fa-microsoft' },
+        { title: 'Google Cloud Training', path: '/training/googlecloud', icon: 'fa-google' },
+        { title: 'Oracle Cloud Training', path: '/training/oracle', icon: 'fa-oracle' },
+        { title: 'AI & ML Training', path: '/training/ai-ml', icon: 'fa-brain' },
+        { title: 'Automation Training', path: '/training/automation', icon: 'fa-cogs' },
+        { title: 'DevOps Training', path: '/training/devops', icon: 'fa-code-branch' },
+        { title: 'Kubernetes Training', path: '/training/kubernetes', icon: 'fa-cube' },
+        { title: 'Corporate Training', path: '/training/corporate', icon: 'fa-building' },
+        { title: 'Campus Training', path: '/training/campus', icon: 'fa-university' }
       ]
     },
     { 

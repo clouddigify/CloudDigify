@@ -19,25 +19,25 @@ const Healthcare = () => {
       title: 'AI Diagnostic Support',
       icon: <FaBrain className="text-3xl" />,
       description: 'Advanced AI-powered diagnostic tools and medical imaging analysis',
-      expertise: 'Deployed ML models for early disease detection with 95% accuracy'
+      expertise: 'ML-assisted diagnostic and imaging workflows'
     },
     {
       title: 'Patient Data Analytics',
       icon: <FaChartLine className="text-3xl" />,
       description: 'Comprehensive patient data analysis and predictive healthcare',
-      expertise: 'Implemented predictive analytics for 100+ healthcare providers'
+      expertise: 'Predictive analytics for healthcare providers'
     },
     {
       title: 'Clinical Research Platform',
       icon: <FaMicroscope className="text-3xl" />,
       description: 'Advanced platforms for clinical trials and research data management',
-      expertise: 'Supported 200+ clinical trials with data management solutions'
+      expertise: 'Clinical research data management solutions'
     },
     {
       title: 'Healthcare Security',
       icon: <FaLock className="text-3xl" />,
       description: 'HIPAA-compliant security solutions for healthcare data',
-      expertise: 'Protected 10M+ patient records with zero breaches'
+      expertise: 'Healthcare data protection architectures'
     },
   ];
 

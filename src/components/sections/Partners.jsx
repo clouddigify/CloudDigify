@@ -4,12 +4,12 @@ import PageTemplate from '../templates/PageTemplate';
 import LazyImage from '../common/LazyImage';
 
 const Partners = () => {
-  // Partner logo data
+  // Partner logo data (local assets only; no third-party hotlinks)
   const partners = [
     {
       id: 1,
       name: 'AWS',
-      logo: 'https://logos-world.net/wp-content/uploads/2021/08/Amazon-Web-Services-AWS-Logo-700x394.png',
+      logo: '/images/aws-logo.svg',
       alt: 'AWS Logo'
     },
     {
@@ -21,26 +21,14 @@ const Partners = () => {
     {
       id: 3,
       name: 'Google Cloud',
-      logo: 'https://logos-world.net/wp-content/uploads/2021/02/Google-Cloud-Logo-700x394.png',
+      logo: '/images/gcp-logo.svg',
       alt: 'Google Cloud Logo'
     },
     {
       id: 4,
       name: 'Oracle Cloud',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/11/Oracle-Logo-700x394.png',
+      logo: '/images/oracle-logo.svg',
       alt: 'Oracle Cloud Logo'
-    },
-    {
-      id: 5,
-      name: 'Docker',
-      logo: 'https://logos-world.net/wp-content/uploads/2021/02/Docker-Logo-700x394.png',
-      alt: 'Docker Logo'
-    },
-    {
-      id: 6,
-      name: 'Kubernetes',
-      logo: 'https://logos-world.net/wp-content/uploads/2022/01/Kubernetes-Logo-700x394.png',
-      alt: 'Kubernetes Logo'
     }
   ];
 

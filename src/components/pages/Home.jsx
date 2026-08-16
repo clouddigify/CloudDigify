@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaQuoteLeft, FaCalculator, FaIndustry, FaNewspaper, FaTrophy, FaChartBar, FaAddressBook, FaMailBulk, FaAt, FaHandshake, FaFileInvoiceDollar, FaSyncAlt, FaUsersCog } from 'react-icons/fa';
+import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDatabase, FaMobileAlt, FaBrain, FaCheck, FaAws, FaMicrosoft, FaGoogle, FaCalendarAlt, FaIndustry, FaAddressBook, FaMailBulk, FaAt, FaHandshake, FaFileInvoiceDollar, FaSyncAlt, FaUsersCog, FaHeartbeat, FaUniversity, FaShoppingBag } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
 import SEO from '../common/SEO';
@@ -161,118 +161,26 @@ const Home = () => {
     "Continuous Innovation & Optimization"
   ];
 
-  const stats = [
-    { number: "300+", label: "Enterprise Transformations" },
-    { number: "99.99%", label: "Solution Reliability" },
-    { number: "40%", label: "Avg. Performance Gain" },
-    { number: "15+", label: "Industry Verticals Served" }
-  ];
-
-  const partners = [
-    {
-      name: "AWS",
-      logo: "/assets/partners/aws-logo.svg",
-      services: ["EC2", "Lambda", "S3", "RDS", "EKS"]
-    },
-    {
-      name: "Microsoft Azure",
-      logo: "/assets/partners/azure-logo.svg",
-      services: ["Azure VMs", "Azure Functions", "CosmosDB", "AKS"]
-    },
-    {
-      name: "Google Cloud",
-      logo: "/assets/partners/gcp-logo.svg",
-      services: ["Compute Engine", "Cloud Functions", "BigQuery", "GKE"]
-    },
-    {
-      name: "Oracle Cloud",
-      logo: "/assets/partners/oracle-logo.svg",
-      services: ["OCI", "Oracle DB", "Container Engine"]
-    }
-  ];
-
-  // Add new data structures for new sections
-  const caseStudies = [
-    {
-      company: "Global Financial Corp",
-      industry: "Finance",
-      challenge: "Legacy System Migration",
-      solution: "Cloud-Native Transformation",
-      results: "40% Cost Reduction, 99.99% Uptime",
-      logo: "/images/case-studies/finance.jpg"
-    },
-    {
-      company: "HealthTech Solutions",
-      industry: "Healthcare",
-      challenge: "Data Security & Compliance",
-      solution: "Zero-Trust Security Implementation",
-      results: "HIPAA Compliance, 60% Faster Processing",
-      logo: "/images/case-studies/healthcare.jpg"
-    },
-    {
-      company: "RetailGiant",
-      industry: "Retail",
-      challenge: "Scale During Peak Season",
-      solution: "Auto-scaling Cloud Architecture",
-      results: "3x Faster Loading, 45% Cost Savings",
-      logo: "/images/case-studies/retail.jpg"
-    }
-  ];
-
   const industryVerticals = [
     {
       name: "Healthcare",
-      solutions: ["HIPAA Compliance", "Patient Data Analytics", "Telemedicine Infrastructure"],
-      icon: "🏥"
+      solutions: ["Healthcare Compliance Support", "Patient Data Analytics", "Telemedicine Infrastructure"],
+      icon: <FaHeartbeat className="text-4xl text-blue-600" />
     },
     {
       name: "Finance",
       solutions: ["Secure Banking Cloud", "Real-time Analytics", "Fraud Detection"],
-      icon: "💰"
+      icon: <FaUniversity className="text-4xl text-blue-600" />
     },
     {
       name: "Retail",
       solutions: ["E-commerce Platform", "Inventory Management", "Customer Analytics"],
-      icon: "🛍️"
+      icon: <FaShoppingBag className="text-4xl text-blue-600" />
     },
     {
       name: "Manufacturing",
       solutions: ["IoT Integration", "Supply Chain Optimization", "Predictive Maintenance"],
-      icon: "🏭"
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      position: "CTO",
-      company: "TechCorp Inc.",
-      quote: "CloudDigify transformed our infrastructure, reducing costs by 45% while improving performance.",
-      image: "/images/testimonials/sarah.jpg",
-      metrics: "45% cost reduction"
-    },
-    {
-      name: "Michael Chen",
-      position: "Head of Engineering",
-      company: "InnovateTech",
-      quote: "The migration was seamless, and our applications now scale automatically with demand.",
-      image: "/images/testimonials/michael.jpg",
-      metrics: "99.99% uptime"
-    }
-  ];
-
-  const insights = [
-    {
-      title: "The Future of Cloud Computing in 2024",
-      category: "Trends",
-      date: "2024-01-15",
-      readTime: "5 min"
-    },
-    {
-      title: "Securing Your Cloud Infrastructure",
-      category: "Security",
-      date: "2024-01-10",
-      readTime: "4 min"
+      icon: <FaIndustry className="text-4xl text-blue-600" />
     }
   ];
 
@@ -676,7 +584,7 @@ const Home = () => {
                 Accelerate Your Digital Transformation
               </h2>
               <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Join the 300+ enterprises already achieving measurable business outcomes with our tailored cloud solutions
+                Partner with CloudDigify to achieve measurable business outcomes with tailored cloud solutions
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                 <button

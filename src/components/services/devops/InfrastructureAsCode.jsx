@@ -318,14 +318,14 @@ const InfrastructureAsCode = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Success Story
+              Example Use Case
             </motion.h2>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-blue-600 mb-4">Global Retail Infrastructure Modernization</h3>
+                <h3 className="text-2xl font-bold text-blue-600 mb-4">Global Retail Infrastructure Standardization</h3>
                 <p className="text-gray-700 mb-6">
-                  A multinational retail company needed to standardize their global infrastructure across hundreds of locations.
+                  A typical engagement: a retail company that needs to standardize infrastructure across many locations.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -334,20 +334,12 @@ const InfrastructureAsCode = () => {
                     <p className="text-gray-600 text-sm">Manual infrastructure provisioning causing inconsistency and deployment bottlenecks</p>
                   </div>
                   <div className="border-l-4 border-indigo-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                    <p className="text-gray-600 text-sm">Implemented Infrastructure as Code with version-controlled templates and automated CI/CD</p>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
+                    <p className="text-gray-600 text-sm">Infrastructure as Code with version-controlled templates and automated CI/CD</p>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">95% faster deployments with 100% consistency across global infrastructure</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaServer className="text-5xl text-blue-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">500+</div>
-                    <div className="text-gray-600">Infrastructure Components Managed</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Faster, repeatable deployments with consistent configuration everywhere</p>
                   </div>
                 </div>
               </div>

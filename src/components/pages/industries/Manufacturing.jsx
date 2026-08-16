@@ -84,16 +84,16 @@ const Manufacturing = () => {
     ],
     
     caseStudy: {
-      title: "Success Story: Manufacturing Digital Transformation",
-      client: "Leading Industrial Equipment Manufacturer",
-      challenge: "A major industrial equipment manufacturer was struggling with aging production systems, siloed data, frequent unplanned downtime, and inability to meet increasing customer demand for customization. They needed a comprehensive digital transformation to remain competitive and enable future growth.",
-      solution: "CloudDigify implemented a cloud-based smart factory platform that integrated IoT sensors across production lines, deployed edge computing for real-time processing, created a manufacturing data lake for analytics, and implemented predictive maintenance systems. We also established a secure OT/IT framework and provided training for the workforce.",
+      title: "Example Use Case: Manufacturing Digital Transformation",
+      client: "A typical industrial equipment manufacturer",
+      challenge: "An industrial equipment manufacturer struggles with aging production systems, siloed data, frequent unplanned downtime, and difficulty meeting increasing customer demand for customization. It needs a comprehensive digital transformation to remain competitive and enable future growth.",
+      solution: "CloudDigify implements a cloud-based smart factory platform that integrates IoT sensors across production lines, deploys edge computing for real-time processing, creates a manufacturing data lake for analytics, and implements predictive maintenance systems, together with a secure OT/IT framework and workforce training.",
       results: [
-        "27% reduction in unplanned downtime through predictive maintenance",
-        "35% improvement in overall equipment effectiveness (OEE)",
-        "40% faster new product introduction through digital twins and simulation",
-        "18% reduction in quality-related defects with real-time analytics",
-        "Significant increase in customization capabilities while maintaining efficiency"
+        "Reduced unplanned downtime through predictive maintenance",
+        "Improved overall equipment effectiveness (OEE)",
+        "Faster new product introduction through digital twins and simulation",
+        "Fewer quality-related defects with real-time analytics",
+        "Greater customization capability while maintaining efficiency"
       ]
     },
     

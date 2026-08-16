@@ -367,14 +367,14 @@ const PrivacySmartHub = () => {
               transition={{ duration: 0.4 }}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Client Success Story
+              Example Use Case
             </motion.h2>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-indigo-600 mb-4">Global Financial Services Provider</h3>
+                <h3 className="text-2xl font-bold text-indigo-600 mb-4">Multi-Jurisdiction Privacy Program</h3>
                 <p className="text-gray-700 mb-6">
-                  A leading financial institution with operations in 15 countries needed to unify their privacy compliance approach across multiple jurisdictions.
+                  A typical engagement: a financial institution operating in multiple countries that needs to unify its privacy compliance approach across jurisdictions.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -383,20 +383,12 @@ const PrivacySmartHub = () => {
                     <p className="text-gray-600 text-sm">Fragmented privacy practices across regions causing compliance gaps and inefficiencies</p>
                   </div>
                   <div className="border-l-4 border-purple-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                    <p className="text-gray-600 text-sm">Implemented our integrated PrivacySmartHub platform with regional customizations</p>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
+                    <p className="text-gray-600 text-sm">An integrated privacy management approach with regional customizations</p>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">95% reduction in compliance costs and zero privacy violations in 24 months</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaChartLine className="text-5xl text-indigo-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">$2.3M</div>
-                    <div className="text-gray-600">Annual Cost Savings</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Unified privacy operations with lower compliance overhead</p>
                   </div>
                 </div>
               </div>

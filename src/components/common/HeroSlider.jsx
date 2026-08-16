@@ -106,14 +106,16 @@ const HeroSlider = () => {
             <img
               src={slides[current].image}
               alt={slides[current].alt}
+              width="1600"
+              height="900"
               className={`w-full h-full object-cover ${
                 current === 1 ? 'object-top' : 'object-center'
               } ${
                 current === 1 ? 'md:object-top' : (current === 2 ? 'md:object-bottom' : 'md:object-center')
               }`}
-              loading="lazy"
+              loading={current === 0 ? 'eager' : 'lazy'}
+              fetchPriority={current === 0 ? 'high' : 'auto'}
               draggable="false"
-              aria-label={slides[current].alt}
             />
             {/* Gradient overlay for image */}
             <div className={`absolute inset-0 bg-gradient-to-r from-black/20 via-black/5 to-transparent pointer-events-none`} aria-hidden="true" />
@@ -127,7 +129,6 @@ const HeroSlider = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
                 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2 md:mb-4 tracking-tight leading-tight"
-                style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {slides[current].title}
               </motion.h1>
@@ -136,7 +137,6 @@ const HeroSlider = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="text-sm sm:text-base md:text-lg font-medium mb-4 md:mb-6 leading-relaxed opacity-95 line-clamp-3 md:line-clamp-none"
-                style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {slides[current].subtitle}
               </motion.p>

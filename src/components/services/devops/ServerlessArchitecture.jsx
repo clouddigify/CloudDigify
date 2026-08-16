@@ -306,36 +306,28 @@ const ServerlessArchitecture = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Success Story
+              Example Use Case
             </motion.h2>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-blue-600 mb-4">Media Processing Platform Transformation</h3>
+                <h3 className="text-2xl font-bold text-blue-600 mb-4">Media Processing Platform</h3>
                 <p className="text-gray-700 mb-6">
-                  A digital media company needed to process millions of user-uploaded images and videos with varying load patterns.
+                  A typical engagement: a digital media company that needs to process user-uploaded images and videos with highly variable load patterns.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                   <div className="border-l-4 border-blue-500 pl-4">
                     <h4 className="font-bold text-gray-900 mb-2">Challenge</h4>
-                    <p className="text-gray-600 text-sm">Traditional server architecture couldn't scale cost-effectively for inconsistent workloads</p>
+                    <p className="text-gray-600 text-sm">Traditional server architecture can't scale cost-effectively for inconsistent workloads</p>
                   </div>
                   <div className="border-l-4 border-indigo-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                    <p className="text-gray-600 text-sm">Implemented serverless functions for media processing with event-driven architecture</p>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
+                    <p className="text-gray-600 text-sm">Serverless functions for media processing with event-driven architecture</p>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">70% cost reduction with 5x improved processing speed and unlimited scalability</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaDatabase className="text-5xl text-blue-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">1M+</div>
-                    <div className="text-gray-600">Media Files Processed Daily</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Pay-per-use scaling that matches spend to actual processing demand</p>
                   </div>
                 </div>
               </div>

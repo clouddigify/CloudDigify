@@ -306,36 +306,28 @@ const CICD = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Success Story
+              Example Use Case
             </motion.h2>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-blue-600 mb-4">E-Commerce Platform Transformation</h3>
+                <h3 className="text-2xl font-bold text-blue-600 mb-4">E-Commerce Platform Delivery Pipeline</h3>
                 <p className="text-gray-700 mb-6">
-                  A leading online retailer needed to accelerate their release cycles while maintaining high quality and reliability standards.
+                  A typical engagement: an online retailer that needs to accelerate release cycles while maintaining quality and reliability standards.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                   <div className="border-l-4 border-blue-500 pl-4">
                     <h4 className="font-bold text-gray-900 mb-2">Challenge</h4>
-                    <p className="text-gray-600 text-sm">Manual deployments causing 2-week release cycles and frequent production issues</p>
+                    <p className="text-gray-600 text-sm">Manual deployments causing long release cycles and frequent production issues</p>
                   </div>
                   <div className="border-l-4 border-indigo-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                    <p className="text-gray-600 text-sm">Implemented CI/CD pipeline with automated testing, container-based deployments, and monitoring</p>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
+                    <p className="text-gray-600 text-sm">CI/CD pipeline with automated testing, container-based deployments, and monitoring</p>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">Deployment time reduced to 15 minutes with 99.9% success rate</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaRocket className="text-5xl text-blue-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">200+</div>
-                    <div className="text-gray-600">Deployments per Month</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Faster, more reliable deployments with automated quality gates</p>
                   </div>
                 </div>
               </div>

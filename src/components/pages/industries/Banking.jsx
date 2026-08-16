@@ -19,25 +19,25 @@ const Banking = () => {
       title: 'Digital Banking Platform',
       icon: <FaMobileAlt className="text-3xl" />,
       description: 'Modern digital banking solutions with omnichannel experience',
-      expertise: 'Serving 10M+ users across digital banking platforms'
+      expertise: 'Omnichannel digital banking experiences'
     },
     {
       title: 'AI-Powered Risk Management',
       icon: <FaBrain className="text-3xl" />,
       description: 'Advanced fraud detection and risk assessment',
-      expertise: 'Prevented $100M+ in potential fraud losses'
+      expertise: 'Fraud detection and risk assessment solutions'
     },
     {
       title: 'Payment Solutions',
       icon: <FaExchangeAlt className="text-3xl" />,
       description: 'Secure payment processing and settlement systems',
-      expertise: 'Processing $1B+ in daily transactions'
+      expertise: 'Secure payment and settlement architectures'
     },
     {
       title: 'Banking Analytics',
       icon: <FaChartLine className="text-3xl" />,
       description: 'Customer insights and operational analytics',
-      expertise: 'Enhanced customer engagement by 60%'
+      expertise: 'Customer engagement and operational analytics'
     },
   ];
 
