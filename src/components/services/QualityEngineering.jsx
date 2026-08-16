@@ -208,12 +208,12 @@ const QualityEngineering = () => {
                 {
                   icon: FaChartLine,
                   title: "Increased Efficiency",
-                  description: "We optimize your testing processes, reducing test execution time by up to 60% while improving coverage and accuracy."
+                  description: "We optimize your testing processes, reducing test execution time while improving coverage and accuracy."
                 },
                 {
                   icon: FaTrophy,
                   title: "Industry Expertise",
-                  description: "With 10+ years of experience across diverse industries, our experts bring best practices and domain knowledge to every project."
+                  description: "Our experts bring best practices and domain knowledge across diverse industries to every project."
                 }
               ].map((feature, index) => (
                 <motion.div

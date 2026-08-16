@@ -287,7 +287,7 @@ const Blockchain = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold text-center mb-16 text-gray-800"
             >
-              Success Stories
+              Example Use Cases
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <motion.div
@@ -299,12 +299,12 @@ const Blockchain = () => {
                 <div className="flex items-center space-x-4 mb-4">
                   <FaBuilding className="text-4xl text-cyan-600" />
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-800">Supply Chain Transformation</h3>
-                    <p className="text-cyan-600">Fortune 500 Manufacturer</p>
+                    <h3 className="text-xl font-semibold text-gray-800">Supply Chain Transparency</h3>
+                    <p className="text-cyan-600">Manufacturing scenario</p>
                   </div>
                 </div>
                 <p className="text-gray-600 mb-4">
-                  Implemented blockchain for end-to-end supply chain visibility, reducing costs by 40% and improving traceability.
+                  Blockchain for end-to-end supply chain visibility, improving traceability and reducing reconciliation overhead.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-sm">Supply Chain</span>
@@ -323,11 +323,11 @@ const Blockchain = () => {
                   <FaBuilding className="text-4xl text-cyan-600" />
                   <div>
                     <h3 className="text-xl font-semibold text-gray-800">Cross-Border Payments</h3>
-                    <p className="text-cyan-600">Global Financial Institution</p>
+                    <p className="text-cyan-600">Financial services scenario</p>
                   </div>
                 </div>
                 <p className="text-gray-600 mb-4">
-                  Reduced settlement time from days to minutes using blockchain-based payment network.
+                  Blockchain-based payment networks that can reduce settlement time from days to minutes.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-sm">Payments</span>

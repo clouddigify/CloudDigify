@@ -218,10 +218,10 @@ const ConsultingOverview = () => {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {[
-              { title: "Revenue Growth", value: "45%", icon: FaChartLine, description: "Average increase achieved by CloudDigify clients" },
-              { title: "Cost Reduction", value: "30%", icon: FaSearchDollar, description: "Typical savings through CloudDigify optimization" },
-              { title: "Efficiency Gain", value: "60%", icon: FaCogs, description: "Operational improvements with CloudDigify solutions" },
-              { title: "ROI Achieved", value: "250%", icon: FaChartBar, description: "Average return on investment with CloudDigify" }
+              { title: "Revenue Growth", value: "Focus", icon: FaChartLine, description: "Strategies aimed at growing revenue" },
+              { title: "Cost Reduction", value: "Focus", icon: FaSearchDollar, description: "Optimization to reduce operating costs" },
+              { title: "Efficiency Gain", value: "Focus", icon: FaCogs, description: "Operational improvements through automation" },
+              { title: "Measurable ROI", value: "Focus", icon: FaChartBar, description: "Outcome-driven engagement design" }
             ].map((metric, index) => (
               <motion.div
                 key={metric.title}

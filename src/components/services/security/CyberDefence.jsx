@@ -192,12 +192,12 @@ const CyberDefence = () => {
                 {
                   icon: FaUserTie,
                   title: "Industry Expertise",
-                  description: "Our certified security professionals have 15+ years of experience protecting Fortune 500 companies from sophisticated cyber threats."
+                  description: "Our security professionals bring experience protecting organizations from sophisticated cyber threats."
                 },
                 {
                   icon: FaAward,
                   title: "Proven Track Record",
-                  description: "We've successfully prevented over 1,000 potential breaches and reduced security incidents by 85% for our clients."
+                  description: "We help clients prevent breaches and reduce security incidents through layered defence and monitoring."
                 },
                 {
                   icon: FaCertificate,

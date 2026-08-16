@@ -178,63 +178,33 @@ export default function InfrastructureServices() {
   const metrics = [
     {
       icon: <FaServer className="text-4xl" />,
-      value: "300+",
+      value: "Resilient",
       unit: "",
-      label: "Servers Deployed",
-      description: "Enterprise-grade reliability",
+      label: "Architecture",
+      description: "Designed for reliability and recovery",
       color: "from-blue-500 to-blue-600",
-      metric: "Across multiple industries",
-      achievement: "5-star reliability rating"
-    },
-    {
-      icon: <FaRocket className="text-4xl" />,
-      value: "175+",
-      unit: "",
-      label: "Successful Deployments",
-      description: "Infrastructure projects completed",
-      color: "from-cyan-500 to-cyan-600",
-      metric: "In the last 24 months",
-      achievement: "Zero downtime deployments"
-    },
-    {
-      icon: <FaPiggyBank className="text-4xl" />,
-      value: "65",
-      unit: "%",
-      label: "Cost Reduction",
-      description: "Average client savings",
-      color: "from-emerald-500 to-emerald-600",
-      metric: "Through optimization",
-      achievement: "Industry-leading ROI"
+      metric: "Redundancy-first design",
+      achievement: "Backup and recovery procedures"
     },
     {
       icon: <FaShieldAlt className="text-4xl" />,
-      value: "100",
-      unit: "%",
-      label: "Security Score",
-      description: "Infrastructure security standards",
+      value: "Layered",
+      unit: "",
+      label: "Security Controls",
+      description: "Role-based access and least-privilege principles",
       color: "from-purple-500 to-purple-600",
-      metric: "Compliance rate",
-      achievement: "Zero security incidents"
+      metric: "Defense-in-depth design",
+      achievement: "Security monitoring"
     },
     {
       icon: <FaGlobe className="text-4xl" />,
-      value: "60+",
+      value: "Flexible",
       unit: "",
-      label: "Global Regions",
-      description: "Worldwide deployment",
+      label: "Deployment Models",
+      description: "Cloud, hybrid and multi-region options",
       color: "from-indigo-500 to-indigo-600",
-      metric: "Multi-region presence",
-      achievement: "24/7 global support"
-    },
-    {
-      icon: <FaChartLine className="text-4xl" />,
-      value: "30",
-      unit: "min",
-      label: "Response Time",
-      description: "Average resolution time",
-      color: "from-amber-500 to-amber-600",
-      metric: "Support SLA",
-      achievement: "98% client satisfaction"
+      metric: "Fit-for-purpose infrastructure",
+      achievement: "Right-sized environments"
     }
   ];
 
@@ -249,7 +219,7 @@ export default function InfrastructureServices() {
   const pricingModels = [
     {
       title: "Managed Hourly Service",
-      description: "From $150/hour",
+      description: "Contact us for pricing",
       subtitle: "Flexible support with dedicated infrastructure specialists on an hourly basis.",
       ctaText: "Get Started",
       bgClass: "bg-gradient-to-b from-gray-50 to-white",
@@ -263,7 +233,7 @@ export default function InfrastructureServices() {
     },
     {
       title: "Weekly Engagements",
-      description: "From $5,000/week",
+      description: "Contact us for pricing",
       subtitle: "Dedicated weekly infrastructure support for ongoing projects and maintenance.",
       ctaText: "Learn More",
       bgClass: "bg-gradient-to-b from-blue-50 to-white",
@@ -277,15 +247,15 @@ export default function InfrastructureServices() {
     },
     {
       title: "Monthly Retainer",
-      description: "From $15,000/month",
+      description: "Contact us for pricing",
       subtitle: "Comprehensive infrastructure management with guaranteed service levels.",
       ctaText: "Contact Us",
       isPopular: true,
       bgClass: "bg-gradient-to-b from-blue-500 to-white",
       features: [
         "Full infrastructure management",
-        "99.9% uptime guarantee",
-        "24/7 monitoring and support",
+        "Reliability-focused operations",
+        "Proactive monitoring and support",
         "Monthly strategic planning",
         "Cost optimization and scaling"
       ]

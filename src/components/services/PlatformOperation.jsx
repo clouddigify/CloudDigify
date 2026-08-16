@@ -201,17 +201,17 @@ const PlatformOperation = () => {
                 {
                   icon: FaHeartbeat,
                   title: "24/7 Expert Support",
-                  description: "Our certified platform specialists provide round-the-clock monitoring and support, ensuring 99.99% uptime for your critical systems."
+                  description: "Our platform specialists provide round-the-clock monitoring and support designed to keep your critical systems reliable."
                 },
                 {
                   icon: FaTools,
                   title: "Automation Excellence",
-                  description: "We've implemented over 5,000 automation workflows for clients, reducing manual operations by 75% and virtually eliminating human error."
+                  description: "We implement automation workflows that reduce manual operations and help eliminate human error."
                 },
                 {
                   icon: FaLightbulb,
                   title: "Proactive Optimization",
-                  description: "Our proactive approach to platform management has saved clients an average of 35% on infrastructure costs while improving performance."
+                  description: "Our proactive approach to platform management focuses on reducing infrastructure costs while improving performance."
                 }
               ].map((feature, index) => (
                 <motion.div

@@ -133,71 +133,41 @@ const AlibabaCloud = () => {
 
   const stats = [
     {
-      icon: <FaServer className="text-4xl" />,
-      value: '99.99',
-      unit: '%',
-      label: 'Uptime Guarantee',
-      description: 'Enterprise-grade reliability',
-      color: 'from-orange-500 to-orange-600',
-      metric: 'Average across all services',
-      achievement: '5-star reliability rating'
-    },
-    {
-      icon: <FaRocket className="text-4xl" />,
-      value: '165+',
+      icon: <FaGlobe className="text-4xl" />,
+      value: 'Global',
       unit: '',
-      label: 'Successful Launches',
-      description: 'Cloud migrations completed',
-      color: 'from-amber-500 to-amber-600',
-      metric: 'In the last 24 months',
-      achievement: 'Zero downtime migrations'
+      label: 'Region Coverage',
+      description: 'Alibaba Cloud operates data-center regions worldwide',
+      color: 'from-blue-500 to-blue-600',
+      metric: 'Multi-region architectures',
+      achievement: 'Deploy close to your users'
     },
     {
-      icon: <FaPiggyBank className="text-4xl" />,
-      value: '62',
-      unit: '%',
-      label: 'Cost Reduction',
-      description: 'Average client savings',
-      color: 'from-emerald-500 to-emerald-600',
-      metric: 'Through optimization',
-      achievement: 'Industry-leading ROI'
+      icon: <FaServer className="text-4xl" />,
+      value: 'Elastic',
+      unit: '',
+      label: 'On-Demand Scale',
+      description: 'Scale workloads up or down as demand changes',
+      color: 'from-orange-500 to-orange-600',
+      metric: 'Right-sized infrastructure',
+      achievement: 'Pay for what you use'
     },
     {
       icon: <FaShieldAlt className="text-4xl" />,
-      value: '100',
-      unit: '%',
-      label: 'Security Score',
-      description: 'Alibaba security standards',
-      color: 'from-purple-500 to-purple-600',
-      metric: 'Compliance rate',
-      achievement: 'Zero security incidents'
-    },
-    {
-      icon: <FaGlobe className="text-4xl" />,
-      value: '25+',
+      value: 'Layered',
       unit: '',
-      label: 'Global Regions',
-      description: 'Worldwide deployment',
-      color: 'from-blue-500 to-blue-600',
-      metric: 'Multi-region presence',
-      achievement: '24/7 global support'
-    },
-    {
-      icon: <FaChartLine className="text-4xl" />,
-      value: '35',
-      unit: 'min',
-      label: 'Response Time',
-      description: 'Average resolution time',
-      color: 'from-red-500 to-red-600',
-      metric: 'Support SLA',
-      achievement: '96% client satisfaction'
+      label: 'Security Tooling',
+      description: 'Alibaba Cloud-native security and compliance services',
+      color: 'from-purple-500 to-purple-600',
+      metric: 'Defense-in-depth design',
+      achievement: 'Security-first delivery'
     }
   ];
 
   const pricingModels = [
     {
       title: 'Hourly Services',
-      description: '68/hour',
+      description: 'Contact us for pricing',
       subtitle: 'Perfect for small projects',
       ctaText: 'Start Now',
       bgClass: 'bg-gradient-to-b from-gray-50 to-white',
@@ -210,7 +180,7 @@ const AlibabaCloud = () => {
     },
     {
       title: 'Weekly Plan',
-      description: '2,500/week',
+      description: 'Contact us for pricing',
       subtitle: 'Ideal for ongoing projects',
       ctaText: 'Schedule Call',
       bgClass: 'bg-gradient-to-b from-orange-50 to-white',
@@ -223,7 +193,7 @@ const AlibabaCloud = () => {
     },
     {
       title: 'Monthly Retainer',
-      description: '7,600/month',
+      description: 'Contact us for pricing',
       subtitle: 'Best value for enterprises',
       ctaText: 'Get Started',
       bgClass: 'bg-gradient-to-b from-[#FF6A00] to-white',
@@ -428,7 +398,7 @@ const AlibabaCloud = () => {
               className="text-3xl font-bold text-center mb-16 text-gray-900"
               variants={fadeInUp}
             >
-              Alibaba Cloud Performance Metrics
+              Why Build on Alibaba Cloud
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {stats.map((stat, index) => (
@@ -489,7 +459,7 @@ const AlibabaCloud = () => {
                       </div>
                     )}
                   <h3 className="text-lg font-bold text-gray-900 mb-2">{model.title}</h3>
-                  <p className="text-2xl font-bold text-orange-600 mb-2">${model.description}</p>
+                  <p className="text-2xl font-bold text-orange-600 mb-2">{model.description}</p>
                   <p className="text-gray-600 mb-6">{model.subtitle}</p>
                   <ul className="space-y-3 mb-8 flex-grow">
                     {model.features.map((feature, i) => (

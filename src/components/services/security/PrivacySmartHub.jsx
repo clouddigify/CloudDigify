@@ -211,12 +211,12 @@ const PrivacySmartHub = () => {
                 {
                   icon: FaBriefcase,
                   title: "Privacy Expertise",
-                  description: "Our privacy specialists have implemented compliance programs for over 200 global enterprises across healthcare, finance, and technology sectors."
+                  description: "Our privacy specialists implement compliance programs for enterprises across healthcare, finance, and technology sectors."
                 },
                 {
                   icon: FaGlobe,
                   title: "Global Compliance",
-                  description: "We've helped clients successfully navigate GDPR, CCPA, HIPAA, LGPD and other privacy regulations across 30+ countries worldwide."
+                  description: "We help clients navigate GDPR, CCPA, HIPAA, LGPD and other privacy regulations across multiple jurisdictions."
                 },
                 {
                   icon: FaHandshake,
