@@ -57,6 +57,8 @@ module.exports = async (req, res) => {
       });
       
       switch(formType) {
+        case 'platform-demo':
+          return `🚀 Platform Demo Request: ${name} | ${today}`;
         case 'job-application':
           return `🎯 Job Application: ${name} | ${today}`;
         case 'service-inquiry':

@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
       <SEO
         title="Privacy Policy | CloudDigify"
         description="Read CloudDigify's privacy policy to learn how we protect your data and privacy online."
-        canonicalUrl="https://clouddigify.com/legal/privacy-policy"
+        canonicalUrl="https://clouddigify.com/privacy"
         keywords={['privacy policy', 'data protection', 'CloudDigify', 'privacy']}
       />
       <div className="pt-24 pb-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">

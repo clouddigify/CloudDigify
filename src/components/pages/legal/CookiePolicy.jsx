@@ -40,7 +40,7 @@ const CookiePolicy = () => {
       <SEO
         title="Cookie Policy | CloudDigify"
         description="Read CloudDigify's cookie policy to learn how we use cookies and similar technologies on our website."
-        canonicalUrl="https://clouddigify.com/legal/cookie-policy"
+        canonicalUrl="https://clouddigify.com/cookies"
         keywords={['cookie policy', 'cookies', 'privacy', 'CloudDigify']}
       />
       <div className="pt-24 pb-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">

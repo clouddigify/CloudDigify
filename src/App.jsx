@@ -15,9 +15,17 @@ import useGtagPageview from './utils/useGtagPageview';
 const Home = lazy(() => import('./components/pages/Home'));
 const Contact = lazy(() => import('./components/pages/Contact'));
 const About = lazy(() => import('./components/pages/About'));
+const Services = lazy(() => import('./components/pages/Services'));
 // const OurTeam = lazy(() => import('./components/pages/OurTeam')); // Disabled: OurTeam page for future use
 const Career = lazy(() => import('./components/pages/Career'));
 const Culture = lazy(() => import('./components/pages/Culture'));
+const Support = lazy(() => import('./components/pages/Support'));
+
+// Platform Pages
+const Platform = lazy(() => import('./components/pages/platform/Platform'));
+const PlatformFeatures = lazy(() => import('./components/pages/platform/PlatformFeatures'));
+const PlatformPricing = lazy(() => import('./components/pages/platform/PlatformPricing'));
+const PlatformDemo = lazy(() => import('./components/pages/platform/PlatformDemo'));
 
 // Legal Pages
 const TermsAndConditions = lazy(() => import('./components/pages/legal/TermsAndConditions'));
@@ -143,8 +151,14 @@ const AnimatedRoutes = () => {
         <Routes location={location} key={location.pathname}>
           {/* Public Routes */}
           <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/platform" element={<Platform />} />
+          <Route path="/platform/features" element={<PlatformFeatures />} />
+          <Route path="/platform/pricing" element={<PlatformPricing />} />
+          <Route path="/platform/demo" element={<PlatformDemo />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/support" element={<Support />} />
           
           {/* New Routes */}
           {/* <Route path="/team" element={<OurTeam />} /> // Disabled: OurTeam page for future use */}
@@ -244,6 +258,8 @@ const AnimatedRoutes = () => {
           <Route path="/services/analytics" element={<Navigate to="/services/consulting/data-analytics" replace />} />
           <Route path="/services/digital" element={<Navigate to="/services/digital-engineering" replace />} />
           <Route path="/services/ai" element={<Navigate to="/services/ai/artificial-intelligence" replace />} />
+          <Route path="/training" element={<Navigate to="/training/aws" replace />} />
+          <Route path="/industries" element={<Navigate to="/industries/healthcare" replace />} />
           
           {/* Fallback route: show custom 404 page */}
           <Route path="*" element={<NotFound />} />
