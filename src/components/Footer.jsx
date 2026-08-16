@@ -35,7 +35,7 @@ import {
   FaYoutube
 } from 'react-icons/fa';
 
-import { menuConfig } from '../config/menuConfig';
+import { PLATFORM_LOGIN_URL } from '../config/platformConfig';
 
 // Company info
 const companyInfo = {
@@ -76,9 +76,18 @@ const footerLinks = {
     { title: "Contact", path: "/contact", icon: <FaEnvelope className="w-4 h-4" /> }
   ],
   services: [
-    { title: "Services", path: "/services", icon: <FaCogs className="w-4 h-4" /> },
+    { title: "Cloud Services", path: "/services/cloud/aws", icon: <FaCloud className="w-4 h-4" /> },
+    { title: "DevOps Services", path: "/services/devops/cicd", icon: <FaLaptopCode className="w-4 h-4" /> },
+    { title: "Security Services", path: "/services/security/cyber-defence", icon: <FaShieldAlt className="w-4 h-4" /> },
     { title: "Training", path: "/training", icon: <FaGraduationCap className="w-4 h-4" /> },
     { title: "Industries", path: "/industries", icon: <FaIndustry className="w-4 h-4" /> }
+  ],
+  product: [
+    { title: "CloudDigify Platform", path: "/platform", icon: <FaCloud className="w-4 h-4" /> },
+    { title: "Platform Features", path: "/platform/features", icon: <FaCogs className="w-4 h-4" /> },
+    { title: "Platform Pricing", path: "/platform/pricing", icon: <FaChartLine className="w-4 h-4" /> },
+    { title: "Request Demo", path: "/platform/demo", icon: <FaEnvelope className="w-4 h-4" /> },
+    { title: "Support", path: "/support", icon: <FaInfoCircle className="w-4 h-4" /> }
   ],
   resources: [
     { title: "Terms & Conditions", path: "/terms", icon: <FaFileContract className="w-4 h-4" /> },
@@ -132,11 +141,48 @@ const Footer = () => {
 
           {/* Links Sections */}
           <div className="flex-1 flex flex-col items-center justify-center">
-            <div className="grid grid-cols-2 gap-8 w-full max-w-xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-5xl mx-auto">
               <div>
                 <h3 className="text-lg font-semibold mb-4">Company</h3>
                 <ul className="space-y-3">
                   {footerLinks.company.map((link, index) => (
+                    <li key={index}>
+                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.icon}
+                        <span>{link.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Product</h3>
+                <ul className="space-y-3">
+                  {footerLinks.product.map((link, index) => (
+                    <li key={index}>
+                      <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
+                        {link.icon}
+                        <span>{link.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <a
+                      href={PLATFORM_LOGIN_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200"
+                    >
+                      <FaUserShield className="w-4 h-4" />
+                      <span>Login</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Services</h3>
+                <ul className="space-y-3">
+                  {footerLinks.services.map((link, index) => (
                     <li key={index}>
                       <Link to={link.path} className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-200">
                         {link.icon}
