@@ -1,150 +1,76 @@
 {
   "version": 2,
-  "build": {
-    "env": {
-      "VERCEL_SERVERLESS_FUNCTIONS": "true"
-    }
-  },
-  "builds": [
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
     {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
+      "source": "/test-api",
+      "destination": "/404",
+      "statusCode": 308
     },
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "npm run build",
-        "outputDirectory": "dist"
-      }
+      "source": "/test_api.html",
+      "destination": "/404",
+      "statusCode": 308
+    },
+    {
+      "source": "/test-api.html",
+      "destination": "/404",
+      "statusCode": 308
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(www\\.)?clouddigify\\.com/(.*)",
-      "dest": "https://clouddigify.com/$2",
-      "status": 301
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
     },
     {
-      "src": "/(.*)",
-      "has": [
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/:path*",
+      "headers": [
         {
-          "type": "header",
-          "key": "x-forwarded-proto",
-          "value": "http"
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
-      ],
-      "dest": "https://clouddigify.com/$1",
-      "status": 301
+      ]
     },
     {
-      "src": "/test-api",
-      "dest": "/index.html",
-      "status": 404
-    },
-    {
-      "src": "/test_api\.html",
-      "dest": "/index.html",
-      "status": 404
-    },
-    {
-      "src": "/test-api\.html",
-      "dest": "/index.html",
-      "status": 404
-    },
-    {
-      "src": "/api/github-test",
-      "dest": "/api/github-test.js"
-    },
-    {
-      "src": "/api/test-email",
-      "dest": "/api/test-email.js"
-    },
-    {
-      "src": "/api/send-email",
-      "dest": "/api/send-email.js"
-    },
-    {
-      "src": "/api/images",
-      "dest": "/api/images.js"
-    },
-    {
-      "src": "/api/auth/login",
-      "dest": "/api/auth/login.js"
-    },
-    {
-      "src": "/api/content",
-      "dest": "/api/content.js"
-    },
-    {
-      "src": "/api/auth",
-      "dest": "/api/auth.js"
-    },
-    {
-      "src": "/api/menus",
-      "dest": "/api/menus.js"
-    },
-    {
-      "src": "/api/simple",
-      "dest": "/api/simple.js"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/admin.*",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/.*",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/api/debug",
-      "dest": "/api/debug.js"
-    },
-    {
-      "src": "/api/test",
-      "dest": "/api/auth.js"
-    },
-    {
-      "src": "/static/(.*)",
-      "headers": { "cache-control": "public, max-age=31536000, immutable" },
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "/asset-manifest.json",
-      "dest": "/asset-manifest.json"
-    },
-    {
-      "src": "/manifest.json",
-      "dest": "/manifest.json"
-    },
-    {
-      "src": "/assets/(.*)",
-      "headers": { "cache-control": "public, max-age=31536000, immutable" },
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*)\\.(.+)",
-      "dest": "/$1.$2"
-    },
-    {
-      "src": "/(.*)",
-      "headers": {
-        "X-Frame-Options": "DENY",
-        "X-XSS-Protection": "1; mode=block",
-        "X-Content-Type-Options": "nosniff",
-        "Referrer-Policy": "strict-origin-when-cross-origin",
-        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
-        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
-        "Content-Security-Policy": "default-src 'self'; img-src 'self' data: https://images.unsplash.com https://logos-world.net https://via.placeholder.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self';"
-      },
-      "dest": "/index.html"
+      "source": "/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: https://images.unsplash.com https://logos-world.net https://via.placeholder.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self';"
+        }
+      ]
     }
   ]
 } 

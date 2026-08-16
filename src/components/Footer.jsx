@@ -22,6 +22,7 @@ import {
   FaCookie,
   FaShieldAlt,
   FaCloud,
+  FaChartLine,
   FaLaptopCode,
   FaServer,
   FaVial,

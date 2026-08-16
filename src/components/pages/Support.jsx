@@ -26,10 +26,11 @@ const Support = () => {
             <article className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Contact Support</h2>
               <p className="text-gray-700 mb-3">
-                Email: <a className="text-blue-700 font-medium" href="mailto:contact@clouddigify.com">contact@clouddigify.com</a>
+                For product support, account assistance, billing questions or technical issues, contact{' '}
+                <a className="text-blue-700 font-medium" href="mailto:info@clouddigify.com">info@clouddigify.com</a>.
               </p>
               <p className="text-gray-700 mb-3">Phone: +91 7011112386</p>
-              <p className="text-gray-700">Business Hours: Mon-Fri, 9:00 AM - 6:00 PM IST</p>
+              <p className="text-gray-700">Business Hours: Monday–Friday, 9:00 AM–6:00 PM IST</p>
             </article>
 
             <article className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
@@ -49,14 +50,14 @@ const Support = () => {
             <article className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">When reporting an issue, include</h2>
               <ul className="space-y-2 text-gray-700">
-                <li>• Company name and primary contact</li>
-                <li>• Product or service area impacted</li>
-                <li>• Brief issue description and expected outcome</li>
-                <li>• Date/time of occurrence and timezone</li>
-                <li>• Screenshots or reference documents if available</li>
+                <li>• Company name</li>
+                <li>• Your user email</li>
+                <li>• Affected area (for example CRM, billing, cloud billing, renewals)</li>
+                <li>• Brief issue description</li>
+                <li>• Screenshot or error message where appropriate</li>
               </ul>
               <p className="text-sm text-gray-600 mt-6">
-                Current support handling is coordinated through our existing email and phone channels.
+                Support requests are handled through our email and phone channels during business hours.
               </p>
             </article>
           </div>

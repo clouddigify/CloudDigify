@@ -648,6 +648,12 @@ const Home = () => {
               >
                 Explore Platform
               </Link>
+              <Link
+                to={PLATFORM_ROUTES.pricing}
+                className="px-8 py-3 text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors underline underline-offset-4"
+              >
+                View Platform Pricing
+              </Link>
             </div>
           </div>
         </section>

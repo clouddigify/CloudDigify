@@ -70,9 +70,11 @@ const TermsAndConditions = () => {
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
                   <div className="prose max-w-none text-gray-600">
                     <p>Welcome to CloudDigify LLP ("CloudDigify", "we", "us", or "our").</p>
+                    <p>CloudDigify provides cloud services, consulting, training, and the CloudDigify Platform, a software-as-a-service (SaaS) product.</p>
                     <p>These Terms and Conditions ("Terms") govern your access to and use of our website and services.</p>
                     <p>By accessing or using our website, you agree to be bound by these Terms.</p>
                     <p>If you do not agree, please do not use our website.</p>
+                    {/* LEGAL REVIEW REQUIRED: SaaS subscription terms (payment, termination, liability, service terms for CloudDigify Platform) are not yet covered by this document. */}
                   </div>
                 </div>
               </div>
