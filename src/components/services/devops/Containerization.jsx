@@ -306,14 +306,14 @@ const Containerization = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Success Story
+              Example Use Case
             </motion.h2>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-blue-600 mb-4">Financial Services Application Modernization</h3>
                 <p className="text-gray-700 mb-6">
-                  A multinational bank needed to modernize their legacy application portfolio while improving deployment consistency and security.
+                  A typical engagement: a bank that needs to modernize its legacy application portfolio while improving deployment consistency and security.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -322,20 +322,12 @@ const Containerization = () => {
                     <p className="text-gray-600 text-sm">Inconsistent environments across development and production causing reliability issues</p>
                   </div>
                   <div className="border-l-4 border-indigo-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                    <p className="text-gray-600 text-sm">Implemented Docker containers and Kubernetes orchestration with standardized security controls</p>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
+                    <p className="text-gray-600 text-sm">Docker containers and Kubernetes orchestration with standardized security controls</p>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">80% reduction in deployment issues and 65% faster time-to-market for new features</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaCloudUploadAlt className="text-5xl text-blue-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">350+</div>
-                    <div className="text-gray-600">Containerized Applications</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Consistent environments, fewer deployment issues and faster time-to-market</p>
                   </div>
                 </div>
               </div>

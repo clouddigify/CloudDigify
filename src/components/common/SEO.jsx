@@ -15,7 +15,9 @@ const SEO = ({
 }) => {
   const location = useLocation();
   const siteTitle = 'CloudDigify';
-  const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+  // Normalize titles that already include the brand suffix to avoid "X | CloudDigify | CloudDigify"
+  const baseTitle = title ? title.replace(/\s*\|\s*CloudDigify\s*$/i, '').trim() : '';
+  const fullTitle = baseTitle ? `${baseTitle} | ${siteTitle}` : siteTitle;
   const defaultImage = 'https://clouddigify.com/images/logo.png';
   
   // Generate canonical URL if not provided

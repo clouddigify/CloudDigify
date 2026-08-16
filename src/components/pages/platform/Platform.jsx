@@ -69,9 +69,32 @@ const Platform = () => {
           </div>
         </section>
 
+        <section className="py-14 bg-white border-y border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">How CloudDigify Works</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <article className="bg-gray-50 rounded-xl border border-gray-200 p-6">
+                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mb-4">1</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Onboard</h3>
+                <p className="text-gray-600 text-sm">Set up your organization, users, customers, subscriptions and access.</p>
+              </article>
+              <article className="bg-gray-50 rounded-xl border border-gray-200 p-6">
+                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mb-4">2</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Operate</h3>
+                <p className="text-gray-600 text-sm">Manage CRM, quotations, billing, cloud operations and customer activity.</p>
+              </article>
+              <article className="bg-gray-50 rounded-xl border border-gray-200 p-6">
+                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mb-4">3</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Renew & Grow</h3>
+                <p className="text-gray-600 text-sm">Track subscriptions, renewals, seats, customer requests and recurring operations.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section className="pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">Platform Modules</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 mt-14">Platform Modules</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {PLATFORM_MODULES.map((module, index) => (
                 <article

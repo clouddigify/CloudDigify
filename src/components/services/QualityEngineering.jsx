@@ -353,36 +353,28 @@ const QualityEngineering = () => {
               animate={inView ? { y: 0, opacity: 1 } : {}}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Success Story
+              Example Use Case
             </motion.h2>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-green-600 mb-4">Financial Services Quality Transformation</h3>
+                <h3 className="text-2xl font-bold text-green-600 mb-4">Financial Services Quality Engineering</h3>
                 <p className="text-gray-700 mb-6">
-                  A leading financial institution needed to accelerate their release cycles while maintaining strict quality and compliance standards.
+                  A typical engagement: a financial institution that needs to accelerate release cycles while maintaining strict quality and compliance standards.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                   <div className="border-l-4 border-green-500 pl-4">
                     <h4 className="font-bold text-gray-900 mb-2">Challenge</h4>
-                    <p className="text-gray-600 text-sm">Manual testing processes causing 4-week release cycles and frequent production issues</p>
+                    <p className="text-gray-600 text-sm">Manual testing processes causing long release cycles and frequent production issues</p>
                   </div>
                   <div className="border-l-4 border-teal-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                    <p className="text-gray-600 text-sm">Implemented CI/CD pipeline with automated testing, performance monitoring, and security validation</p>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
+                    <p className="text-gray-600 text-sm">CI/CD pipeline with automated testing, performance monitoring, and security validation</p>
                   </div>
                   <div className="border-l-4 border-emerald-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">Release cycles reduced to 1 week with 85% reduction in production defects</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaChartLine className="text-5xl text-green-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">98%</div>
-                    <div className="text-gray-600">Test Automation Coverage</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Shorter release cycles with fewer production defects</p>
                   </div>
                 </div>
               </div>

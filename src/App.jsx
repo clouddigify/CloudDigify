@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -272,6 +272,7 @@ const AnimatedRoutes = () => {
 const App = () => {
   return (
     <Router basename="/">
+      <MotionConfig reducedMotion="user">
       <ErrorBoundary>
         <ScrollToTop />
         <div className="flex flex-col min-h-screen">
@@ -287,6 +288,7 @@ const App = () => {
           <CookieConsentBanner />
         </div>
       </ErrorBoundary>
+      </MotionConfig>
     </Router>
   );
 };

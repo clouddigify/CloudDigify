@@ -428,7 +428,7 @@ const PlatformOperation = () => {
               transition={{ duration: 0.4 }}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Success Story
+              Example Use Case
             </motion.h2>
             
             <motion.div 
@@ -439,31 +439,23 @@ const PlatformOperation = () => {
               className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto"
             >
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-indigo-600 mb-4">Healthcare Provider Transformation</h3>
+                <h3 className="text-2xl font-bold text-indigo-600 mb-4">Healthcare Provider Infrastructure Operations</h3>
                 <p className="text-gray-700 mb-6">
-                  A leading healthcare provider needed to modernize their aging IT infrastructure to improve reliability and support rapid business growth.
+                  A typical engagement: a healthcare provider that needs to modernize aging IT infrastructure to improve reliability and support growth.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                   <div className="border-l-4 border-indigo-500 pl-4">
                     <h4 className="font-bold text-gray-900 mb-2">Challenge</h4>
-                    <p className="text-gray-600 text-sm">Frequent outages and poor performance impacting critical patient care systems and staff productivity</p>
+                    <p className="text-gray-600 text-sm">Frequent outages and poor performance impacting critical systems and staff productivity</p>
                   </div>
                   <div className="border-l-4 border-purple-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
-                    <p className="text-gray-600 text-sm">Implemented hybrid cloud platform with automated operations, comprehensive monitoring, and disaster recovery</p>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
+                    <p className="text-gray-600 text-sm">Hybrid cloud platform with automated operations, comprehensive monitoring, and disaster recovery</p>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">Zero unplanned downtime in 18 months and 40% reduction in IT operational costs</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaChartLine className="text-5xl text-indigo-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">15 Minutes</div>
-                    <div className="text-gray-600">Average Incident Response Time</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Higher availability, faster incident response and lower operational overhead</p>
                   </div>
                 </div>
               </div>

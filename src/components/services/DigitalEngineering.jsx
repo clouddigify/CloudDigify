@@ -353,14 +353,14 @@ const DigitalEngineering = () => {
               animate={inView ? { y: 0, opacity: 1 } : {}}
               className="text-4xl font-bold text-gray-900 text-center mb-12"
             >
-              Success Story
+              Example Use Case
             </motion.h2>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto">
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-indigo-600 mb-4">Global E-Commerce Transformation</h3>
+                <h3 className="text-2xl font-bold text-indigo-600 mb-4">E-Commerce Platform Modernization</h3>
                 <p className="text-gray-700 mb-6">
-                  A leading retail company needed to modernize their legacy e-commerce platform to support global expansion and improve user experience.
+                  A typical engagement: a retail company that needs to modernize a legacy e-commerce platform to support expansion and improve user experience.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -369,20 +369,12 @@ const DigitalEngineering = () => {
                     <p className="text-gray-600 text-sm">Outdated technology stack with poor performance and limited scalability for seasonal traffic spikes</p>
                   </div>
                   <div className="border-l-4 border-purple-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Solution</h4>
+                    <h4 className="font-bold text-gray-900 mb-2">Approach</h4>
                     <p className="text-gray-600 text-sm">Cloud-native microservices architecture with serverless components and global CDN implementation</p>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-bold text-gray-900 mb-2">Results</h4>
-                    <p className="text-gray-600 text-sm">300% improvement in page load times and 45% increase in conversion rates within 3 months</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-center mt-8">
-                  <FaGlobe className="text-5xl text-indigo-500 mr-4" />
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">12 Countries</div>
-                    <div className="text-gray-600">Successful Global Deployment</div>
+                    <h4 className="font-bold text-gray-900 mb-2">Outcome Focus</h4>
+                    <p className="text-gray-600 text-sm">Faster page loads, resilient scaling and an improved purchase experience</p>
                   </div>
                 </div>
               </div>
