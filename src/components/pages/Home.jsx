@@ -5,7 +5,6 @@ import { FaCloud, FaRocket, FaShieldAlt, FaServer, FaChartLine, FaCogs, FaDataba
 import { Helmet } from 'react-helmet-async';
 import LazyImage from '../common/LazyImage';
 import SEO from '../common/SEO';
-import HeroSlider from '../common/HeroSlider';
 import { PLATFORM_MODULES, PLATFORM_ROUTES } from '../../config/platformConfig';
 
 // Lazy load non-critical components
@@ -41,37 +40,12 @@ const Home = () => {
     };
   }, []);
 
-  const heroSlides = [
-    {
-      backgroundImage: '/assets/home-hero/slide1.jpg',
-      alt: 'Digital Transformation',
-      title: 'Transform Your Enterprise with Cloud Excellence',
-      description: 'Accelerate innovation and growth with our comprehensive cloud solutions.',
-      cta: {
-        label: 'Explore Solutions',
-        link: '#'
-      }
-    },
-    {
-      backgroundImage: '/assets/home-hero/slide2.jpg',
-      alt: 'AI & Automation',
-      title: 'Innovate with AI & Automation',
-      description: 'Streamline operations and unlock insights with AI-powered solutions.',
-      cta: {
-        label: 'Discover AI',
-        link: '/services/ai/artificial-intelligence'
-      }
-    },
-    {
-      backgroundImage: '/assets/home-hero/slide3.jpg',
-      alt: 'Security & Compliance',
-      title: 'Enterprise-Grade Cloud Security',
-      description: 'Protect your digital assets with real-time monitoring and compliance.',
-      cta: {
-        label: 'Secure Now',
-        link: '/services/security/cyber-defence'
-      }
-    }
+  const heroEcosystem = [
+    { label: 'CRM', icon: <FaAddressBook className="text-xl" /> },
+    { label: 'Billing', icon: <FaFileInvoiceDollar className="text-xl" /> },
+    { label: 'Cloud', icon: <FaCloud className="text-xl" /> },
+    { label: 'Subscriptions', icon: <FaSyncAlt className="text-xl" /> },
+    { label: 'Customers', icon: <FaUsersCog className="text-xl" /> }
   ];
 
   // Animation variants
@@ -210,9 +184,98 @@ const Home = () => {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </Helmet>
       <div className="min-h-screen">
-        {/* Hero Section - Carousel */}
-        <section className="relative w-full">
-          <HeroSlider slides={heroSlides} />
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-800 text-white mt-16 md:mt-[72px]">
+          <div className="container-site py-16 md:py-24">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <p className="inline-flex items-center text-xs font-semibold tracking-wider uppercase bg-white/10 border border-white/20 rounded-full px-3.5 py-1.5 mb-6 text-blue-100">
+                  Cloud Services + SaaS Platform
+                </p>
+                <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-bold leading-tight mb-5">
+                  Cloud operations, billing and growth — in one ecosystem.
+                </h1>
+                <p className="text-lg text-blue-100 leading-relaxed max-w-[640px] mb-8">
+                  CloudDigify helps businesses modernize cloud infrastructure while giving MSPs, CSP partners
+                  and cloud resellers a platform to manage sales, billing, subscriptions and customer operations.
+                </p>
+                <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                  <Link to={PLATFORM_ROUTES.landing} className="btn-primary bg-white text-blue-700 hover:bg-blue-50">
+                    Explore CloudDigify Platform
+                  </Link>
+                  <Link to="/services/cloud/aws" className="btn-secondary border-white/60 text-white bg-transparent hover:bg-white/10">
+                    Explore Cloud Services
+                  </Link>
+                  <Link to={PLATFORM_ROUTES.demo} className="btn-tertiary text-blue-100 hover:text-white self-center">
+                    Request Demo →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Ecosystem visual */}
+              <div className="hidden lg:block" aria-hidden="true">
+                <div className="relative bg-white/5 border border-white/15 rounded-2xl p-8 backdrop-blur-sm">
+                  <div className="bg-white text-slate-900 rounded-xl px-6 py-4 text-center font-semibold shadow-md mb-6">
+                    CloudDigify Platform
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {heroEcosystem.map((item) => (
+                      <div key={item.label} className="flex items-center gap-3 bg-white/10 border border-white/15 rounded-lg px-4 py-3">
+                        <span className="text-blue-200">{item.icon}</span>
+                        <span className="text-sm font-medium text-blue-50">{item.label}</span>
+                      </div>
+                    ))}
+                    <div className="flex items-center gap-3 bg-white/10 border border-white/15 rounded-lg px-4 py-3">
+                      <span className="text-blue-200"><FaShieldAlt className="text-xl" /></span>
+                      <span className="text-sm font-medium text-blue-50">Access Control</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust / technology ecosystem */}
+        <Suspense fallback={<LoadingFallback />}>
+          <CloudPartners />
+        </Suspense>
+
+        {/* CloudDigify Platform Section */}
+        <section className="section section-brand-tint border-y border-slate-100">
+          <div className="container-site">
+            <div className="text-center mb-12">
+              <h2 className="section-heading">CloudDigify Platform</h2>
+              <p className="section-sub mx-auto">
+                One platform for MSPs, CSP partners, cloud resellers and IT service companies to manage
+                sales, billing, cloud operations, subscriptions and customer collaboration.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+              {PLATFORM_MODULES.map((module, index) => (
+                <div key={module.title} className="card p-6 hover:shadow-md transition-shadow">
+                  <div className="icon-tile mb-4">
+                    {platformModuleIcons[index]}
+                  </div>
+                  <h3 className="text-lg font-semibold text-slate-900 mb-1.5">{module.title}</h3>
+                  <p className="text-slate-600 text-sm">{module.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link to={PLATFORM_ROUTES.landing} className="btn-primary">
+                Explore Platform
+              </Link>
+              <Link to={PLATFORM_ROUTES.pricing} className="btn-secondary">
+                View Pricing
+              </Link>
+              <Link to={PLATFORM_ROUTES.demo} className="btn-tertiary">
+                Request a Demo →
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* Services Section */}
@@ -508,97 +571,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* CloudDigify Platform Section */}
-        <section className="py-16 bg-white border-y border-gray-100">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">CloudDigify Platform</h2>
-              <p className="text-lg text-gray-600 max-w-4xl mx-auto">
-                One platform for MSPs, CSP partners, cloud resellers and IT service companies to manage
-                sales, billing, cloud operations, subscriptions and customer collaboration.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-              {PLATFORM_MODULES.map((module, index) => (
-                <motion.div
-                  key={module.title}
-                  className="bg-white rounded-xl border border-gray-200 shadow-sm p-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
-                    {platformModuleIcons[index]}
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{module.title}</h3>
-                  <p className="text-gray-600 text-sm">{module.description}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to={PLATFORM_ROUTES.demo}
-                className="px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Request a Demo
-              </Link>
-              <Link
-                to={PLATFORM_ROUTES.landing}
-                className="px-8 py-3 border border-blue-600 text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors"
-              >
-                Explore Platform
-              </Link>
-              <Link
-                to={PLATFORM_ROUTES.pricing}
-                className="px-8 py-3 text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors underline underline-offset-4"
-              >
-                View Platform Pricing
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Cloud Partners Section */}
-        <Suspense fallback={<LoadingFallback />}>
-          <CloudPartners />
-        </Suspense>
-
-        {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center text-white"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Accelerate Your Digital Transformation
-              </h2>
-              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Partner with CloudDigify to achieve measurable business outcomes with tailored cloud solutions
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <button
-                  onClick={() => openInquiryForm('Digital Transformation')}
-                  className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-blue-50 transition duration-300 flex items-center"
-                >
-                  <FaCalendarAlt className="mr-2" />
-                  Schedule a Consultation
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
         {/* Industry Solutions Section */}
         <section className="py-16 bg-blue-50">
           <div className="container mx-auto px-4">
@@ -636,25 +608,25 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Free Assessment CTA */}
-        <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <h2 className="text-4xl font-bold mb-4">Get Your Free Cloud Assessment</h2>
-              <p className="text-xl mb-8">Discover your cloud transformation potential with our expert analysis</p>
+        {/* Final CTA */}
+        <section className="section bg-gradient-to-br from-blue-700 to-indigo-700 text-white">
+          <div className="container-site text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to move forward?</h2>
+            <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+              Talk to us about cloud services for your business — or see the CloudDigify Platform in action.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <button
-                onClick={() => openInquiryForm('Free Assessment')}
-                className="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-all"
+                onClick={() => openInquiryForm('Digital Transformation')}
+                className="btn-primary bg-white text-blue-700 hover:bg-blue-50"
               >
-                Start Free Assessment
+                <FaCalendarAlt className="mr-2" />
+                Schedule a Consultation
               </button>
-            </motion.div>
+              <Link to={PLATFORM_ROUTES.demo} className="btn-secondary border-white/60 text-white bg-transparent hover:bg-white/10">
+                Request a Platform Demo
+              </Link>
+            </div>
           </div>
         </section>
       </div>

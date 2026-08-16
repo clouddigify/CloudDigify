@@ -31,7 +31,7 @@ const LogoWrapper = ({ children }) => (
 
 const Logo = () => {
   return (
-    <div className="relative w-12 h-12">
+    <div className="relative w-10 h-10">
       <picture>
         <source srcSet={logoSvg} type="image/svg+xml" />
         <img 
@@ -650,17 +650,17 @@ const NavBar = () => {
         ref={navRef}
         initial={false}
         animate={{
-          backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 1)',
+          backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 1)',
           backdropFilter: isScrolled ? 'blur(10px)' : 'blur(0px)',
         }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${
-          isScrolled ? 'shadow-lg' : 'shadow-sm'
+        className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300 ${
+          isScrolled ? 'border-slate-200 shadow-sm' : 'border-slate-100'
         }`}
         onMouseLeave={handleNavMouseLeave}
         onMouseEnter={handleNavMouseEnter}
       >
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-[72px]">
               {/* Logo */}
               <Link to="/" className="flex-shrink-0">
                 <LogoWrapper>
@@ -684,34 +684,24 @@ const NavBar = () => {
 
             {/* Right section: CTA Buttons + Mobile Menu */}
             <div className="flex items-center pl-4">
-              <Link to={PLATFORM_ROUTES.demo} className="hidden lg:block">
-                <motion.button
-                  className="px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg 
-                           transition-all duration-200 ease-in-out
-                           hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-2 
-                           focus:ring-blue-500 focus:ring-offset-2 shadow-md"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Request Demo
-                </motion.button>
-              </Link>
-
               <a
                 href={PLATFORM_LOGIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden lg:block ml-3"
+                className="hidden lg:inline-flex items-center px-4 py-2 text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors rounded-lg"
               >
-                <motion.button
-                  className="px-5 py-2.5 border border-blue-600 text-blue-700 text-sm font-medium rounded-lg 
-                           transition-all duration-200 ease-in-out
-                           hover:bg-blue-50 hover:scale-105 focus:outline-none focus:ring-2 
-                           focus:ring-blue-500 focus:ring-offset-2"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Login
-                </motion.button>
+                Login
               </a>
+              <Link to={PLATFORM_ROUTES.demo} className="hidden lg:block ml-2">
+                <motion.button
+                  className="px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg 
+                           transition-colors duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 
+                           focus:ring-blue-500 focus:ring-offset-2"
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Request Demo
+                </motion.button>
+              </Link>
 
               {/* Mobile Menu Button */}
               <button
