@@ -17,8 +17,8 @@ const reasons = [
   },
   {
     icon: <FaCertificate className="h-10 w-10" />,
-    title: "Industry Certifications",
-    description: "ISO 9001:2015 and ISO/IEC 27001:2022 certified processes and services that ensure the highest standards of quality and security."
+    title: "Security-Conscious Delivery",
+    description: "Structured processes with role-based access controls and operational security practices across every engagement."
   },
   {
     icon: <FaClock className="h-10 w-10" />,
@@ -75,8 +75,8 @@ const WhyChooseUs = () => {
       "50+ Certified Cloud Professionals",
       "24/7 Technical Support",
       "99.99% Uptime Guarantee",
-      "ISO 9001:2015 Certified",
-      "ISO/IEC 27001:2022 Certified"
+      "Security-Conscious Delivery Practices",
+      "Role-Based Access Controls"
     ],
 
     // Sidebar content
