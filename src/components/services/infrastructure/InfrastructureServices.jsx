@@ -239,11 +239,11 @@ export default function InfrastructureServices() {
   ];
 
   const complianceCerts = [
-    { name: "ISO 27001", icon: <FaCheckCircle /> },
-    { name: "PCI DSS", icon: <FaLock /> },
-    { name: "SOC 2", icon: <FaShieldAlt /> },
-    { name: "HIPAA", icon: <FaCheckCircle /> },
-    { name: "GDPR", icon: <FaLock /> }
+    { name: "Role-Based Access", icon: <FaCheckCircle /> },
+    { name: "Encrypted Transport", icon: <FaLock /> },
+    { name: "Security Monitoring", icon: <FaShieldAlt /> },
+    { name: "Backup & Recovery", icon: <FaCheckCircle /> },
+    { name: "Least-Privilege Access", icon: <FaLock /> }
   ];
 
   const pricingModels = [
@@ -621,10 +621,10 @@ export default function InfrastructureServices() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Infrastructure Compliance & Security
+                Infrastructure Security Practices
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our infrastructure solutions meet the highest industry standards and compliance requirements
+                Our infrastructure solutions follow operational security practices across access, monitoring and recovery
               </p>
             </div>
 

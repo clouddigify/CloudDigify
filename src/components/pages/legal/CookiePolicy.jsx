@@ -14,6 +14,7 @@ import {
   FaTable
 } from 'react-icons/fa';
 import SEO from '../../common/SEO';
+import { resetAnalyticsConsent } from '../../../utils/analytics';
 
 const CookiePolicy = () => {
   const containerVariants = {
@@ -127,13 +128,10 @@ const CookiePolicy = () => {
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">How We Use Cookies</h2>
                   <div className="prose max-w-none text-gray-600">
-                    <p>We use cookies to:</p>
+                    <p>We use two categories of cookies:</p>
                     <ul className="list-disc pl-5 mb-4">
-                      <li>Improve website functionality and performance</li>
-                      <li>Remember your preferences and settings</li>
-                      <li>Analyze how visitors use our site (e.g., through Google Analytics)</li>
-                      <li>Enhance security and prevent fraud</li>
-                      <li>Provide relevant marketing and advertising (if applicable)</li>
+                      <li><strong>Necessary:</strong> required for website functionality (e.g., form submissions, navigation). Always active.</li>
+                      <li><strong>Analytics (optional):</strong> Google Analytics / Google Tag Manager, used to understand how visitors use our site. Analytics load <strong>only after you accept</strong> them in the cookie banner. If you reject, analytics stay disabled and the website works normally.</li>
                     </ul>
                   </div>
                 </div>
@@ -237,15 +235,23 @@ const CookiePolicy = () => {
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">Managing Cookies</h2>
                   <div className="prose max-w-none text-gray-600">
-                    <p>You have the right to accept or reject cookies.</p>
-                    <p>Most browsers automatically accept cookies, but you can usually modify your settings to decline cookies if you prefer.</p>
-                    <p>You can:</p>
+                    <p>You choose whether optional analytics cookies are used:</p>
                     <ul className="list-disc pl-5 mb-4">
-                      <li>Manage your cookie preferences via your browser settings</li>
-                      <li>Delete existing cookies from your device</li>
-                      <li>Block future cookies from being placed</li>
+                      <li>On your first visit, the cookie banner offers <strong>Accept analytics</strong> and <strong>Reject analytics</strong>.</li>
+                      <li>If you reject, analytics are not loaded and remain disabled on future visits.</li>
+                      <li>If you accept, analytics load and your choice is remembered.</li>
+                      <li>You can change your choice at any time using the button below — the banner will reappear on your next page view.</li>
                     </ul>
-                    <p>Please note: disabling cookies may impact the functionality of our website.</p>
+                    <button
+                      onClick={() => {
+                        resetAnalyticsConsent();
+                        window.location.reload();
+                      }}
+                      className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-5 rounded-md text-sm font-medium"
+                    >
+                      Change my analytics choice
+                    </button>
+                    <p className="mt-4">You can also manage or delete cookies through your browser settings. Disabling necessary cookies may impact website functionality.</p>
                   </div>
                 </div>
               </div>

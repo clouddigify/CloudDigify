@@ -2,29 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCookieBite } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAnalyticsConsent, setAnalyticsConsent, loadAnalytics } from '../../utils/analytics';
 
 const CookieConsentBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    // Check if user has already given consent
-    const consentGiven = localStorage.getItem('cookieConsent') === 'true';
-    
-    // If no consent yet, show the banner after a short delay
-    if (!consentGiven) {
+    // Show banner only when no valid saved choice exists
+    if (getAnalyticsConsent() === null) {
       const timer = setTimeout(() => {
         setShowBanner(true);
       }, 1000);
-      
+
       return () => clearTimeout(timer);
     }
   }, []);
 
   const handleAccept = () => {
-    // Save consent to localStorage
-    localStorage.setItem('cookieConsent', 'true');
-    
-    // Hide the banner
+    setAnalyticsConsent('accepted');
+    loadAnalytics();
+    setShowBanner(false);
+  };
+
+  const handleReject = () => {
+    setAnalyticsConsent('rejected');
     setShowBanner(false);
   };
 
@@ -45,18 +46,26 @@ const CookieConsentBanner = () => {
                   <FaCookieBite className="h-5 w-5 text-orange-600" />
                 </div>
                 <p className="text-gray-700 text-sm md:text-base">
-                  We use cookies to improve your experience. By continuing to browse, you consent to our use of cookies.{' '}
+                  We use necessary cookies for website functionality. Optional analytics cookies help us improve the site and load only if you accept.{' '}
                   <Link to="/cookies" className="text-orange-600 font-medium hover:underline">
-                    Learn More
+                    Cookie Policy
                   </Link>
                 </p>
               </div>
-              <button
-                onClick={handleAccept}
-                className="bg-orange-600 hover:bg-orange-700 transition-colors text-white py-2 px-6 rounded-md text-sm font-medium ml-auto"
-              >
-                Accept
-              </button>
+              <div className="flex items-center gap-3 ml-auto">
+                <button
+                  onClick={handleReject}
+                  className="border border-gray-400 text-gray-700 hover:bg-gray-100 transition-colors py-2 px-5 rounded-md text-sm font-medium"
+                >
+                  Reject analytics
+                </button>
+                <button
+                  onClick={handleAccept}
+                  className="bg-orange-600 hover:bg-orange-700 transition-colors text-white py-2 px-5 rounded-md text-sm font-medium"
+                >
+                  Accept analytics
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>

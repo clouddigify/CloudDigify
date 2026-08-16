@@ -81,7 +81,7 @@ const Security = () => {
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
               <h4 className="font-semibold text-blue-800 mb-2">Data Privacy</h4>
-              <p className="text-gray-700">Compliance with GDPR, CCPA, and other privacy regulations</p>
+              <p className="text-gray-700">Privacy-conscious data handling aligned with our published Privacy Policy</p>
             </div>
           </div>
         </>
@@ -125,30 +125,35 @@ const Security = () => {
       )
     },
     {
-      id: 'compliance',
-      title: '5. Compliance & Certifications',
+      id: 'security-practices',
+      title: '5. Platform Security Practices',
       icon: <FaFileAlt className="h-8 w-8 text-blue-600" />,
       content: (
         <>
-          <p className="mb-4">We maintain compliance with major security standards:</p>
+          <p className="mb-4">CloudDigify Platform is built around practical security controls:</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-blue-800 mb-2">ISO 27001</h4>
-              <p className="text-gray-700">Information security management</p>
+              <h4 className="font-semibold text-blue-800 mb-2">Tenant Isolation</h4>
+              <p className="text-gray-700">Organization-scoped data access enforced on every request</p>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-blue-800 mb-2">SOC 2 Type II</h4>
-              <p className="text-gray-700">Security, availability, and confidentiality</p>
+              <h4 className="font-semibold text-blue-800 mb-2">Role-Based Access</h4>
+              <p className="text-gray-700">Roles, permissions and entitlement-controlled module access</p>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-blue-800 mb-2">GDPR</h4>
-              <p className="text-gray-700">Data protection and privacy</p>
+              <h4 className="font-semibold text-blue-800 mb-2">Secure Authentication</h4>
+              <p className="text-gray-700">Managed sign-in with session controls and access revocation</p>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-blue-800 mb-2">HIPAA</h4>
-              <p className="text-gray-700">Healthcare data protection</p>
+              <h4 className="font-semibold text-blue-800 mb-2">Audit Logging</h4>
+              <p className="text-gray-700">Recorded administrative and data-changing actions</p>
             </div>
           </div>
+          <p className="mt-6 text-sm">
+            CloudDigify continuously reviews its security and privacy practices as the platform evolves.
+            Specific certifications or contractual compliance requirements are addressed where formally
+            applicable and agreed.
+          </p>
         </>
       )
     },
@@ -177,10 +182,10 @@ const Security = () => {
   return (
     <>
       <SEO
-        title="Security Policy | CloudDigify"
-        description="Learn about CloudDigify's security practices, data protection, and compliance standards."
+        title="Security | CloudDigify"
+        description="Learn about CloudDigify's security practices, data protection and operational safeguards."
         canonicalUrl="https://clouddigify.com/security"
-        keywords={['security', 'data protection', 'compliance', 'CloudDigify']}
+        keywords={['security', 'data protection', 'CloudDigify']}
       />
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
@@ -193,7 +198,7 @@ const Security = () => {
               className="text-center"
             >
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Security at CloudDigify
+                CloudDigify Security
               </h1>
               <p className="text-xl text-blue-100 max-w-2xl mx-auto">
                 Our commitment to protecting your data and maintaining trust

@@ -44,17 +44,17 @@ const Partners = () => {
     }
   ];
 
-  // Certifications data
+  // Security practice highlights (no certification claims)
   const certifications = [
-    "ISO 9001:2015 - Quality Management",
-    "ISO/IEC 27001:2022 - Information Security",
-    "PCI DSS Compliant",
-    "SOC 2 Type II Certified"
+    "Security-conscious delivery practices",
+    "Role-based access controls",
+    "Secure cloud architecture",
+    "Operational security practices"
   ];
 
   const pageInfo = {
-    title: "Our Partners & Certifications",
-    description: "We partner with industry leaders and maintain rigorous certifications to ensure the highest standards of cloud services, security, and compliance.",
+    title: "Our Partners",
+    description: "We partner with industry leaders and follow security-conscious delivery practices to provide reliable cloud services.",
     icon: <FaHandshake />,
     heroBackground: "from-blue-600 via-indigo-600 to-blue-800",
 
@@ -62,7 +62,7 @@ const Partners = () => {
     defaultCtaText: "Become a Partner",
     defaultOverviewTitle: "Strategic Partnerships",
     defaultBenefitsTitle: "Partnership Benefits",
-    defaultSidebarTitle: "Certifications",
+    defaultSidebarTitle: "Security Practices",
     defaultSecondaryCta: "Contact Us",
     defaultFeaturesTitle: "Technology Partners",
     defaultFeaturesDescription: "Leading technology companies we work with",
@@ -91,8 +91,8 @@ const Partners = () => {
       "Innovation Access - Early access to new features and solutions"
     ],
 
-    // Sidebar (Certifications)
-    sidebarTitle: "Our Certifications",
+    // Sidebar (Security practices)
+    sidebarTitle: "Our Security Practices",
     approachPoints: certifications,
 
     // Features section (Technology Partners)
@@ -103,7 +103,7 @@ const Partners = () => {
       description: `Strategic partnership with ${partner.name} for cloud solutions and services.`,
       icon: <FaAward />,
       features: [
-        'Certified Partner',
+        'Technology Partner',
         'Enterprise Solutions',
         'Technical Expertise',
         'Joint Innovation'
@@ -149,7 +149,7 @@ const Partners = () => {
               <div className="p-3 bg-blue-50 rounded-full mr-4">
                 <FaCheckCircle className="text-blue-600 text-2xl" />
               </div>
-              <h3 className="text-2xl font-bold">Industry Certifications</h3>
+              <h3 className="text-2xl font-bold">Security Practices</h3>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
